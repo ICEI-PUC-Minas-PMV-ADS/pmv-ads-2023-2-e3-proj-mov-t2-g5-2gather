@@ -1,4 +1,4 @@
-# 2gether
+# 2Gather
 
 `ANÁLISE E DESENVOLVIMENTO DE SISTEMAS`
 
