@@ -1,23 +1,27 @@
-# TÍTULO DO PROJETO
+# 2gether
 
-`CURSO`
+`ANÁLISE E DESENVOLVIMENTO DE SISTEMAS`
 
-`DISCIPLINA`
+`Projeto: Desenvolvimento de Aplicações Móveis`
 
-`SEMESTRE`
+`2023/2`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+O objetivo deste projeto é enfrentar os desafios de comunicação interna de uma empresa buscando eliminar os riscos relacionados ao vazamento de dados, por meio da disponibilização de uma plataforma interna dedicada à troca de mensagens.
+Especificamente, esse aplicativo foca na obtenção de um maior nível de segurança dos dados da empresa, por meio da centralização da comunicação interna e busca promover um ambiente de interação mais integrado, eficaz e seguro.
 
 ## Integrantes
 
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Amanda de Lima Ventura
+* Ellen Caroline Trindade Gonçalves Cândido
+* Elpidio Lomeu Junior
+* Fabrício Maia dos Santos
+* Leonardo Correia de Sá e Silva
+* Odair Cordeiro Marra
+* Shinji Matsumoto Fernandes
 
 ## Orientador
 
-* Nome completo do professor 1
+* Mateus Curcino de Lima
 
 ## Instruções de utilização
 
