@@ -127,19 +127,18 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-08 | A aplicação deve permitir visualizar informações básicas dos usuários. | BAIXA 
 |RF-09  | A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário. 
 |RF-10 | A aplicação deve usar criptografia de ponta a ponta para proteger as mensagens de funcionários autorizados.  | BAIXA |
-|RF-10  | A aplicação deve permitir a definição de status de prioridade nas mensagens.  | BAIXA |
-|RF-11  | A aplicação deve permitir gerenciar canais de chat com funções de administração.  | BAIXA |
+|RF-11  | A aplicação deve permitir a definição de status de prioridade nas mensagens.  | BAIXA |
+|RF-12  | A aplicação deve permitir gerenciar canais de chat com funções de administração.  | BAIXA |
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-01  | A aplicação deve permitir ao usuário o uso intuitivo.  | ALTA |
-|RNF-02  | A aplicação deve permitir alterar status (ocupado, em reunião, volto logo). |MÉDIA |
-|RNF-03  | A aplicação deve permitir alterar a foto de perfil | BAIXA |
-|RNF-04  | A aplicação deve permitir definir localização (remoto, office)  | BAIXA |
-|RNF-05  | A aplicação deverá ser responsiva permitindo a visualização em diversos dispositivos móveis de forma adequada. | MÉDIA  |
-|RNF-06  | A aplicação não deve ter tempo de resposta maior do que 30 segundos. | MÉDIA  |
+|RNF-01  | A aplicação deverá ser responsiva permitindo a visualização em diversos dispositivos móveis de forma adequada. | ALTA |
+|RNF-02  | A aplicação não deve ter tempo de resposta maior do que 30 segundos. | MÉDIA | 
+|RNF-03  | A aplicação deve estar acessível e sem interrupções por pelo menos 95% do tempo, apresentando um tempo de inatividade mínimo. | MÉDIA | 
+|RNF-04  | A aplicação deve ter bom nível de contraste entre os elementos da tela em conformidade. | BAIXA | 
+|RNF-05  | A aplicação deve ter um funcionamento restrito sem conexão com internet e irrestrito com conexão com a internet. | BAIXA | 
 
 ## Restrições
 
