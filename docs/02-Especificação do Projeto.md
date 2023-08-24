@@ -1,4 +1,4 @@
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/a5bb709b-4588-468c-a517-2885b0838d00)# Especificações do Projeto
+# Especificações do Projeto
 
 A abordagem do problema e seus objetivos foram idealizados para uma empresa fictícia que possa se beneficiar da solução entregue. Para tal, foram categorizadas personas e histórias de usuários que representem funcionários da empresa em questão.
 
