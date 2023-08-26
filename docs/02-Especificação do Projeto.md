@@ -190,7 +190,7 @@ O gerenciamento do Projeto contou como referências com o escopo definido, os pr
 
 ## Gerenciamento de Tempo
 
-O cronograma foi definido e está explicitado no Diagrama de Gantt e Rede a seguir:
+O cronograma foi definido e está explicitado nos Diagramas de Gantt e de Rede a seguir:
 
 ![Diagrama de Gantt](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/ec9b128a-9c2c-4c4a-ac57-33274297edde)
 
