@@ -1,46 +1,32 @@
 # Introdução
 
-Texto descritivo com a visão geral do projeto abordado. Inclui o contexto, o problema, os objetivos, a justificativa e o público-alvo do projeto.
+O grande número de vazamento de informações sensíveis tem alarmado as empresas mundialmente, porém essa preocupação não é recente. Em 2008, Camila Fusco publicava, na Revista Exame, uma matéria que trazia a preocupação das empresas com a segurança dos dados, já que o surgimento de ferramentas de comunicação como, e-mails, smartphones, pen drives e laptops, estava aumentando fortemente. Segundo Fusco (2008), a lista de equipamentos à disposição das empresas para impulsionar a produtividade dentro ou fora dos ambientes corporativos só crescia e, proporcionalmente, cresciam também os riscos de vazamento de dados já que surgiam diversos meios em que os usuários passaram a acessar as informações corporativas e se comunicarem.
+ 
+Com esse aumento do uso dos meios de comunicação no âmbito empresarial, de acordo com Costa e Ferrarezzi (2018), os hackers perceberam e começaram a aproveitar-se das plataformas mais populares para fins maliciosos. Segundo os autores, esta estratégia de utilizarem das vulnerabilidades das ferramentas pode ser compreendida, uma vez que, elas são frequentemente utilizadas para compartilhamento de informações sensíveis que podem servir de material para fraudes, ataques ou mesmo extorsões (Costa e Ferrarezzi, 2018).
+
+A segurança das conversas entre os colaboradores por meio de aplicativos, conforme aponta o site DEFESA EM FOCO (2022), tem sido uma preocupação crescente nas empresas, já que especialistas em segurança digital têm divulgado vulnerabilidades nos aplicativos WhatsApp, Telegram, entre outros. Tais vulnerabilidades podem ocasionar o vazamento de informações e resultar no comprometimento de projetos inteiros causando prejuízos incalculáveis para as empresas.
+
+A fim de evitar esse problema, muitas empresas estão buscando opções de aplicativos de comunicação empresarial que promovam um ambiente seguro para troca de informações entre seus colaboradores. 
+
 
 ## Problema
-Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
 
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de  fato existir, pois ainda não é a hora de apresentar requisitos  detalhados ou projetos.
-
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
+A organização enfrenta um desafio complexo relacionado à comunicação interna fragmentada, e com alto risco de vazamento de dados sensíveis. Além desse, a ausência de uma plataforma centralizada resulta em informações dispersas e disseminação ineficaz de dados. Com isso, busca-se resolver a descentralização da comunicação em ferramentas inseguras.
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
-
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
+Buscando enfrentar os desafios de comunicação interna e os riscos relacionados ao vazamento de dados, a proposta dessa iniciativa é disponibilizar uma plataforma interna centralizada dedicada à troca de mensagens instantâneas. Como objetivos específicos, tem-se: 
+- Oferecer maior nível de  segurança dos dados;
+- Centralizar a comunicação interna;
+- Promover a interação mais integrada e eficaz aos colaboradores.
 
 ## Justificativa
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
+Conforme DEFESA EM FOCO (2022), as ferramentas externas para comunicação não costumam ser alinhadas com os padrões de segurança da empresa, o que aumenta substancialmente o risco de vazamento de informações sensíveis. Somado a isso, surge a necessidade de otimização da comunicação interna em um ambiente empresarial, a qual impulsiona o desenvolvimento desse aplicativo de mensagens corporativas sob demanda. 
 
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo.
-
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
+Assim, esta aplicação foi idealizada para atender às demandas específicas da empresa de garantir a segurança dos dados e centralizar a comunicação interna, promovendo coesão interdepartamental e colaboração multidisciplinar de seus colaboradores.
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações
-hierárquicas, etc.
+Ao incentivar uma comunicação interna e segura da empresa que vise uma integração mais eficaz, coesão interdepartamental e intensifique a colaboração multidisciplinar, o público alvo são todos os colaboradores em vínculo empregatício que atuam na empresa, independente de setor ou cargo.
 
-Adicione informações sobre o público-alvo por meio de uma descrição textual, diagramas de personas e mapa de stakeholders.
-
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
