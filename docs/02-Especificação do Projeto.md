@@ -28,11 +28,11 @@ Rapidamente foi promovido a  analista de recursos humanos, um reconhecimento de 
 ### 3. Anne Sales
 Anne Sales tem 28 anos, é advogada especialista em LGPD. Seus Hobbies são: ler, correr, passear com seu cachorro e sair com os amigos.
  
-<b>História:</b> Anne trabalha na empresa como advogada desde de 2020. É altamente reconhecida pela diretoria pela competência e dedicação ao trabalho. Está sempre buscando se atualizar e se preocupa muito com a segurança dos dados da empresa e eficiência na equipe. Seu objetivo é ser mais assertivo e ágil na comunicação  e reduzir ao máximo os riscos de vazamento de informações sensíveis da empresa que possam resultar em danos ao negócio.
+<b>História:</b> Anne trabalha na empresa como advogada desde de 2020. É altamente reconhecida pela diretoria por sua competência e dedicação ao trabalho. Está sempre buscando se atualizar e se preocupa muito com a segurança dos dados da empresa e eficiência da equipe. Seu objetivo é ser mais assertiva e ágil na comunicação e reduzir ao máximo os riscos de vazamento de informações sensíveis da empresa que possam resultar em danos ao negócio.
  
-<b>Frustrações:</b> Sentir-se insegura quanto à possibilidade de vazamento das informações trocadas pelos colaboradores da empresa e a alta dispersão dos envolvidos na troca de mensagens.
+<b>Frustrações:</b> Sente-se insegura quanto à possibilidade de vazamento das informações trocadas pelos colaboradores da empresa e perceber uma alta dispersão dos envolvidos na troca de mensagens.
  
-<b>Motivações:</b> Garantir ao máximo a segurança jurídica da sua empresa, buscando implementar mecanismos que assegurem o seu enquadramento aos termos da LGPD vigente e também obter maior eficiência na comunicação com a priorização dos assuntos utilizando marcadores de status das mensagens. 
+<b>Motivações:</b> Garantir a segurança jurídica da sua empresa, buscando implementar mecanismos que assegurem o seu enquadramento aos termos da LGPD vigente e também obter maior eficiência na comunicação com a priorização dos assuntos utilizando marcadores de status das mensagens. 
 
 
 ### 4. Joana Rodriguez
@@ -190,9 +190,11 @@ O gerenciamento do Projeto contou como referências com o escopo definido, os pr
 
 ## Gerenciamento de Tempo
 
-O cronograma foi definido e está explicitado no Diagrama de Gantt a seguir:
+O cronograma foi definido e está explicitado no Diagrama de Gantt e Rede a seguir:
 
 ![Diagrama de Gantt](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/ec9b128a-9c2c-4c4a-ac57-33274297edde)
+
+![Diagrama de Rede](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/18e690f4-44db-4537-a9f4-5c5fa4cd1443)
 
 
 ## Gerenciamento de Equipe
