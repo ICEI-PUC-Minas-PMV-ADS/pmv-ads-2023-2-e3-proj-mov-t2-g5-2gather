@@ -6,8 +6,8 @@
 
 `2023/2`
 
-O objetivo deste projeto é enfrentar os desafios de comunicação interna de uma empresa buscando eliminar os riscos relacionados ao vazamento de dados, por meio da disponibilização de uma plataforma interna dedicada à troca de mensagens.
-Especificamente, esse aplicativo foca na obtenção de um maior nível de segurança dos dados da empresa, por meio da centralização da comunicação interna e busca promover um ambiente de interação mais integrado, eficaz e seguro.
+O objetivo deste projeto é disponibilizar uma plataforma interna centralizada dedicada à troca de mensagens instantâneas, a fim de enfrentar os desafios de comunicação interna de uma empresa buscando eliminar os riscos relacionados ao vazamento de dados e dispersão da comunicação.
+Especificamente, esse aplicativo foca na obtenção de um maior nível de segurança dos dados da empresa, por meio da centralização da comunicação interna e busca promover um ambiente de interação mais integrado e eficaz aos colaboradores.
 
 ## Integrantes
 
