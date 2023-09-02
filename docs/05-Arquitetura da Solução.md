@@ -33,7 +33,7 @@ As referências abaixo irão auxiliá-lo na geração do artefato “Esquema Rel
 
 ## Modelo Físico
 
-Entregar um arquivo banco.sql contendo os scripts de criação das tabelas do banco de dados. Este arquivo deverá ser incluído dentro da pasta src\bd.
+[Modelo Físico](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/tree/feature-158/src/db/banco.sql)
 
 ## Tecnologias Utilizadas
 
