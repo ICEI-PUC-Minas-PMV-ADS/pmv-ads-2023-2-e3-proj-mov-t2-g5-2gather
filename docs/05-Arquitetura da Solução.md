@@ -29,11 +29,6 @@ O Esquema Relacional corresponde à representação dos dados em tabelas juntame
 
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/e5731876-3d25-407a-8631-dc91db66417d)
 
- 
-// As referências abaixo irão auxiliá-lo na geração do artefato “Esquema Relacional”.
-
-// > - [Criando um modelo relacional - Documentação da IBM](https://www.ibm.com/docs/pt-br/cognos-analytics/10.2.2?topic=designer-creating-relational-model)
-
 ## Modelo Físico
 
 [Modelo Físico](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/tree/feature-158/src/db/banco.sql)
