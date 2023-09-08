@@ -58,11 +58,35 @@ Conceituar qualidade de fato é uma tarefa complexa, mas ela pode ser vista como
 
 No contexto de desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem satisfeitas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, tal nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
 
-A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 30 subcaracterísticas de qualidade para produtos de software.
-Com base nessas características e nas respectivas sub-características, identifique as sub-características que sua equipe utilizará como base para nortear o desenvolvimento do projeto de software considerando-se alguns aspectos simples de qualidade. Justifique as subcaracterísticas escolhidas pelo time e elenque as métricas que permitirão a equipe avaliar os objetos de interesse.
+A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 31 subcaracterísticas de qualidade para produtos de software.
+Com base nessas características e nas respectivas subcaracterísticas, identifique as sub-características que sua equipe utilizará como base para nortear o desenvolvimento do projeto de software considerando-se alguns aspectos simples de qualidade. Justifique as subcaracterísticas escolhidas pelo time e elenque as métricas que permitirão a equipe avaliar os objetos de interesse.
 
-> **Links Úteis**:
->
-> - [ISO/IEC 25010:2011 - Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models](https://www.iso.org/standard/35733.html/)
-> - [Análise sobre a ISO 9126 – NBR 13596](https://www.tiespecialistas.com.br/analise-sobre-iso-9126-nbr-13596/)
-> - [Qualidade de Software - Engenharia de Software 29](https://www.devmedia.com.br/qualidade-de-software-engenharia-de-software-29/18209/)
+## Justificativa
+
+Dentre as 31 subcaracterísticas elencadas pela ISO IEC 25010/2011, optamos por selecionar 11 delas por entendermos que são as essenciais para apontarmos a qualidade do produto e seu sucesso no momento da entrega para o cliente.
+
+## Método de Avaliação Escolhido
+
+Serão aplicados Questionários Qualitativos para 5 Desenvolvedores e 5 Usuários. Os desenvolvedores avaliarão os quesitos intrínsecos (código e arquitetura) e os usuários avaliarão os quesitos extrínsecos (aqueles aparentes no aplicativo).
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/9f708f5c-a1ac-4478-8367-6abd0e521f99)
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/e9011524-ba59-4a2e-ae3e-96fbcc402102)
+
+## Critérios e Métricas
+
+Serão adotadas pontuações para os atributos de qualidade, permitindo assim termos a pontuação por cada Subcaracterísticas. São elas:
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/704f6ea8-ab21-4b9d-b8e5-0e8784b6d63d)
+
+O cálculo dessa pontuação será realizado por meio da planilha abaixo, a qual está configurada para apurar a pontuação final conforme critério definido pela 2Gather, sendo: Ao informarmos a o resultado dos Questionários aplicados, teremos então a pontuação obtida por cada subcaracterística. Na sequência teremos a pontuação da Característica que será a média das suas Subcaracterísticas. Por fim, faremos a média das 7 características, que será a pontuação da "QS" Qualidade do Software. 
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/946135ed-2e65-4900-a464-c3babfc7277b)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/3ecf060d-a49c-4647-be8d-53b62869380b)
+
+Após a consolidação da pontuação obtida com os questionários respondidos, verificaremos a pontuação final da "QS" e compararemos com a Tabela "INDICADOR DE QUALIDADE":
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/6f86572f-86c4-4bef-8d19-1994a2a16945)
+
+Feito esta análise, teremos o resultado da aferição da Qualidade do Software desenvolvido.
+
