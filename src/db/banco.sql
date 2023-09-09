@@ -22,7 +22,9 @@ CREATE TABLE IF NOT EXISTS "group" (
     photo VARCHAR(2000),
     description TEXT,
     idAdmin UUID REFERENCES "user"(id),
-    isTransmission BOOLEAN
+    isTransmission BOOLEAN,
+    isPrivate BOOLEAN
+    archived BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS message (
@@ -33,11 +35,16 @@ CREATE TABLE IF NOT EXISTS message (
     messageType INT,
     idSentBy UUID REFERENCES "user"(id),
     idGroup UUID REFERENCES "group"(id),
-    idReadBy UUID[]
 );
 
 CREATE TABLE IF NOT EXISTS user_group_link (
     id UUID PRIMARY KEY,
     idUser UUID REFERENCES "user"(id),
     idGroup UUID REFERENCES "group"(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_message_link (
+    id UUID PRIMARY KEY,
+    idUser UUID REFERENCES "user"(id)
+    idMessage UUID REFERENCES message(id),
 );
