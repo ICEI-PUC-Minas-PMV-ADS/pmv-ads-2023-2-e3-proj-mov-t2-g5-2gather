@@ -7,7 +7,7 @@ Para atingir nosso objetivo de promover uma interação mais integrada e eficaz 
 
 O diagrama de fluxo é uma representação visual do fluxo sistemático de dados, criado com o propósito de facilitar o planejamento das interações e aprimorar a qualidade do desenho dos wireframes que estão na sequência logo abaixo.
 
-![(Diagrama de Fluxo](img/27-diagramadefluxo.png)
+![(Diagrama de Fluxo](img/2-diagramafluxo.png)
 
 
 ## Wireframes
@@ -69,9 +69,14 @@ Se o usuário escolher inativar um usuário, precisará fornecer o ID do usuári
  ![Notificação](img/6-conversasnotificação.png)
 
  ### Configurações
- Neste espaço, o usuário terá acesso às suas informações básicas de perfil.
+ Neste espaço, o usuário terá acesso às suas informações básicas de perfil, poderá visualizar seus grupos arquivados e sair da aplicação.
  
- ![Configurações](img/7-configuracoes.png)
+ ![Configurações](img/7-config.png)
+
+  ### Grupos arquivados
+ Neste local, o usuário poderá visualizar os grupos que foram arquivados por ele.
+ 
+ ![Grupos arquivados](img/29-gruposarquivados.png)
 
 ### Listas de transmissão
  Nesta tela, o usuário tem acesso a um botão que possibilita iniciar a criação de uma nova lista de transmissão.
@@ -134,9 +139,9 @@ Após completar as etapas anteriores, o usuário agora tem seu grupo pronto e po
  ![Novo grupo criado](img/19-novogrupocriado.png)
 
  ### Grupo - Editar
-Nesta tela, o usuário, que é o administrador do grupo, pode visualizar os participantes do grupo, adicionar novos membros ou excluir o grupo.
+Nesta tela, o usuário, que é o administrador do grupo, pode visualizar os participantes do grupo, adicionar novos membros ou arquivar o grupo.
 
- ![Grupo - Editar](img/20-editarexcluirgrupo.png)
+ ![Grupo - Editar](img/20-editararquivargrupo.png)
 
   ### Grupo - Adicionar novos participantes
 Nesta seção, o usuário, na qualidade de administrador do grupo, pode examinar sua lista de contatos e selecionar novos membros para o grupo. Os contatos que já fazem parte do grupo serão identificados com uma mensagem abaixo de seus nomes, indicando sua inclusão no grupo, e um sinal de marca de seleção logo ao lado dessa mensagem.
