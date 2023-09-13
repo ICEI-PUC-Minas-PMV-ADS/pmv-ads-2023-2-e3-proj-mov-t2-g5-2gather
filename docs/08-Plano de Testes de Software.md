@@ -3,8 +3,8 @@
 <span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>
 
 Para a realização dos Testes de Software, adotaremos os seguintes requisitos:
- * -
- * -
+ * Dispositivo móvel compatível com o aplicativo (Android).
+ * Versão atualizada do sistema operacional do dispositivo.
  * Conectividade de Internet para acesso às plataformas.
 
 Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, conforme descritos a seguir:
