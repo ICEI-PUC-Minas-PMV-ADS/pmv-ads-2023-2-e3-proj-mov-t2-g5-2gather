@@ -19,19 +19,36 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-02 - Interface Administrativa	|RF-02 – A aplicação deve ter uma interface administrativa para gerenciar os usuários.|
+|CT-02.1 - Adicionar Usuário na Interface Administrativa |RF-02 – A aplicação deve ter uma interface administrativa para gerenciar os usuários.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se existe uma interface administrativa e se ela permite gerenciar usuários.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Adicionar, editar e remover um usuário</li></ol> |	A interface administrativa deve permitir a adição, edição e remoção de usuários sem erros.
+|Verificar se a interface administrativa permite adicionar um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Adicionar um novo usuário</li></ol> |	O usuário deve ser adicionado sem erros e deve aparecer na lista de usuários.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-03 - Criação de Grupos	|RF-03 – A aplicação deve permitir a criação de grupos.|
+|CT-02.2 - Editar Usuário na Interface Administrativa |RF-02 – A aplicação deve ter uma interface administrativa para gerenciar os usuários.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se os usuários podem criar grupos.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até a seção de grupos</li><li>Criar um novo grupo</li></ol> |	Um novo grupo deve ser criado e visível para o usuário.
+|Verificar se a interface administrativa permite editar um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Editar um usuário existente</li></ol> |	As alterações feitas no usuário devem ser salvas e refletidas na lista de usuários.
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-02.3 - Remover Usuário na Interface Administrativa |RF-02 – A aplicação deve ter uma interface administrativa para gerenciar os usuários.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se a interface administrativa permite remover um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Remover um usuário</li></ol> |	O usuário deve ser removido da lista de usuários e não deve mais ter acesso ao sistema.
+
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-03 - Criação de Grupos |RF-03 – A aplicação deve permitir a criação de grupos.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se os usuários podem criar grupos.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até a seção de grupos</li><li>Criar um novo grupo</li><li>Enviar uma mensagem para o grupo criado.</li></ol> |	A mensagem deve ser enviada e visível para os membros do grupo.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
@@ -39,7 +56,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se os usuários podem criar listas de transmissão.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até a seção de listas de transmissão</li><li>Criar uma nova lista</li></ol>	| Uma nova lista de transmissão deve ser criada e visível para o usuário.
+|Verificar se os usuários podem criar listas de transmissão.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até a seção de listas de transmissão</li><li>Criar uma nova lista</li><li>Enviar uma mensagem através da lista de transmissão criada.</li></ol>	| A mensagem deve ser enviada e recebida pelos membros da lista de transmissão.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
@@ -75,11 +92,19 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-09 - Autenticação de Dois Fatores	|RF-09 – A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.|
+|CT-09.1 - Autenticação de Dois Fatores com Dados Inválidos	|RF-09 – A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se a autenticação de dois fatores é solicitada no primeiro login.	|<ol><li>Acessar a aplicação</li><li>Tentar realizar o primeiro login</li></ol> |	O usuário deve ser solicitado a fornecer um segundo fator de autenticação (por exemplo, um código enviado por SMS) antes de poder acessar a aplicação.
+|Verificar se a autenticação de dois fatores é negada para dados inválidos.	|<ol><li>Acessar a aplicação</li><li>Tentar realizar o primeiro login com dados inválidos</li></ol> |	O usuário não deve conseguir acessar a aplicação e deve receber uma mensagem de erro ou aviso.
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-09.2 - Autenticação de Dois Fatores com Dados Válidos	|RF-09 – A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se a autenticação de dois fatores é aceita para dados válidos.	|<ol><li>Acessar a aplicação</li><li>Realizar o primeiro login fornecendo o segundo fator de autenticação corretamente</li></ol> |	O usuário deve ser capaz de acessar a aplicação após fornecer o segundo fator de autenticação corretamente.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
@@ -91,12 +116,27 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-11 - Gerenciamento de Canais de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
+|CT-11.1 - Adicionar Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se é possível gerenciar canais de chat e suas funções administrativas.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Adicionar, editar e remover um canal</li><li>Definir funções administrativas para o canal</li></ol> |	O canal de chat deve ser criado, editado ou removido conforme as ações do usuário, e as funções administrativas devem ser aplicadas corretamente.
+|Verificar se é possível adicionar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Adicionar um novo canal</li></ol> |	O canal deve ser criado e aparecer na lista de canais.
 
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-11.2 - Editar Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se é possível editar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Editar um canal existente</li></ol> |	As alterações feitas no canal devem ser salvas e refletidas na lista de canais.
+
+| **Caso de teste** | **Requisitos Associados**|
+|--|--|
+|CT-11.3 - Remover Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
+
+|Objetivo do teste| Passos | Critérios de êxito|
+|-|-|-|
+|Verificar se é possível remover um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Remover um canal</li></ol> |	O canal deve ser removido da lista de canais.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
@@ -145,11 +185,3 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar o funcionamento da aplicação offline e online.	|<ol><li>Acessar a aplicação com conexão à internet</li><li>Verificar funcionalidades</li><li>Desconectar da internet</li><li>Acessar a aplicação novamente</li><li>Verificar funcionalidades restritas</li></ol> |	A aplicação deve ter funcionalidades restritas quando offline e todas as funcionalidades disponíveis quando online.
-
-| **Caso de teste** | **Requisitos Associados**|
-|--|--|
-|CT-RE01 - Tecnologias Utilizadas	|RE-02 – A aplicação deve fazer uso das tecnologias apresentadas até o eixo 3 do curso.|
-
-|Objetivo do teste| Passos | Critérios de êxito|
-|-|-|-|
-|Verificar se as tecnologias utilizadas estão em conformidade com o especificado.	|<ol><li>Revisar a documentação técnica do projeto</li><li>Verificar as tecnologias e ferramentas utilizadas</li></ol> |	Todas as tecnologias e ferramentas utilizadas devem estar em conformidade com o que foi apresentado até o eixo 3 do curso.
