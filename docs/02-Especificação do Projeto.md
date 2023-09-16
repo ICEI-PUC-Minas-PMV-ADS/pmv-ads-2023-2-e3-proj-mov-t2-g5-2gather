@@ -82,23 +82,42 @@ A partir da compreensão do dia a dia das personas identificadas para o projeto,
 
 ### Análise da Situação Atual
 
-Apresente aqui os problemas existentes que viabilizam sua proposta. Apresente o modelo do sistema como ele funciona hoje. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional. 
+Na empresa cliente, a comunicação é dispersa em ferramentas diversas como email e aplicativos de mensagens pessoais (whatsapp, telegram, discord). Não há um padrão seguido definido para toda a empresa, o que faz com que cada setor e função selecione suas ferramentas levando em conta critérios particulares de agilidade, formalidade, segurança e disseminação. Ao compartilhar ferramentas de uso pessoal para questões empresariais, há também uma confusão entre as sessões de conversas desses dois nichos.
+
+![Processo atual](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/df3c37e6-97f4-4f06-b0a3-32e66d1b68f6)
+
+Essa dispersão de informações em plataformas diversas e múltiplas ferramentas adotadas causam dificuldade na interação interdepartamental, falhas na comunicação e perda de informações relevantes. 
+
 
 ### Descrição Geral da Proposta
 
-Apresente aqui uma descrição da sua proposta abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente aqui as oportunidades de melhorias.
+A adoção de uma plataforma interna centralizada dedicada à troca de mensagens instantâneas promove a integração esperada, atende a necessidade de um padrão de único para todos os setores e, por ser mantida pela empresa,  garantirá a segurança dos dados. Para elucidar como passam a ser os processos de comunicação com a adoção da 2Gather, observe a seguir:
 
-### Processo 1 – NOME DO PROCESSO
+### Processo 1 – TROCA DE MENSAGENS ENTRE DOIS USUÁRIOS
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 1. Em seguida, apresente o modelo do processo 1, descrito no padrão BPMN. 
+Com o processo *1 - Troca de mensagens entre dois usuários* a comunicação entre dois usuários será mais rapida e direta, gerando notificação de mensagem nova e confirmação de leitura.  
 
-![Processo 1](img/02-bpmn-proc1.png)
+![Processo 1](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/8f4cf94b-9443-4c2c-af18-c12b78e3b0a1)
 
-### Processo 2 – NOME DO PROCESSO
+### Processo 2 – TROCA DE MENSAGENS EM GRUPO
 
-Apresente aqui o nome e as oportunidades de melhorias para o processo 2. Em seguida, apresente o modelo do processo 2, descrito no padrão BPMN.
+Com o processo *2 - Troca de mensagens em grupos* a comunicação poderá ser também com muitos usuários de diferentes setores interagindo simultaneamentes, gerando notificação de mensagem nova a todos no grupo.  
 
-![Processo 2](img/02-bpmn-proc2.png)
+![Processo 2](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/f8d8f750-cbea-46e3-bd87-daaaf88681ea)
+
+
+### Processo 3 – ENVIO E NOTIFICAÇÃO DE MENSAGENS EM LISTA DE TRANSMISSÃO
+
+Com o processo *3 - Envio e notificação de mensagens em lista de transmissão* será feita a transmissão de informações importantes, gerando notificação de mensagem nova e confirmação de leitura.
+
+![Processo 3](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/0f6cf379-cdca-4aa1-a1a3-eb6a3f194e45)
+
+### Processo 4 – CRIAÇÃO DE CONTA DE USUÁRIO E PRIMEIRO LOGIN
+
+Com o processo *4 - Criação de conta de usuário e primeiro login* será possível restringir a criação de novas contas de usuário aos administradores e garantir que os usuários sejam criados seguindo o mesmo padrão para a aplicação.
+
+![Processo 4](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/0f1e8b38-7979-4e30-b573-23af5b8c81fa)
+
 
 ## Indicadores de Desempenho
 
@@ -106,8 +125,14 @@ Apresente aqui os principais indicadores de desempenho e algumas metas para o pr
 
 Usar o seguinte modelo: 
 
-![Indicadores de Desempenho](img/02-indic-desemp.png)
-Obs.: todas as informações para gerar os indicadores devem estar no diagrama de classe a ser apresentado a posteriori. 
+|ID |Indicador     |Objetivos  |Descrição |Cálculo |Fonte de Dados | Meta |Perspectiva |
+|-|-------|-------------------------|----|----------|----|-|--|
+|01| Tempo de envio e recebimento de mensagem | Reduzir o tempo gasto entre o envio e recebimento de mensagem entre dois usuários em conversa síncrona. | Com mensagens predefinidas, contabilizar o tempo em minutos |Timestamp de recebimento da segunda mensagem - timestamp de envio da primeira mensagem |Banco de dados| <= 2min | Maior agilidade |
+|02| Tempo Médio de Espera | Reduzir o tempo de espera de confirmação de leitura em conversa síncrona| Ao enviar uma mensagem qualquer, tempo em minutos da confirmação da leitura de destinatário com chat aberto |Timestamp de confirmação de leitura - timestamp de envio da mensagem|Requisições da aplicação| <= 30s | Maior agilidade |
+|03| Percentual de mensagens enviadas com sucesso | Manter máximo sucesso no envio das mensagens | Percentual de mensagens enviadas com sucesso | Total de mensagens enviadas com sucesso / total de mensagens | Requisições da aplicação | >=75% | Qualidade do produto |
+|04| Percentual de usuários em uso diário | Monitorar o uso recorrente da aplicação no dia a dia da empresa | Percentual sobre o número logins por dia | Somatório dos logins diários / total de usuários | 2Gather | >= 80% | Maior engajamento |
+|05| Quantidade de mensagens enviadas diariamente | Monitorar o uso recorrente da aplicação no dia a dia da empresa | Número de mensagens por dia | Somatório dos das mensagens enviadas por dia | Banco de dados | valor > total de usuários | Maior engajamento |
+|06| Reclamações recebidas   | Mitigar a quantidade de reclamações recebidas por mês | Número de reclamações | Somatório das reclamações por mês | Canal de reclamações com a empresa | índice 0% de reclamação | Qualidade do produto |
 
 ## Requisitos
 
