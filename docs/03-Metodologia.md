@@ -106,9 +106,9 @@ Abaixo segue a tabela de relação dos ambientes e plataformas que serão utiliz
 |---------------------------------|----------------------|
 | Repositório de código fonte     | [Github](https://github.com/)               |
 | Documentos do projeto           | [Github](https://github.com/) - [Google Docs](https://www.google.com/docs/about/)              |
-| Projeto de Interface e Wireframes | [Figma](https://www.figma.com/) - [Lucidchart](https://www.lucidchart.com/pages/pt)               |
+| Projeto de Interface e Wireframes | [Figma](https://www.figma.com/) - [Draw.io](https://app.diagrams.net/)             |
 | Gerenciamento do Projeto        | [Trello](https://trello.com/pt-BR) |
-| Modelagem de Processos          | [Lucidchart](https://www.lucidchart.com/pages/pt) - [Bpmn.io](https://bpmn.io/)              |
+| Modelagem de Processos          | [Camunda](https://console.cloud.camunda.io/)              |
 
 <br>
 
@@ -118,10 +118,10 @@ Abaixo está a correlação das ferramentas utilizadas no projeto, e suas funç�
 
 | Função                                 | Ferramentas                                      |
 |----------------------------------------|--------------------------------------------------|
-| Editor de código                        | [Visual Studio Code](https://code.visualstudio.com/) - [Android Studio](https://developer.android.com/studio) - [Github](https://github.com/)   |
+| Editor de código                        | [Visual Studio Code](https://code.visualstudio.com/) - [Android Studio](https://developer.android.com/studio) - [Expo](https://expo.dev/) - [Github](https://github.com/)   |
 | Ferramentas de comunicação              | [Discord](https://discord.com/) - [Teams](https://www.microsoft.com/pt-br/microsoft-teams/)                             |
-| Ferramentas de diagramação              | [Lucidchart](https://www.lucidchart.com/pages/pt) - [Bpmn.io](https://bpmn.io/)                            |
-| Ferramentas de modelagem de processos   | [Lucidchart](https://www.lucidchart.com/pages/pt) - [Bpmn.io](https://bpmn.io/)                             |
+| Ferramentas de diagramação              | [Lucidchart](https://www.lucidchart.com/pages/pt) - [Draw.io](https://app.diagrams.net/) - [ProjectLibre](https://www.projectlibre.com/) - [Office365](https://www.office.com/)                         |
+| Ferramentas de modelagem de processos   | [Camunda](https://console.cloud.camunda.io/)                             |
 | Ferramentas de gestão de projetos       | [Trello](https://trello.com/pt-BR)                                     |
 
 <br>
