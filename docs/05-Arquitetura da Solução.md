@@ -71,7 +71,7 @@ A hospedagem da aplicação será uma parte crítica da infraestrutura do nosso 
   - Utilizaremos uma Virtual Private Server (VPS) com o sistema operacional Ubuntu como base para hospedar nossa aplicação. A escolha de uma VPS nos permite ter total controle sobre o ambiente, incluindo a capacidade de configurar o servidor de acordo com as necessidades específicas do nosso aplicativo.
 
 **Containers**
-- Para garantir a isolamento e a portabilidade da nossa aplicação, optamos por executá-la em um container Docker na VPS. O Docker é uma tecnologia de contêinerização que nos permite empacotar todos os componentes necessários da aplicação em um ambiente isolado e leve. Isso simplifica a implantação e a escalabilidade da aplicação.
+- Para garantir a isolamento e a portabilidade da nossa aplicação, optamos por executá-la em um container Docker na VPS. O Docker é uma tecnologia de conteinerização que nos permite empacotar todos os componentes necessários da aplicação em um ambiente isolado e leve. Isso simplifica a implantação e a escalabilidade da aplicação.
 
 **Configuração da VPS**
 - O grupo será responsável por configurar a VPS com Ubuntu, incluindo a instalação de todas as dependências necessárias para o nosso aplicativo. Isso pode incluir a instalação de um servidor web, um banco de dados, bibliotecas e ferramentas específicas.
