@@ -80,7 +80,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se o usuário recebe notificações de novas mensagens.	|<ol><li>Acessar a aplicação em um dispositivo</li><li>Realizar login</li><li>Com outro usuário, enviar uma mensagem para o primeiro usuário</li></ol> |	O primeiro usuário deve receber uma notificação indicando que uma nova mensagem foi recebida.
+|Verificar se o usuário recebe notificações de novas mensagens.	|<ol><li>Acessar a aplicação em um dispositivo</li><li>Realizar login</li><li>Com outro usuário, enviar uma mensagem para o primeiro usuário</li></ol> |	O usuário destinatário deve receber uma notificação indicando que uma nova mensagem foi recebida.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
