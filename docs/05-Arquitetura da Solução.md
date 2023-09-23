@@ -69,9 +69,10 @@ Dentre as 31 subcaracterísticas elencadas pela ISO IEC 25010/2011, optamos por 
 
 Serão aplicados Questionários Qualitativos para 5 Desenvolvedores e 5 Usuários. Os desenvolvedores avaliarão os quesitos intrínsecos (código e arquitetura) e os usuários avaliarão os quesitos extrínsecos (aqueles aparentes no aplicativo).
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/9f708f5c-a1ac-4478-8367-6abd0e521f99)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/f53cb8eb-45cb-451e-a853-a16ac9a5ee36)
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/e9011524-ba59-4a2e-ae3e-96fbcc402102)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/c9a9f01a-ab29-4bac-a34d-adda1a5c86d8)
+
 
 ## Critérios e Métricas
 
