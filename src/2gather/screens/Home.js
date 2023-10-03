@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, View, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 
+
 const Home = () => {
   return (
     <View style={styles.body}>
@@ -33,6 +34,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
+    fontFamily: 'Inter-Medium',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#2368A2'   
