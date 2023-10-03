@@ -12,8 +12,8 @@ const Home = () => {
       <View>
         <Image
           style={{
-            width: 135,
-            height: 155,
+            width: 155,
+            height: 175,
             borderRadius: 15,
           }}
           source={require('../assets/logo.png')}
