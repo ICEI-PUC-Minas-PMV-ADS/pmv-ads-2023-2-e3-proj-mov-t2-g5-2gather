@@ -4,3 +4,7 @@ module.exports = function(api) {
     presets: ['babel-preset-expo'],
   };
 };
+
+module.exports = {
+ assets: ['./src/2gather/assets/fonts'],
+};
