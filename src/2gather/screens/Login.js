@@ -1,72 +1,143 @@
-import React from "react";
-import React from "react";
 import React from 'react';
-import { StyleSheet, Image, View, Text } from 'react-native';
-import { Button } from 'react-native-paper';
-import Login from "./screens/Login";
-import Login from "./screens/Login";
+import { 
+  View, 
+  Image, 
+  StyleSheet, 
+  Text, 
+  TextInput, 
+  TouchableOpacity,
+  Keyboard } from 'react-native';
 
-const Login = () => {
-    return (
-      <View style={styles.body}>
-        <Text style={styles.textGoodSeeYou}>
-          Teste de navegação - LOGIN
-        </Text>
-  
-        <View>
-          <Image
-            style={{
-              width: 155,
-              height: 175,
-              borderRadius: 15,
-            }}
-            source={require('../assets/logo.png')}
-          />
-        </View>
-  
-        <View style={styles.buttonLogin}>
-          <Button icon="login" mode="contained" onPress={() => console.log('Pressed')}>
-            Entrar
-          </Button>
-        </View>
-      </View>
-    )
-  };
-  
-  
-  const styles = StyleSheet.create({
-    body: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#2368A2'   
-    },
-  
-    textGoodSeeYou: {
-      margin: 50,
-      marginBottom: 150,
-      fontSize: 30,
-      color: '#FFFFFF'
-    },
-  
-    buttonLogin: {
-      marginTop: 150,
-      width: '75%',
-      buttonColor: '#1A4971',
-      textColor: '#FFFFFF',
-      marginBottom: 15,
-      fontSize: 17,
-      borderRadius: 10,
-    }
-  
-  });
-  
-  export default Login;
-export const App = () => {
+import * as Animatable from 'react-native-animatable'
+
+export default function Login() {
   return (
-    <Login />
+    <View style={styles.containerBody}>
+
+      <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
+        <Image
+          source={require('../assets/logo.png')}
+          style={{ width: '25%' }}
+          resizeMode="contain"
+        />
+      </Animatable.View>
+      
+      <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+        <Text style={styles.message}>Entre e conecte-se com a sua equipe de trabalho!</Text>
+      </Animatable.View>
+
+      <Animatable.View animation="fadeInUp" style={styles.containerForm}>
+        <Text style={styles.loginLabel}>E-mail</Text>
+        <TextInput
+          placeholder="Digite seu e-mail..."
+          style={styles.input}
+          keyboardType="email-address"
+          outoCorrect={false}
+          onChangeText={() => { }}
+
+        />
+
+        <Text style={styles.loginLabel}>Senha</Text>
+        <TextInput
+          placeholder="Digite a senha"
+          style={styles.input}
+          keyboardType="numeric"
+          outoCorrect={false}
+          onChangeText={() => { }}
+
+
+        />
+        
+        <TouchableOpacity style={styles.buttonForgotPassword}>
+          <Text style={styles.forgotPasswordText}>Esqueceu a senha?</ Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonIn}>
+          <Text style={styles.buttonText}>Entrar</Text>
+        </TouchableOpacity>
+
+      </Animatable.View>
+
+    </View>
   );
+}
+
+const styles = StyleSheet.create({
+containerBody:{
+  flex:1,
+    backgroundColor: '#2368A2',
+    justifyContent: 'center',
+},
+
+containerLogo:{
+  //backgroundColor:'green',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: '-33%'
+},
 
 
-};
-  
+containerHeader:{
+  marginTop: '5%',
+  marginBotton: '8%',
+  marginRight: '10%',
+  paddingStart: '10%',
+  justifyContent: 'center',
+},
+
+message:{
+  fontSize: 22,
+  //fontWeight: 'bold',
+  color: "#FFFFFF",
+},
+
+containerForm:{
+  backgroundColor: '#2368A2',
+  width: '80%',
+  margin: '10%',  
+},
+
+
+input: {
+  borderbottomWidth: 1,
+  height: 40,
+  marginBotton: 12,
+  fontSize: 16,
+  backgroundColor: '#AAD4F5',
+  borderRadius: 10,
+  paddingStart: 10,
+},
+
+loginLabel: {
+  color: '#FFFFFF'
+},
+
+buttonForgotPassword:{
+  marginTop: 14,
+  alignSelf: 'left',
+},
+
+forgotPasswordText:{
+  color: '#FFFFFF'
+}, 
+
+buttonIn:{
+  backgroundColor: "#1A4971",
+  borderRadius: 10,
+  paddingVertical: 8, 
+  width: '100%',
+  height: 50,
+  alignSelf: 'center',
+  marginTop: '5%',
+  marginBottom: '15%',
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
+buttonText: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fonteWeight: 'bold',
+  },
+
+});

@@ -1,62 +1,84 @@
 import React from 'react';
-import { StyleSheet, Image, View, Text } from 'react-native';
-import { Button } from 'react-native-paper';
+import { 
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+   } from 'react-native';
 
+import * as Animatable from 'react-native-animatable'
 
-const Home = () => {
+export default function Home() {
   return (
-    <View style={styles.body}>
-      <Text style={styles.textGoodSeeYou}>
-        Olá, bom te ver!
-      </Text>
-
-      <View>
-        <Image
-          style={{
-            width: 155,
-            height: 175,
-            borderRadius: 15,
-          }}
+    <View style={styles.containerBody}> 
+      
+      <Animatable.View animation="fadeInDown" style={styles.containerWellCome}>
+        <Text style={styles.titleWellCome}>Olá, bom te ver!</Text>
+      </Animatable.View>
+      
+      <View style={styles.containerLogo}>
+        <Animatable.Image
+          //animation="flipInY"
           source={require('../assets/logo.png')}
+          style={{ width: '90%' }}
+          resizeMode="contain"
         />
       </View>
 
-      <View style={styles.buttonLogin}>
-        <Button icon="login" mode="contained" onPress={() => console.log('Pressed')}>
-          Fazer login
-        </Button>
-      </View>
-    </View>
-  )
-};
+      <TouchableOpacity style={styles.buttonLogin}>
+      <Text style={styles.buttonLoginText}>Fazer login</Text>
+      </TouchableOpacity>
 
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    fontFamily: 'Inter-Medium',
-    alignItems: 'center',
+  containerBody:{
+    flex:1,
+    backgroundColor: '#2368A2',
     justifyContent: 'center',
-    backgroundColor: '#2368A2'   
+    //alignItems: 'center',
   },
 
-  textGoodSeeYou: {
-    margin: 50,
-    marginBottom: 150,
-    fontSize: 30,
-    color: '#FFFFFF'
+  containerLogo:{
+    flex:2,
+    //backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '-10%'
+  },
+
+  containerWellCome: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '20%',  
+  },
+
+  titleWellCome:{
+    fontSize: 22,
+    //fontWeight: 'bold',
+    color: '#FFFFFF',
+    margin: 30,
   },
 
   buttonLogin: {
-    marginTop: 150,
-    width: '75%',
-    buttonColor: '#1A4971',
-    textColor: '#FFFFFF',
-    marginBottom: 15,
-    fontSize: 17,
+    //position: 'absolute',
+    backgroundColor: "#1A4971",
     borderRadius: 10,
+    paddingVertical: 8, 
+    width: '80%',
+    height: 50,
+    alignSelf: 'center',
+    marginBottom: '15%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonLoginText: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fonteWeight: 'bold',
   }
-
-});
-
-export default Home;
+})
