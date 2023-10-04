@@ -19,7 +19,7 @@ export default function Home({ navigation }) {
       
       <View style={styles.containerLogo}>
         <Animatable.Image
-          animation="flipInY"
+          //animation="flipInY"
           source={require('../assets/logo.png')}
           style={{ width: '90%' }}
           resizeMode="contain"
