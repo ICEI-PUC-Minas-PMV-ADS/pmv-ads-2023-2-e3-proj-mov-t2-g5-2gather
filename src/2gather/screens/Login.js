@@ -11,6 +11,16 @@ import {
 import * as Animatable from 'react-native-animatable'
 
 export default function Login() {
+  
+  const [email, setEmail] = useState(null)
+  const [password, setPassword] = useState(null)
+
+  const entrar = () => {
+    console.log("entrou")
+    console.log(email)
+    console.log(password)
+  }
+  
   return (
     <View style={styles.containerBody}>
 
@@ -70,7 +80,6 @@ containerBody:{
 },
 
 containerLogo:{
-  //backgroundColor:'green',
   justifyContent: 'center',
   alignItems: 'center',
   marginTop: '-33%'
@@ -87,7 +96,6 @@ containerHeader:{
 
 message:{
   fontSize: 22,
-  //fontWeight: 'bold',
   color: "#FFFFFF",
 },
 
@@ -109,7 +117,8 @@ input: {
 },
 
 loginLabel: {
-  color: '#FFFFFF'
+  color: '#FFFFFF',
+  marginTop: 12,
 },
 
 buttonForgotPassword:{

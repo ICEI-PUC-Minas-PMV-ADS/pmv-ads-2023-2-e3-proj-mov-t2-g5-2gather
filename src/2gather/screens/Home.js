@@ -9,7 +9,7 @@ import {
 
 import * as Animatable from 'react-native-animatable'
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <View style={styles.containerBody}> 
       
@@ -26,12 +26,12 @@ export default function Home() {
         />
       </View>
 
-      <TouchableOpacity style={styles.buttonLogin}>
+      <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("Login")}>
       <Text style={styles.buttonLoginText}>Fazer login</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> 
 
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -39,12 +39,10 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor: '#2368A2',
     justifyContent: 'center',
-    //alignItems: 'center',
   },
 
   containerLogo:{
     flex:2,
-    //backgroundColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '-10%'
@@ -58,13 +56,11 @@ const styles = StyleSheet.create({
 
   titleWellCome:{
     fontSize: 22,
-    //fontWeight: 'bold',
     color: '#FFFFFF',
     margin: 30,
   },
 
   buttonLogin: {
-    //position: 'absolute',
     backgroundColor: "#1A4971",
     borderRadius: 10,
     paddingVertical: 8, 
@@ -79,6 +75,6 @@ const styles = StyleSheet.create({
   buttonLoginText: {
     fontSize: 18,
     color: '#FFFFFF',
-    fonteWeight: 'bold',
+    fontWeight: 'bold',
   }
 })
