@@ -75,6 +75,5 @@ const styles = StyleSheet.create({
   buttonLoginText: {
     fontSize: 18,
     color: '#FFFFFF',
-    fontWeight: 'bold',
   }
 })
