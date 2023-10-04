@@ -10,6 +10,8 @@ import {
 
 import * as Animatable from 'react-native-animatable'
 
+import { useState } from 'react';
+
 export default function Login() {
   
   const [email, setEmail] = useState(null)
@@ -82,13 +84,13 @@ containerBody:{
 containerLogo:{
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '-33%'
+  marginTop: '-45%'
 },
 
 
 containerHeader:{
-  marginTop: '5%',
-  marginBotton: '8%',
+  //marginTop: 5,
+  //marginBotton: 5,
   marginRight: '10%',
   paddingStart: '10%',
   justifyContent: 'center',
@@ -102,7 +104,10 @@ message:{
 containerForm:{
   backgroundColor: '#2368A2',
   width: '80%',
-  margin: '10%',  
+  marginLeft: '10%',
+  marginRight: '10%',
+  marginBotton: 5,
+  marginTop: 15,  
 },
 
 
