@@ -30,6 +30,10 @@ export default function Home({ navigation }) {
       <Text style={styles.buttonLoginText}>Fazer login</Text>
       </TouchableOpacity> 
 
+      <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("CreateUser")}>
+      <Text style={styles.buttonLoginText}>Criar Usuário</Text>
+      </TouchableOpacity> 
+
     </View>
   )
 }
