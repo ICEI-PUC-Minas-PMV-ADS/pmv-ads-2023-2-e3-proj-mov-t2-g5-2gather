@@ -84,13 +84,11 @@ containerBody:{
 containerLogo:{
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '-45%'
+  marginTop: '-45%',
 },
 
 
 containerHeader:{
-  //marginTop: 5,
-  //marginBotton: 5,
   marginRight: '10%',
   paddingStart: '10%',
   justifyContent: 'center',
@@ -112,7 +110,7 @@ containerForm:{
 
 
 input: {
-  borderbottomWidth: 1,
+  borderBottonWidth: 1,
   height: 40,
   marginBotton: 12,
   fontSize: 16,
@@ -132,7 +130,7 @@ buttonForgotPassword:{
 },
 
 forgotPasswordText:{
-  color: '#FFFFFF'
+  color: '#FFFFFF',
 }, 
 
 buttonIn:{
@@ -151,7 +149,7 @@ buttonIn:{
 buttonText: {
     fontSize: 18,
     color: '#FFFFFF',
-    fonteWeight: 'bold',
+    fontWeight: 'bold',
   },
 
 });
