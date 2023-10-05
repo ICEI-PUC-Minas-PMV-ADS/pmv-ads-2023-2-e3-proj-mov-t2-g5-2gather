@@ -53,7 +53,7 @@ export default function Login() {
         <TextInput
           placeholder="Digite a senha"
           style={styles.input}
-          keyboardType="numeric"
+          keyboardType="email-address"
           outoCorrect={false}
           onChangeText={() => { }}
 
@@ -104,15 +104,15 @@ containerForm:{
   width: '80%',
   marginLeft: '10%',
   marginRight: '10%',
-  marginBotton: 5,
+  marginBottom: 5,
   marginTop: 15,  
 },
 
 
 input: {
-  borderBottonWidth: 1,
+  borderBottomWidth: 1,
   height: 40,
-  marginBotton: 12,
+  marginBottom: 12,
   fontSize: 16,
   backgroundColor: '#AAD4F5',
   borderRadius: 10,
@@ -126,7 +126,7 @@ loginLabel: {
 
 buttonForgotPassword:{
   marginTop: 14,
-  alignSelf: 'left',
+  //alignSelf: 'left',
 },
 
 forgotPasswordText:{
