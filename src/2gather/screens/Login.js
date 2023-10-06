@@ -14,15 +14,9 @@ import { useState } from 'react';
 
 export default function Login() {
   
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
+  const [email, setEmail] = useState('marra.odair@gmail.br');
+  const [password, setPassword] = useState('@4321');
 
-  const entrar = () => {
-    console.log("entrou")
-    console.log(email)
-    console.log(password)
-  }
-  
   return (
     <View style={styles.containerBody}>
 
@@ -41,21 +35,24 @@ export default function Login() {
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
         <Text style={styles.loginLabel}>E-mail</Text>
         <TextInput
+          value={email}
           placeholder="Digite seu e-mail..."
           style={styles.input}
           keyboardType="email-address"
           outoCorrect={false}
-          onChangeText={() => { }}
+          onChangeText={(text) => setEmail(text)}
 
         />
 
         <Text style={styles.loginLabel}>Senha</Text>
         <TextInput
+          value={password}
           placeholder="Digite a senha"
           style={styles.input}
           keyboardType="email-address"
+          secureTextEntry
           outoCorrect={false}
-          onChangeText={() => { }}
+          onChangeText={(text) => setPassword(text)}
 
 
         />
@@ -139,7 +136,7 @@ buttonIn:{
   paddingVertical: 8, 
   width: '100%',
   height: 50,
-  alignSelf: 'center',
+  //alignSelf: 'center',
   marginTop: '5%',
   marginBottom: '15%',
   alignItems: 'center',
