@@ -9,21 +9,61 @@ import {
   Keyboard } from 'react-native';
 
 import * as Animatable from 'react-native-animatable'
-
 import { useState } from 'react';
+//import { useUser } from '../contexts/UserContext';
 
-export default function Login() {
+
+export default function Login( navigation ) {
+  //const {setSigned} = useUser();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   
-  const [email, setEmail] = useState('marra.odair@gmail.br');
-  const [password, setPassword] = useState('@4321');
+      const handleSignIn = async () => {
+    try {
+      // Envia as credenciais para a API Django
+      const response = await fetch('https://hamtaro.cloud/admin/token/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      
+/*
 
+      if (!response.ok) {
+        // Se a resposta não for bem-sucedida, lança um erro
+        throw new Error('Credenciais inválidas');
+      }*/
+
+      // Se a resposta for bem-sucedida, obtém o token
+      //const data = await response.json();
+      const token = "testando";
+
+      // Execute a lógica de armazenamento do token, talvez usando o contexto ou AsyncStorage
+      // ...
+
+      // Indique que o usuário está autenticado
+      setSigned(true);
+
+      // Navegue para a próxima tela
+      navigation.navigate('TestAfterLogin');
+    } catch (error) {
+      console.error('Erro no login:', error);
+      console.log('Email ou senha incorretos');
+    }
+  };
+ 
   return (
     <View style={styles.containerBody}>
 
       <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
         <Image
           source={require('../assets/logo.png')}
-          style={{ width: '25%' }}
+          style={{ width: '22%' }}
           resizeMode="contain"
         />
       </Animatable.View>
@@ -41,7 +81,6 @@ export default function Login() {
           keyboardType="email-address"
           outoCorrect={false}
           onChangeText={(text) => setEmail(text)}
-
         />
 
         <Text style={styles.loginLabel}>Senha</Text>
@@ -53,23 +92,27 @@ export default function Login() {
           secureTextEntry
           outoCorrect={false}
           onChangeText={(text) => setPassword(text)}
-
-
         />
-        
-        <TouchableOpacity style={styles.buttonForgotPassword}>
-          <Text style={styles.forgotPasswordText}>Esqueceu a senha?</ Text>
+    
+
+        <TouchableOpacity style={styles.buttonForgotPassword} 
+          onPress={() => {console.log('On press acionado!')}}>
+          <Text style={styles.forgotPasswordText}>Esqueceu a senha?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonIn}>
+        <TouchableOpacity style={styles.buttonIn}
+          //onPress={() => setSigned()}
+
+          
+          > 
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
       </Animatable.View>
 
     </View>
-  );
-}
+  )
+};
 
 const styles = StyleSheet.create({
 containerBody:{
@@ -149,4 +192,5 @@ buttonText: {
     fontWeight: 'bold',
   },
 
-});
+}
+);
