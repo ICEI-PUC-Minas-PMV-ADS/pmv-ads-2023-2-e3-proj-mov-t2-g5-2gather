@@ -26,7 +26,18 @@ SECRET_KEY = 'django-insecure-0kz#_axxi2vl8r2@uym%*t0)f_k*=a-@03xbyooro@vz#e-(u&
 DEBUG = True
 
 ALLOWED_HOSTS = ['*'] #fixme se der problema de cors fala comigo
-
+CORS_ALLOWED_ORIGINS = ['*', 'http://localhost:3000','https://localhost:3000', 'http://rpgsands.com', 'https://rpgsands.com', 'http://www.rpgsands.com', 'https://www.rpgsands.com', 'http://localhost:19006', 'https://localhost:19006'] #fixme, duvidoso... em production é um problema?
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 
 # Application definition
 
@@ -45,6 +56,7 @@ INSTALLED_APPS = [
 
     #external
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
