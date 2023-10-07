@@ -63,7 +63,7 @@ export default function Login( navigation ) {
       <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
         <Image
           source={require('../assets/logo.png')}
-          style={{ width: '22%' }}
+          style={{width:'22%'}}
           resizeMode="contain"
         />
       </Animatable.View>
@@ -116,18 +116,20 @@ export default function Login( navigation ) {
 
 const styles = StyleSheet.create({
 containerBody:{
-  flex:1,
+    flex:1,
     backgroundColor: '#2368A2',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
 },
 
 containerLogo:{
+  flex:1,
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: '-45%',
-},
+  marginTop: -130,
+  marginBottom: -130,
+ },
 
-
+ 
 containerHeader:{
   marginRight: '10%',
   paddingStart: '10%',
@@ -140,6 +142,7 @@ message:{
 },
 
 containerForm:{
+  flex:1,
   backgroundColor: '#2368A2',
   width: '80%',
   marginLeft: '10%',
@@ -151,12 +154,13 @@ containerForm:{
 
 input: {
   borderBottomWidth: 1,
-  height: 40,
   marginBottom: 12,
   fontSize: 16,
   backgroundColor: '#AAD4F5',
   borderRadius: 10,
   paddingStart: 10,
+  width: '100%',
+  height: 50,
 },
 
 loginLabel: {
@@ -165,8 +169,7 @@ loginLabel: {
 },
 
 buttonForgotPassword:{
-  marginTop: 14,
-  //alignSelf: 'left',
+  marginTop: 8,
 },
 
 forgotPasswordText:{
@@ -179,7 +182,6 @@ buttonIn:{
   paddingVertical: 8, 
   width: '100%',
   height: 50,
-  //alignSelf: 'center',
   marginTop: '5%',
   marginBottom: '15%',
   alignItems: 'center',
