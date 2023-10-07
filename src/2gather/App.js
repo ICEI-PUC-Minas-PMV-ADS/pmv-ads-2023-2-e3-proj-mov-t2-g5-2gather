@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './screens/Home';
 import Login from './screens/Login';
+import TestAfterLogin from './screens/TestAfterLogin';
 import CreateUser from './screens/CreateUser';
 import EditUser from './screens/EditUser';
 import InactivateUser from './screens/InactivateUser';
@@ -15,6 +16,7 @@ function MyStack() {
     <Stack.Navigator>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="TestAfterLogin" component={TestAfterLogin} />
       <Stack.Screen name="CreateUser" component={CreateUser} />
       <Stack.Screen name="EditUser" component={EditUser} />
       <Stack.Screen name="InactivateUser" component={InactivateUser} />

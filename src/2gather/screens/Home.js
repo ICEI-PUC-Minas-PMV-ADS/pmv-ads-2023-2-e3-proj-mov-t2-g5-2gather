@@ -21,7 +21,7 @@ export default function Home({ navigation }) {
         <Animatable.Image
           //animation="flipInY"
           source={require('../assets/logo.png')}
-          style={{ width: '90%' }}
+          style={styles.imageLogo}
           resizeMode="contain"
         />
       </View>
@@ -42,26 +42,31 @@ const styles = StyleSheet.create({
   containerBody:{
     flex:1,
     backgroundColor: '#2368A2',
-    justifyContent: 'center',
-  },
-
-  containerLogo:{
-    flex:2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '-10%'
+    justifyContent: 'space-center',
+    padding: '5%',
   },
 
   containerWellCome: {
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: '20%',  
+    marginTop: '10%',  
   },
 
   titleWellCome:{
     fontSize: 22,
     color: '#FFFFFF',
-    margin: 30,
+    margin: '10%',
+  },
+
+  containerLogo:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  imageLogo: {
+    marginTop: '-10%',
+    width: 400,
+    height: 400,
   },
 
   buttonLogin: {
