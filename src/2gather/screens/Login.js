@@ -12,7 +12,6 @@ import * as Animatable from 'react-native-animatable'
 import { useState } from 'react';
 //import { useUser } from '../contexts/UserContext';
 
-
 export default function Login( navigation ) {
   //const {setSigned} = useUser();
   const [email, setEmail] = useState('');
@@ -63,7 +62,7 @@ export default function Login( navigation ) {
       <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
         <Image
           source={require('../assets/logo.png')}
-          style={{width:'22%'}}
+          style={{width:'40%'}}
           resizeMode="contain"
         />
       </Animatable.View>
@@ -115,7 +114,11 @@ export default function Login( navigation ) {
 };
 
 const styles = StyleSheet.create({
-containerBody:{
+  text: {
+    //fontFamily: 'Inter', // Use o nome da fonte exato aqui
+    fontSize: 16,
+  },
+  containerBody:{
     flex:1,
     backgroundColor: '#2368A2',
     justifyContent: 'space-between',

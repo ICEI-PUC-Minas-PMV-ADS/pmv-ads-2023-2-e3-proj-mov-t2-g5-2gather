@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
 
   containerWellCome: {
     alignItems: 'center',
-    //justifyContent: 'center',
     marginTop: '10%',  
   },
 
@@ -65,10 +64,9 @@ const styles = StyleSheet.create({
   },
 
   imageLogo: {
-    //position: 'absolute',
     marginTop: '-10%',
-    width: 180,
-    height: 180,
+    width: 400,
+    height: 400,
   },
 
   buttonLogin: {

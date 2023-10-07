@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import leftarrow from '../../2gather/assets/leftarrow.png'
 
-
 export default function CreateUser({ navigation }) {
     const [id, setId] = useState('');
     const [email, setEmail] = useState('');
@@ -112,8 +111,9 @@ export default function CreateUser({ navigation }) {
 };
 
 const styles = StyleSheet.create({
+
     headerInput: {
-        marginBottom: '25px',
+        marginBottom: '10%',
         fontSize: 20
     },
     container: {
@@ -122,14 +122,13 @@ const styles = StyleSheet.create({
     },
     container2: {
         padding: 20,
-        gap: 10,
+        gap: 5,
         display: 'flex'
 
     },
     header: {
         gap: 10,
         color: '#FFFCF4',
-        fontFamily: 'inter',
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 20,
@@ -141,7 +140,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
     },
     input: {
-        fontFamily: 'inter',
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
