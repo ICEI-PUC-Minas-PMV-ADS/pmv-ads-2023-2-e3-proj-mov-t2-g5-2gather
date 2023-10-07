@@ -14,11 +14,13 @@ class UserListView(ListAPIView):
 
 class UserCreateView(CreateAPIView):
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
 class UserUpdateView(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'pk'
+    permission_classes = [IsAuthenticated]
 
 class UserRetrieveView(RetrieveAPIView):
     queryset = User.objects.all()
