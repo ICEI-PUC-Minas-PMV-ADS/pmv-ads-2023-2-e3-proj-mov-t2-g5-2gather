@@ -6,9 +6,11 @@ import {
     StyleSheet,
     TouchableOpacity,
     Animated,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 import leftarrow from '../../2gather/assets/leftarrow.png'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function CreateUser({ navigation }) {
     const [id, setId] = useState('');
@@ -58,7 +60,11 @@ export default function CreateUser({ navigation }) {
     //console.log(id)
     //console.log(role)
     return (
-
+        <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={true}
+        >
 
         <View style={styles.container}>
             {showNotification && (
@@ -107,6 +113,7 @@ export default function CreateUser({ navigation }) {
                 </TouchableOpacity>
             </View>
         </View>
+        </KeyboardAwareScrollView>
     );
 };
 
@@ -122,7 +129,7 @@ const styles = StyleSheet.create({
     },
     container2: {
         padding: 20,
-        gap: 5,
+        gap: 2,
         display: 'flex'
 
     },
@@ -144,7 +151,7 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderWidth: 1,
         marginBottom: 10,
-        padding: 20,
+        padding: 10,
         borderRadius: 10
     },
     buttonCreate: {
