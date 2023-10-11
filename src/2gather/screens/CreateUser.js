@@ -11,6 +11,7 @@ import {
 
 import * as Animatable from 'react-native-animatable'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 export default function CreateUser({ navigation }) {
@@ -18,6 +19,8 @@ export default function CreateUser({ navigation }) {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [role, setRole] = useState();
+    const [id, setId] = useState('');
+    const [sector, setSector] = useState('');
 
     const [showNotification, setShowNotification] = useState(false);
     const [roles, setRoles] = useState([]);
@@ -28,7 +31,7 @@ export default function CreateUser({ navigation }) {
         GetRoles().then(r => {
             if (r !== null) {
                 setRoles(r)
-            }else{
+            } else {
                 //erro pro user
             }
         })
@@ -68,76 +71,70 @@ export default function CreateUser({ navigation }) {
     }
 
     return (
-        <KeyboardAwareScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled={true}
-        >
+            <SafeAreaView style={styles.container}>
+                {showNotification && (
+                    <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
+                        <Text style={styles.notificationText}>
+                            Por favor, insira um endereço de e-mail válido.
+                        </Text>
+                    </Animated.View>
+                )}
+                <View style={styles.header}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text>
+                            <Animatable.Image
+                                source={require('../assets/leftarrow.png')}
+                                resizeMode="contain"
+                                style={{ marginRight: 10 }}
+                            />
+                            <Text style={styles.textHeader}> Criar Usuário</Text>
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
+                <View style={styles.container2}>
+                    <Text style={styles.headerInput}>Informe os dados abaixo</Text>
 
-        <SafeAreaView style={styles.container}>
-            {showNotification && (
-                <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
-                    <Text style={styles.notificationText}>
-                        Por favor, insira um endereço de e-mail válido.
-                    </Text>
-                </Animated.View>
-            )}
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Text>
-                        <Animatable.Image
-                            source={require('../assets/leftarrow.png')}
-                            resizeMode="contain"
-                            style={{ marginRight: 10 }}
-                        />
-                        <Text style={styles.textHeader}> Criar Usuário</Text>
-                    </Text>
-                </TouchableOpacity>
-            </View>
+                    <Text>ID do Usuário</Text>
+                    <TextInput style={styles.input} value={id} onChangeText={(text) => setId(text)} />
 
-            <View style={styles.container2}>
-                <Text style={styles.headerInput}>Informe os dados abaixo</Text>
+                    <Text>Email Corporativo</Text>
+                    <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
 
-                <Text>ID do Usuário</Text>
-                <TextInput style={styles.input} value={id} onChangeText={(text) => setId(text)} />
+                    <Text>Senha</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={password}
+                        onChangeText={(text) => setPassword(text)}
+                        secureTextEntry
+                    />
 
-                <Text>Email Corporativo</Text>
-                <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
+                    <Text>Nome do Colaborador</Text>
+                    <TextInput style={styles.input} value={name} onChangeText={(text) => setName(text)} />
 
-                <Text>Senha</Text>
-                <TextInput
-                    style={styles.input}
-                    value={password}
-                    onChangeText={(text) => setPassword(text)}
-                    secureTextEntry
-                />
+                    <Text>Setor</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={sector}
+                        onChangeText={setSector}
+                    />
 
-                <Text>Nome do Colaborador</Text>
-                <TextInput style={styles.input} value={name} onChangeText={(text) => setName(text)} />
+                    <Text>Cargo</Text>
+                    <TextInput style={styles.input} value={role} onChangeText={(text) => setRole(text)} />
 
-                <Text>Setor</Text>
-                <TextInput
-                    style={styles.input}
-                    value={sector}
-                    onChangeText={setSector}
-                />
-
-                <Text>Cargo</Text>
-                <TextInput style={styles.input} value={role} onChangeText={(text) => setRole(text)} />
-
-                <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
-                    <Text style={styles.buttonText}>Criar</Text>
-                </TouchableOpacity>
-            </View>
-        </SafeAreaView>
+                    <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
+                        <Text style={styles.buttonText}>Criar</Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
+        
     );
 };
 
 const styles = StyleSheet.create({
 
     headerInput: {
-        marginBottom: '10%',
+        marginBottom: 10,
         fontSize: 20
     },
     container: {
