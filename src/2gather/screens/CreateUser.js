@@ -11,6 +11,7 @@ import {
     ScrollView
 } from 'react-native';
 import { Register } from '../services/auth.services'
+import { GetRoles } from '../services/role.services'
 import leftarrow from '../../2gather/assets/leftarrow.png'
 import RNPickerSelect from 'react-native-picker-select';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -28,13 +29,13 @@ export default function CreateUser({ navigation }) {
     const slideAnim = useRef(new Animated.Value(-100)).current;
 
     const getRoles = async () => {
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/role/list/');
-            const data = await response.json(); // Parse the JSON response
-            setRoles(data); // Update the state with the retrieved options
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+        GetRoles().then(r => {
+            if (r !== null) {
+                setRoles(r)
+            }else{
+                //erro pro user
+            }
+        })
     };
 
     function isValidEmail(email) {

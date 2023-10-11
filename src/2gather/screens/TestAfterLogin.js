@@ -13,7 +13,7 @@ function clearStorage(){
   AsyncStorage.clear()
 }
   
-export default function TestAfterLogin( navigation  ) {
+export default function TestAfterLogin( { navigation }  ) {
   const {signed, name} = useUser();
 
   return (
