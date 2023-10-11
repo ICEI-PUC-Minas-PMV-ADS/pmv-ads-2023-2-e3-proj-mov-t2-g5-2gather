@@ -7,11 +7,14 @@ import {
 
     TouchableOpacity,
     Animated,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 import { Register } from '../services/auth.services'
 import leftarrow from '../../2gather/assets/leftarrow.png'
 import RNPickerSelect from 'react-native-picker-select';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 export default function CreateUser({ navigation }) {
     const [email, setEmail] = useState('');
@@ -82,6 +85,12 @@ export default function CreateUser({ navigation }) {
     }
 
     return (
+        <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={true}
+        >
+
 
         <View style={styles.container}>
             {showNotification && (
@@ -129,6 +138,7 @@ export default function CreateUser({ navigation }) {
                 </TouchableOpacity>
             </View>
         </View>
+        </KeyboardAwareScrollView>
     );
 };
 
@@ -144,7 +154,7 @@ const styles = StyleSheet.create({
     },
     container2: {
         padding: 20,
-        gap: 5,
+        gap: 2,
         display: 'flex'
 
     },
@@ -166,7 +176,7 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         borderWidth: 1,
         marginBottom: 10,
-        padding: 20,
+        padding: 10,
         borderRadius: 10
     },
     buttonCreate: {

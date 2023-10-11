@@ -7,8 +7,9 @@ import {
   Text, 
   TextInput, 
   TouchableOpacity,
-  Keyboard } from 'react-native';
+  ScrollView } from 'react-native';
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Animatable from 'react-native-animatable'
 import { useState } from 'react';
 import { SignIn } from '../services/auth.services.js'
@@ -38,12 +39,17 @@ export default function Login( navigation ) {
   }
 
   return (
+    <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={true}
+      >
     <View style={styles.containerBody}>
 
       <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
         <Image
           source={require('../assets/logo.png')}
-          style={{width:'40%'}}
+          style={{width:'60%'}}
           resizeMode="contain"
         />
       </Animatable.View>
@@ -88,6 +94,7 @@ export default function Login( navigation ) {
       </Animatable.View>
 
     </View>
+    </KeyboardAwareScrollView>
   )
 };
 
@@ -106,8 +113,8 @@ containerLogo:{
   flex:1,
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: -130,
-  marginBottom: -130,
+  marginTop: -90,
+  marginBottom: -90,
  },
 
  
@@ -135,7 +142,7 @@ containerForm:{
 
 input: {
   borderBottomWidth: 1,
-  marginBottom: 12,
+  marginBottom: 20,
   fontSize: 16,
   backgroundColor: '#AAD4F5',
   borderRadius: 10,
@@ -150,11 +157,13 @@ loginLabel: {
 },
 
 buttonForgotPassword:{
-  marginTop: 8,
+  marginTop: 2,
+  marginBottom: 30,
 },
 
 forgotPasswordText:{
   color: '#FFFFFF',
+  alignSelf: 'flex-end',
 }, 
 
 buttonIn:{
@@ -164,7 +173,7 @@ buttonIn:{
   width: '100%',
   height: 50,
   marginTop: '5%',
-  marginBottom: '15%',
+  marginBottom: 10,
   alignItems: 'center',
   justifyContent: 'center',
 },
