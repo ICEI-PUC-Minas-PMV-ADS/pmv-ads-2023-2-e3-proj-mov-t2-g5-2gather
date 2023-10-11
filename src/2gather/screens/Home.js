@@ -10,6 +10,7 @@ import {
 import * as Animatable from 'react-native-animatable'
 
 export default function Home({ navigation }) {
+
   return (
     <View style={styles.containerBody}> 
       

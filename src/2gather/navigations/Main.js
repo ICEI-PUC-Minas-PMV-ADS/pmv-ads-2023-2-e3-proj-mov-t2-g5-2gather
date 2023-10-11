@@ -1,14 +1,14 @@
 /*import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Home from '../screens/Home';
-import Login from '../screens/Login';
-import CreateUser from '../screens/CreateUser';
-import NewScreenTest from '../screens/NewScreentest';
+import TestAfterLogin from '../screens/TestAfterLogin';
+import EditUser from '../screens/EditUser';
+import InactivateUser from '../screens/InactivateUser';
+import UserManagement from '../screens/UserManagement';
 
 const Stack = createNativeStackNavigator();
 
-const Main = () => {
+const MainNav = () => {
     return (
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
@@ -44,4 +44,4 @@ const Main = () => {
     );
 };
 
-export default Main;*/
+export default MainNav;

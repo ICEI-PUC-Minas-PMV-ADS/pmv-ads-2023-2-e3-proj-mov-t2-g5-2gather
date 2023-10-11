@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
     View,
     Text,
     TextInput,
     StyleSheet,
+
     TouchableOpacity,
     Animated,
 } from 'react-native';
@@ -13,22 +14,31 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 export default function CreateUser({ navigation }) {
-    const [id, setId] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const [sector, setSector] = useState('');
-    const [role, setRole] = useState('');
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const [role, setRole] = useState();
+
     const [showNotification, setShowNotification] = useState(false);
+    const [roles, setRoles] = useState([]);
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     const slideAnim = useRef(new Animated.Value(-100)).current;
+
+    const getRoles = async () => {
+        GetRoles().then(r => {
+            if (r !== null) {
+                setRoles(r)
+            }else{
+                //erro pro user
+            }
+        })
+    };
 
     function isValidEmail(email) {
         return emailRegex.test(email);
     }
 
-
-    const handleSubmit = () => {
+    const handleRegister = () => {
         if (!isValidEmail(email)) {
             showSlideNotification();
             return;
@@ -57,10 +67,12 @@ export default function CreateUser({ navigation }) {
         });
     }
 
-
-    //console.log(id)
-    //console.log(role)
     return (
+        <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={true}
+        >
 
 
         <SafeAreaView style={styles.container}>
@@ -114,7 +126,7 @@ export default function CreateUser({ navigation }) {
                 <Text>Cargo</Text>
                 <TextInput style={styles.input} value={role} onChangeText={(text) => setRole(text)} />
 
-                <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleSubmit() }}>
+                <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
                     <Text style={styles.buttonText}>Criar</Text>
                 </TouchableOpacity>
             </View>
@@ -134,7 +146,7 @@ const styles = StyleSheet.create({
     },
     container2: {
         padding: 20,
-        gap: 5,
+        gap: 2,
         display: 'flex'
 
     },
@@ -155,10 +167,10 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        borderColor: 'gray',
+        borderColor: 'red',
         borderWidth: 1,
         marginBottom: 10,
-        padding: 20,
+        padding: 10,
         borderRadius: 10
     },
     buttonCreate: {

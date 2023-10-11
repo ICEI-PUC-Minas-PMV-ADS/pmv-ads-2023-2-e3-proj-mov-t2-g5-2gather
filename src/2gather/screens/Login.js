@@ -1,4 +1,5 @@
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { 
   View, 
   Image, 
@@ -6,63 +7,49 @@ import {
   Text, 
   TextInput, 
   TouchableOpacity,
-  Keyboard } from 'react-native';
+  ScrollView } from 'react-native';
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Animatable from 'react-native-animatable'
 import { useState } from 'react';
-//import { useUser } from '../contexts/UserContext';
+import { SignIn } from '../services/auth.services.js'
+import { useUser } from '../contexts/UserContext';
 
 export default function Login( navigation ) {
-  //const {setSigned} = useUser();
+  const {setSigned, setName} = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-      const handleSignIn = async () => {
-    try {
-      // Envia as credenciais para a API Django
-      const response = await fetch('https://hamtaro.cloud/admin/token/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-      
-/*
+  const handleSignIn = () => {
 
-      if (!response.ok) {
-        // Se a resposta não for bem-sucedida, lança um erro
-        throw new Error('Credenciais inválidas');
-      }*/
+    SignIn({ email: email, password: password }).then(res => {
+      if (res.access && res.refresh) {
+        setSigned(true);
+        setName(res.name);
+        for (const key in res) {
+          if (res.hasOwnProperty(key)) {
+            AsyncStorage.setItem(key, res[key]).then();
+          }
+        }
+      } else {
+        //aviso para o usuario da falha
+        alert('Usuário ou senha inválidos!');
+      }
+    });
+  }
 
-      // Se a resposta for bem-sucedida, obtém o token
-      //const data = await response.json();
-      const token = "testando";
-
-      // Execute a lógica de armazenamento do token, talvez usando o contexto ou AsyncStorage
-      // ...
-
-      // Indique que o usuário está autenticado
-      setSigned(true);
-
-      // Navegue para a próxima tela
-      navigation.navigate('TestAfterLogin');
-    } catch (error) {
-      console.error('Erro no login:', error);
-      console.log('Email ou senha incorretos');
-    }
-  };
- 
   return (
+    <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={true}
+      >
     <View style={styles.containerBody}>
 
       <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
         <Image
           source={require('../assets/logo.png')}
-          style={{width:'40%'}}
+          style={{width:'60%'}}
           resizeMode="contain"
         />
       </Animatable.View>
@@ -100,16 +87,14 @@ export default function Login( navigation ) {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonIn}
-          //onPress={() => setSigned()}
-
-          
-          > 
+          onPress={() => {handleSignIn()}}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
       </Animatable.View>
 
     </View>
+    </KeyboardAwareScrollView>
   )
 };
 
@@ -128,8 +113,8 @@ containerLogo:{
   flex:1,
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: -130,
-  marginBottom: -130,
+  marginTop: -90,
+  marginBottom: -90,
  },
 
  
@@ -157,7 +142,7 @@ containerForm:{
 
 input: {
   borderBottomWidth: 1,
-  marginBottom: 12,
+  marginBottom: 20,
   fontSize: 16,
   backgroundColor: '#AAD4F5',
   borderRadius: 10,
@@ -172,11 +157,13 @@ loginLabel: {
 },
 
 buttonForgotPassword:{
-  marginTop: 8,
+  marginTop: 2,
+  marginBottom: 30,
 },
 
 forgotPasswordText:{
   color: '#FFFFFF',
+  alignSelf: 'flex-end',
 }, 
 
 buttonIn:{
@@ -186,7 +173,7 @@ buttonIn:{
   width: '100%',
   height: 50,
   marginTop: '5%',
-  marginBottom: '15%',
+  marginBottom: 10,
   alignItems: 'center',
   justifyContent: 'center',
 },
