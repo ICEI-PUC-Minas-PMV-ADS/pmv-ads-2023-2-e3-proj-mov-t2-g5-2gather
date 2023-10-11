@@ -6,9 +6,11 @@ import {
     StyleSheet,
     TouchableOpacity,
     Animated,
-    Image
 } from 'react-native';
-import leftarrow from '../../2gather/assets/leftarrow.png'
+
+import * as Animatable from 'react-native-animatable'
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 export default function CreateUser({ navigation }) {
     const [id, setId] = useState('');
@@ -31,7 +33,8 @@ export default function CreateUser({ navigation }) {
             showSlideNotification();
             return;
         }
-        console.log('Usuário criado');
+        //console.log('Usuário criado');
+
     };
 
 
@@ -60,7 +63,7 @@ export default function CreateUser({ navigation }) {
     return (
 
 
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {showNotification && (
                 <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
                     <Text style={styles.notificationText}>
@@ -68,29 +71,38 @@ export default function CreateUser({ navigation }) {
                     </Text>
                 </Animated.View>
             )}
-            <Text style={styles.header} onPress={() => navigation.goBack()}>
-                <Image source={require('../assets/leftarrow.png')}></Image>
-                <Text>Criar Usuário</Text>
-            </Text>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text>
+                        <Animatable.Image
+                            source={require('../assets/leftarrow.png')}
+                            resizeMode="contain"
+                            style={{ marginRight: 10 }}
+                        />
+                        <Text style={styles.textHeader}> Criar Usuário</Text>
+                    </Text>
+                </TouchableOpacity>
+            </View>
+
             <View style={styles.container2}>
                 <Text style={styles.headerInput}>Informe os dados abaixo</Text>
 
                 <Text>ID do Usuário</Text>
-                <TextInput style={styles.input} value={id} onChangeText={setId} />
+                <TextInput style={styles.input} value={id} onChangeText={(text) => setId(text)} />
 
                 <Text>Email Corporativo</Text>
-                <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+                <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
 
                 <Text>Senha</Text>
                 <TextInput
                     style={styles.input}
                     value={password}
-                    onChangeText={setPassword}
+                    onChangeText={(text) => setPassword(text)}
                     secureTextEntry
                 />
 
                 <Text>Nome do Colaborador</Text>
-                <TextInput style={styles.input} value={name} onChangeText={setName} />
+                <TextInput style={styles.input} value={name} onChangeText={(text) => setName(text)} />
 
                 <Text>Setor</Text>
                 <TextInput
@@ -100,13 +112,13 @@ export default function CreateUser({ navigation }) {
                 />
 
                 <Text>Cargo</Text>
-                <TextInput style={styles.input} value={role} onChangeText={setRole} />
+                <TextInput style={styles.input} value={role} onChangeText={(text) => setRole(text)} />
 
                 <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleSubmit() }}>
                     <Text style={styles.buttonText}>Criar</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -127,6 +139,7 @@ const styles = StyleSheet.create({
 
     },
     header: {
+        flexDirection: 'row',
         gap: 10,
         color: '#FFFCF4',
         fontSize: 20,
@@ -137,6 +150,7 @@ const styles = StyleSheet.create({
         padding: 0,
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'flex-start',
         paddingLeft: 10,
     },
     input: {
@@ -172,5 +186,11 @@ const styles = StyleSheet.create({
     notificationText: {
         color: 'white',
         fontSize: 16,
-    }
+    },
+    textHeader: {
+        color: '#FFFCF4',  // Defini a cor para o texto
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+
 });
