@@ -185,6 +185,7 @@ buttonForgotPassword:{
 
 forgotPasswordText:{
   color: '#FFFFFF',
+  alignSelf: 'flex-end',
 }, 
 
 buttonIn:{
