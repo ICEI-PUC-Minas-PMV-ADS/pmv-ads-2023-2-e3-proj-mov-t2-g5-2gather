@@ -1,4 +1,5 @@
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { 
   View, 
   Image, 
@@ -11,52 +12,32 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Animatable from 'react-native-animatable'
 import { useState } from 'react';
-//import { useUser } from '../contexts/UserContext';
+import { SignIn } from '../services/auth.services.js'
+import { useUser } from '../contexts/UserContext';
 
 export default function Login( navigation ) {
-  //const {setSigned} = useUser();
+  const {setSigned, setName} = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-      const handleSignIn = async () => {
-    try {
-      // Envia as credenciais para a API Django
-      const response = await fetch('https://hamtaro.cloud/admin/token/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-      
-/*
+  const handleSignIn = () => {
 
-      if (!response.ok) {
-        // Se a resposta não for bem-sucedida, lança um erro
-        throw new Error('Credenciais inválidas');
-      }*/
+    SignIn({ email: email, password: password }).then(res => {
+      if (res.access && res.refresh) {
+        setSigned(true);
+        setName(res.name);
+        for (const key in res) {
+          if (res.hasOwnProperty(key)) {
+            AsyncStorage.setItem(key, res[key]).then();
+          }
+        }
+      } else {
+        //aviso para o usuario da falha
+        alert('Usuário ou senha inválidos!');
+      }
+    });
+  }
 
-      // Se a resposta for bem-sucedida, obtém o token
-      //const data = await response.json();
-      const token = "testando";
-
-      // Execute a lógica de armazenamento do token, talvez usando o contexto ou AsyncStorage
-      // ...
-
-      // Indique que o usuário está autenticado
-      setSigned(true);
-
-      // Navegue para a próxima tela
-      navigation.navigate('TestAfterLogin');
-    } catch (error) {
-      console.error('Erro no login:', error);
-      console.log('Email ou senha incorretos');
-    }
-  };
- 
   return (
     <KeyboardAwareScrollView
         contentContainerStyle={{ flexGrow: 1 }}
@@ -106,10 +87,7 @@ export default function Login( navigation ) {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttonIn}
-          //onPress={() => setSigned()}
-
-          
-          > 
+          onPress={() => {handleSignIn()}}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 

@@ -1,15 +1,13 @@
-/*
 import React from 'react';
-import { createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from '../screens/Home';
 import Login from '../screens/Login';
 import CreateUser from '../screens/CreateUser';
-import NewScreenTest from '../screens/NewScreentest';
 
 const stack = createNativeStackNavigator();
 
-const Auth = () => {
+const UnsignedViews = () => {
     return (
         <stack.Navigator initialRouteName="Home">
             <stack.Screen
@@ -18,31 +16,18 @@ const Auth = () => {
                 options={{
                     header: () => null,
                 }}
-                />
+            />
             <stack.Screen
                 name="Login"
                 component={Login}
-                options={{
-                    header: () => null,
-                }}
-                />
+            />
             <stack.Screen
                 name="CreateUser"
                 component={CreateUser}
-                options={{
-                    header: () => null,
-                }}
-                />
-            <stack.Screen
-                name="NewScreenTest"
-                component={NewScreenTest}
-                options={{
-                    header: () => null,
-                }}
-                />
+            />
 
         </stack.Navigator>
     );
 };
 
-export default Auth;*/
+export default UnsignedViews;

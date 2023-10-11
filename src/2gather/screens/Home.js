@@ -10,6 +10,7 @@ import {
 import * as Animatable from 'react-native-animatable'
 
 export default function Home({ navigation }) {
+  navigation.navigate('TestAfterLogin');
   return (
     <View style={styles.containerBody}> 
       
@@ -42,7 +43,6 @@ const styles = StyleSheet.create({
   containerBody:{
     flex:1,
     backgroundColor: '#2368A2',
-    justifyContent: 'space-center',
     padding: '5%',
   },
 
