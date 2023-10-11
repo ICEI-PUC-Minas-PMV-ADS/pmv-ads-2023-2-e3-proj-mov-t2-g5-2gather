@@ -1,47 +1,40 @@
-/*import React from 'react';
-import { createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Home from '../screens/Home';
-import Login from '../screens/Login';
-import CreateUser from '../screens/CreateUser';
-import NewScreenTest from '../screens/NewScreentest';
+import TestAfterLogin from '../screens/TestAfterLogin';
+import EditUser from '../screens/EditUser';
+import InactivateUser from '../screens/InactivateUser';
+import UserManagement from '../screens/UserManagement';
 
 const stack = createNativeStackNavigator();
 
-const Main = () => {
+const MainNav = () => {
     return (
-        <stack.Navigator initialRouteName="Home">
+        <stack.Navigator initialRouteName="TestAfterLogin">
             <stack.Screen
-                name="Home"
-                component={Home}
+                name="TestAfterLogin"
+                component={TestAfterLogin}
                 options={{
                     header: () => null,
                 }}
-                />
+            />
             <stack.Screen
-                name="Login"
-                component={Login}
-                options={{
-                    header: () => null,
-                }}
-                />
+                name="EditUser"
+                component={EditUser}
+            />
             <stack.Screen
-                name="CreateUser"
-                component={CreateUser}
-                options={{
-                    header: () => null,
-                }}
-                />
+                name="InactivateUser"
+                component={InactivateUser}
+
+            />
             <stack.Screen
-                name="NewScreenTest"
-                component={NewScreenTest}
-                options={{
-                    header: () => null,
-                }}
-                />
+                name="UserManagement"
+                component={UserManagement}
+            />
+
 
         </stack.Navigator>
     );
 };
 
-export default Main;*/
+export default MainNav;
