@@ -16,6 +16,7 @@ export const SignIn = async ({ email, password }) => {
         }
         return result;
     } catch (error) {
+        alert('Usuário ou senha inválidos!')
         throw new Error(error.message);
     }
 }
