@@ -20,11 +20,8 @@ export default function UserManagement({ navigation }) {
         <TouchableHighlight
           style={styles.optionContainer}
           underlayColor="transparent"
-          onPress={() => {
-            console.log('Botão "Criar usuário" pressionado');
-            this.handleItemClick('Criar usuário');
-          }}
-        >
+          onPress={() => navigation.navigate('CreateUser')}
+          >
           <View style={styles.optionContainer}>
             <Icon name="user-plus" style={styles.optionIcon} />
             <Text style={styles.optionText}>Criar usuário</Text>

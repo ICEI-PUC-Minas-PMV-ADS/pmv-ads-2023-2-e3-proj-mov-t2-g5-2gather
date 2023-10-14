@@ -32,7 +32,6 @@ export default function TestAfterLogin( { navigation }  ) {
   return (
     <View>
         <Text>Seja bem vindo {name}</Text>
-
         <TouchableOpacity style={styles.buttonIn} 
           onPress={() => {clearStorage()}}>
           <Text style={styles.forgotPasswordText}>Clear Storage</Text>
