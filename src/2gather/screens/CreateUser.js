@@ -150,6 +150,7 @@ export default function CreateUser({ navigation }) {
                         }))}
                     />
 
+
                     <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
                         <Text style={styles.buttonText}>Criar</Text>
                     </TouchableOpacity>
