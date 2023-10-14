@@ -5,16 +5,17 @@ import TestAfterLogin from '../screens/TestAfterLogin';
 import EditUser from '../screens/EditUser';
 import InactivateUser from '../screens/InactivateUser';
 import UserManagement from '../screens/UserManagement';
+import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 
 const stack = createNativeStackNavigator();
 
 const MainNav = () => {
     return (
-        <stack.Navigator initialRouteName="TestAfterLogin">
+        <stack.Navigator initialRouteName="Homepage">
             <stack.Screen
-                name="TestAfterLogin"
-                component={TestAfterLogin}
+                name="Homepage"
+                component={Homepage}
                 options={{
                     header: () => null,
                 }}
@@ -36,7 +37,10 @@ const MainNav = () => {
                 name="UserManagement"
                 component={UserManagement}
             />
-
+                        <stack.Screen
+                name="CreateUser"
+                component={CreateUser}
+            />
 
         </stack.Navigator>
     );
