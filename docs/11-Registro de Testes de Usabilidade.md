@@ -2,6 +2,10 @@
 
 Abaixo será apresentado o resultado do questionário ASQ (After Scenario Questionnaire), a nota apresentada é a soma da pontuação das três perguntas que serão apresentadas após o usuário executar a tarefa referente a cada caso de teste.
 
+Respostas de testes de usabilidade.
+
+[Respostas.pdf](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/files/12908039/Respostas.pdf)
+
 |Caso de teste | Objetivo do teste | Tarefa| Nota da avaliação pós-tarefa (ASQ)|
 |------|-----------------------------------------|----|----|
 |CT-01 | Validar usabilidade de troca de mensagens | Troca de mensagem entre usuários |  |
