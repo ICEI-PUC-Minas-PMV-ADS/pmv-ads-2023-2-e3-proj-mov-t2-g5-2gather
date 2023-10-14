@@ -35,11 +35,11 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-02.3 - Remover Usuário na Interface Administrativa |RF-02 – A aplicação deve ter uma interface administrativa para gerenciar os usuários.|
+|CT-02.3 - Inativar Usuário na Interface Administrativa |RF-02 – A aplicação deve ter uma interface administrativa para gerenciar os usuários.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se a interface administrativa permite remover um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Remover um usuário</li></ol> |	O usuário deve ser removido da lista de usuários e não deve mais ter acesso ao sistema.
+|Verificar se a interface administrativa permite inativar um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Inativar um usuário</li></ol> |	O usuário deve ser removido da lista de usuários e não deve mais ter acesso ao sistema.
 
 
 | **Caso de teste** | **Requisitos Associados**|
