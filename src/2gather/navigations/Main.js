@@ -1,4 +1,4 @@
-/*import React from 'react';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import TestAfterLogin from '../screens/TestAfterLogin';
@@ -8,7 +8,7 @@ import UserManagement from '../screens/UserManagement';
 import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 
-const Stack = createNativeStackNavigator();
+const stack = createNativeStackNavigator();
 
 const MainNav = () => {
     return (
