@@ -37,11 +37,6 @@ const MainNav = () => {
                 name="UserManagement"
                 component={UserManagement}
             />
-                        <stack.Screen
-                name="CreateUser"
-                component={CreateUser}
-            />
-
         </stack.Navigator>
     );
 };

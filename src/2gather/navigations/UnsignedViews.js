@@ -21,10 +21,10 @@ const UnsignedViews = () => {
                 name="Login"
                 component={Login}
             />
-            <stack.Screen
+            {/* <stack.Screen
                 name="CreateUser"
                 component={CreateUser}
-            />
+            /> */}
 
         </stack.Navigator>
     );
