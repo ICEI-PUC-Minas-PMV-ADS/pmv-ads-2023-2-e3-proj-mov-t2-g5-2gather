@@ -9,9 +9,9 @@ export const GetUserList = async () => {
     }
 };
 
-export const updateUserStatus = async (userId, status) => {
+export const UpdateUserStatus = async ({userId, reason}) => {
     try {
-        const data = { status };
+        const data = { 'status':0 };
         const result = await sendAuthenticatedRequest(`/user/update/${userId}/admin/`, 'PATCH', data);
         return result;
     } catch (error) {
