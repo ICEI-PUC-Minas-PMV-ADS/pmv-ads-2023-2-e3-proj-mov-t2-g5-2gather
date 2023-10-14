@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   containerBody:{
     flex:1,
     backgroundColor: '#2368A2',
+    justifyContent: 'center',
     padding: '5%',
   },
 

@@ -6,14 +6,13 @@ import {
     StyleSheet,
     TouchableOpacity,
     Animated,
-    Image,
-    ScrollView
+    Image
 } from 'react-native';
-import { Register } from '../services/auth.services'
-import { GetRoles } from '../services/role.services'
-import leftarrow from '../../2gather/assets/leftarrow.png'
-import RNPickerSelect from 'react-native-picker-select';
+
+import * as Animatable from 'react-native-animatable'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import RNPickerSelect from 'react-native-picker-select';
 
 
 export default function CreateUser({ navigation }) {
@@ -22,6 +21,8 @@ export default function CreateUser({ navigation }) {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [role, setRole] = useState();
+    const [id, setId] = useState('');
+    const [sector, setSector] = useState('');
 
     const [showNotification, setShowNotification] = useState(false);
     const [roles, setRoles] = useState([]);
@@ -97,7 +98,7 @@ export default function CreateUser({ navigation }) {
         >
 
 
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 {showNotification && (
                     <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
                         <Text style={styles.notificationText}>
@@ -105,10 +106,18 @@ export default function CreateUser({ navigation }) {
                         </Text>
                     </Animated.View>
                 )}
-                <Text style={styles.header} onPress={() => navigation.goBack()}>
-                    <Image source={require('../assets/leftarrow.png')}></Image>
-                    <Text>Criar Usuário</Text>
-                </Text>
+                <View style={styles.header}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text>
+                            <Animatable.Image
+                                source={require('../assets/leftarrow.png')}
+                                resizeMode="contain"
+                                style={{ marginRight: 10 }}
+                            />
+                            <Text style={styles.textHeader}> Criar Usuário</Text>
+                        </Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.container2}>
                     <Text style={styles.headerInput}>Informe os dados abaixo</Text>
 
@@ -141,11 +150,12 @@ export default function CreateUser({ navigation }) {
                         }))}
                     />
 
+
                     <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
                         <Text style={styles.buttonText}>Criar</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </SafeAreaView>
         </KeyboardAwareScrollView>
     );
 };
@@ -153,8 +163,8 @@ export default function CreateUser({ navigation }) {
 const styles = StyleSheet.create({
 
     headerInput: {
-        marginBottom: '10%',
-        fontSize: 20
+        marginBottom: 30,
+        fontSize: 25
     },
     container: {
         flex: 1,
@@ -167,6 +177,7 @@ const styles = StyleSheet.create({
 
     },
     header: {
+        flexDirection: 'row',
         gap: 10,
         color: '#FFFCF4',
         fontSize: 20,
@@ -177,11 +188,12 @@ const styles = StyleSheet.create({
         padding: 0,
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'flex-start',
         paddingLeft: 10,
     },
     input: {
         height: 40,
-        borderColor: 'red',
+        borderColor: '#868E96',
         borderWidth: 1,
         marginBottom: 10,
         padding: 10,
@@ -212,5 +224,11 @@ const styles = StyleSheet.create({
     notificationText: {
         color: 'white',
         fontSize: 16,
-    }
+    },
+    textHeader: {
+        color: '#FFFCF4',  // Defini a cor para o texto
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+
 });
