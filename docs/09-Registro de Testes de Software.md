@@ -44,7 +44,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-02.3 - Remover Usuário na Interface Administrativa |RF-02 – A aplicação deve ter uma interface administrativa para gerenciar os usuários.|
+|CT-02.3 - Inativar Usuário na Interface Administrativa |RF-02 – A aplicação deve ter uma interface administrativa para gerenciar os usuários.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
