@@ -28,7 +28,9 @@ export default function Login( navigation ) {
         setName(res.name);
         for (const key in res) {
           if (res.hasOwnProperty(key)) {
-            AsyncStorage.setItem(key, res[key]).then();
+            if(res[key] !== null){
+              AsyncStorage.setItem(key, res[key]).then();
+            }
           }
         }
       } else {

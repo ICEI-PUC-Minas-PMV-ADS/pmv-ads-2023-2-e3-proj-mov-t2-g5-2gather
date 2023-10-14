@@ -5,6 +5,7 @@ import TestAfterLogin from '../screens/TestAfterLogin';
 import EditUser from '../screens/EditUser';
 import InactivateUser from '../screens/InactivateUser';
 import UserManagement from '../screens/UserManagement';
+import CreateUser from '../screens/CreateUser';
 
 const stack = createNativeStackNavigator();
 
@@ -17,6 +18,10 @@ const MainNav = () => {
                 options={{
                     header: () => null,
                 }}
+            />
+            <stack.Screen
+                name="CreateUser"
+                component={CreateUser}
             />
             <stack.Screen
                 name="EditUser"

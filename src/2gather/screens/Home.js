@@ -10,7 +10,7 @@ import {
 import * as Animatable from 'react-native-animatable'
 
 export default function Home({ navigation }) {
-  navigation.navigate('TestAfterLogin');
+
   return (
     <View style={styles.containerBody}> 
       

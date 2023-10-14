@@ -4,13 +4,13 @@ import {
     Text,
     TextInput,
     StyleSheet,
-
     TouchableOpacity,
     Animated,
     Image,
     ScrollView
 } from 'react-native';
 import { Register } from '../services/auth.services'
+import { GetRoles } from '../services/role.services'
 import leftarrow from '../../2gather/assets/leftarrow.png'
 import RNPickerSelect from 'react-native-picker-select';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -20,20 +20,26 @@ export default function CreateUser({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
     const [role, setRole] = useState();
 
     const [showNotification, setShowNotification] = useState(false);
     const [roles, setRoles] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     const slideAnim = useRef(new Animated.Value(-100)).current;
 
     const getRoles = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/role/list/');
-            const data = await response.json(); // Parse the JSON response
-            setRoles(data); // Update the state with the retrieved options
+            setLoading(true);
+            const result = await GetRoles() || [];
+            setRoles(result);
+            setError(null);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -41,23 +47,22 @@ export default function CreateUser({ navigation }) {
         return emailRegex.test(email);
     }
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (!isValidEmail(email)) {
             showSlideNotification();
             return;
         }
-        Register({ name: name, email: email, password: password, role: role }).then(res => {
-            showSlideNotification();
-            if(res.status === 201){
-                //passar uma mensaegm de success pro user
-                alert('Conta criada com sucesso')
-                navigation.navigate('Login');
-            }
-            else {
-                //passar uma msg de falha pro user
-                console.log('fail')
-            }
-        });
+        try {
+            const result = await Register({ name: name, email: email, phone: phone, password: password, role: role })
+            console.log(result);
+            alert('Conta criada com sucesso')
+            navigation.navigate('Login');
+        } catch (error) {
+            console.log(error)
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
 
@@ -86,58 +91,61 @@ export default function CreateUser({ navigation }) {
 
     return (
         <KeyboardAwareScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled={true}
+            contentContainerStyle={{ flexGrow: 1 }}
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            scrollEnabled={true}
         >
 
 
-        <View style={styles.container}>
-            {showNotification && (
-                <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
-                    <Text style={styles.notificationText}>
-                        Por favor, insira um endereço de e-mail válido.
-                    </Text>
-                </Animated.View>
-            )}
-            <Text style={styles.header} onPress={() => navigation.goBack()}>
-                <Image source={require('../assets/leftarrow.png')}></Image>
-                <Text>Criar Usuário</Text>
-            </Text>
-            <View style={styles.container2}>
-                <Text style={styles.headerInput}>Informe os dados abaixo</Text>
+            <View style={styles.container}>
+                {showNotification && (
+                    <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
+                        <Text style={styles.notificationText}>
+                            Por favor, insira um endereço de e-mail válido.
+                        </Text>
+                    </Animated.View>
+                )}
+                <Text style={styles.header} onPress={() => navigation.goBack()}>
+                    <Image source={require('../assets/leftarrow.png')}></Image>
+                    <Text>Criar Usuário</Text>
+                </Text>
+                <View style={styles.container2}>
+                    <Text style={styles.headerInput}>Informe os dados abaixo</Text>
 
-                <Text>Email Corporativo</Text>
-                <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+                    <Text>Email Corporativo</Text>
+                    <TextInput style={styles.input} value={email} onChangeText={setEmail} />
 
-                <Text>Senha</Text>
-                <TextInput
-                    style={styles.input}
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry
-                />
+                    <Text>Telefone</Text>
+                    <TextInput style={styles.input} value={phone} onChangeText={setPhone} />
 
-                <Text>Nome do Colaborador</Text>
-                <TextInput style={styles.input} value={name} onChangeText={setName} />
+                    <Text>Senha</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry
+                    />
 
-                <RNPickerSelect
-                    onValueChange={(value) => setRole(value)}
-                    placeholder={{
-                        label: 'Selecione um cargo',
-                        value: '',
-                    }}
-                    items={roles.map(item => ({
-                        label: item.name,
-                        value: item.id
-                    }))}
-                />
+                    <Text>Nome do Colaborador</Text>
+                    <TextInput style={styles.input} value={name} onChangeText={setName} />
 
-                <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
-                    <Text style={styles.buttonText}>Criar</Text>
-                </TouchableOpacity>
+                    <RNPickerSelect
+                        onValueChange={(value) => setRole(value)}
+                        placeholder={{
+                            label: 'Selecione um cargo',
+                            value: '',
+                        }}
+                        items={roles.map(item => ({
+                            label: item.name,
+                            value: item.id
+                        }))}
+                    />
+
+                    <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
+                        <Text style={styles.buttonText}>Criar</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
         </KeyboardAwareScrollView>
     );
 };
