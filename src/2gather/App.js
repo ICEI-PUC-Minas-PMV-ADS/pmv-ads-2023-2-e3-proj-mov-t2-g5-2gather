@@ -29,11 +29,11 @@ function MyStack() {
 
 export default function App() {
   return (
-    <UserContext.Provider>
+    <UserProvider>
       <NavigationContainer>
         <MyStack />
       </NavigationContainer>
-    </UserContext.Provider>
+    </UserProvider>
   );
 }
 

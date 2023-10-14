@@ -1,25 +1,28 @@
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { 
-  View, 
-  Image, 
-  StyleSheet, 
-  Text, 
-  TextInput, 
+import {
+  View,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
   TouchableOpacity,
-  ScrollView } from 'react-native';
+  ScrollView
+} from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import * as Animatable from 'react-native-animatable'
 import { useState } from 'react';
 import { SignIn } from '../services/auth.services.js'
 import { useUser } from '../contexts/UserContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function Login( navigation ) {
-  const {setSigned, setName} = useUser();
+export default function Login(navigation) {
+  const { setSigned, setName } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleSignIn = () => {
 
     SignIn({ email: email, password: password }).then(res => {
@@ -28,7 +31,7 @@ export default function Login( navigation ) {
         setName(res.name);
         for (const key in res) {
           if (res.hasOwnProperty(key)) {
-            if(res[key] !== null){
+            if (res[key] !== null) {
               AsyncStorage.setItem(key, res[key]).then();
             }
           }
@@ -42,60 +45,69 @@ export default function Login( navigation ) {
 
   return (
     <KeyboardAwareScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        scrollEnabled={true}
-      >
-    <View style={styles.containerBody}>
+      contentContainerStyle={{ flexGrow: 1 }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={true}
+    >
+      <View style={styles.containerBody}>
 
-      <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
-        <Image
-          source={require('../assets/logo.png')}
-          style={{width:'60%'}}
-          resizeMode="contain"
-        />
-      </Animatable.View>
-      
-      <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
-        <Text style={styles.message}>Entre e conecte-se com a sua equipe de trabalho!</Text>
-      </Animatable.View>
+        <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
+          <Image
+            source={require('../assets/logo.png')}
+            style={{ width: '60%' }}
+            resizeMode="contain"
+          />
+        </Animatable.View>
 
-      <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-        <Text style={styles.loginLabel}>E-mail</Text>
-        <TextInput
-          value={email}
-          placeholder="Digite seu e-mail..."
-          style={styles.input}
-          keyboardType="email-address"
-          outoCorrect={false}
-          onChangeText={(text) => setEmail(text)}
-        />
+        <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+          <Text style={styles.message}>Entre e conecte-se com a sua equipe de trabalho!</Text>
+        </Animatable.View>
 
-        <Text style={styles.loginLabel}>Senha</Text>
-        <TextInput
-          value={password}
-          placeholder="Digite a senha"
-          style={styles.input}
-          keyboardType="email-address"
-          secureTextEntry
-          outoCorrect={false}
-          onChangeText={(text) => setPassword(text)}
-        />
-    
+        <Animatable.View animation="fadeInUp" style={styles.containerForm}>
+          <Text style={styles.loginLabel}>E-mail</Text>
+          <TextInput
+            value={email}
+            placeholder="Digite seu e-mail..."
+            style={styles.input}
+            keyboardType="email-address"
+            outoCorrect={false}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <View style={styles.inputPasswordContainer}>
+            <TextInput style={styles.password}
+              value={password}
+              placeholder="Digite a senha..."
+              keyboardType="email-address"
+              secureTextEntry={!showPassword}
+              autoCorrect={false}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <TouchableOpacity
+              style={styles.icon}
+              onPress={() => setShowPassword(!showPassword)}
+            >
+              <MaterialCommunityIcons
+                name={showPassword ? 'eye-off' : 'eye'}
+                size={24}
+                color="#21252A"
+              />
+            </TouchableOpacity>
+          </View>
 
-        <TouchableOpacity style={styles.buttonForgotPassword} 
-          onPress={() => {console.log('On press acionado!')}}>
-          <Text style={styles.forgotPasswordText}>Esqueceu a senha?</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonIn}
-          onPress={() => {handleSignIn()}}>
-          <Text style={styles.buttonText}>Entrar</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonForgotPassword}
+            onPress={() => { console.log('On press acionado!') }}>
+            <Text style={styles.forgotPasswordText}>Esqueceu a senha?</Text>
+          </TouchableOpacity>
 
-      </Animatable.View>
+          <TouchableOpacity style={styles.buttonIn}
+            onPress={() => { handleSignIn() }}>
+            <Text style={styles.buttonText}>Entrar</Text>
+          </TouchableOpacity>
 
-    </View>
+        </Animatable.View>
+
+      </View>
     </KeyboardAwareScrollView>
   )
 };
@@ -105,86 +117,109 @@ const styles = StyleSheet.create({
     //fontFamily: 'Inter', // Use o nome da fonte exato aqui
     fontSize: 16,
   },
-  containerBody:{
-    flex:1,
+  containerBody: {
+    flex: 1,
     backgroundColor: '#2368A2',
     justifyContent: 'space-between',
-},
+  },
 
-containerLogo:{
-  flex:1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginTop: -90,
-  marginBottom: -90,
- },
-
- 
-containerHeader:{
-  marginRight: '10%',
-  paddingStart: '10%',
-  justifyContent: 'center',
-},
-
-message:{
-  fontSize: 22,
-  color: "#FFFFFF",
-},
-
-containerForm:{
-  flex:1,
-  backgroundColor: '#2368A2',
-  width: '80%',
-  marginLeft: '10%',
-  marginRight: '10%',
-  marginBottom: 5,
-  marginTop: 15,  
-},
+  containerLogo: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -90,
+    marginBottom: -90,
+  },
 
 
-input: {
-  borderBottomWidth: 1,
-  marginBottom: 20,
-  fontSize: 16,
-  backgroundColor: '#AAD4F5',
-  borderRadius: 10,
-  paddingStart: 10,
-  width: '100%',
-  height: 50,
-},
+  containerHeader: {
+    marginRight: '10%',
+    paddingStart: '10%',
+    justifyContent: 'center',
+  },
 
-loginLabel: {
-  color: '#FFFFFF',
-  marginTop: 12,
-},
+  message: {
+    fontSize: 22,
+    color: "#FFFFFF",
+  },
 
-buttonForgotPassword:{
-  marginTop: 2,
-  marginBottom: 30,
-},
+  containerForm: {
+    flex: 1,
+    backgroundColor: '#2368A2',
+    width: '80%',
+    marginLeft: '10%',
+    marginRight: '10%',
+    marginBottom: 5,
+    marginTop: 15,
+  },
 
-forgotPasswordText:{
-  color: '#FFFFFF',
-  alignSelf: 'flex-end',
-}, 
 
-buttonIn:{
-  backgroundColor: "#1A4971",
-  borderRadius: 10,
-  paddingVertical: 8, 
-  width: '100%',
-  height: 50,
-  marginTop: '5%',
-  marginBottom: 10,
-  alignItems: 'center',
-  justifyContent: 'center',
-},
+  input: {
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    fontSize: 16,
+    backgroundColor: '#AAD4F5',
+    borderRadius: 10,
+    paddingStart: 10,
+    width: '100%',
+    height: 50,
+  },
 
-buttonText: {
+  loginLabel: {
+    color: '#FFFFFF',
+    marginTop: 12,
+  },
+
+  buttonForgotPassword: {
+    marginTop: 2,
+    marginBottom: 30,
+  },
+
+  forgotPasswordText: {
+    color: '#FFFFFF',
+    alignSelf: 'flex-end',
+  },
+
+  buttonIn: {
+    backgroundColor: "#1A4971",
+    borderRadius: 10,
+    paddingVertical: 8,
+    width: '100%',
+    height: 50,
+    marginTop: '5%',
+    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonText: {
     fontSize: 18,
     color: '#FFFFFF',
     fontWeight: 'bold',
   },
+  password: {
+    fontSize: 16,
+    height: '100%',
+    width: '80%',
+    borderRadius: 10,
+    paddingStart: 10,
 
-}
-);
+  },
+  icon: {
+    marginRight: 15,
+  },
+  inputPasswordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    backgroundColor: '#AAD4F5',
+    borderRadius: 10,
+    height: 50,
+    display: 'flex',
+    justifyContent: 'space-between',
+    //paddingStart: 10,
+    width: '100%',
+
+  },
+})
