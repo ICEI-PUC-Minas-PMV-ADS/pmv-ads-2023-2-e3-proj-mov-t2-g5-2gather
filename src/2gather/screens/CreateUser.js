@@ -4,7 +4,6 @@ import {
     Text,
     TextInput,
     StyleSheet,
-
     TouchableOpacity,
     Animated,
 } from 'react-native';
@@ -18,40 +17,59 @@ export default function CreateUser({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
     const [role, setRole] = useState();
     const [id, setId] = useState('');
     const [sector, setSector] = useState('');
 
     const [showNotification, setShowNotification] = useState(false);
     const [roles, setRoles] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     const slideAnim = useRef(new Animated.Value(-100)).current;
 
     const getRoles = async () => {
-        GetRoles().then(r => {
-            if (r !== null) {
-                setRoles(r)
-            } else {
-                //erro pro user
-            }
-        })
+        try {
+            setLoading(true);
+            const result = await GetRoles() || [];
+            setRoles(result);
+            setError(null);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     function isValidEmail(email) {
         return emailRegex.test(email);
     }
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (!isValidEmail(email)) {
             showSlideNotification();
             return;
         }
-        //console.log('Usuário criado');
+        try {
+            const result = await Register({ name: name, email: email, phone: phone, password: password, role: role })
+            console.log(result);
+            alert('Conta criada com sucesso')
+            navigation.navigate('Login');
+        } catch (error) {
+            console.log(error)
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
-    };
 
+    useEffect(() => {
+        getRoles();
+    }, []);
 
-    const showSlideNotification = () => {
+    const showSlideNotification = () => { // sempre pensar em reutilização em formato de componenetes... isso seria bem mais util caso desse pra passar o texto & tipo e ser reutilizado em todos nossos templates.
         setShowNotification(true);
         Animated.timing(slideAnim, {
             toValue: 0,
@@ -71,7 +89,14 @@ export default function CreateUser({ navigation }) {
     }
 
     return (
-            <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            scrollEnabled={true}
+        >
+
+
+            <View style={styles.container}>
                 {showNotification && (
                     <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
                         <Text style={styles.notificationText}>
@@ -79,55 +104,48 @@ export default function CreateUser({ navigation }) {
                         </Text>
                     </Animated.View>
                 )}
-                <View style={styles.header}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Text>
-                            <Animatable.Image
-                                source={require('../assets/leftarrow.png')}
-                                resizeMode="contain"
-                                style={{ marginRight: 10 }}
-                            />
-                            <Text style={styles.textHeader}> Criar Usuário</Text>
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-
+                <Text style={styles.header} onPress={() => navigation.goBack()}>
+                    <Image source={require('../assets/leftarrow.png')}></Image>
+                    <Text>Criar Usuário</Text>
+                </Text>
                 <View style={styles.container2}>
                     <Text style={styles.headerInput}>Informe os dados abaixo</Text>
 
-                    <Text>ID do Usuário</Text>
-                    <TextInput style={styles.input} value={id} onChangeText={(text) => setId(text)} />
-
                     <Text>Email Corporativo</Text>
-                    <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
+                    <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+
+                    <Text>Telefone</Text>
+                    <TextInput style={styles.input} value={phone} onChangeText={setPhone} />
 
                     <Text>Senha</Text>
                     <TextInput
                         style={styles.input}
                         value={password}
-                        onChangeText={(text) => setPassword(text)}
+                        onChangeText={setPassword}
                         secureTextEntry
                     />
 
                     <Text>Nome do Colaborador</Text>
-                    <TextInput style={styles.input} value={name} onChangeText={(text) => setName(text)} />
+                    <TextInput style={styles.input} value={name} onChangeText={setName} />
 
-                    <Text>Setor</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={sector}
-                        onChangeText={setSector}
+                    <RNPickerSelect
+                        onValueChange={(value) => setRole(value)}
+                        placeholder={{
+                            label: 'Selecione um cargo',
+                            value: '',
+                        }}
+                        items={roles.map(item => ({
+                            label: item.name,
+                            value: item.id
+                        }))}
                     />
-
-                    <Text>Cargo</Text>
-                    <TextInput style={styles.input} value={role} onChangeText={(text) => setRole(text)} />
 
                     <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
                         <Text style={styles.buttonText}>Criar</Text>
                     </TouchableOpacity>
                 </View>
-            </SafeAreaView>
-        
+            </View>
+        </KeyboardAwareScrollView>
     );
 };
 
