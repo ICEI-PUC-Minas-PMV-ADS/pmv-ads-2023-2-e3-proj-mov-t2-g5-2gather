@@ -99,7 +99,7 @@ export default function EditUser({ navigation }) {
                     <TouchableOpacity style={styles.buttonSave} onPress={() => { handleSubmit() }}>
                         <Text style={styles.buttonText}>Salvar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonCancel} onPress={''}>
+                    <TouchableOpacity style={styles.buttonCancel} onPress={() => navigation.navigate("UserManagement")}>
                         <Text style={styles.buttonText}>Cancelar</Text>
                     </TouchableOpacity>
                 </View>
