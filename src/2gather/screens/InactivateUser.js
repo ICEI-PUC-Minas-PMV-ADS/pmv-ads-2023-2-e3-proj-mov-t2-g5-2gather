@@ -2,7 +2,30 @@ import React from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Appbar } from 'react-native-paper';
 
+import { InactivateUserScreen } from '../services/auth.services';
+
 export default function InactivateUser({ navigation }) {
+  const [userId, setUserId] = useState('');
+  const [email, setEmail] = useState(''); 
+  const [name, setName] = useState(''); 
+  const [reason, setReason] = useState('');
+
+  const handleInactivateUser = async () => {
+    if (userId && reason) {
+      const success = await InactivateUser({ userId, email, reason }); 
+      if (success) {
+        // inativação bem-sucedida
+        console.log('Usuário inativado com sucesso');
+      } else {
+        // tratar caso de falha na inativação
+        console.log('Falha na inativação do usuário');
+      }
+    } else {
+      // lidar com campos em branco ou validação
+      console.log('Preencha todos os campos');
+    }
+  };
+
   return (
     <View style={styles.containerBody}>
       <View style={styles.container}>
@@ -51,9 +74,7 @@ export default function InactivateUser({ navigation }) {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[styles.button, { backgroundColor: '#FAE29F', width: 89, height: 60 }]}
-            onPress={() => {
-             
-            }}
+            onPress={handleInactivateUser}
           >
             <Text style={styles.buttonText}>Inativar</Text>
           </TouchableOpacity>

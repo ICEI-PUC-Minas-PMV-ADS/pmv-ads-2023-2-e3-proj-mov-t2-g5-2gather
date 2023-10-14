@@ -45,3 +45,27 @@ export const Register = async ({ name, email, password, role }) => {
         return null;
     }
 };
+
+export const InactivateUserScreen = async ({ userId, email, reason }) => {
+    try {
+      const token = await AsyncStorage.getItem('access'); 
+      const response = await fetch(`${URL}/inactivate-user/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userId, email, reason }),
+      });
+      
+      if (response.ok) {
+        return true; // para inativação bem-sucedida
+      } else {
+        return false; // para inativação falha
+      }
+    } catch (error) {
+      console.log(error);
+      return false; // para erro durante a inativação
+    }
+  };
+  
