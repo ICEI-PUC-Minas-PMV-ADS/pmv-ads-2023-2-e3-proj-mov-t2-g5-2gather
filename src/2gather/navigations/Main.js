@@ -5,42 +5,44 @@ import TestAfterLogin from '../screens/TestAfterLogin';
 import EditUser from '../screens/EditUser';
 import InactivateUser from '../screens/InactivateUser';
 import UserManagement from '../screens/UserManagement';
+import Homepage from '../screens/Homepage';
+import CreateUser from '../screens/CreateUser';
 
 const Stack = createNativeStackNavigator();
 
 const MainNav = () => {
     return (
-        <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen
-                name="Home"
-                component={Home}
+        <stack.Navigator initialRouteName="Homepage">
+            <stack.Screen
+                name="Homepage"
+                component={Homepage}
                 options={{
                     header: () => null,
                 }}
-                />
-            <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{
-                    header: () => null,
-                }}
-                />
-            <Stack.Screen
+            />
+            <stack.Screen
                 name="CreateUser"
                 component={CreateUser}
-                options={{
-                    headerShown: false,
-                }}
-                />
-            <Stack.Screen
-                name="NewScreenTest"
-                component={NewScreenTest}
-                options={{
-                    header: () => null,
-                }}
-                />
+            />
+            <stack.Screen
+                name="EditUser"
+                component={EditUser}
+            />
+            <stack.Screen
+                name="InactivateUser"
+                component={InactivateUser}
 
-        </Stack.Navigator>
+            />
+            <stack.Screen
+                name="UserManagement"
+                component={UserManagement}
+            />
+                        <stack.Screen
+                name="CreateUser"
+                component={CreateUser}
+            />
+
+        </stack.Navigator>
     );
 };
 
