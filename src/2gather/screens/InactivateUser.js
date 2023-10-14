@@ -1,13 +1,46 @@
-import React from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, Picker } from 'react-native';
 import { Appbar } from 'react-native-paper';
+import { GetUserList } from '../services/user.services';
 
 export default function InactivateUser({ navigation }) {
+  const [userId, setUserId] = useState(''); 
+  const [reason, setReason] = useState('');
+  const [userList, setUserList] = useState([]); 
+
+  useEffect(() => {
+    async function fetchUserList() {
+      try {
+        const users = await GetUserList();
+        setUserList(users);
+      } catch (error) {
+        console.error('Erro ao buscar a lista de usuários:', error);
+      }
+    }
+    fetchUserList();
+  }, []);
+
+  const handleInactivateUser = async () => {
+    if (userId && reason) {
+      const success = await InactivateUser({ userId, reason });
+      if (success) {
+        // inativação bem-sucedida
+        console.log('Usuário inativado com sucesso');
+      } else {
+        // tratar caso de falha na inativação
+        console.log('Falha na inativação do usuário');
+      }
+    } else {
+      // lidar com campos em branco ou validação
+      console.log('Preencha todos os campos');
+    }
+  };
+
   return (
     <View style={styles.containerBody}>
       <View style={styles.container}>
         <Appbar.Header style={styles.header}>
-          <Appbar.BackAction onPress={() => {}} />
+          <Appbar.BackAction onPress={() => navigation.navigate('UserManagement')} />
           <View style={styles.rowContainer}>
             <Text style={styles.title}>Inativar usuário</Text>
           </View>
@@ -20,40 +53,33 @@ export default function InactivateUser({ navigation }) {
         </Text>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>ID usuário</Text>
-          <TextInput
-            style={[styles.input, { backgroundColor: 'white' }]}
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Email corporativo</Text>
-          <TextInput
-            style={[styles.input, { backgroundColor: 'white' }]}
-            keyboardType="email-address"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Nome do colaborador</Text>
-          <TextInput
-            style={[styles.input, { backgroundColor: 'white' }]}
-          />
+          <Text style={styles.inputTitle}>Escolher usuário</Text>
+          <Picker
+            selectedValue={userId}
+            onValueChange={(itemValue) => setUserId(itemValue)}
+          >
+            {userList.map((user) => (
+              <Picker.Item
+                key={user.id}
+                label={user.email}
+                value={user.id}
+              />
+            ))}
+          </Picker>
         </View>
 
         <View style={styles.inputContainer}>
           <Text style={styles.inputTitle}>Motivo</Text>
           <TextInput
             style={[styles.input, { backgroundColor: 'white' }]}
+            onChangeText={setReason}
           />
         </View>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={[styles.button, { backgroundColor: '#FAE29F', width: 89, height: 60 }]}
-            onPress={() => {
-             
-            }}
+            onPress={handleInactivateUser}
           >
             <Text style={styles.buttonText}>Inativar</Text>
           </TouchableOpacity>
@@ -63,7 +89,9 @@ export default function InactivateUser({ navigation }) {
           <TouchableOpacity
             style={[styles.button, { backgroundColor: '#ADB5BD', width: 104, height: 60 }]}
             onPress={() => {
-      
+              setUserId(''); 
+              setReason(''); 
+              navigation.navigate('UserManagement')
             }}
           >
             <Text style={styles.buttonText}>Cancelar</Text>

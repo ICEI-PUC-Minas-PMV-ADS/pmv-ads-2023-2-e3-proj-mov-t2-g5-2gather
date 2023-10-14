@@ -21,6 +21,10 @@ const MainNav = () => {
                 }}
             />
             <stack.Screen
+                name="CreateUser"
+                component={CreateUser}
+            />
+            <stack.Screen
                 name="EditUser"
                 component={EditUser}
             />

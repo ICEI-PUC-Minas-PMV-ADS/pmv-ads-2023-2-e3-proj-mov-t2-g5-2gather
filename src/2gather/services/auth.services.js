@@ -37,6 +37,24 @@ export const Register = async ({ name, phone, email, password, role }) => {
     }
 };
 
+export const InactivateUserScreen = async (userId, reason) => {
+    try {
+      const token = await AsyncStorage.getItem('access'); 
+      const data = { status: 0, reason }; // Status 0 para inativar
+      const response = await sendAuthenticatedRequest(`/user/update/${userId}/admin/`, 'PATCH', data);
+
+      if (response.ok) {
+        return true; // para inativação bem-sucedida
+      } else {
+        return false; // para inativação falha
+      }
+    } catch (error) {
+      console.log(error);
+      return false; // para erro durante a inativação
+    }
+};
+  
+
 export const tokenRefresh = async () => {
     try {
         const refresh = await AsyncStorage.getItem('refresh');

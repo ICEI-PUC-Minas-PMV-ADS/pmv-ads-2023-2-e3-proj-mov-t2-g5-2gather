@@ -29,6 +29,10 @@ const getRoles = async () => {
 export default function TestAfterLogin( { navigation }  ) {
   const {signed, name} = useUser();
 
+  const navigateToUserManagement = () => {
+    navigation.navigate('UserManagement');
+  };
+
   return (
     <View>
         <Text>Seja bem vindo {name}</Text>
@@ -40,6 +44,10 @@ export default function TestAfterLogin( { navigation }  ) {
         <TouchableOpacity style={styles.buttonIn} 
           onPress={() => {getRoles()}}>
           <Text style={styles.forgotPasswordText}>Test Auth</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonIn} onPress={navigateToUserManagement}>
+        <Text style={styles.forgotPasswordText}>User Management</Text>
         </TouchableOpacity>
     </View>
     
