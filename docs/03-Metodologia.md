@@ -69,7 +69,7 @@ A metodologia de gestão de projeto adotada será o Scrum e o Kanban. Todas as t
 
 - `Backlog`: Contém todas as atividades que devem ser realizadas no projeto, desde a documentação até o desenvolvimento da aplicação.
 - `To-do`: Lista as tarefas definidas previamente para a sprint atual, e deve ser atualizada com a data de início da sprint.
-- `In progress`: Contém as tarefas em andamento durante a sprint atual.
+- `In Progress`: Contém as tarefas em andamento durante a sprint atual.
 - `Validating`: Contém as tarefas que precisam ser testadas.
 - `Done`: Contém todas as tarefas finalizadas, independentemente da sprint.
 
