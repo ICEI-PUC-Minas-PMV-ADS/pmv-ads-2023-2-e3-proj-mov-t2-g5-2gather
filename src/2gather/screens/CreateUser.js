@@ -128,19 +128,27 @@ export default function CreateUser({ navigation }) {
 
                     <Text>Nome do Colaborador</Text>
                     <TextInput style={styles.input} value={name} onChangeText={setName} />
-
-                    <RNPickerSelect
+                    
+                    <Text>Cargo</Text>
+                    <View style={styles.input}>
+                    <RNPickerSelect      
                         onValueChange={(value) => setRole(value)}
                         placeholder={{
-                            label: 'Selecione um cargo',
+                            label: 'Click e selecione um cargo',
                             value: '',
                         }}
                         items={roles.map(item => ({
                             label: item.name,
                             value: item.id
                         }))}
-                    />
+                        style={{ 
+                            inputIOS: {backgroundColor: '#ecf0f1', borderRadius: 0, paddingHorizontal: 50, color: 'black', },
+                            inputAndroid: {backgroundColor: '#ecf0f1', borderRadius: 0, paddingHorizontal: 50, color: 'black', },
+                            imputWeb: {backgroundColor: '#ecf0f1', borderRadius: 0, paddingHorizontal: 50, color: 'black', },
+                        }}
 
+                    />
+                    </View>
                     <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
                         <Text style={styles.buttonText}>Criar</Text>
                     </TouchableOpacity>
