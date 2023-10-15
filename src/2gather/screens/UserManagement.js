@@ -3,12 +3,23 @@ import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function UserManagement({ navigation }) {
+import CreateUser from '../screens/CreateUser';
+import EditUser from '../screens/EditUser';
+import InactivateUser from '../screens/InactivateUser';
+import { useNavigation } from '@react-navigation/native';
+
+export default function UserManagement() {
+  const navigation = useNavigation();
+
+  const handleNavigation = (routeName) => {
+    navigation.navigate(routeName);
+  };
+
   return (
     <View style={styles.containerBody}>
       <View style={styles.container}>
         <Appbar.Header style={styles.header}>
-          <Appbar.BackAction onPress={() => {}} />
+          <Appbar.BackAction onPress={() => {navigation.navigate("Homepage")}} />
           <View style={styles.rowContainer}>
             <Text style={styles.titleHeader}>Gerenciamento de usuários</Text>
           </View>
@@ -22,7 +33,7 @@ export default function UserManagement({ navigation }) {
           underlayColor="transparent"
           onPress={() => {
             console.log('Botão "Criar usuário" pressionado');
-            this.handleItemClick('Criar usuário');
+            handleNavigation('CreateUser'); 
           }}
         >
           <View style={styles.optionContainer}>
@@ -35,7 +46,7 @@ export default function UserManagement({ navigation }) {
           underlayColor="transparent"
           onPress={() => {
             console.log('Botão "Editar usuário" pressionado');
-            this.handleItemClick('Editar usuário');
+            handleNavigation('EditUser'); 
           }}
         >
           <View style={styles.optionContainer}>
@@ -48,7 +59,7 @@ export default function UserManagement({ navigation }) {
           underlayColor="transparent"
           onPress={() => {
             console.log('Botão "Inativar usuário" pressionado');
-            this.handleItemClick('Inativar usuário');
+            handleNavigation('InactivateUser'); 
           }}
         >
           <View style={styles.optionContainer}>
@@ -60,6 +71,7 @@ export default function UserManagement({ navigation }) {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

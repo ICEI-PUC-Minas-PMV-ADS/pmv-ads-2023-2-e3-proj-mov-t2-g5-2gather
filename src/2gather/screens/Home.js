@@ -31,9 +31,9 @@ export default function Home({ navigation }) {
       <Text style={styles.buttonLoginText}>Fazer login</Text>
       </TouchableOpacity> 
 
-      <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("CreateUser")}>
+      {/* <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("CreateUser")}>
       <Text style={styles.buttonLoginText}>Criar Usuário</Text>
-      </TouchableOpacity> 
+      </TouchableOpacity>  */}
 
     </View>
   )
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   containerBody:{
     flex:1,
     backgroundColor: '#2368A2',
+    justifyContent: 'center',
     padding: '5%',
   },
 

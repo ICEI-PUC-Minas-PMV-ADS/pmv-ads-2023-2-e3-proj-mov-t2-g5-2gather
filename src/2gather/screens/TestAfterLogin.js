@@ -7,22 +7,47 @@ import {
   } from 'react-native';
 import { useUser } from '../contexts/UserContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { GetRoles, createRole } from '../services/role.services'
 
 function clearStorage(){
   AsyncStorage.clear()
 }
+
+const getRoles = async () => {
+  try {
+    const result = await createRole() || [];
+    console.log(result)
+
+  } catch (error) {
+
+  } finally {
+
+  }
+};
+
   
 export default function TestAfterLogin( { navigation }  ) {
   const {signed, name} = useUser();
 
+  const navigateToUserManagement = () => {
+    navigation.navigate('UserManagement');
+  };
+
   return (
     <View>
         <Text>Seja bem vindo {name}</Text>
-
         <TouchableOpacity style={styles.buttonIn} 
           onPress={() => {clearStorage()}}>
           <Text style={styles.forgotPasswordText}>Clear Storage</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonIn} 
+          onPress={() => {getRoles()}}>
+          <Text style={styles.forgotPasswordText}>Test Auth</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonIn} onPress={navigateToUserManagement}>
+        <Text style={styles.forgotPasswordText}>User Management</Text>
         </TouchableOpacity>
     </View>
     

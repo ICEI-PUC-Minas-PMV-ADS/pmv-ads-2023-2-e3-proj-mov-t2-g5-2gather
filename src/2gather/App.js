@@ -1,7 +1,15 @@
-import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import UserProvider from './contexts/UserContext';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import Home from './screens/Home';
+import Login from './screens/Login';
+import TestAfterLogin from './screens/TestAfterLogin';
+import CreateUser from './screens/CreateUser';
+import EditUser from './screens/EditUser';
+import InactivateUser from './screens/InactivateUser';
+import UserManagement from './screens/UserManagement';
 import Route from './navigations/Route';
+import UserProvider from './contexts/UserContext';
 
 const App = () => {
   return (
@@ -11,6 +19,6 @@ const App = () => {
       </NavigationContainer>
     </UserProvider>
   );
-};
+}
 
 export default App;

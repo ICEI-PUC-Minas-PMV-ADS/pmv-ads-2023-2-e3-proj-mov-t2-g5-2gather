@@ -69,7 +69,7 @@ A metodologia de gestão de projeto adotada será o Scrum e o Kanban. Todas as t
 
 - `Backlog`: Contém todas as atividades que devem ser realizadas no projeto, desde a documentação até o desenvolvimento da aplicação.
 - `To-do`: Lista as tarefas definidas previamente para a sprint atual, e deve ser atualizada com a data de início da sprint.
-- `In progress`: Contém as tarefas em andamento durante a sprint atual.
+- `In Progress`: Contém as tarefas em andamento durante a sprint atual.
 - `Validating`: Contém as tarefas que precisam ser testadas.
 - `Done`: Contém todas as tarefas finalizadas, independentemente da sprint.
 
@@ -77,7 +77,9 @@ Ao receber uma tarefa que estará listada na coluna "To-do", a pessoa estudante 
 
 <br>
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/f416b2e4-f09c-4445-b330-b5c1aad95562)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/8f8e24cc-1ceb-4e79-8b3d-594ded6a7d24)
+
+
 <br>
 
 <p align="center">Figura 03 - Representação do Quadro de Gerenciamento</p align="center">
