@@ -7,6 +7,7 @@ import InactivateUser from '../screens/InactivateUser';
 import UserManagement from '../screens/UserManagement';
 import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
+import Profile from '../screens/Profile';
 
 const stack = createNativeStackNavigator();
 
@@ -37,6 +38,11 @@ const MainNav = () => {
                 name="UserManagement"
                 component={UserManagement}
             />
+            <stack.Screen
+                name="Profile"
+                component={Profile}
+            />
+            
         </stack.Navigator>
     );
 };
