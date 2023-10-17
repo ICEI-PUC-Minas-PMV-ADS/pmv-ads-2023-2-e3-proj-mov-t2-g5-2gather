@@ -6,18 +6,10 @@ import { Camera, CameraType } from 'expo-camera';
 import { FontAwesome } from '@expo/vector-icons';
 import { useUser } from '../contexts/UserContext';
 import { useNavigation } from '@react-navigation/native';
-//import { BackHandler } from 'react-native';
 
 export default function Profile({ navigation }) {
-  
-  //const navigation = useNavigation();
-  //const handleLogout = () => {
-    //BackHandler.exitApp();
-    //navigation.navigate('Login');
-    
 
   const { signed, email, name, telefone, role } = useUser();
-  
 
   return (
     <SafeAreaView style={styles.container}>
