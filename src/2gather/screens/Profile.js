@@ -6,11 +6,14 @@ import { Camera, CameraType } from 'expo-camera';
 import { FontAwesome } from '@expo/vector-icons';
 import { useUser } from '../contexts/UserContext';
 import { useNavigation } from '@react-navigation/native';
-//import { BackHandler } from 'react-native';
+
+export default function Profile({ navigation }) {
+
+  const { signed, email, name, telefone, role } = useUser();
+
 import * as MediaLibrary from 'expo-media-library';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../services/auth.services';
-
 
 export default function Profile({ navigation }) {
 
@@ -98,6 +101,7 @@ export default function Profile({ navigation }) {
   }
 
 */}
+
 
   return (
     <SafeAreaView style={styles.container}>

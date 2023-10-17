@@ -7,18 +7,19 @@ import {
   TextInput,
   Image,
   FlatList,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 
-export default function Contatos({ navigation }) {
+export default function Contacts({ navigation }) {
   
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
-  
+
   const getContacts = async () => {
     try {      
         const result = await GetUserList() || [];
@@ -27,7 +28,8 @@ export default function Contatos({ navigation }) {
         console.log(result)
     } catch (error) {
         console.log(error)
-    } finally {       
+    } finally {  
+        
     }
 };
 
@@ -36,12 +38,17 @@ useEffect(() => {
   getContacts();
 }, []);
 
+
+  const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <View style={styles.contactItem}>
-      <Image style={styles.contactPhoto} source={{ uri: item.photo }} />     
+    <TouchableOpacity onPress={() => console.log("Deverá abrir a tela de conversa com usuário escolhido!")}>
+      <View style={styles.contactItem}> 
+      <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
       <Text style={styles.contactText}>{item.name}</Text>
     </View>
+    </TouchableOpacity>
   );
+    
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,7 +66,7 @@ useEffect(() => {
         </View>
       </View>
       <View style={styles.container1}>
-      <ScrollView>
+        <ScrollView>
         <FlatList
           contentContainerStyle={styles.itemList}
           data={contacts}

@@ -8,7 +8,7 @@ import UserManagement from '../screens/UserManagement';
 import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
-import Contatos from '../screens/Contatos';
+import Contacts from '../screens/Contacts';
 
 const stack = createNativeStackNavigator();
 
@@ -44,8 +44,8 @@ const MainNav = () => {
                 component={Profile}
             />
              <stack.Screen
-                name="Contatos"
-                component={Contatos}
+                name="Contacts"
+                component={Contacts}
             />
         </stack.Navigator>
     );
