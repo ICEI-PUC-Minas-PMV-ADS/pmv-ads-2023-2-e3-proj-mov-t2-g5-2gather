@@ -7,31 +7,83 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useUser } from '../contexts/UserContext';
 import { useNavigation } from '@react-navigation/native';
 //import { BackHandler } from 'react-native';
+import * as MediaLibrary from 'expo-media-library';
+
 
 export default function Profile({ navigation }) {
-  
   //const navigation = useNavigation();
   //const handleLogout = () => {
-    //BackHandler.exitApp();
-    //navigation.navigate('Login');
-    
+  //BackHandler.exitApp();
 
   const { signed, email, name, telefone, role } = useUser();
-  
+
+ //const [status, requestPermission] = Camera.useCameraPermissions();
+
+  const camRef = useRef(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [hasPermission, setHaspermission] = useState(null);
+  const [capturePhoto, setCapturePhoto] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [cameraVisible, setCameraVisible] = useState(false);
+  const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
+
+{/* 
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHaspermission(status === "granted");
+    })();
+
+    (async () => {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      setHaspermission(status === "granted");
+    })();
+  }, []);
+
+  if (hasPermission === null) {
+    return <View />;
+  }
+
+  if (!hasPermission === null) {
+    return <Text>Acesso negado!</Text>;
+  }
+
+  async function takePicture() {
+    if (camRef) {
+      const data = await camRef.current.takePictureAsync();
+      setCapturePhoto(data.uri);
+      setOpen(true);
+      console.log(data);
+    }
+  }
+
+  async function savePicture() {
+    const asset = await MediaLibrary.createAssetAsync(capturePhoto)
+      .then(() => {
+        alert("Salvo com sucesso!");
+      })
+      .catch((error) => {
+        console.log("err", error);
+      });
+  }
+
+
+*/}
+
+
 
   return (
     <SafeAreaView style={styles.container}>
-      
       <View style={styles.header}>
         <Text style={styles.headerText} onPress={() => navigation.goBack()}>
           Configurações básicas
         </Text>
-        <TouchableOpacity 
-             onPress={() => {
-              console.log("Teste de Logout.");
-             }}>
-            
-             {/*onPress={() => navigation.navigate("Login")}>*/}  
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Teste de Logout.");
+          }}
+        >
+          {/*onPress={() => navigation.navigate("Login")}>*/}
 
           <MaterialCommunityIcons name="logout" size={35} color="#FFFF" />
         </TouchableOpacity>
@@ -45,17 +97,93 @@ export default function Profile({ navigation }) {
             <Image
               style={styles.photo}
               source={require("../assets/profile.png")}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                console.log("A câmera deverá abrir...");
-                //takePicture();
-              }}
-            >
+            /> 
+
+            <TouchableOpacity onPress={() => setCameraVisible(true)}>      
               <FontAwesome name="camera" size={28} color="black" />
             </TouchableOpacity>
+
+{/*
+
+            {cameraVisible ? (
+              
+              <Camera
+              style={{ flex: 1, width: '100%', height: '100%', backgroundColor: 'white' }}
+              type={type}
+              ref={camRef}
+            >
+                <TouchableOpacity
+                  style={{
+                    position: "absolute",
+                    bottom: 20,
+                    left: 20,
+                  }}
+                  onPress={() => {
+                    setType(
+                      type === Camera.Constants.Type.back
+                        ? Camera.Constants.Type.front
+                        : Camera.Constants.Type.back
+                    );
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 20, marginBottom: 13, color: "#FFFFF" }}
+                  >
+                    Trocar
+                  </Text>
+                </TouchableOpacity>
+            </Camera>
+            ) : null}
+
+            <TouchableOpacity style={styles.button} onPress={()=> takePicture()}>
+              <FontAwesome name="camera" size={23} color="white" />
+            </TouchableOpacity>
+
+            {capturePhoto && (
+              <Modal animationType="slide" transparent={false} visible={open}>
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    margin: 20,
+                  }}
+                >
+                  <View style={{ margin: 10, flexDirection: "row" }}>
+                    <TouchableOpacity
+                      style={{ margin: 10 }}
+                      onPress={() => setOpen(false)}
+                    >
+                      <FontAwesome
+                        name="window-close"
+                        size={30}
+                        color="#FF0000"
+                      />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={{ margin: 10 }}
+                      onPress={savePicture}
+                    >
+                      <FontAwesome name="upload" size={30} color="#121212" />
+                    </TouchableOpacity>
+                  </View>
+                  <Image
+                    style={{ width: "100%", height: 450, borderRadius: 50 }}
+                    source={{ uri: capturePhoto }}
+                  ></Image>
+                </View>
+              </Modal>
+            )}
+
+*/}
+
           </View>
         </View>
+
+
+
+
 
         <View style={styles.lineArchivedGroups}>
           <Image
@@ -65,7 +193,9 @@ export default function Profile({ navigation }) {
           <TouchableOpacity
             style={styles.buttonArchivedGroups}
             onPress={() => {
-              console.log("Suas mensagens arquivadas deverão aparecer em uma nova screen.");
+              console.log(
+                "Suas mensagens arquivadas deverão aparecer em uma nova screen."
+              );
             }}
           >
             <Text style={styles.archivedGroupsText}>
@@ -172,7 +302,7 @@ const styles = StyleSheet.create({
   archivedGroupsIcon: {
     width: 35,
     height: 35,
-    alignSelf: "right",
+    alignSelf: "flex-start",
     fontSize: 18,
   },
 
