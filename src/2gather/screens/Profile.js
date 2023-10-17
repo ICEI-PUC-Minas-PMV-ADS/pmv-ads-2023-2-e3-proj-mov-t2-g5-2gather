@@ -8,16 +8,13 @@ import { useUser } from '../contexts/UserContext';
 import { useNavigation } from '@react-navigation/native';
 //import { BackHandler } from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logout } from '../services/auth.services';
 
 
 export default function Profile({ navigation }) {
-  //const navigation = useNavigation();
-  //const handleLogout = () => {
-  //BackHandler.exitApp();
 
-  const { signed, email, name, telefone, role } = useUser();
-
- //const [status, requestPermission] = Camera.useCameraPermissions();
+  const { setSigned } = useUser();
 
   const camRef = useRef(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -26,6 +23,39 @@ export default function Profile({ navigation }) {
   const [open, setOpen] = useState(false);
   const [cameraVisible, setCameraVisible] = useState(false);
   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
+
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const asyncEmail= await AsyncStorage.getItem('email');
+        const asyncName= await AsyncStorage.getItem('name');
+        const asyncPhone= await AsyncStorage.getItem('phone');
+        const asyncRole= await AsyncStorage.getItem('role');
+        if (asyncEmail!== null) {
+          setEmail(asyncEmail);   
+        }
+        if (asyncName!== null) {
+          setName(asyncName);        
+        }
+        if (asyncPhone!== null) {
+          setPhone(asyncPhone);        
+        }
+        if (asyncRole!== null) {
+          setRole(asyncRole);
+        
+        }
+      } catch (error) {
+        console.error('Error loading data from AsyncStorage: ', error);
+      }
+    }
+    fetchData()
+  }, []);
+
 
 {/* 
   useEffect(() => {
@@ -67,10 +97,7 @@ export default function Profile({ navigation }) {
       });
   }
 
-
 */}
-
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -79,11 +106,11 @@ export default function Profile({ navigation }) {
           Configurações básicas
         </Text>
         <TouchableOpacity
-          onPress={() => {
-            console.log("Teste de Logout.");
+          onPress={() => {           
+            logout()
+            setSigned(false);
           }}
         >
-          {/*onPress={() => navigation.navigate("Login")}>*/}
 
           <MaterialCommunityIcons name="logout" size={35} color="#FFFF" />
         </TouchableOpacity>
@@ -183,8 +210,6 @@ export default function Profile({ navigation }) {
 
 
 
-
-
         <View style={styles.lineArchivedGroups}>
           <Image
             source={require("../assets/arquivedGroups.png")}
@@ -212,7 +237,7 @@ export default function Profile({ navigation }) {
           <Text style={styles.dynamicText}>{name}</Text>
 
           <Text style={{ fontWeight: "bold" }}>Telefone</Text>
-          <Text style={styles.dynamicText}>{telefone}</Text>
+          <Text style={styles.dynamicText}>{phone}</Text>
 
           <Text style={{ fontWeight: "bold" }}>Cargo</Text>
           <Text style={styles.dynamicText}>{role}</Text>
