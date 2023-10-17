@@ -6,7 +6,6 @@ import { Camera, CameraType } from 'expo-camera';
 import { FontAwesome } from '@expo/vector-icons';
 import { useUser } from '../contexts/UserContext';
 import { useNavigation } from '@react-navigation/native';
-//import { BackHandler } from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../services/auth.services';
@@ -207,8 +206,6 @@ export default function Profile({ navigation }) {
 
           </View>
         </View>
-
-
 
         <View style={styles.lineArchivedGroups}>
           <Image
