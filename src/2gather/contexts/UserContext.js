@@ -5,6 +5,11 @@ export const UserContext = createContext();
 export default function UserProvider({ children }) {
     const [signed, setSigned] = useState(false);
     const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [role, setRole] = useState('');
+    const [photo, setPhoto] = useState('');
+
 
     useEffect(() => {
         const fetchData = async () => {
