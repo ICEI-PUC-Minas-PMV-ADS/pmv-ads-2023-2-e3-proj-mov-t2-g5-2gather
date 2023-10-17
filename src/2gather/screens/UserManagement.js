@@ -32,7 +32,6 @@ export default function UserManagement() {
           style={styles.optionContainer}
           underlayColor="transparent"
           onPress={() => {
-            console.log('Botão "Criar usuário" pressionado');
             handleNavigation('CreateUser'); 
           }}
         >
@@ -45,7 +44,6 @@ export default function UserManagement() {
           style={styles.optionContainer}
           underlayColor="transparent"
           onPress={() => {
-            console.log('Botão "Editar usuário" pressionado');
             handleNavigation('EditUser'); 
           }}
         >
@@ -58,7 +56,6 @@ export default function UserManagement() {
           style={styles.optionContainer}
           underlayColor="transparent"
           onPress={() => {
-            console.log('Botão "Inativar usuário" pressionado');
             handleNavigation('InactivateUser'); 
           }}
         >
