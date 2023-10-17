@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
@@ -12,24 +12,34 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
+import { GetUserList } from '../services/user.services';
 
 export default function Contatos({ navigation }) {
-  const { signed, photo, name } = useUser();
+  
+  const [contacts, setContacts] = useState([]);
+  const [contactsRef, setContactsRef] = useState([]);
+  
+  const getContacts = async () => {
+    try {      
+        const result = await GetUserList() || [];
+        setContacts(result);
+        setContactsRef(result);
+        console.log(result)
+    } catch (error) {
+        console.log(error)
+    } finally {       
+    }
+};
 
-  const data = [
-    { key: "1", photo: "photo", text: "Name" },
-    { key: "2", photo: "photo", text: "Name" },
-    { key: "3", photo: "photo", text: "Name" },
-  ];
+
+useEffect(() => {
+  getContacts();
+}, []);
 
   const renderItem = ({ item }) => (
     <View style={styles.contactItem}>
-      {/*<Image style={styles.contactPhoto} source={{ uri: item.photo }} />*/}
-      <Image
-        style={styles.contactPhoto}
-        source={require("../assets/profile.png")}
-      />
-      <Text style={styles.contactText}>{item.text}</Text>
+      <Image style={styles.contactPhoto} source={{ uri: item.photo }} />     
+      <Text style={styles.contactText}>{item.name}</Text>
     </View>
   );
 
@@ -40,7 +50,8 @@ export default function Contatos({ navigation }) {
           Nova Conversa
         </Text>
         <View style={styles.searchBar}>
-          <TextInput
+          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
+          
             style={styles.searchInput}
             placeholder="Pesquisar"
             placeholderTextColor="#aaa"
@@ -51,9 +62,9 @@ export default function Contatos({ navigation }) {
       <ScrollView>
         <FlatList
           contentContainerStyle={styles.itemList}
-          data={data}
+          data={contacts}
           renderItem={renderItem}
-          keyExtractor={(item) => item.key}
+          keyExtractor={(item) => item.id}
           inverted={false}
           ItemSeparatorComponent={() => (
             <Divider style={{ height: 1, backgroundColor: "grey" }} />
@@ -77,7 +88,6 @@ const styles = StyleSheet.create({
     padding: 10,
     height: 135,
     backgroundColor: "#2368A2",
-    //flexDirection: "row",
     justifyContent: "space-between",
   },
 
@@ -88,8 +98,6 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     padding: 10,
-    //borderBottomWidth: 1,
-    //borderBottomColor: "#ddd",
     marginBottom: 20,
   },
   searchInput: {
