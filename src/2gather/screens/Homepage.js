@@ -59,7 +59,8 @@ export default function Homepage() {
   </TouchableOpacity>
   <TouchableOpacity style={styles.bottomBarButton}>
     <Icon name="address-book" size={30} color="#FFFFFF" />
-    <Text style={styles.buttonTextSmall}>Contatos</Text>
+    <Text style={styles.buttonTextSmall}
+    onPress={() => navigation.navigate('Contacts')}>Contatos</Text>
   </TouchableOpacity>
   <TouchableOpacity style={styles.bottomBarButton}>
     <Icon name="cog" size={30} color="#FFFFFF" />

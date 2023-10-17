@@ -10,7 +10,6 @@ import * as MediaLibrary from 'expo-media-library';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../services/auth.services';
 
-
 export default function Profile({ navigation }) {
 
   const { setSigned } = useUser();
@@ -97,6 +96,7 @@ export default function Profile({ navigation }) {
   }
 
 */}
+
 
   return (
     <SafeAreaView style={styles.container}>
