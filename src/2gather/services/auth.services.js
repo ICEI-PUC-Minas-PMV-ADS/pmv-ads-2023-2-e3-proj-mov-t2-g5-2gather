@@ -88,7 +88,7 @@ export const logout = () => {
 
 export const sendAuthenticatedRequest = async (url, method = 'GET', data = null) => {
     try {
-        let access = getAccessToken();
+        let access = await getAccessToken();
 
         const requestOptions = {
             method: method,
@@ -106,6 +106,7 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
 
         if (response.status === 401 || response.status === 403) {
             let newAccessToken = await tokenRefresh();
+            AsyncStorage.setItem('access', newAccessToken);
             requestOptions.headers['Authorization'] = `Bearer ${newAccessToken}`;
             response = await fetch(`${API_URL}${url}`, requestOptions);
         }
