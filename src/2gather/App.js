@@ -8,33 +8,18 @@ import CreateUser from './screens/CreateUser';
 import EditUser from './screens/EditUser';
 import InactivateUser from './screens/InactivateUser';
 import UserManagement from './screens/UserManagement';
-
+import Profile from './screens/Profile';
+import Route from './navigations/Route';
 import UserProvider from './contexts/UserContext';
 
-const Stack = createStackNavigator();
-
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-      <Stack.Screen name="TestAfterLogin" component={TestAfterLogin} options={{ headerShown: false }} />
-      <Stack.Screen name="CreateUser" component={CreateUser} options={{ headerShown: false }} />
-      <Stack.Screen name="EditUser" component={EditUser} options={{ headerShown: false }} />
-      <Stack.Screen name="InactivateUser" component={InactivateUser} options={{ headerShown: false }} />
-      <Stack.Screen name="UserManagement" component={UserManagement} options={{ headerShown: false }} />
-    </Stack.Navigator>
-  );
-}
-
-export default function App() {
+const App = () => {
   return (
     <UserProvider>
       <NavigationContainer>
-        <MyStack />
+        <Route />
       </NavigationContainer>
     </UserProvider>
   );
 }
 
-UserManagement
+export default App;

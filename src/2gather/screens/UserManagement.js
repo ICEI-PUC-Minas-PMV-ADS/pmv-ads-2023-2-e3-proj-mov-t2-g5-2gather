@@ -19,7 +19,7 @@ export default function UserManagement() {
     <View style={styles.containerBody}>
       <View style={styles.container}>
         <Appbar.Header style={styles.header}>
-          <Appbar.BackAction onPress={() => {}} />
+          <Appbar.BackAction onPress={() => {navigation.navigate("Homepage")}} />
           <View style={styles.rowContainer}>
             <Text style={styles.titleHeader}>Gerenciamento de usuários</Text>
           </View>

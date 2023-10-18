@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput, Text, TouchableOpacity, Picker } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import { GetUserList } from '../services/user.services';
+import { GetUserList, UpdateUserStatus  } from '../services/user.services';
 
 export default function InactivateUser({ navigation }) {
   const [userId, setUserId] = useState(''); 
@@ -22,10 +22,10 @@ export default function InactivateUser({ navigation }) {
 
   const handleInactivateUser = async () => {
     if (userId && reason) {
-      const success = await InactivateUser({ userId, reason });
+      const success = await UpdateUserStatus({ userId: userId, reason: reason });
       if (success) {
         // inativação bem-sucedida
-        console.log('Usuário inativado com sucesso');
+        alert('Usuário inativado com sucesso');
       } else {
         // tratar caso de falha na inativação
         console.log('Falha na inativação do usuário');
