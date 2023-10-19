@@ -53,10 +53,9 @@ export default function CreateUser({ navigation }) {
             return;
         }
         try {
-            const result = await Register({ name: name, email: email, phone: phone, password: password, role: role })
+            const result = await Register({ name: name, email: email, phone: phone, password: password, idRole: role })
             console.log(result);
             alert('Conta criada com sucesso')
-            navigation.navigate('Login');
         } catch (error) {
             console.log(error)
             setError(error.message);
