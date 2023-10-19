@@ -51,13 +51,12 @@ export default function Login(navigation) {
     >
       <View style={styles.containerBody}>
 
-        <Animatable.View animation="fadeInDown" delay={500} style={styles.containerLogo}>
-          <Image
-            source={require('../assets/logo.png')}
-            style={{ width: '60%' }}
+        <View style={styles.containerLogo}>
+          <Image style={styles.imageLogo}
+            source={require('../assets/logo.png')}          
             resizeMode="contain"
           />
-        </Animatable.View>
+        </View>
 
         <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
           <Text style={styles.message}>Entre e conecte-se com a sua equipe de trabalho!</Text>
@@ -127,10 +126,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: -90,
-    marginBottom: -90,
   },
 
+  imageLogo: {
+    width: 200,
+    height: 200,
+  },
 
   containerHeader: {
     marginRight: '10%',
