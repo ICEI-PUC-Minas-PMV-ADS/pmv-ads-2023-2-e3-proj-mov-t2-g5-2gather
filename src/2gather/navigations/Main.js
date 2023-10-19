@@ -9,6 +9,8 @@ import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
+import Contacts from '../screens/Contacts';
+
 
 const stack = createNativeStackNavigator();
 
@@ -47,7 +49,10 @@ const MainNav = () => {
                 name="BroadcastList"
                 component={BroadcastList}
             />
-            
+             <stack.Screen
+                name="Contacts"
+                component={Contacts}
+            />
         </stack.Navigator>
     );
 };
