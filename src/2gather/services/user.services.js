@@ -1,7 +1,5 @@
 import { sendAuthenticatedRequest } from './auth.services.js'
 
-const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
-
 export const GetUserList = async () => {
     try {
         const result = await sendAuthenticatedRequest('/user/list/', 'GET');
@@ -22,6 +20,7 @@ export const UpdateUserStatus = async ({userId, reason}) => {
 };
 
 export const UpdateUserDetails = async ({ name, email, phone, photo, description, idRole, lastActive, status }) => {
+    const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
     try {
         const response = await fetch(`${API_URL}user/update/${uuid}/admin/`, {
             method: 'PATCH',

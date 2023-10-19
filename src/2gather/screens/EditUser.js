@@ -8,7 +8,7 @@ import {
   Animated,
 } from "react-native";
 
-import UpdateUserDetails from '../services/user.services'
+import { UpdateUserDetails } from '../services/user.services'
 
 export default function EditUser({ navigation }) {
   const [id, setId] = useState("");

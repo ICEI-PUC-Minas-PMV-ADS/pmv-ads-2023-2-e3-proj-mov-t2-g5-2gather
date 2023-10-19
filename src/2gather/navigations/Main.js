@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import TestAfterLogin from '../screens/TestAfterLogin';
+// import TestAfterLogin from '../screens/TestAfterLogin';
 import EditUser from '../screens/EditUser';
 import InactivateUser from '../screens/InactivateUser';
 import UserManagement from '../screens/UserManagement';
@@ -9,9 +9,7 @@ import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
-<<<<<<< HEAD
 import Contacts from '../screens/Contacts';
-import Contatos from '../screens/Contatos';
 
 const stack = createNativeStackNavigator();
 
