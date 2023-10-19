@@ -28,7 +28,7 @@ export default function Homepage() {
       <View style={styles.groupBroadcastContainer}>
         <Text 
           style={styles.broadcastText}
-          // onPress={}
+          onPress={() => navigation.navigate('BroadcastList')}
         >
           Lista de Transmissão
         </Text>

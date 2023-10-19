@@ -8,7 +8,10 @@ import UserManagement from '../screens/UserManagement';
 import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
+import BroadcastList from '../screens/BroadcastList';
+<<<<<<< HEAD
 import Contacts from '../screens/Contacts';
+import Contatos from '../screens/Contatos';
 
 const stack = createNativeStackNavigator();
 
@@ -33,7 +36,6 @@ const MainNav = () => {
             <stack.Screen
                 name="InactivateUser"
                 component={InactivateUser}
-
             />
             <stack.Screen
                 name="UserManagement"
@@ -42,6 +44,10 @@ const MainNav = () => {
             <stack.Screen
                 name="Profile"
                 component={Profile}
+            />
+            <stack.Screen
+                name="BroadcastList"
+                component={BroadcastList}
             />
              <stack.Screen
                 name="Contacts"
