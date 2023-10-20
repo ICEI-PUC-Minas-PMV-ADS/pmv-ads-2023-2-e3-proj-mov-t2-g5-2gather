@@ -30,7 +30,7 @@ export default function BroadcastList() {
             }}
             >
             <View style={styles.button}>
-                <Icon name="user-plus" style={styles.buttonIcon} />
+                <Icon name="plus" style={styles.buttonIcon} />
                 <Text style={styles.buttonText}>Nova lista</Text>
             </View>
         </TouchableHighlight>
