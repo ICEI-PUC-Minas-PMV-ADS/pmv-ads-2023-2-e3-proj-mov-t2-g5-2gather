@@ -36,9 +36,19 @@ useEffect(() => {
   getArchivedGroups();
 }, []);
 
+
+{/* // Navegar para a tela de ABRIR O GRUPO ao pressionar (item).
+const handleItemPress = (item) => {
+  //o nome da Screen precisa ser confirmado, assim como a identificação do Grupo...
+  navigation.navigate('Talks', { groupId: item.id });
+};
+*/}
+
+
+
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => console.log(item)}>{/*handleItemPress(item)}>*/}
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
       <Text style={styles.contactText}>{item.title}</Text>
@@ -51,7 +61,7 @@ useEffect(() => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText} onPress={() => navigation.goBack()}>
-          Grupos arquivados
+          Arquivados
         </Text>
       </View>
       <View style={styles.container1}>

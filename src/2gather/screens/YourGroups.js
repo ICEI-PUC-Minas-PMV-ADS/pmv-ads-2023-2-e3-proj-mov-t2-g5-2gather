@@ -41,7 +41,7 @@ useEffect(() => {
 
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => console.log(item)}>{/*handleItemPress(item)}>*/}
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
       <Text style={styles.contactText}>{item.title}</Text>

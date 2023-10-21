@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
+import {CheckBox} from 'react-native-elements';
 
 export default function NewList ({ navigation }) {
   
@@ -45,7 +46,24 @@ useEffect(() => {
     <TouchableOpacity>
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-      <Text style={styles.contactText}>{item.name}</Text>
+      <View style={styles.contactTextContainer}>
+        <Text style={styles.contactText}>{item.name}</Text>
+      </View>
+      <CheckBox style={styles.checkBox}
+            containerStyle={styles.checkBoxContainer}
+            checkedIcon="dot-circle-o"
+            uncheckedIcon="circle-o"
+            checked={item.checked} // Use item.checked instead of this.state.checked
+            onPress={() => {
+            // Update the 'checked' property of the corresponding item
+            const updatedContacts = contacts.map((contact) =>
+              contact.id === item.id
+                ? { ...contact, checked: !contact.checked }
+                : contact
+            );
+            setContacts(updatedContacts);
+          }}
+        />    
     </View>
     </TouchableOpacity>
   );
@@ -58,8 +76,7 @@ useEffect(() => {
           Adicionar participantes à lista
         </Text>
         <View style={styles.searchBar}>
-          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
-          
+          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}     
             style={styles.searchInput}
             placeholder="Pesquisar"
             placeholderTextColor="#aaa"
@@ -144,6 +161,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
+    //justifyContent: "space-between",
+  },
+
+  contactTextContainer: {
+    flex: 1,
+  },
+  checkBoxContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0,
+    marginRight: 10, 
   },
 
   contactPhoto: {
@@ -157,6 +185,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  checkBox: {
+    alignItems: 'flex-end',
+  },
 
   //Provisório
   buttonForecast: {
@@ -174,8 +205,16 @@ const styles = StyleSheet.create({
   buttonLoginText: {
     fontSize: 18,
     color: '#FFFFFF',
-  }
+  },
 
+  selectionCircle: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#1A4971', // Cor de fundo do círculo de seleção
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
 
 });
