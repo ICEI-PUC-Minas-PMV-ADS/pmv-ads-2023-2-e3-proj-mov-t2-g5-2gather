@@ -9,13 +9,14 @@ import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
-import Contacts from '../screens/Contacts';
+import Contacts from '../screens/Contacts' ;
+import Chat from '../screens/Chat';
 
 const stack = createNativeStackNavigator();
 
 const MainNav = () => {
     return (
-        <stack.Navigator initialRouteName="Homepage">
+        <stack.Navigator initialRouteName="Chat">
             <stack.Screen
                 name="Homepage"
                 component={Homepage}
@@ -50,6 +51,13 @@ const MainNav = () => {
              <stack.Screen
                 name="Contacts"
                 component={Contacts}
+            />
+            <stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                    header: () => null,
+                }}
             />
         </stack.Navigator>
     );
