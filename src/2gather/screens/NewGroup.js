@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
+import {CheckBox} from 'react-native-elements';
 
 export default function NewGroup ({ navigation }) {
   
@@ -68,7 +69,24 @@ useEffect(() => {
     <TouchableOpacity>
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-      <Text style={styles.contactText}>{item.name}</Text>
+      <View style={styles.contactTextContainer}>
+        <Text style={styles.contactText}>{item.name}</Text>
+      </View>
+      <CheckBox style={styles.checkBox}
+            containerStyle={styles.checkBoxContainer}
+            checkedIcon="dot-circle-o"
+            uncheckedIcon="circle-o"
+            checked={item.checked} // Use item.checked instead of this.state.checked
+            onPress={() => {
+            // Update the 'checked' property of the corresponding item
+            const updatedContacts = contacts.map((contact) =>
+              contact.id === item.id
+                ? { ...contact, checked: !contact.checked }
+                : contact
+            );
+            setContacts(updatedContacts);
+          }}
+        />    
     </View>
     </TouchableOpacity>
   );
@@ -116,7 +134,6 @@ useEffect(() => {
       </TouchableOpacity> 
 
     </SafeAreaView>
-
   );
 }
 
@@ -144,6 +161,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
+
   searchInput: {
     backgroundColor: "#1a4971",
     color: "#fffcf4",
@@ -170,6 +188,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 
+  contactTextContainer: {
+    flex: 1,
+  },
+
+  checkBoxContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0,
+    marginRight: 10, 
+  },
+
   contactPhoto: {
     width: 35,
     height: 35,
@@ -182,7 +211,7 @@ const styles = StyleSheet.create({
   },
 
 
-  //Provisório
+  //Botão Provisório
   buttonForecast: {
     backgroundColor: "#1A4971",
     borderRadius: 10,
@@ -199,7 +228,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFFFFF',
   }
-
-
 
 });
