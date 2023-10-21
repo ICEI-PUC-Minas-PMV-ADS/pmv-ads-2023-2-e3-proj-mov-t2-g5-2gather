@@ -212,19 +212,16 @@ export default function Profile({ navigation }) {
             source={require("../assets/arquivedGroups.png")}
             style={styles.archivedGroupsIcon}
           />
-          <TouchableOpacity
-            style={styles.buttonArchivedGroups}
-            onPress={() => {
-              console.log(
-                "Suas mensagens arquivadas deverão aparecer em uma nova screen."
-              );
-            }}
-          >
-            <Text style={styles.archivedGroupsText}>
-              Seus grupos arquivados
-            </Text>
+          <TouchableOpacity>
+            
+            <Text style={styles.buttonArchivedGroups}
+            onPress={() => navigation.navigate('ArchivedGroups')}>Seus grupos arquivados</Text>
           </TouchableOpacity>
         </View>
+     
+
+
+
 
         <View style={styles.containerData}>
           <Text style={{ fontWeight: "bold" }}>Email Corporativo</Text>
@@ -328,8 +325,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
-  archivedGroupsText: {
-    fontSize: 18,
+  buttonArchivedGroups: {
+    fontSize: 17,
+    fontWeight: "bold",
+
   },
 
   containerData: {
