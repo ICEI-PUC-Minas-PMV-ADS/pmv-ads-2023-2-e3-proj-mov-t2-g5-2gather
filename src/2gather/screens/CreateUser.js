@@ -57,7 +57,7 @@ export default function CreateUser({ navigation }) {
         email: email,
         phone: phone,
         password: password,
-        role: role,
+        idRole: role,
       });
       console.log(result);
       alert("Conta criada com sucesso");

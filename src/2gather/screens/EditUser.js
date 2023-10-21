@@ -88,29 +88,11 @@ export default function EditUser({ navigation }) {
       <View style={styles.container2}>
         <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
 
-        <Text>ID do Usuário</Text>
-        <TextInput style={styles.input} value={id} onChangeText={setId} />
-
         <Text>Email Corporativo</Text>
         <TextInput style={styles.input} value={email} onChangeText={setEmail} />
 
-        <Text>Senha</Text>
-        <TextInput
-          style={styles.input}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-
         <Text>Nome do Colaborador</Text>
         <TextInput style={styles.input} value={name} onChangeText={setName} />
-
-        <Text>Setor</Text>
-        <TextInput
-          style={styles.input}
-          value={sector}
-          onChangeText={setSector}
-        />
 
         <Text>Cargo</Text>
         <TextInput style={styles.input} value={role} onChangeText={setRole} />
