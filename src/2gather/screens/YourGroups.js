@@ -15,17 +15,16 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
+import { GetListYourGroups } from '../services/group.services';
 
 export default function YourGroups ({ navigation }) {
   
-  const [contacts, setContacts] = useState([]);
-  const [contactsRef, setContactsRef] = useState([]);
-
-  const getContacts = async () => {
+  const [yourGroups, setYourGroups] = useState([]);
+ 
+  const getYourGroups = async () => {
     try {      
-        const result = await GetUserList() || [];
-        setContacts(result);
-        setContactsRef(result);
+        const result = await GetListYourGroups() || [];
+        setYourGroups(result);
         console.log(result)
     } catch (error) {
         console.log(error)
@@ -36,7 +35,7 @@ export default function YourGroups ({ navigation }) {
 
 
 useEffect(() => {
-  getContacts();
+  getYourGroups();
 }, []);
 
 
@@ -45,7 +44,7 @@ useEffect(() => {
     <TouchableOpacity>
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-      <Text style={styles.contactText}>{item.name}</Text>
+      <Text style={styles.contactText}>{item.title}</Text>
     </View>
     </TouchableOpacity>
   );
@@ -62,7 +61,7 @@ useEffect(() => {
         <ScrollView>
         <FlatList
           contentContainerStyle={styles.itemList}
-          data={contacts}
+          data={yourGroups}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           inverted={false}

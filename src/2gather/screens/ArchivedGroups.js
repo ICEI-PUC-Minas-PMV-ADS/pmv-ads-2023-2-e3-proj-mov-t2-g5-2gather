@@ -14,18 +14,16 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
-import { GetUserList } from '../services/user.services';
+import { GetListArchivedGroups } from '../services/group.services';
 
 export default function ArchivedGroups ({ navigation }) {
   
-  const [contacts, setContacts] = useState([]);
-  const [contactsRef, setContactsRef] = useState([]);
-
-  const getContacts = async () => {
+    const [archivedGroups, setArchivedGroups] = useState([]);
+ 
+  const getArchivedGroups = async () => {
     try {      
-        const result = await GetUserList() || [];
-        setContacts(result);
-        setContactsRef(result);
+        const result = await GetListArchivedGroups() || [];
+        setArchivedGroups(result);
         console.log(result)
     } catch (error) {
         console.log(error)
@@ -34,18 +32,16 @@ export default function ArchivedGroups ({ navigation }) {
     }
 };
 
-
 useEffect(() => {
-  getContacts();
+  getArchivedGroups();
 }, []);
-
 
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
     <TouchableOpacity>
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-      <Text style={styles.contactText}>{item.name}</Text>
+      <Text style={styles.contactText}>{item.title}</Text>
     </View>
     </TouchableOpacity>
   );
@@ -62,7 +58,7 @@ useEffect(() => {
         <ScrollView>
         <FlatList
           contentContainerStyle={styles.itemList}
-          data={contacts}
+          data={archivedGroups}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           inverted={false}

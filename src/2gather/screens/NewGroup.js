@@ -21,6 +21,29 @@ export default function NewGroup ({ navigation }) {
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
 
+
+  
+  {/*
+  const [groupName, setGroupName] = useState('');
+  const [selectedContacts, setSelectedContacts] = useState([]);
+
+  const createGroup = async () => {
+    // Crie o grupo com o nome e os membros selecionados
+    const groupData = {
+      name: groupName,
+      members: selectedContacts,
+    };
+
+    await firebase.database().ref('groups').push(groupData);
+
+    // Navegue de volta para a tela principal ou de grupos
+    navigation.goBack();
+  };
+
+
+
+*/}
+
   const getContacts = async () => {
     try {      
         const result = await GetUserList() || [];
