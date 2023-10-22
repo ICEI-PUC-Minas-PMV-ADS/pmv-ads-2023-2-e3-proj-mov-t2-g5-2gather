@@ -33,10 +33,21 @@ export default function YourGroups ({ navigation }) {
     }
 };
 
-
 useEffect(() => {
   getYourGroups();
 }, []);
+
+
+
+
+{/* // Navegar para a tela de ABRIR O GRUPO ao pressionar (item).
+const handleItemPress = (item) => {
+  //o nome da Screen precisa ser confirmado, assim como a identificação do Grupo...
+  navigation.navigate('Talks', { groupId: item.id });
+};
+*/}
+
+
 
 
   const defaultImage = require('../assets/group.png');

@@ -43,18 +43,23 @@ useEffect(() => {
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity>
-      <View style={styles.contactItem}> 
-      <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
+    <View style={styles.contactItem}>
+      <Image
+        style={styles.contactPhoto}
+        source={{ uri: item.photo || null }}
+        defaultSource={defaultImage}
+      />
       <View style={styles.contactTextContainer}>
         <Text style={styles.contactText}>{item.name}</Text>
       </View>
-      <CheckBox style={styles.checkBox}
-            containerStyle={styles.checkBoxContainer}
-            checkedIcon="dot-circle-o"
-            uncheckedIcon="circle-o"
-            checked={item.checked} // Use item.checked instead of this.state.checked
-            onPress={() => {
+      <TouchableOpacity>
+        <CheckBox
+          style={styles.checkBox}
+          containerStyle={styles.checkBoxContainer}
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
+          checked={item.checked} // Use item.checked instead of this.state.checked
+          onPress={() => {
             // Update the 'checked' property of the corresponding item
             const updatedContacts = contacts.map((contact) =>
               contact.id === item.id
@@ -63,12 +68,11 @@ useEffect(() => {
             );
             setContacts(updatedContacts);
           }}
-        />    
+        />
+      </TouchableOpacity>
     </View>
-    </TouchableOpacity>
   );
     
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -133,10 +137,12 @@ const styles = StyleSheet.create({
     color: "#FFFCF4",
     marginTop: 7,
   },
+
   searchBar: {
     padding: 10,
     marginBottom: 20,
   },
+
   searchInput: {
     backgroundColor: "#1a4971",
     color: "#fffcf4",
@@ -161,12 +167,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
-    //justifyContent: "space-between",
   },
 
   contactTextContainer: {
     flex: 1,
   },
+
   checkBoxContainer: {
     backgroundColor: 'transparent',
     borderWidth: 0,
@@ -189,7 +195,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
 
-  //Provisório
+  //Botão Provisório
   buttonForecast: {
     backgroundColor: "#1A4971",
     borderRadius: 10,
@@ -211,7 +217,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: '#1A4971', // Cor de fundo do círculo de seleção
+    backgroundColor: '#1A4971',
     alignItems: 'center',
     justifyContent: 'center',
   },

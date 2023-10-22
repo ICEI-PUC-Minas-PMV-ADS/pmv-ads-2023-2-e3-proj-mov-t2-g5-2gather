@@ -21,29 +21,8 @@ export default function NewGroup ({ navigation }) {
   
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
-
-
-  
-  {/*
-  const [groupName, setGroupName] = useState('');
   const [selectedContacts, setSelectedContacts] = useState([]);
 
-  const createGroup = async () => {
-    // Crie o grupo com o nome e os membros selecionados
-    const groupData = {
-      name: groupName,
-      members: selectedContacts,
-    };
-
-    await firebase.database().ref('groups').push(groupData);
-
-    // Navegue de volta para a tela principal ou de grupos
-    navigation.goBack();
-  };
-
-
-
-*/}
 
   const getContacts = async () => {
     try {      
@@ -63,34 +42,55 @@ useEffect(() => {
   getContacts();
 }, []);
 
+useEffect(() => {
+  // Navegue para a tela CreateNewGroup quando um contato for selecionado
+  if (selectedContacts.length > 0) {
+    navigation.navigate("CreateNewGroup", { selectedContacts });
+  }
+}, [selectedContacts]);
+
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity>
-      <View style={styles.contactItem}> 
-      <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
+    <View style={styles.contactItem}>
+      <Image
+        style={styles.contactPhoto}
+        source={{ uri: item.photo || null }}
+        defaultSource={defaultImage}
+      />
       <View style={styles.contactTextContainer}>
         <Text style={styles.contactText}>{item.name}</Text>
       </View>
-      <CheckBox style={styles.checkBox}
-            containerStyle={styles.checkBoxContainer}
-            checkedIcon="dot-circle-o"
-            uncheckedIcon="circle-o"
-            checked={item.checked} // Use item.checked instead of this.state.checked
-            onPress={() => {
-            // Update the 'checked' property of the corresponding item
+      <TouchableOpacity>
+        <CheckBox
+          style={styles.checkBox}
+          containerStyle={styles.checkBoxContainer}
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
+          checked={item.checked} // Use item.checked instead of this.state.checked
+          onPress={() => {
             const updatedContacts = contacts.map((contact) =>
               contact.id === item.id
                 ? { ...contact, checked: !contact.checked }
                 : contact
             );
             setContacts(updatedContacts);
+
+            // Adicione ou remova o contato da lista de contatos selecionados
+            const isSelected = !item.checked;
+            if (isSelected) {
+              setSelectedContacts((prev) => [...prev, item]);
+            } else {
+              setSelectedContacts((prev) =>
+                prev.filter((contact) => contact.id !== item.id)
+              );
+            }
           }}
-        />    
+        />
+      </TouchableOpacity>
     </View>
-    </TouchableOpacity>
   );
-    
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -127,11 +127,11 @@ useEffect(() => {
 
 
 
-     {/*Botão Provisório*/}
+     {/*Botão Provisório
 
      <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("CreateNewGroup")}>
       <Text style={styles.buttonLoginText}>Go to CreateNewGroup Screen</Text>
-      </TouchableOpacity> 
+      </TouchableOpacity> */}
 
     </SafeAreaView>
   );
