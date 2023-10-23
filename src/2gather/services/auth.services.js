@@ -21,12 +21,12 @@ export const SignIn = async ({ email, password }) => {
     }
 }
 
-export const Register = async ({ name, phone, email, password, role }) => {
+export const Register = async ({ name, phone, email, password, idRole }) => {
     try {
         const response = await fetch(`${API_URL}/user/register/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, phone, email, password, role, status:1 })
+            body: JSON.stringify({ name, phone, email, password, idRole, status:1 })
         });
         const result = await response.json();
         if (!response.ok) {

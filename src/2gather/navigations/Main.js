@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import TestAfterLogin from '../screens/TestAfterLogin';
+// import TestAfterLogin from '../screens/TestAfterLogin';
 import EditUser from '../screens/EditUser';
 import InactivateUser from '../screens/InactivateUser';
 import UserManagement from '../screens/UserManagement';
@@ -11,6 +11,13 @@ import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
 import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
+import Contacts from '../screens/Contacts';
+import ArchivedGroups from '../screens/ArchivedGroups';
+import YourGroups from '../screens/YourGroups';
+import NewList from '../screens/NewList';
+import CreateReceivers from '../screens/CreateReceivers';
+import NewGroup from '../screens/NewGroup';
+import CreateNewGroup from '../screens/CreateNewGroup';
 
 const stack = createNativeStackNavigator();
 
@@ -55,7 +62,34 @@ const MainNav = () => {
              <stack.Screen
                 name="Contacts"
                 component={Contacts}
+            /> 
+            <stack.Screen
+                name="ArchivedGroups"
+                component={ArchivedGroups}
             />
+            <stack.Screen
+                name="YourGroups"
+                component={YourGroups}
+            />
+            <stack.Screen
+                name="NewList"
+                component={NewList}
+            />
+            <stack.Screen
+                name="CreateReceivers"
+                component={CreateReceivers}
+            />
+            <stack.Screen
+                name="NewGroup"
+                component={NewGroup}
+            />
+            <stack.Screen
+                name="CreateNewGroup"
+                component={CreateNewGroup}
+            />
+
+
+
         </stack.Navigator>
     );
 };
