@@ -131,7 +131,7 @@ export default function CreateReceivers ({ route, navigation }) {
       <View style={styles.header}>
 
         <Text style={styles.headerText}>
-          Adicionar participantes
+          Destinatários
         </Text>
         <View style={styles.cancelCreate}>
             <Text style={styles.headerTextTwo} onPress={() => navigation.goBack()}>
