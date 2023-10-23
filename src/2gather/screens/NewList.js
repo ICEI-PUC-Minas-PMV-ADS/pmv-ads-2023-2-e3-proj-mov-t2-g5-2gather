@@ -21,6 +21,8 @@ export default function NewList ({ navigation }) {
   
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
+  const [selectedContacts, setSelectedContacts] = useState([]);
+
 
   const getContacts = async () => {
     try {      
@@ -39,6 +41,13 @@ export default function NewList ({ navigation }) {
 useEffect(() => {
   getContacts();
 }, []);
+
+useEffect(() => {
+  // Navegue para a tela CreateNewGroup quando um contato for selecionado
+  if (selectedContacts.length > 0) {
+    navigation.navigate("CreateReceivers", { selectedContacts });
+  }
+}, [selectedContacts]);
 
 
   const defaultImage = require('../assets/profile.png');
@@ -60,19 +69,29 @@ useEffect(() => {
           uncheckedIcon="circle-o"
           checked={item.checked} // Use item.checked instead of this.state.checked
           onPress={() => {
-            // Update the 'checked' property of the corresponding item
             const updatedContacts = contacts.map((contact) =>
               contact.id === item.id
                 ? { ...contact, checked: !contact.checked }
                 : contact
             );
             setContacts(updatedContacts);
+
+            // Adicione ou remova o contato da lista de contatos selecionados
+            const isSelected = !item.checked;
+            if (isSelected) {
+              setSelectedContacts((prev) => [...prev, item]);
+            } else {
+              setSelectedContacts((prev) =>
+                prev.filter((contact) => contact.id !== item.id)
+              );
+            }
           }}
         />
       </TouchableOpacity>
     </View>
   );
-    
+
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -80,7 +99,8 @@ useEffect(() => {
           Adicionar participantes à lista
         </Text>
         <View style={styles.searchBar}>
-          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}     
+          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
+          
             style={styles.searchInput}
             placeholder="Pesquisar"
             placeholderTextColor="#aaa"
@@ -107,11 +127,11 @@ useEffect(() => {
 
 
 
-     {/*Botão Provisório*/}
+     {/*Botão Provisório
 
-  <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("CreateReceivers")}>
-      <Text style={styles.buttonLoginText}>Go to CreateReceivers Screen</Text>
-      </TouchableOpacity> 
+     <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("CreateNewGroup")}>
+      <Text style={styles.buttonLoginText}>Go to CreateNewGroup Screen</Text>
+      </TouchableOpacity> */}
 
     </SafeAreaView>
   );
@@ -137,7 +157,6 @@ const styles = StyleSheet.create({
     color: "#FFFCF4",
     marginTop: 7,
   },
-
   searchBar: {
     padding: 10,
     marginBottom: 20,
@@ -191,9 +210,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  checkBox: {
-    alignItems: 'flex-end',
-  },
 
   //Botão Provisório
   buttonForecast: {
@@ -211,16 +227,6 @@ const styles = StyleSheet.create({
   buttonLoginText: {
     fontSize: 18,
     color: '#FFFFFF',
-  },
-
-  selectionCircle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#1A4971',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
+  }
 
 });

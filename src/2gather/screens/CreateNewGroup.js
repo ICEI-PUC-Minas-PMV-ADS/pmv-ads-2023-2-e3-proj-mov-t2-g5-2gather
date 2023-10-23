@@ -34,8 +34,6 @@ export default function CreateNewGroup({ route, navigation }) {
       console.log(error)
     }
   };
-
-
   
   useEffect(() => {
     getContacts();
@@ -250,7 +248,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     borderBottomColor: "black",
-    height: 30,
+    //height: 30,
+    width: 75,
   },
 
   selectedContactPhoto: {
@@ -262,6 +261,7 @@ const styles = StyleSheet.create({
 
   selectedContactText: {
     fontSize: 16,
+    textAlign: "center",
   },
 
   container1: {

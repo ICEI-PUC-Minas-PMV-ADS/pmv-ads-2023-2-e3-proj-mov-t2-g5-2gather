@@ -16,43 +16,42 @@ import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import {CheckBox} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function CreateReceivers ({ navigation }) {
-  
+export default function CreateReceivers ({ route, navigation }) {
+  const { selectedContacts } = route.params || {};
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
+  const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
 
   const getContacts = async () => {
-    try {      
-        const result = await GetUserList() || [];
-        setContacts(result);
-        setContactsRef(result);
-        console.log(result)
+    try {
+      const result = await GetUserList() || [];
+      setContacts(result);
+      setContactsRef(result);
+      console.log(result)
     } catch (error) {
-        console.log(error)
-    } finally {  
-        
+      console.log(error)
     }
-};
-
-
-useEffect(() => {
-  getContacts();
-}, []);
-
-
+  };
+  
+  useEffect(() => {
+    getContacts();
+  }, []);
+  
   const defaultImage = require('../assets/profile.png');
+
   const renderItem = ({ item }) => (
-    <View style={styles.contactItem}>
-      <Image
-        style={styles.contactPhoto}
-        source={{ uri: item.photo || null }}
-        defaultSource={defaultImage}
-      />
-      <View style={styles.contactTextContainer}>
-        <Text style={styles.contactText}>{item.name}</Text>
-      </View>
-      <TouchableOpacity>
+    <TouchableOpacity>
+      <View style={styles.contactItem}>
+        <Image
+          style={styles.contactPhoto}
+          source={{ uri: item.photo || null }}
+          defaultSource={defaultImage}
+        />
+        <View style={styles.contactTextContainer}>
+          <Text style={styles.contactText}>{item.name}</Text>
+        </View>
         <CheckBox
           style={styles.checkBox}
           containerStyle={styles.checkBoxContainer}
@@ -67,19 +66,72 @@ useEffect(() => {
                 : contact
             );
             setContacts(updatedContacts);
+
+            const isSelected = !item.checked;
+            if (isSelected) {
+              setSelectedContacts((prev) => [...prev, item]);
+            } else {
+              setSelectedContacts((prev) =>
+                prev.filter((contact) => contact.id !== item.id)
+              );
+            }
           }}
         />
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
-    
+
+  const renderSelectedContacts = () => {
+    return (
+      <View style={styles.selectedContactsContainer}>
+        <ScrollView horizontal>
+          {selectedContactsState.map((selectedContact) => (
+            <View style={styles.selectedContactItem} key={selectedContact.id}>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => handleDeleteSelectedContact(selectedContact.id)}
+              >
+                <Icon name="times-circle" size={24} color="red" />
+              </TouchableOpacity>
+              <Image
+                style={styles.selectedContactPhoto}
+                source={{ uri: selectedContact.photo || null }}
+                defaultSource={defaultImage}
+              />
+              <Text style={styles.selectedContactText}>
+                {selectedContact.name}
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  };
+  
+  const handleDeleteSelectedContact = (contactId) => {
+    const updatedContacts = contacts.map((contact) =>
+      contact.id === contactId ? { ...contact, checked: false } : contact
+    );
+    setContacts(updatedContacts);
+
+    const updatedSelectedContacts = selectedContactsState.filter(
+      (contact) => contact.id !== contactId
+    );
+    setSelectedContacts(updatedSelectedContacts);
+
+    if (updatedSelectedContacts.length === 0) {
+      navigation.navigate('NewList', { selectedContacts: [] });
+    }
+  };
+
+
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
 
         <Text style={styles.headerText}>
-          Destinatários
+          Adicionar participantes
         </Text>
         <View style={styles.cancelCreate}>
             <Text style={styles.headerTextTwo} onPress={() => navigation.goBack()}>
@@ -102,9 +154,10 @@ useEffect(() => {
         </View>
       </View>
       
+      {renderSelectedContacts()}
 
       <View style={styles.container1}>
-        <ScrollView>
+        
         <FlatList
           contentContainerStyle={styles.itemList}
           data={contacts}
@@ -115,10 +168,7 @@ useEffect(() => {
             <Divider style={{ height: 1, backgroundColor: "grey" }} />
           )}
         />
-        </ScrollView>
       </View>
-
-
 
 
      {/*Botão Provisório*/}
@@ -130,6 +180,7 @@ useEffect(() => {
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -157,7 +208,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     },
 
-    headerTextTwo: {
+  headerTextTwo: {
     fontSize: 16,
     color: "#FFFCF4",
     marginLeft: 15,
@@ -177,11 +228,47 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  selectedContactsContainer: {
+    flexDirection: "row",
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    backgroundColor: "#F1F3F5", 
+    borderRadius: 15,
+    marginVertical: -25,
+    height: 135,
+  },
+  
+  deleteButton: {
+    marginLeft: 10,
+  },
+
+  selectedContactItem: {
+    alignItems: "center",
+    marginRight: 10,
+    marginLeft: 10,
+    borderBottomColor: "black",
+    //height: 30,
+    width: 75,
+  },
+
+  selectedContactPhoto: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginRight: 5,
+  },
+
+  selectedContactText: {
+    fontSize: 16,
+    textAlign: "center",
+  },
+
   container1: {
     flex: 1,
     backgroundColor: "#F1F3F5",
-    borderRadius: 15,
-    marginVertical: -25,
+    paddingBottom: 10,
+    borderTopColor: 'black',
+    borderTopWidth: 2,
   },
 
   itemList: {
@@ -206,7 +293,6 @@ const styles = StyleSheet.create({
     marginRight: 10, 
   },
 
-
   contactPhoto: {
     width: 35,
     height: 35,
@@ -219,7 +305,7 @@ const styles = StyleSheet.create({
   },
 
 
-  //Provisório
+  //Botão Provisório
   buttonForecast: {
     backgroundColor: "#1A4971",
     borderRadius: 10,
