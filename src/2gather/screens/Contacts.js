@@ -14,9 +14,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
+import socket from "../services/socket";
 
 export default function Contacts({ navigation }) {
-  
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
 
@@ -25,23 +25,27 @@ export default function Contacts({ navigation }) {
         const result = await GetUserList() || [];
         setContacts(result);
         setContactsRef(result);
-        console.log(result)
     } catch (error) {
         console.log(error)
     } finally {  
         
     }
-};
-
+  };
+  const handleNavigation = (partnerId, partnerName) => {
+    socket.emit("createRoom", partnerId, partnerName);
+    navigation.navigate("Chat", {
+      id: partnerId,
+      name: partnerName,
+    });
+  };
 
 useEffect(() => {
   getContacts();
 }, []);
 
-
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+    <TouchableOpacity onPress={() => handleNavigation(item.id, item.name)}>
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
       <Text style={styles.contactText}>{item.name}</Text>

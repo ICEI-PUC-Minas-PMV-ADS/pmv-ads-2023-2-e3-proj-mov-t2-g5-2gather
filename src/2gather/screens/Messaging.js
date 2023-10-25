@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+/* import React, { useEffect, useState, useRef } from "react";
 import { View, TextInput, FlatList, Text, StyleSheet, Pressable, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import socket from "../services/socket";
-import MessageBox from "../component/composition/MessageBox";
+import MessageBox from "../component/MessageBox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Appbar } from 'react-native-paper';
 
-const Chat = ({ route, navigation }) => {
+const Messaging = ({ route, navigation }) => {
 	const [user, setUser] = useState("");
 	const { name, id } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Chat;
+export default Messaging; */
