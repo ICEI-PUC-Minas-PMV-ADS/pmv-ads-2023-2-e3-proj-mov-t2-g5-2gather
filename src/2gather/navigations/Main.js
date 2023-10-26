@@ -11,7 +11,6 @@ import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
 import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
-import Contacts from '../screens/Contacts';
 import ArchivedGroups from '../screens/ArchivedGroups';
 import YourGroups from '../screens/YourGroups';
 import NewList from '../screens/NewList';
