@@ -129,35 +129,49 @@ export default function CreateNewGroup({ route, navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-
-        <Text style={styles.headerText}>
-          Adicionar participantes
-        </Text>
+        <Text style={styles.headerText}>Adicionar participantes</Text>
         <View style={styles.cancelCreate}>
-            <Text style={styles.headerTextTwo} onPress={() => navigation.goBack()}>
-            Cancelar
-            </Text>
-            <Text style={styles.headerTextTwo} onPress={() => navigation.goBack()}>
-            Avançar
-            </Text>
-
+          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.goBack()} >
+            <Icon             
+              name="chevron-left" 
+              size={24} 
+              color="white" 
+              style={{ fontWeight: 'normal' }} />
+          </TouchableOpacity>
+          <View style={styles.nameList}>
+            <TextInput 
+              style={styles.nameInput}
+              placeholder="Nome da lista"
+              placeholderTextColor="#aaa"
+            />
+          </View>
+          <Text
+            style={styles.headerTextTwo}
+            onPress={() => navigation.goBack()}
+          >
+            Criar
+          </Text>
         </View>
-        
 
         <View style={styles.searchBar}>
-          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
-          
+          <TextInput
+            onChangeText={(value) => {
+              setContacts(
+                contactsRef.filter((obj) =>
+                  obj.name.toLowerCase().includes(value.toLowerCase())
+                )
+              );
+            }}
             style={styles.searchInput}
             placeholder="Pesquisar"
             placeholderTextColor="#aaa"
           />
         </View>
       </View>
-      
+
       {renderSelectedContacts()}
 
       <View style={styles.container1}>
-        
         <FlatList
           contentContainerStyle={styles.itemList}
           data={contacts}
@@ -170,18 +184,18 @@ export default function CreateNewGroup({ route, navigation }) {
         />
       </View>
 
+      {/*Botão Provisório*/}
 
-
-
-     {/*Botão Provisório*/}
-
-  <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("NEXTSCREEN")}>
-      <Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
-      </TouchableOpacity> 
-
+      <TouchableOpacity
+        style={styles.buttonForecast}
+        onPress={() => navigation.navigate("HomePage")}
+      >
+        <Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -193,7 +207,7 @@ const styles = StyleSheet.create({
 
   header: {
     padding: 10,
-    height: 155,
+    height: 175,
     backgroundColor: "#2368A2",   
   },
 
@@ -209,16 +223,37 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     },
 
+    iconContainer: {
+      height: '100%', 
+      justifyContent: 'center',  
+    },
+
   headerTextTwo: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#FFFCF4",
     marginLeft: 15,
     marginEnd: 15,
+    alignSelf: 'center',
+    },
+
+  nameList: {
+    paddingLeft: 20,
+    marginTop: 7,
+    marginBottom: 7,
+    width: '80%',
+    },
+  
+  nameInput: {
+    backgroundColor: "#1a4971",
+    color: "#fffcf4",
+    borderRadius: 10,
+    padding: 10,
+    fontSize: 16,
     },
 
   searchBar: {
-    padding: 10,
-    marginBottom: 20,
+    width: '75%',
+    marginLeft: 35,
   },
 
   searchInput: {
@@ -236,7 +271,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1F3F5", 
     borderRadius: 15,
     marginVertical: -25,
-    height: 135,
+    height: 140,
   },
   
   deleteButton: {

@@ -43,7 +43,7 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  // Navegue para a tela CreateNewGroup quando um contato for selecionado
+  // Navegue para a tela CreateReceivers quando um contato for selecionado
   if (selectedContacts.length > 0) {
     navigation.navigate("CreateReceivers", { selectedContacts });
   }
@@ -98,6 +98,7 @@ useEffect(() => {
         <Text style={styles.headerText} onPress={() => navigation.goBack()}>
           Adicionar participantes à lista
         </Text>
+        
         <View style={styles.searchBar}>
           <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
           
