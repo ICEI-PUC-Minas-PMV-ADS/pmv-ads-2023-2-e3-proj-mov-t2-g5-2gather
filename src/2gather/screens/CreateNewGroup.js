@@ -17,12 +17,18 @@ import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import {CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { CreateNewGroups } from '../services/group.services';
 
 export default function CreateNewGroup({ route, navigation }) {
   const { selectedContacts } = route.params || {};
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
+  const [title, setTitle] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [description, setDescription] = useState("");
+  const [idAdmin, setIdAdmin] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const getContacts = async () => {
     try {
@@ -125,6 +131,42 @@ export default function CreateNewGroup({ route, navigation }) {
   };
 
 
+  //Criar o grupo
+
+  const handleCreateGroup = async () => {
+   
+    try {
+      if (!title) {
+        // Se o título não estiver preenchido, exibe o alerta
+        setShowAlert(true);
+        return;
+      }
+
+ 
+      const groupData = await CreateNewGroups({
+        title: title,
+        photo: photo,
+        description: description,
+        idAdmin: '87f7c060-10d4-470a-aa71-4fa2107b9177',
+        //isTransmission: false,
+        isPrivate: false,
+        //archive: false,
+        participants: selectedContactsState.map((contact) => contact.id),
+      });
+       
+    console.log(groupData);
+    alert("Grupo criado com sucesso");
+
+    //navigation.navigate("GRUPO CRIADO - Screen da Hellen");
+
+
+  } catch (error) {
+    console.log(error);
+    
+  } finally {
+    
+  }
+};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -141,13 +183,14 @@ export default function CreateNewGroup({ route, navigation }) {
           <View style={styles.nameList}>
             <TextInput 
               style={styles.nameInput}
-              placeholder="Nome da lista"
+              onChangeText={(text) => setTitle(text)}
+              placeholder="Nome do grupo"
               placeholderTextColor="#aaa"
             />
           </View>
           <Text
             style={styles.headerTextTwo}
-            onPress={() => navigation.goBack()}
+            onPress={handleCreateGroup}
           >
             Criar
           </Text>
@@ -192,6 +235,20 @@ export default function CreateNewGroup({ route, navigation }) {
       >
         <Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
       </TouchableOpacity>
+
+      {showAlert && (
+        <View style={styles.alertContainer}>
+          <Text style={styles.alertText}>Por favor, insira o nome do seu grupo!</Text>
+          <TouchableOpacity
+            style={styles.alertButton}
+            onPress={() => setShowAlert(false)}
+          >
+            <Text style={styles.alertButtonText}>OK</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+
     </SafeAreaView>
   );
 }
@@ -339,6 +396,38 @@ const styles = StyleSheet.create({
   contactText: {
     fontSize: 16,
   },
+
+  alertContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    width: 300,
+    padding: 20,
+    backgroundColor: '#AAD4F5',
+    borderRadius: 10,
+    transform: [{ translateX: -150 }, { translateY: -100 }],
+    elevation: 5,
+  },
+
+  alertText: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: 'black',
+    alignItems: 'center',
+  },
+
+  alertButton: {
+    backgroundColor: 'red',
+    borderRadius: 5,
+    padding: 10,
+    alignItems: 'center',
+  },
+
+  alertButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+
 
 
   //Botão Provisório

@@ -86,11 +86,11 @@ const handleItemPress = (item) => {
 
 
 
-     {/*Botão Provisório*/}
+     {/*Botão Provisório
 
   <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("NewList")}>
   <Text style={styles.buttonLoginText}>Go To NewList Screen</Text>
-      </TouchableOpacity> 
+      </TouchableOpacity> */}
 
     </SafeAreaView>
   );
