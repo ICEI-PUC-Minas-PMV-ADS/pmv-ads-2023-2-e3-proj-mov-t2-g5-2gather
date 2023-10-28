@@ -21,6 +21,8 @@ export default function NewList ({ navigation }) {
   
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
+  const [selectedContacts, setSelectedContacts] = useState([]);
+
 
   const getContacts = async () => {
     try {      
@@ -40,34 +42,55 @@ useEffect(() => {
   getContacts();
 }, []);
 
+useEffect(() => {
+  // Navegue para a tela CreateReceivers quando um contato for selecionado
+  if (selectedContacts.length > 0) {
+    navigation.navigate("CreateReceivers", { selectedContacts });
+  }
+}, [selectedContacts]);
+
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity>
-      <View style={styles.contactItem}> 
-      <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
+    <View style={styles.contactItem}>
+      <Image
+        style={styles.contactPhoto}
+        source={{ uri: item.photo || null }}
+        defaultSource={defaultImage}
+      />
       <View style={styles.contactTextContainer}>
         <Text style={styles.contactText}>{item.name}</Text>
       </View>
-      <CheckBox style={styles.checkBox}
-            containerStyle={styles.checkBoxContainer}
-            checkedIcon="dot-circle-o"
-            uncheckedIcon="circle-o"
-            checked={item.checked} // Use item.checked instead of this.state.checked
-            onPress={() => {
-            // Update the 'checked' property of the corresponding item
+      <TouchableOpacity>
+        <CheckBox
+          style={styles.checkBox}
+          containerStyle={styles.checkBoxContainer}
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
+          checked={item.checked} // Use item.checked instead of this.state.checked
+          onPress={() => {
             const updatedContacts = contacts.map((contact) =>
               contact.id === item.id
                 ? { ...contact, checked: !contact.checked }
                 : contact
             );
             setContacts(updatedContacts);
+
+            // Adicione ou remova o contato da lista de contatos selecionados
+            const isSelected = !item.checked;
+            if (isSelected) {
+              setSelectedContacts((prev) => [...prev, item]);
+            } else {
+              setSelectedContacts((prev) =>
+                prev.filter((contact) => contact.id !== item.id)
+              );
+            }
           }}
-        />    
+        />
+      </TouchableOpacity>
     </View>
-    </TouchableOpacity>
   );
-    
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -75,8 +98,10 @@ useEffect(() => {
         <Text style={styles.headerText} onPress={() => navigation.goBack()}>
           Adicionar participantes à lista
         </Text>
+        
         <View style={styles.searchBar}>
-          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}     
+          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
+          
             style={styles.searchInput}
             placeholder="Pesquisar"
             placeholderTextColor="#aaa"
@@ -103,11 +128,11 @@ useEffect(() => {
 
 
 
-     {/*Botão Provisório*/}
+     {/*Botão Provisório
 
-  <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("CreateReceivers")}>
-      <Text style={styles.buttonLoginText}>Go to CreateReceivers Screen</Text>
-      </TouchableOpacity> 
+     <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("CreateNewGroup")}>
+      <Text style={styles.buttonLoginText}>Go to CreateNewGroup Screen</Text>
+      </TouchableOpacity> */}
 
     </SafeAreaView>
   );
@@ -137,6 +162,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
+
   searchInput: {
     backgroundColor: "#1a4971",
     color: "#fffcf4",
@@ -161,12 +187,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
-    //justifyContent: "space-between",
   },
 
   contactTextContainer: {
     flex: 1,
   },
+
   checkBoxContainer: {
     backgroundColor: 'transparent',
     borderWidth: 0,
@@ -185,11 +211,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  checkBox: {
-    alignItems: 'flex-end',
-  },
 
-  //Provisório
+  //Botão Provisório
   buttonForecast: {
     backgroundColor: "#1A4971",
     borderRadius: 10,
@@ -205,16 +228,6 @@ const styles = StyleSheet.create({
   buttonLoginText: {
     fontSize: 18,
     color: '#FFFFFF',
-  },
-
-  selectionCircle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#1A4971', // Cor de fundo do círculo de seleção
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
+  }
 
 });
