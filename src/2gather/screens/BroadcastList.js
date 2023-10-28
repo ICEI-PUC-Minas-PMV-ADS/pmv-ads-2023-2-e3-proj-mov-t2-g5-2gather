@@ -23,29 +23,15 @@ export default function BroadcastList() {
           Você pode usar listas de transmissão para enviar mensagens para várias pessoas ao mesmo tempo.
         </Text>
         <TouchableHighlight
-          style={styles.buttonContainer}
-          underlayColor="transparent"
-          onPress={() => {
-            console.log('Você clicou em Nova lista, ainda tenho que colocar a navegação mas só conseguirei depois que a tela Criar Nova Lista for criada.');
-          }}>
-          <View style={styles.button}>
-            <Icon name="plus" style={styles.buttonIcon} />
-            <Text style={styles.buttonText}>Nova lista</Text>
-          </View>
             style={styles.buttonContainer}
             underlayColor="transparent"
             onPress={() => navigation.navigate('NewList')}
               >
-            {/*onPress={() => {
-                console.log('Você clicou em Nova lista, ainda vou implementar o restante.');
-                handleNavigation();
-            }}
-          */}
-          
             <View style={styles.button}>
                 <Icon name="user-plus" style={styles.buttonIcon} />
                 <Text style={styles.buttonText}>Nova lista</Text>
             </View>
+
         </TouchableHighlight>
       </View>
 

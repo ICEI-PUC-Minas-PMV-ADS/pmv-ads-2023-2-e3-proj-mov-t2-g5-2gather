@@ -39,9 +39,8 @@ export default function BroadcastCreate() {
         <TouchableHighlight
           style={styles.buttonContainer}
           underlayColor="transparent"
-          onPress={() => {
-            console.log('Você clicou em Nova lista, ainda tenho que colocar a navegação mas só conseguirei depois que a tela Criar Nova Lista for criada.');
-          }}>
+           onPress={() => navigation.navigate('NewList')}
+            >
           <View style={styles.button}>
             <Icon name="plus" style={styles.buttonIcon} />
             <Text style={styles.buttonText}>Nova lista</Text>
