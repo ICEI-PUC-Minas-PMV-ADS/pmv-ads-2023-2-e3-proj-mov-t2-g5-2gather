@@ -218,10 +218,6 @@ export default function Profile({ navigation }) {
             onPress={() => navigation.navigate('ArchivedGroups')}>Seus grupos arquivados</Text>
           </TouchableOpacity>
         </View>
-     
-
-
-
 
         <View style={styles.containerData}>
           <Text style={{ fontWeight: "bold" }}>Email Corporativo</Text>

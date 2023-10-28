@@ -24,11 +24,14 @@ export default function BroadcastList() {
         <TouchableHighlight
             style={styles.buttonContainer}
             underlayColor="transparent"
-            onPress={() => {
+            onPress={() => navigation.navigate('NewList')}
+              >
+            {/*onPress={() => {
                 console.log('Você clicou em Nova lista, ainda vou implementar o restante.');
                 handleNavigation();
             }}
-            >
+          */}
+          
             <View style={styles.button}>
                 <Icon name="user-plus" style={styles.buttonIcon} />
                 <Text style={styles.buttonText}>Nova lista</Text>
