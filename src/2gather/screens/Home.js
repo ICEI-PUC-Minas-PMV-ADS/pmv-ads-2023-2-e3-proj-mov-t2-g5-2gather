@@ -28,7 +28,7 @@ export default function Home({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("Login")}>
+      <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("CreateUser")}>
       <Text style={styles.buttonLoginText}>Fazer login</Text>
       <MaterialCommunityIcons name="login" size={35} color="#FFFF" />
       </TouchableOpacity> 
@@ -37,7 +37,18 @@ export default function Home({ navigation }) {
       <Text style={styles.buttonLoginText}>Criar Usuário</Text>
       </TouchableOpacity>  */}
 
-    </View>
+
+
+    <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("Login")}>
+    <Text style={styles.buttonLoginText}>Fazer login</Text>
+    <MaterialCommunityIcons name="login" size={35} color="#FFFF" />
+    </TouchableOpacity> 
+
+    {/* <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("CreateUser")}>
+    <Text style={styles.buttonLoginText}>Criar Usuário</Text>
+    </TouchableOpacity>  */}
+
+  </View>
   )
 }
 

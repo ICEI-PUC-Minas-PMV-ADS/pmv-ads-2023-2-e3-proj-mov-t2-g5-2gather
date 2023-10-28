@@ -7,7 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 export default function BroadcastList() {
   const navigation = useNavigation();
 
-  const handleNavigation = () => {
+  const handleNavigation = (Route) => {
+    navigation.navigate(Route)
   };
 
   return (
@@ -26,7 +27,7 @@ export default function BroadcastList() {
             underlayColor="transparent"
             onPress={() => {
                 console.log('Você clicou em Nova lista, ainda vou implementar o restante.');
-                handleNavigation();
+                handleNavigation('');
             }}
             >
             <View style={styles.button}>

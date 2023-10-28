@@ -17,6 +17,7 @@ import CreateReceivers from '../screens/CreateReceivers';
 import NewGroup from '../screens/NewGroup';
 import CreateNewGroup from '../screens/CreateNewGroup';
 import CreatedBroadcastList from '../screens/CreatedBroadcastList';
+import ArchivedLists from '../screens/ArchivedLists';
 
 const stack = createNativeStackNavigator();
 
@@ -82,12 +83,13 @@ const MainNav = () => {
                 name="CreateNewGroup"
                 component={CreateNewGroup}
             />
-
-
-
              <stack.Screen
                 name="CreatedBroadcastList"
                 component={CreatedBroadcastList}
+            />
+             <stack.Screen
+                name="ArchivedLists"
+                component={ArchivedLists}
             />
 
         </stack.Navigator>

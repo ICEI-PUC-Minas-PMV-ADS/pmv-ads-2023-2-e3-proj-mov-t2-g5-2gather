@@ -1,99 +1,154 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { Appbar } from 'react-native-paper';
 
-export default function CreatedBroadcastList({ navigation }) {
-    const [inputFocused, setInputFocused] = useState(false);
+export default function ChatScreen({ navigation }) {
+    const [currentMessage, setCurrentMessage] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [hasSentMessage, setHasSentMessage] = useState(false);
+    const [creationDate, setCreationDate] = useState(new Date());
+
+    const formatDate = (date) => {
+        const today = new Date();
+        if (date.getDate() === today.getDate() &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear()) {
+            return 'Hoje';
+        }
+        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    };
+
+    const handleSendMessage = () => {
+        if (currentMessage.trim() !== '') {
+            const timestamp = new Date();
+            const timeString = `${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
+
+            setMessages(prevMessages => [...prevMessages, { content: currentMessage, time: timeString }]);
+            setCurrentMessage('');
+            if (!hasSentMessage) {
+                setHasSentMessage(true);
+            }
+        }
+    };
 
     return (
-        <View style={styles.chatcontainer}>
+        <View style={styles.containerBody}>
+            <Appbar.Header style={styles.header}>
+                <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
+                <Text style={styles.titleHeader}>Nome da Lista</Text>
+            </Appbar.Header>
 
-            <Text style={styles.header} onPress={() => navigation.goBack()}>
-            <Image source={require("../assets/leftarrow.png")}></Image>
-                <Text>Mensagens</Text>
-            </Text>
-
-            <View style={styles.date}>
-            <Text style={styles.dateBroadcast}>
-                Hoje
-            </Text>
+            <View style={styles.dateContainer}>
+                <Text style={styles.dateText}>{formatDate(creationDate)}</Text>
             </View>
 
-            <Text style={styles.dateBroadcastMessage}>
-                Você criou uma lista de transmissão com <Text style={styles.contactCount}>2</Text> destinatários. Só você pode enviar mensagem aqui.
-            </Text>
+            <View style={styles.messagesContainer}>
+                {!hasSentMessage && (
+                    <Text style={styles.broadcastMessage}>
+                        Você criou uma lista de transmissão com 2 destinatários. Só você pode enviar mensagens aqui.
+                    </Text>
+                )}
+                {messages.map((message, index) => (
+                    <View key={index} style={styles.messageContainer}>
+                        <Text style={styles.message}>
+                            {message.content}
+                        </Text>
+                        <Text style={styles.messageTime}>
+                            {message.time}
+                        </Text>
+                    </View>
+                ))}
+            </View>
 
-
-            <View style={styles.inputContainer}>
+            <View style={styles.chatInputContainer}>
                 <TextInput
-                    style={styles.inputContainerInput}
-                    placeholder={inputFocused ? '' : 'Comece a digitar'}
-                    onFocus={() => setInputFocused(true)}
+                    value={currentMessage}
+                    onChangeText={setCurrentMessage}
+                    style={styles.chatInput}
+                    placeholder="Mensagem"
+                    onSubmitEditing={handleSendMessage}
                 />
+                <TouchableOpacity onPress={handleSendMessage}>
+                    <Text style={styles.sendButton}>Enviar</Text>
+                </TouchableOpacity>
             </View>
-
         </View>
     );
 }
 
-
 const styles = StyleSheet.create({
-    chatcontainer: {
+
+    containerBody: {
         flex: 1,
-    },
-    date:{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100vw',
+        backgroundColor: '#FFFFFF'
     },
     header: {
-        gap: 10,
-        color: "#FFFCF4",
-        fontSize: '20px',
-        fontWeight: "bold",
-        marginBottom: 20,
-        height: 65,
-        backgroundColor: "#2368A2",
-        padding: 0,
-        display: "flex",
-        alignItems: "center",
-        paddingLeft: 10,
+        backgroundColor: '#2368A2',
     },
-    dateBroadcast: {
-        backgroundColor: '#ADB5BD',
+    titleHeader: {
+        marginLeft: 10,
+        fontSize: 18,
+        color: '#FFFCF4'
+        
+    },
+    broadcastMessage: {
+        backgroundColor: '#F1F3F5',
         borderRadius: 5,
-        textAlign: 'center',
         margin: 10,
-        padding: 5,
-        width: '30%',
-        fontSize: '16px',
-    },
-    dateBroadcastMessage: {
-        backgroundColor: '#ADB5BD',
-        borderRadius: 5,
+        padding: 10,
         textAlign: 'center',
-        margin: 10,
-        padding: 40,
-        fontSize: '20px',
-        opacity: '0.9',
-    
     },
-    contactCount: {
-        fontWeight: 'bold',
-    },
-    inputContainer: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
+    messagesContainer: {
+        flex: 1,
         padding: 10,
     },
-    inputContainerInput: {
-        height: 40,
-        borderColor: "#868E96",
-        backgroundColor: "#FFFCF4",
-        borderWidth: 1,
+    message: {
+        backgroundColor: '#FFFCF4',
+        padding: 10,
+        borderRadius: 5,
         marginBottom: 10,
+    },
+    chatInputContainer: {
+        flexDirection: 'row',
+        padding: 10,
+        //backgroundColor: '#ADB5BD',
+    },
+    chatInput: {
+        flex: 1,
+        backgroundColor: '#ADB5BD',
         padding: 10,
         borderRadius: 10,
-    }
+        marginRight: 10,
+    },
+    sendButton: {
+        backgroundColor: '#2368A2',
+        color: 'white',
+        padding: 10,
+        borderRadius: 5,
+        alignSelf: 'center',
+    },
+    messageContainer: {
+        backgroundColor: '#FFFCF4',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    message: {
+        marginBottom: 5,
+    },
+    messageTime: {
+        fontSize: 10,
+        color: '#888',
+        alignSelf: 'flex-end',
+    },
+    dateContainer: {
+        backgroundColor: '#ADB5BD',
+        borderRadius: 5,
+        margin: 10,
+        padding: 5,
+        alignSelf: 'center',
+    },
+    dateText: {
+        fontSize: 14,
+    },
 });
