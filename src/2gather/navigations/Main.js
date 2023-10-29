@@ -16,7 +16,7 @@ const stack = createNativeStackNavigator();
 
 const MainNav = () => {
     return (
-        <stack.Navigator initialRouteName="Chat">
+        <stack.Navigator initialRouteName="Homepage">
             <stack.Screen
                 name="Homepage"
                 component={Homepage}

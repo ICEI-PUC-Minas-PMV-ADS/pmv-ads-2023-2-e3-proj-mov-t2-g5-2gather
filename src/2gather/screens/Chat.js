@@ -2,13 +2,14 @@ import React, { useEffect, useState, useRef } from "react";
 import { View, TextInput, FlatList, Text, StyleSheet, Pressable, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import socket from "../services/socket";
-import MessageBox from "../component/composition/MessageBox";
+import MessageBox from "../components/composition/MessageBox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Appbar } from 'react-native-paper';
+import { combineAndHashStrings } from "../services/encryption.service";
 
 const Chat = ({ route, navigation }) => {
 	const [user, setUser] = useState("");
-	const { name, id } = route.params;
+	const { room, partnerName, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
@@ -26,8 +27,7 @@ const Chat = ({ route, navigation }) => {
 			}
 		};
 		getUsername();
-
-		socket.emit("findRoom", id);
+		socket.emit("findRoom", roomId);
 		socket.on("foundRoom", (roomChats) => {
 			setChatMessages(roomChats);
 
@@ -50,7 +50,7 @@ const Chat = ({ route, navigation }) => {
 		if (user && message) {
 			socket.emit("newMessage", {
 				message,
-				room_id: id,
+				room_id: roomId,
 				user,
 				timestamp: { hour, mins },
 			});
@@ -72,7 +72,7 @@ const Chat = ({ route, navigation }) => {
 					<TouchableOpacity onPress={() => { console.log("Deverá abrir a tela de detalhes?") }}>
 						<View style={styles.contentContainer}>
 							<Image style={styles.contactPhoto} source={require('../assets/profile.png')} />
-							<Text style={styles.contactName}>Carlos</Text>
+							<Text style={styles.contactName}>{ room.isPrivate ? partnerName : room.title}</Text>
 						</View>
 					</TouchableOpacity>
 				</Appbar.Header>

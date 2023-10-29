@@ -18,7 +18,7 @@ import { useUser } from '../contexts/UserContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function Login(navigation) {
-  const { setSigned, setName } = useUser();
+  const { setSigned, setId ,setName } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -29,10 +29,11 @@ export default function Login(navigation) {
       if (res.access && res.refresh) {
         setSigned(true);
         setName(res.name);
+        setId(res.id);
         for (const key in res) {
           if (res.hasOwnProperty(key)) {
             if (res[key] !== null) {
-              AsyncStorage.setItem(key, res[key]).then();
+              AsyncStorage.setItem(key, String(res[key])).then();
             }
           }
         }

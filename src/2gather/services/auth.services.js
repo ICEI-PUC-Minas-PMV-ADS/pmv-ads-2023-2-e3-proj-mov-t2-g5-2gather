@@ -3,6 +3,7 @@ import { REACT_APP_DEV_MODE, REACT_APP_PROD_MODE } from "@env"
 
 const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
 
+
 export const SignIn = async ({ email, password }) => {
     try {
         const response = await fetch(`${API_URL}/token/`,{
@@ -66,6 +67,7 @@ export const tokenRefresh = async () => {
         });
         const result = await response.json();
         if (!response.ok) {
+            logout()
             throw new Error(JSON.stringify(result));
         }
         const token = result['access']
@@ -84,6 +86,7 @@ export const getAccessToken = async () => {
 
 export const logout = () => {
     AsyncStorage.clear()
+    setSigned(false)
 };
 
 export const sendAuthenticatedRequest = async (url, method = 'GET', data = null) => {
@@ -112,14 +115,12 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
         }
 
         const result = await response.json();
-
         if (!response.ok) {
             throw new Error(JSON.stringify(result));
         }
 
         return result;
     } catch (error) {
-        logout();
         throw new Error(error.message);
     }
 };

@@ -15,11 +15,12 @@ import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import socket from "../services/socket";
+import { getOrCreatePrivateGroup } from '../services/encryption.service';
 
 export default function Contacts({ navigation }) {
+  const { name, id  } = useUser();
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
-
   const getContacts = async () => {
     try {      
         const result = await GetUserList() || [];
@@ -31,12 +32,21 @@ export default function Contacts({ navigation }) {
         
     }
   };
-  const handleNavigation = (partnerId, partnerName) => {
-    socket.emit("createRoom", partnerId, partnerName);
-    navigation.navigate("Chat", {
-      id: partnerId,
-      name: partnerName,
-    });
+
+  const handleNavigation = async (partnerId, partnerName) => {
+    try { 
+      const result = await getOrCreatePrivateGroup({ idPartner: partnerId, idSelf: id})
+      socket.emit("createRoom", result.id, partnerName);
+      navigation.navigate("Chat", {
+        room: result,
+        roomId: result.id,
+        partnerName: partnerName,
+      });
+
+    } catch (error) {
+      alert('error')
+      console.log(error)
+    }
   };
 
 useEffect(() => {
