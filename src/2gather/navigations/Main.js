@@ -9,8 +9,14 @@ import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
-import Contacts from '../screens/Contacts' ;
 import Chat from '../screens/Chat';
+import Contacts from '../screens/Contacts';
+import ArchivedGroups from '../screens/ArchivedGroups';
+import YourGroups from '../screens/YourGroups';
+import NewList from '../screens/NewList';
+import CreateReceivers from '../screens/CreateReceivers';
+import NewGroup from '../screens/NewGroup';
+import CreateNewGroup from '../screens/CreateNewGroup';
 
 const stack = createNativeStackNavigator();
 
@@ -51,6 +57,22 @@ const MainNav = () => {
              <stack.Screen
                 name="Contacts"
                 component={Contacts}
+            /> 
+            <stack.Screen
+                name="ArchivedGroups"
+                component={ArchivedGroups}
+            />
+            <stack.Screen
+                name="YourGroups"
+                component={YourGroups}
+            />
+            <stack.Screen
+                name="NewList"
+                component={NewList}
+            />
+            <stack.Screen
+                name="CreateReceivers"
+                component={CreateReceivers}
             />
             <stack.Screen
                 name="Chat"
@@ -59,6 +81,18 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
+            <stack.Screen
+                name="NewGroup"
+                component={NewGroup}
+            />
+            <stack.Screen
+                name="CreateNewGroup"
+                component={CreateNewGroup}
+            />
+
+
+
+
         </stack.Navigator>
     );
 };

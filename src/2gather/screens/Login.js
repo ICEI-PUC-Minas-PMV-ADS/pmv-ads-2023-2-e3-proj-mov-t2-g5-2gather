@@ -17,6 +17,7 @@ import { SignIn } from '../services/auth.services.js'
 import { useUser } from '../contexts/UserContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+
 export default function Login(navigation) {
   const { setSigned, setId ,setName } = useUser();
   const [email, setEmail] = useState('');
@@ -72,15 +73,21 @@ export default function Login(navigation) {
             keyboardType="email-address"
             outoCorrect={false}
             onChangeText={(text) => setEmail(text)}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            selectTextOnFocus={true}
           />
           <View style={styles.inputPasswordContainer}>
-            <TextInput style={styles.password}
+            <TextInput 
+              style={styles.password}
               value={password}
               placeholder="Digite a senha..."
               keyboardType="email-address"
               secureTextEntry={!showPassword}
               autoCorrect={false}
               onChangeText={(text) => setPassword(text)}
+              returnKeyType="send"
+              onSubmitEditing={() => handleSignIn()}
             />
             <TouchableOpacity
               style={styles.icon}
