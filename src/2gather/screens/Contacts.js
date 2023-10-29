@@ -15,7 +15,7 @@ import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import socket from "../services/socket";
-import { getOrCreatePrivateGroup } from '../services/encryption.service';
+import { getOrCreatePrivateGroup } from '../services/group.services';
 
 export default function Contacts({ navigation }) {
   const { name, id  } = useUser();

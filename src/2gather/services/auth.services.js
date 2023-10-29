@@ -41,7 +41,6 @@ export const Register = async ({ name, phone, email, password, idRole }) => {
 
 export const InactivateUserScreen = async (userId, reason) => {
     try {
-      const token = await AsyncStorage.getItem('access'); 
       const data = { status: 0, reason }; // Status 0 para inativar
       const response = await sendAuthenticatedRequest(`/user/update/${userId}/admin/`, 'PATCH', data);
 
@@ -86,7 +85,6 @@ export const getAccessToken = async () => {
 
 export const logout = () => {
     AsyncStorage.clear()
-    setSigned(false)
 };
 
 export const sendAuthenticatedRequest = async (url, method = 'GET', data = null) => {
@@ -112,6 +110,9 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
             AsyncStorage.setItem('access', newAccessToken);
             requestOptions.headers['Authorization'] = `Bearer ${newAccessToken}`;
             response = await fetch(`${API_URL}${url}`, requestOptions);
+            if (response.status === 401 || response.status === 403) {
+                logout()
+            }
         }
 
         const result = await response.json();

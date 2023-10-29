@@ -56,6 +56,6 @@ app.get("/api", (req, res) => {
 	res.json(chatRooms);
 });
 
-http.listen(PORT, "192.168.0.10", () => {
+http.listen(PORT, () => {
 	console.log(`Server listening on ${PORT}`);
 });

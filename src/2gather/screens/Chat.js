@@ -6,38 +6,38 @@ import MessageBox from "../components/unit/MessageBox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Appbar } from 'react-native-paper';
 import { combineAndHashStrings } from "../services/encryption.service";
+import { SendMessage, getMessageList } from "../services/message.service";
+import { useUser } from "../contexts/UserContext";
 
 const Chat = ({ route, navigation }) => {
-	const [user, setUser] = useState("");
+	const {id, name} = useUser("");
 	const { room, partnerName, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-	useEffect(() => {
-		const getUsername = async () => {
-			try {
-				const value = await AsyncStorage.getItem("name");
-				if (value !== null) {
-					setUser(value);
-				}
-			} catch (e) {
-				console.error("Error while loading username!");
-			}
-		};
-		getUsername();
-		socket.emit("findRoom", roomId);
-		socket.on("foundRoom", (roomChats) => {
-			setChatMessages(roomChats);
+	const getMessages = async () => {
+		try {      
+			//ideal é ter as msgs em um local storage, caso não tenha, ai sim tentar pegar da api.
+			const result = await getMessageList({idGroup:roomId}) || [];
+			setChatMessages(result);
+		} catch (error) {
+			console.log(error)
+		}
+	  };
 
-			if (messageListRef.current && isFirstLoad) {
-				setTimeout(() => {
-					messageListRef.current.scrollToEnd({ animated: true });
-					setIsFirstLoad(false);
-				}, 1000);
-			}
-		});
+	useEffect(() => {
+		socket.emit("findRoom", roomId);
+		(async () => {
+			await getMessages()
+		})()
+		if (messageListRef.current && isFirstLoad) {
+			setTimeout(() => {
+				messageListRef.current.scrollToEnd({ animated: true });
+				setIsFirstLoad(false);
+			}, 1000);
+		}
 
 		return () => {
 			socket.off("foundRoom");
@@ -45,17 +45,19 @@ const Chat = ({ route, navigation }) => {
 	}, [isFirstLoad]);
 
 	const handleNewMessage = () => {
+		console.log(chatMessages)
 		const hour = new Date().getHours().toString().padStart(2, "0");
 		const mins = new Date().getMinutes().toString().padStart(2, "0");
-		if (user && message) {
+		if (name && message) {
 			socket.emit("newMessage", {
 				message,
 				room_id: roomId,
-				user,
+				user:name,
 				timestamp: { hour, mins },
 			});
 			setMessage('');
 		}
+		SendMessage({text:message, idSentBy:id, idGroup:roomId})
 	};
 	useEffect(() => {
 		socket.on("roomMessage", (message) => {
@@ -82,7 +84,7 @@ const Chat = ({ route, navigation }) => {
 			<FlatList style={styles.messageContainer}
 				ref={messageListRef}
 				data={chatMessages}
-				renderItem={({ item }) => <MessageBox item={item} user={user} />}
+				renderItem={({ item }) => <MessageBox  isPrivate={room.isPrivate} item={item} user={name} />}
 				keyExtractor={(item) => item.id.toString()}
 				onContentSizeChange={() => {
 					if (!isFirstLoad) {

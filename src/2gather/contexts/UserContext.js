@@ -15,14 +15,14 @@ export default function UserProvider({ children }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const id = await AsyncStorage.getItem('refresh');
+                const id = await AsyncStorage.getItem('id');
                 const storedSigned = await AsyncStorage.getItem('signed');
                 const storedName = await AsyncStorage.getItem('name');
                 const access = await AsyncStorage.getItem('access');
                 const refresh = await AsyncStorage.getItem('refresh');
-
+                // value fazer um request aqui pra ver se a access/refresh token estão validas, caso n, deslogar.
                 if (storedSigned !== null && access !== null && refresh !== null && id != null) {
-                    setSigned(JSON.parse(storedSigned));
+                    setSigned(true);
                     setId(id);
                 } else {
                     AsyncStorage.clear()
@@ -43,14 +43,13 @@ export default function UserProvider({ children }) {
         const saveData = async () => {
             try {
                 await AsyncStorage.setItem('signed', JSON.stringify(signed));
-                await AsyncStorage.setItem('name', name);
             } catch (error) {
                 console.error('Error saving data to AsyncStorage:', error);
             }
         };
 
         saveData();
-    }, [signed, name]);
+    }, [signed]);
 
     return (
         <UserContext.Provider

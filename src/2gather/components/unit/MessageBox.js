@@ -1,16 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-export default function MessageBox({ item, user }) {
+export default function MessageBox({isPrivate, item, user }) {
   const isSelf = item.user === user;
-
   return (
     <View style={isSelf ? styles.wrapperSelf : styles.wrapperPartner}>
       <View style={styles.messageContainer}>
         <View style={isSelf ? styles.messageSelf : styles.messagePartner}>
-			<Text style={styles.time}>{item.user}</Text>
+			      <Text style={ isPrivate ? styles.hidden : styles.time}>{item.user}</Text>
           	<Text style={styles.messageText}>{item.text}</Text>
-      		<Text style={styles.time}>{item.time}</Text>
+      		<Text style={styles.time}>{ item.idSentBy ? item.date.split('T')[1].substring(0, 5) : item.time}</Text> 
         </View>
       </View>
     </View>
@@ -18,6 +17,9 @@ export default function MessageBox({ item, user }) {
 }
 
 const styles = StyleSheet.create({
+  hidden: {
+    display: 'none',
+  },
   wrapperSelf: {
     alignItems: "flex-end",
     marginBottom: 15,
