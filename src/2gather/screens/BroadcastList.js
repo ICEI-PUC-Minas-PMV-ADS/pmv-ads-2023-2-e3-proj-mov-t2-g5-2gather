@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Appbar, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,12 +8,13 @@ export default function BroadcastList() {
   const navigation = useNavigation();
 
   const handleNavigation = () => {
+    navigation.navigate('BroadcastCreate');
   };
 
   return (
     <View style={styles.container}>
       <Appbar.Header style={styles.header}>
-        <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
+        <Appbar.BackAction onPress={() => navigation.navigate('Homepage')} />
         <Text style={styles.titleHeader}>Lista de transmissão</Text>
       </Appbar.Header>
 
@@ -26,19 +27,22 @@ export default function BroadcastList() {
             underlayColor="transparent"
             onPress={() => navigation.navigate('NewList')}
               >
-            {/*onPress={() => {
-                console.log('Você clicou em Nova lista, ainda vou implementar o restante.');
-                handleNavigation();
-            }}
-          */}
-          
             <View style={styles.button}>
                 <Icon name="user-plus" style={styles.buttonIcon} />
                 <Text style={styles.buttonText}>Nova lista</Text>
             </View>
-        </TouchableHighlight>
 
+        </TouchableHighlight>
       </View>
+
+      <Button
+        mode="contained"
+        style={styles.createButton}
+        onPress={() => {
+          navigation.navigate('BroadcastCreate');
+        }}>
+        Caso já possua lista criada
+      </Button>
     </View>
   );
 }
@@ -84,5 +88,11 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#FFFCF4',
+  },
+  createButton: {
+    backgroundColor: '#2368A2',
+    padding: 16,
+    borderRadius: 8,
+    marginTop: 16,
   },
 });
