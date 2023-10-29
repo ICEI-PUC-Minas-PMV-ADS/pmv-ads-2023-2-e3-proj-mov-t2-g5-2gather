@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { View, TextInput, FlatList, Text, StyleSheet, Pressable, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import socket from "../services/socket";
-import MessageBox from "../components/composition/MessageBox";
+import MessageBox from "../components/unit/MessageBox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Appbar } from 'react-native-paper';
 import { combineAndHashStrings } from "../services/encryption.service";
