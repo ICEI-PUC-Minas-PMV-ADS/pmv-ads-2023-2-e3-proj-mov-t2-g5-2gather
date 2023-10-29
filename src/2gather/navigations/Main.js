@@ -10,7 +10,6 @@ import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
 import Chat from '../screens/Chat';
-=======
 import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
 import ArchivedGroups from '../screens/ArchivedGroups';
