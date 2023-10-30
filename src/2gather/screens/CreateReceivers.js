@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewList } from '../services/group.services';
 
 export default function CreateReceivers ({ route, navigation }) {
+  const {id} = useUser();
   const { selectedContacts } = route.params || {};
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
@@ -144,7 +145,7 @@ export default function CreateReceivers ({ route, navigation }) {
       title: title,
       //photo: photo,
       //description: description,
-      idAdmin: '87f7c060-10d4-470a-aa71-4fa2107b9177',
+      idAdmin: id,
       isTransmission: true,
       isPrivate: false,
       //archive: false,

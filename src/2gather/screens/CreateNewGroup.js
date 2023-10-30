@@ -20,6 +20,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewGroups } from '../services/group.services';
 
 export default function CreateNewGroup({ route, navigation }) {
+
+  
+  const {id} = useUser();
   const { selectedContacts } = route.params || {};
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
@@ -147,7 +150,7 @@ export default function CreateNewGroup({ route, navigation }) {
         title: title,
         photo: photo,
         description: description,
-        idAdmin: '87f7c060-10d4-470a-aa71-4fa2107b9177',
+        idAdmin: id,
         //isTransmission: false,
         isPrivate: false,
         //archive: false,
@@ -227,14 +230,14 @@ export default function CreateNewGroup({ route, navigation }) {
         />
       </View>
 
-      {/*Botão Provisório*/}
+      {/*Botão Provisório
 
       <TouchableOpacity
         style={styles.buttonForecast}
         onPress={() => navigation.navigate("HomePage")}
       >
-        <Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
-      </TouchableOpacity>
+        {/*<Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
+      </TouchableOpacity>*/}
 
       {showAlert && (
         <View style={styles.alertContainer}>
