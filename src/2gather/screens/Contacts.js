@@ -14,33 +14,48 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
+import socket from "../services/socket";
+import { getOrCreatePrivateGroup } from '../services/group.services';
 
 export default function Contacts({ navigation }) {
-  
+  const { name, id  } = useUser();
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
-
   const getContacts = async () => {
     try {      
         const result = await GetUserList() || [];
         setContacts(result);
         setContactsRef(result);
-        console.log(result)
     } catch (error) {
         console.log(error)
     } finally {  
         
     }
-};
+  };
 
+  const handleNavigation = async (partnerId, partnerName) => {
+    try { 
+      const result = await getOrCreatePrivateGroup({ idPartner: partnerId, idSelf: id})
+      socket.emit("createRoom", result.id, partnerName);
+      navigation.navigate("Chat", {
+        room: result,
+        roomId: result.id,
+        partnerName: partnerName,
+      });
+
+    } catch (error) {
+      alert('error')
+      console.log(error)
+    }
+  };
 
 useEffect(() => {
   getContacts();
 }, []);
 
-
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
+
     <View style={styles.contactItem}>
       <TouchableOpacity
         onPress={() => navigation.navigate('Profile', {item})}>
@@ -51,10 +66,7 @@ useEffect(() => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() =>
-          console.log("Deverá abrir a tela de conversa com usuário escolhido!")
-        }
-      >
+       onPress={() => handleNavigation(item.id, item.name)}>
         <Text style={styles.contactText}>{item.name}</Text>
       </TouchableOpacity>
     </View>
