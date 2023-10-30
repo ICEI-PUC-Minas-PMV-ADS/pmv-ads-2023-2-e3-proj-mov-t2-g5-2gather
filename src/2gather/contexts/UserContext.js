@@ -9,18 +9,21 @@ export default function UserProvider({ children }) {
     const [telefone, setTelefone] = useState('');
     const [role, setRole] = useState('');
     const [photo, setPhoto] = useState('');
+    const [id, setId] = useState('');
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const id = await AsyncStorage.getItem('id');
                 const storedSigned = await AsyncStorage.getItem('signed');
                 const storedName = await AsyncStorage.getItem('name');
                 const access = await AsyncStorage.getItem('access');
                 const refresh = await AsyncStorage.getItem('refresh');
-
-                if (storedSigned !== null && access !== null && refresh !== null) {
-                    setSigned(JSON.parse(storedSigned));
+                // value fazer um request aqui pra ver se a access/refresh token estão validas, caso n, deslogar.
+                if (storedSigned !== null && access !== null && refresh !== null && id != null) {
+                    setSigned(true);
+                    setId(id);
                 } else {
                     AsyncStorage.clear()
                     setSigned(false);
@@ -40,20 +43,21 @@ export default function UserProvider({ children }) {
         const saveData = async () => {
             try {
                 await AsyncStorage.setItem('signed', JSON.stringify(signed));
-                await AsyncStorage.setItem('name', name);
             } catch (error) {
                 console.error('Error saving data to AsyncStorage:', error);
             }
         };
 
         saveData();
-    }, [signed, name]);
+    }, [signed]);
 
     return (
         <UserContext.Provider
             value={{
                 signed,
                 setSigned,
+                id,
+                setId,
                 name,
                 setName,
             }}>
@@ -62,9 +66,20 @@ export default function UserProvider({ children }) {
     );
 }
 
+const checkKeys = async() =>{
+    //gambiarra pra logout
+    const context = useContext(UserContext);
+    const { signed, setSigned, id, setId, name, setName } = context;
+
+    const access = await AsyncStorage.getItem('access');
+    const refresh = await AsyncStorage.getItem('refresh');
+    (access && refresh) ? {} : setSigned(false);
+}
+
 export function useUser() {
+    checkKeys()
     const context = useContext(UserContext);
 
-    const { signed, setSigned, name, setName } = context;
-    return { signed, setSigned, name, setName };
+    const { signed, setSigned, id, setId, name, setName } = context;
+    return { signed, setSigned, id, setId, name, setName };
 }

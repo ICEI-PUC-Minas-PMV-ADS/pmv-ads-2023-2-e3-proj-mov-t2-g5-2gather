@@ -29,6 +29,15 @@ export const CreateNewGroups = async ({ title, photo, description, idAdmin, isTr
     }
 };
 
+export const getOrCreatePrivateGroup = async ({idPartner, idSelf}) => {
+    try {
+        const data = { idPartner:idPartner, idSelf:idSelf };
+        const result = await sendAuthenticatedRequest('/group/get-or-create/private/', 'POST', data);
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
 
 export const CreateNewList = async ({ title, idAdmin, isTransmission, isPrivate, archived, participants }) => {
     console.log(title, idAdmin)
@@ -40,5 +49,3 @@ export const CreateNewList = async ({ title, idAdmin, isTransmission, isPrivate,
         throw new Error(error.message);
     }
 };
-
-

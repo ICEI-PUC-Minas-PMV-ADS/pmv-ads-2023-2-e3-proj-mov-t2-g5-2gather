@@ -3,6 +3,7 @@ import { REACT_APP_DEV_MODE, REACT_APP_PROD_MODE } from "@env"
 
 const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
 
+
 export const SignIn = async ({ email, password }) => {
     try {
         const response = await fetch(`${API_URL}/token/`,{
@@ -40,7 +41,6 @@ export const Register = async ({ name, phone, email, password, idRole }) => {
 
 export const InactivateUserScreen = async (userId, reason) => {
     try {
-      const token = await AsyncStorage.getItem('access'); 
       const data = { status: 0, reason }; // Status 0 para inativar
       const response = await sendAuthenticatedRequest(`/user/update/${userId}/admin/`, 'PATCH', data);
 
@@ -66,6 +66,7 @@ export const tokenRefresh = async () => {
         });
         const result = await response.json();
         if (!response.ok) {
+            logout()
             throw new Error(JSON.stringify(result));
         }
         const token = result['access']
@@ -109,17 +110,18 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
             AsyncStorage.setItem('access', newAccessToken);
             requestOptions.headers['Authorization'] = `Bearer ${newAccessToken}`;
             response = await fetch(`${API_URL}${url}`, requestOptions);
+            if (response.status === 401 || response.status === 403) {
+                logout()
+            }
         }
 
         const result = await response.json();
-
         if (!response.ok) {
             throw new Error(JSON.stringify(result));
         }
 
         return result;
     } catch (error) {
-        logout();
         throw new Error(error.message);
     }
 };

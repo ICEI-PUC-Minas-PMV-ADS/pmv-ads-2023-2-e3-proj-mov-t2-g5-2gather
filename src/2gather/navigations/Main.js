@@ -9,6 +9,7 @@ import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
+import Chat from '../screens/Chat';
 import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
 import ArchivedGroups from '../screens/ArchivedGroups';
@@ -79,6 +80,13 @@ const MainNav = () => {
                 component={CreateReceivers}
             />
             <stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
                 name="NewGroup"
                 component={NewGroup}
             />
@@ -86,6 +94,7 @@ const MainNav = () => {
                 name="CreateNewGroup"
                 component={CreateNewGroup}
             />
+
 
 
 
