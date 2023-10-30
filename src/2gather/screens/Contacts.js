@@ -55,12 +55,21 @@ useEffect(() => {
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleNavigation(item.id, item.name)}>
-      <View style={styles.contactItem}> 
-      <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-      <Text style={styles.contactText}>{item.name}</Text>
+
+    <View style={styles.contactItem}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Profile', {item})}>
+        <Image
+          style={styles.contactPhoto}
+          source={{ uri: item.photo || null }}
+          defaultSource={defaultImage}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+       onPress={() => handleNavigation(item.id, item.name)}>
+        <Text style={styles.contactText}>{item.name}</Text>
+      </TouchableOpacity>
     </View>
-    </TouchableOpacity>
   );
     
 
