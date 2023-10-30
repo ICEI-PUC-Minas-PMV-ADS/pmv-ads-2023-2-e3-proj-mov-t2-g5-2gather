@@ -41,12 +41,23 @@ useEffect(() => {
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => console.log("Deverá abrir a tela de conversa com usuário escolhido!")}>
-      <View style={styles.contactItem}> 
-      <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-      <Text style={styles.contactText}>{item.name}</Text>
+    <View style={styles.contactItem}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('ProfileConsult')}>
+        <Image
+          style={styles.contactPhoto}
+          source={{ uri: item.photo || null }}
+          defaultSource={defaultImage}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          console.log("Deverá abrir a tela de conversa com usuário escolhido!")
+        }
+      >
+        <Text style={styles.contactText}>{item.name}</Text>
+      </TouchableOpacity>
     </View>
-    </TouchableOpacity>
   );
     
 

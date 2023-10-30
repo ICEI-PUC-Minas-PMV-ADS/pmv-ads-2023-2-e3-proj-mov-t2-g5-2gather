@@ -8,6 +8,7 @@ import UserManagement from '../screens/UserManagement';
 import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
+import ProfileConsult from '../screens/ProfileConsult';
 import BroadcastList from '../screens/BroadcastList';
 import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
@@ -61,6 +62,10 @@ const MainNav = () => {
              <stack.Screen
                 name="Contacts"
                 component={Contacts}
+            /> 
+            <stack.Screen
+                name="ProfileConsult"
+                component={ProfileConsult}
             /> 
             <stack.Screen
                 name="ArchivedGroups"
