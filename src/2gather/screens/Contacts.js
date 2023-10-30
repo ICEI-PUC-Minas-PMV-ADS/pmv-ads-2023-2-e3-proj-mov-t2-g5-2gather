@@ -43,7 +43,7 @@ useEffect(() => {
   const renderItem = ({ item }) => (
     <View style={styles.contactItem}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('ProfileConsult')}>
+        onPress={() => navigation.navigate('Profile', {item})}>
         <Image
           style={styles.contactPhoto}
           source={{ uri: item.photo || null }}
