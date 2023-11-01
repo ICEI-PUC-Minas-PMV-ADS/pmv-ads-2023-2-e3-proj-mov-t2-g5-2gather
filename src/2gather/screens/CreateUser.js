@@ -12,7 +12,7 @@ import {
 import { Register } from "../services/auth.services";
 import { GetRoles } from "../services/role.services";
 import leftarrow from "../../2gather/assets/leftarrow.png";
-import RNPickerSelect from "react-native-picker-select";
+import { Picker } from '@react-native-picker/picker';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function CreateUser({ navigation }) {
@@ -142,51 +142,25 @@ export default function CreateUser({ navigation }) {
 
           <Text>Cargo</Text>
 
-          <RNPickerSelect
-            onValueChange={(value) => setRole(value)}
-            placeholder={{
-              label: "Click e selecione um cargo",
-              value: "",
-            }}
-            items={roles.map((item) => ({
-              label: item.name,
-              value: item.id,
-            }))}
-            style={{
-              inputIOS: {
-                height: 40,
-                backgroundColor: "#ecf0f1",
-                borderRadius: 8,
-                paddingHorizontal: 10,
-                paddingVertical: 8,
-                color: "black",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 1 },
-                shadowOpacity: 0.1,
-                shadowRadius: 2,
-              },
-              inputAndroid: {
-                height: 40,
-                backgroundColor: "#ecf0f1",
-                borderRadius: 8,
-                paddingHorizontal: 10,
-                paddingVertical: 8,
-                color: "black",
-                elevation: 2,
-              },
-              inputWeb: {
-                height: 40,
-                backgroundColor: "#FFFCF4",
-                borderRadius: 8,
-                paddingHorizontal: 10,
-                paddingVertical: 8,
-                color: "black",
-              },
-              placeholder: {
-                color: "gray",
-              },
-            }}
-          />
+          <Picker
+          selectedValue={role}
+          onValueChange={(value) => setRole(value)}
+          style={{
+            height: 40,
+            backgroundColor: "#ecf0f1",
+            borderRadius: 8,
+            paddingHorizontal: 10,
+            paddingVertical: 8,
+            color: "black",
+          }}
+>
+  <Picker.Item label="Click e selecione um cargo" value="" />
+  {roles.map((item) => (
+    <Picker.Item key={item.id} label={item.name} value={item.id} />
+  ))}
+</Picker>
+
+
         </View>
         <TouchableOpacity
           style={styles.buttonCreate}

@@ -9,6 +9,8 @@ import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import BroadcastList from '../screens/BroadcastList';
+import Chat from '../screens/Chat';
+import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
 import ArchivedGroups from '../screens/ArchivedGroups';
 import YourGroups from '../screens/YourGroups';
@@ -55,6 +57,10 @@ const MainNav = () => {
                 name="BroadcastList"
                 component={BroadcastList}
             />
+            <stack.Screen
+            name="BroadcastCreate"
+            component={BroadcastCreate}
+            />
              <stack.Screen
                 name="Contacts"
                 component={Contacts}
@@ -76,6 +82,13 @@ const MainNav = () => {
                 component={CreateReceivers}
             />
             <stack.Screen
+                name="Chat"
+                component={Chat}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
                 name="NewGroup"
                 component={NewGroup}
             />
@@ -91,6 +104,7 @@ const MainNav = () => {
                 name="ArchivedLists"
                 component={ArchivedLists}
             />
+
 
         </stack.Navigator>
     );

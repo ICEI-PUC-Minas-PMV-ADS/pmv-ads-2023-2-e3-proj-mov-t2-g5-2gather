@@ -9,8 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 import * as MediaLibrary from 'expo-media-library';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../services/auth.services';
+import { Appbar } from 'react-native-paper';
 
-export default function Profile({ navigation }) {
+export default function Profile({ route, navigation }) {
+  const isSelf = route.params ? false : true;
 
   const { setSigned } = useUser();
 
@@ -26,6 +28,9 @@ export default function Profile({ navigation }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [role, setRole] = useState('');
+  const [photo, setPhoto] = useState('');
+
+  const defaultImage = require('../assets/profile.png');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +39,7 @@ export default function Profile({ navigation }) {
         const asyncName= await AsyncStorage.getItem('name');
         const asyncPhone= await AsyncStorage.getItem('phone');
         const asyncRole= await AsyncStorage.getItem('role');
+        const asyncPhoto= await AsyncStorage.getItem('photo');
         if (asyncEmail!== null) {
           setEmail(asyncEmail);   
         }
@@ -45,7 +51,9 @@ export default function Profile({ navigation }) {
         }
         if (asyncRole!== null) {
           setRole(asyncRole);
-        
+        }
+        if (asyncPhoto !== null) {
+          setPhoto(asyncPhoto);
         }
       } catch (error) {
         console.error('Error loading data from AsyncStorage: ', error);
@@ -100,34 +108,42 @@ export default function Profile({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText} onPress={() => navigation.goBack()}>
-          Configurações básicas
-        </Text>
-        <TouchableOpacity
-          onPress={() => {           
-            logout()
-            setSigned(false);
-          }}
-        >
+      {isSelf ?
+        <View style={styles.headerSelf}>
 
-          <MaterialCommunityIcons name="logout" size={35} color="#FFFF" />
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.headerTextSelf} onPress={() => navigation.goBack()}>
+            Configurações básicas
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              logout()
+              setSigned(false);
+            }}
+          >
+            <MaterialCommunityIcons name="logout" size={35} color="#FFFF" />
+          </TouchableOpacity>
+        </View>
+        :
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
+          <Text style={styles.headerText}>Informações básicas do usuário</Text>
+        </Appbar.Header>
+      }
 
       <View style={styles.container1}>
         <View>
-          <Text style={styles.perfilText}>Foto do perfil</Text>
-
           <View style={{ alignItems: "center", margin: 20 }}>
             <Image
               style={styles.photo}
-              source={require("../assets/profile.png")}
-            /> 
-
-            <TouchableOpacity onPress={() => setCameraVisible(true)}>      
-              <FontAwesome name="camera" size={28} color="black" />
-            </TouchableOpacity>
+              source={{ uri: isSelf ? photo : route.params.item.photo || null }}
+              defaultSource={defaultImage}
+            />
+            {isSelf && 
+              <TouchableOpacity onPress={() => setCameraVisible(true)}>      
+                <FontAwesome name="camera" size={28} color="black" />
+              </TouchableOpacity>
+            }
+            
 
 {/*
 
@@ -207,46 +223,45 @@ export default function Profile({ navigation }) {
           </View>
         </View>
 
-        <View style={styles.lineArchivedGroups}>
-          <Image
-            source={require("../assets/arquivedGroups.png")}
-            style={styles.archivedGroupsIcon}
-          />
-          <TouchableOpacity>
+        {isSelf && 
+          <View style={styles.lineArchivedGroups}>
+            <Image
+              source={require("../assets/arquivedGroups.png")}
+              style={styles.archivedGroupsIcon}
+            />
+              <TouchableOpacity>
+                  <Text style={styles.buttonArchivedGroups}
+                  onPress={() => navigation.navigate('ArchivedGroups')}>Seus grupos arquivados</Text>
+              </TouchableOpacity>
             
-            <Text style={styles.buttonArchivedGroups}
-            onPress={() => navigation.navigate('ArchivedGroups')}>Seus grupos arquivados</Text>
-          </TouchableOpacity>
-        </View>
-     
-
-
-
+          </View>
+          }
 
         <View style={styles.containerData}>
           <Text style={{ fontWeight: "bold" }}>Email Corporativo</Text>
-          <Text style={styles.dynamicText}>{email}</Text>
+          <Text style={styles.dynamicText}>{isSelf ? email : route.params.item.email}</Text>
 
           <Text style={{ fontWeight: "bold" }}>Nome do Colaborador(a)</Text>
-          <Text style={styles.dynamicText}>{name}</Text>
+          <Text style={styles.dynamicText}>{isSelf ? name : route.params.item.name}</Text>
 
           <Text style={{ fontWeight: "bold" }}>Telefone</Text>
-          <Text style={styles.dynamicText}>{phone}</Text>
+          <Text style={styles.dynamicText}>{isSelf ? phone : route.params.item.phone}</Text>
 
           <Text style={{ fontWeight: "bold" }}>Cargo</Text>
-          <Text style={styles.dynamicText}>{role}</Text>
+          <Text style={styles.dynamicText}>{isSelf ? role : route.params.item.roleName}</Text>
         </View>
-
-        <View>
-          <TouchableOpacity
-            style={styles.buttonSave}
-            onPress={() => {
-              console.log("Sua foto deverá ser salva com sucesso!");
-            }}
-          >
-            <Text style={styles.buttonText}>Salvar</Text>
-          </TouchableOpacity>
-        </View>
+        {isSelf && 
+          <View>
+            <TouchableOpacity
+              style={styles.buttonSave}
+              onPress={() => {
+                console.log("Sua foto deverá ser salva com sucesso!");
+              }}
+            >
+              <Text style={styles.buttonText}>Salvar</Text>
+            </TouchableOpacity>
+          </View>
+        }
       </View>
     </SafeAreaView>
   );
@@ -260,7 +275,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 
-  header: {
+  headerSelf: {
     padding: 10,
     height: 85,
     backgroundColor: "#2368A2",
@@ -268,10 +283,24 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  headerText: {
+  headerTextSelf: {
     fontSize: 20,
     color: "#FFFCF4",
     marginTop: 7,
+  },
+  header: {
+    paddingBottom: 22,
+    height: 85,
+    backgroundColor: "#2368A2",
+    flexDirection: "row",
+    //alignSelf: 'center',
+    //justifyContent: "space-between",
+  },
+
+  headerText: {
+    fontSize: 20,
+    color: "#FFFCF4",
+    //marginTop: 7,
   },
 
   container1: {

@@ -34,7 +34,7 @@ export default function Homepage() {
         </Text>
         <Text 
           style={styles.groupText}
-          // onPress={}
+          onPress={() => navigation.navigate('NewGroup')}
         >
           Novo Grupo
         </Text>

@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
+
   searchInput: {
     backgroundColor: "#2368A2",
     color: "#fffcf4",
@@ -155,7 +156,6 @@ const styles = StyleSheet.create({
   },
 
 
-  //Provisório
  //Provisório
  buttonForecast: {
     backgroundColor: "#1A4971",
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFFFFF',
   }
-
+ //Provisório
 
 
 
