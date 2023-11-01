@@ -27,6 +27,10 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Verificar se a interface administrativa permite adicionar um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Adicionar um novo usuário</li></ol> |	O usuário deve ser adicionado sem erros e deve aparecer na lista de usuários.
 | Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/94860bc8-5963-4ba5-a379-22644d081e3f) | Data do Teste: 14/10/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue navegar até a sessão de Gerenciamento de Usuário e realizar o cadastro de um novo usuário. Mas não consegue visualizar o usuário na lista de usuários como a seção de Contatos ainda não foi implementada. | Grave |
 ||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/b1fe467f-3191-4a82-a11f-f236cdf95b0d) | Data do Teste: 01/11/2023 - Resultado: Positivo - O usuário logado com a conta administrativa consegue navegar até a sessão de Gerenciamento de Usuário e realizar o cadastro de um novo usuário e o visualiza na lista de Contatos/Nova Conversa. | Sucesso |
+||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/30d1370c-1ff9-4548-ac4c-9ea113dec21b) | Data do Teste: 01/11/2023 - Resultado: Positivo - O usuário cadastrado é visualizado na lista de usuários na seção de Contatos/Nova Conversa. | Sucesso |
+||
 
 <br>
 
@@ -61,7 +65,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem criar grupos.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até a seção de grupos</li><li>Criar um novo grupo</li><li>Enviar uma mensagem para o grupo criado.</li></ol> |	A mensagem deve ser enviada e visível para os membros do grupo.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/1830bac7-8161-4ef3-8eed-74ed10ecf453) | Data do Teste: 01/11/2023 - Positivo - O usuário Admin consegue criar o Grupo com sucesso, dando nome a ele e tem a flexibilidade de selecionar e desfazer a seleção em poucos clicks antes de realizar a sua criação. | Sucesso |
 ||
 
 <br>
@@ -73,7 +77,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem criar listas de transmissão.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até a seção de listas de transmissão</li><li>Criar uma nova lista</li><li>Enviar uma mensagem através da lista de transmissão criada.</li></ol>	| A mensagem deve ser enviada e recebida pelos membros da lista de transmissão.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/c520a23c-fbb4-423d-aafa-dc2e6c80df09) | Data do Teste: 01/11/2023 - Positivo - O usuário Admin consegue criar a Lista de Transmissão com sucesso, dando nome a ela e tem a flexibilidade de selecionar e desfazer a seleção em poucos clicks antes de realizar a sua criação. | Sucesso |
 ||
 
 <br>
@@ -121,7 +125,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se é possível visualizar informações básicas dos usuários.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até o perfil de um usuário</li></ol>	| Deve ser possível visualizar informações básicas, como nome, foto e status do usuário selecionado.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/b1f8bb0a-6f04-4d49-95f2-01bf4218bd29) | Data do Teste: 01/11/2023 - Positivo - O usuário ao clicar sobre a foto dos demais usuários, na tela de Contatos, ele consegue visualizar as informações básicas destes usuários. | Sucesso |
 ||
 
 <br>
