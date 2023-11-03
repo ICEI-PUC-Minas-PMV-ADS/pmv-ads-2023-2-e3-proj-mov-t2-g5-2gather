@@ -158,7 +158,7 @@ export default function CreateNewGroup({ route, navigation }) {
     console.log(groupData);
     alert("Grupo criado com sucesso");
 
-    //navigation.navigate("GRUPO CRIADO - Screen da Hellen");
+    navigation.navigate('GroupConversation', {id: groupData.id});
 
 
   } catch (error) {

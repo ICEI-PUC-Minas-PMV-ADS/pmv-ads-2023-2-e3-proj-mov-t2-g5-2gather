@@ -18,6 +18,8 @@ import NewList from '../screens/NewList';
 import CreateReceivers from '../screens/CreateReceivers';
 import NewGroup from '../screens/NewGroup';
 import CreateNewGroup from '../screens/CreateNewGroup';
+import GroupConversation from '../screens/GroupConversation';
+import GroupInfo from '../screens/GroupInfo';
 
 const stack = createNativeStackNavigator();
 
@@ -56,13 +58,13 @@ const MainNav = () => {
                 component={BroadcastList}
             />
             <stack.Screen
-            name="BroadcastCreate"
-            component={BroadcastCreate}
+                name="BroadcastCreate"
+                component={BroadcastCreate}
             />
-             <stack.Screen
+            <stack.Screen
                 name="Contacts"
                 component={Contacts}
-            /> 
+            />
             <stack.Screen
                 name="ArchivedGroups"
                 component={ArchivedGroups}
@@ -94,7 +96,21 @@ const MainNav = () => {
                 name="CreateNewGroup"
                 component={CreateNewGroup}
             />
-
+            <stack.Screen
+                name="GroupConversation"
+                component={GroupConversation}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
+                name="GroupInfo"
+                component={GroupInfo}
+                initialParams={{ id: '3ecb060f-b931-40a1-91e1-712acd9fdbac' }}
+                options={{
+                    header: () => null,
+                }}
+            />
 
 
 
