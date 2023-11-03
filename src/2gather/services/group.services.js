@@ -59,3 +59,18 @@ export const GetGroupDetails = async ({ idGroup }) => {
         throw new Error(error.message);
     }
 };
+
+
+export const ArchiveGroup = async ({ group, archive }) => {
+    const newGroup = {
+        ...group,
+        "archive": archive,
+    };
+    try {
+        const result = await sendAuthenticatedRequest(`/group/update/${group.id}`, 'PATCH', newGroup);
+        console.log(result)
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};

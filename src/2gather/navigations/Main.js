@@ -106,7 +106,6 @@ const MainNav = () => {
             <stack.Screen
                 name="GroupInfo"
                 component={GroupInfo}
-                initialParams={{ id: '3ecb060f-b931-40a1-91e1-712acd9fdbac' }}
                 options={{
                     header: () => null,
                 }}

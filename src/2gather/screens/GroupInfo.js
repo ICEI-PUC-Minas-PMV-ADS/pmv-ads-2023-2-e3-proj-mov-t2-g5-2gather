@@ -19,6 +19,7 @@ export default function GroupInfo({ route }) {
   const [idGroup, setIdGroup] = useState("");
   const [title, setTitle] = useState("");
   const [participants, setParticipants] = useState([]);
+  const [isArchived, setIsArchived] = useState(false);
   const [group, setGroup] = useState([]);
 
   const getGroup = async () => {
@@ -28,6 +29,7 @@ export default function GroupInfo({ route }) {
       setTitle(result.title)
       setIdGroup(result.id)
       setGroup(result)
+      setIsArchived(result.archive)
 
       setParticipants([
         ...participants,
@@ -48,12 +50,24 @@ export default function GroupInfo({ route }) {
   }, []);
 
   const handleArchiveGroup = () => {
-
+    const archiveGroup = async () => {
+      try {
+        if (isArchived) {
+          const result = await ArchiveGroup({ group: group, archive: false }) || [];
+        } else {
+          const result = await ArchiveGroup({ group: group, archive: true }) || [];
+        }
+        navigation.navigate('Homepage')
+      } catch (error) {
+        console.log(error)
+      }
+    };
+    archiveGroup()
   };
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('Chat', {roomId: item.id})}>
+    <TouchableOpacity onPress={() => navigation.navigate('Chat', { roomId: item.id })}>
       <View style={styles.contactItem}>
         <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />
         <Text style={styles.contactText}>{item.name}</Text>
@@ -66,7 +80,7 @@ export default function GroupInfo({ route }) {
     <View style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction
-          onPress={() => navigation.navigate('GroupConversation', {id: idGroup})}
+          onPress={() => navigation.navigate('GroupConversation', { id: idGroup })}
         />
       </Appbar.Header>
       <View style={styles.groupHeader}>
@@ -103,7 +117,7 @@ export default function GroupInfo({ route }) {
             style={styles.button}
             icon="minus-circle-outline"
             onPress={() => handleArchiveGroup()}>
-            Arquivar grupo
+            {isArchived == false ? 'Arquivar grupo' : 'Desarquivar grupo'}
           </Button>
         </View>
       </View>
