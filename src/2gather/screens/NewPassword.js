@@ -6,8 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  SafeAreaView
 } from "react-native";
-import { updatePassword } from "../services/auth.services";
+import { UpdateUserPassword } from '../services/user.services';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Appbar, Button } from 'react-native-paper';
 
 export default function NewPassword({ navigation }) {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -22,8 +25,7 @@ export default function NewPassword({ navigation }) {
     }
 
     try {
-      await updatePassword({
-        email: "email",
+      await UpdateUserPassword ({
         currentPassword,
         newPassword,
       }),
@@ -39,13 +41,23 @@ export default function NewPassword({ navigation }) {
   };
 
   return (
+    <SafeAreaView style={styles.container}>
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={true}
+    >
     <View style={styles.container}>
-      <Text style={styles.header}>Trocar Senha</Text>
+      <Appbar.Header style={styles.header}>
+        <Appbar.BackAction onPress={() => navigation.navigate('Profile')} />
+        <Text style={styles.header}>Trocar Senha</Text>
+      </Appbar.Header>
+  
       <View style={styles.container2}>
         <Text style={styles.headerInput}>Nova Senha</Text>
 
         <View style={styles.form}>
-          <Text>Entre com a senha atual</Text>
+          <Text style={styles.textLabel}>Entre com a senha atual</Text>
           <TextInput
             style={styles.input}
             secureTextEntry
@@ -53,7 +65,7 @@ export default function NewPassword({ navigation }) {
             onChangeText={setCurrentPassword}
           />
 
-          <Text>Digite a Nova Senha</Text>
+          <Text style={styles.textLabel}>Digite a Nova Senha</Text>
           <TextInput
             style={styles.input}
             secureTextEntry
@@ -61,7 +73,7 @@ export default function NewPassword({ navigation }) {
             onChangeText={setNewPassword}
           />
 
-          <Text>Confirme a Nova Senha</Text>
+          <Text style={styles.textLabel}>Confirme a Nova Senha</Text>
           <TextInput
             style={styles.input}
             secureTextEntry
@@ -78,37 +90,43 @@ export default function NewPassword({ navigation }) {
         </View>
       </View>
     </View>
+    </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 0,
+    justifyContent: "center",
+    backgroundColor: "#ecf0f1",
+    //padding: 8,
   },
 
   container2: {
+    flex: 1,
     padding: 20,
     gap: 2,
     display: "flex",
   },
 
   header: {
-    gap: 10,
     color: "#FFFCF4",
     fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
     height: 65,
     backgroundColor: "#2368A2",
-    padding: 0,
     display: "flex",
+    //paddingLeft: 10,
     alignItems: "center",
-    paddingLeft: 10,
   },
 
   form: {
     flex: 1,
+  },
+
+  textLabel: {
+    fontSize: 15,
+    color: "black",
   },
 
   headerInput: {
@@ -132,6 +150,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    width: '100%',
+    alignSelf: "center",
     marginTop: 20,
   },
 
