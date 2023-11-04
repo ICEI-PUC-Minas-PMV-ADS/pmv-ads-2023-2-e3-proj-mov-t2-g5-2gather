@@ -7,26 +7,30 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Modal,
 } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as Animatable from 'react-native-animatable'
+import * as Animatable from 'react-native-animatable';
 import { useState } from 'react';
-import { SignIn } from '../services/auth.services.js'
+import { SignIn } from '../services/auth.services.js';
 import { useUser } from '../contexts/UserContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+//import { sendPasswordRecoveryEmail } from '../services/auth.services.js';
+import { GetUserPassword } from '../services/user.services.js';
 
 export default function Login(navigation) {
   const { setSigned, setId ,setName } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleSignIn = () => {
 
-    SignIn({ email: email, password: password }).then(res => {
+    SignIn({ email: email, password: password }).then((res) => {
       if (res.access && res.refresh) {
         setSigned(true);
         setName(res.name);
@@ -43,7 +47,46 @@ export default function Login(navigation) {
         alert('Usuário ou senha inválidos!');
       }
     });
-  }
+
+
+     // Lógica de recuperação de senha
+    if (isForgotPassword) {
+      handleForgotPassword();
+      setIsForgotPassword(false);
+    } else {
+      //Lógica de login normal?
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      // Verifique se o email é válido (pode adicionar validações adicionais)
+      if (!email) {
+        alert('Por favor, insira um e-mail válido.');
+        return;
+      }
+  
+      // Chame uma função de serviço para enviar o e-mail de recuperação de senha
+      const recoveryResponse = await GetUserPassword(email);
+  
+      // Verifique a resposta do serviço
+      if (recoveryResponse) {
+        // E-mail de recuperação enviado com sucesso
+        alert('Um e-mail de recuperação de senha foi enviado para o seu endereço.');
+        setIsModalVisible(false); // Feche o modal após o envio bem-sucedido
+      } else {
+        // Trate falhas no envio do e-mail
+        alert('Falha ao enviar o e-mail de recuperação de senha. Tente novamente.');
+      }
+    } catch (error) {
+      console.error('Erro ao processar a recuperação de senha:', error);
+      alert('Erro ao processar a recuperação de senha. Tente novamente mais tarde.');
+    }
+  };
+
+
+
+
 
   return (
     <KeyboardAwareScrollView
@@ -77,7 +120,8 @@ export default function Login(navigation) {
             onSubmitEditing={() => passwordRef.current.focus()}
             selectTextOnFocus={true}
           />
-          <View style={styles.inputPasswordContainer}>
+          <Text style={styles.loginLabel}>Senha</Text>
+          <View style={styles.inputPasswordContainer}>     
             <TextInput 
               style={styles.password}
               value={password}
@@ -103,7 +147,12 @@ export default function Login(navigation) {
 
 
           <TouchableOpacity style={styles.buttonForgotPassword}
-            onPress={() => { console.log('On press acionado!') }}>
+            onPress={() => {
+              if (!isForgotPassword) {
+                setIsModalVisible(true);
+              }
+            }}
+          >
             <Text style={styles.forgotPasswordText}>Esqueceu a senha?</Text>
           </TouchableOpacity>
 
@@ -112,7 +161,35 @@ export default function Login(navigation) {
             <Text style={styles.buttonText}>Entrar</Text>
           </TouchableOpacity>
 
+          {/* Adicione o modal aqui */}
+          <Modal visible={isModalVisible} transparent animationType="slide">
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <Text style={styles.label}>Digite seu e-mail para recuperar a senha</Text>
+                <TextInput
+                  style={styles.input}
+                  value={email}
+                  placeholder="Digite seu e-mail..."
+                  keyboardType="email-address"
+                  autoCorrect={false}
+                  onChangeText={(text) => setEmail(text)}
+                  returnKeyType="send"
+                  onSubmitEditing={handleSignIn}
+                />
+                <TouchableOpacity style={styles.button} onPress={handleForgotPassword}>
+                  <Text style={styles.buttonText}>Enviar E-mail de Recuperação</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.closeButton} onPress={() => setIsModalVisible(false)}>
+                  <Text style={styles.closeButtonText}>Fechar</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
         </Animatable.View>
+
+
+
 
       </View>
     </KeyboardAwareScrollView>
@@ -229,6 +306,63 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     //paddingStart: 10,
     width: '100%',
-
   },
+
+/*Style - Form Rec.Senha*/
+modalContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',  // Fundo escuro semi-transparente
+},
+
+modalContent: {
+  backgroundColor: 'white',
+  padding: 20,
+  borderRadius: 10,
+  width: '80%',
+  alignItems: 'center',
+},
+
+label: {
+  fontSize: 18,
+  marginBottom: 10,
+},
+
+input: {
+  height: 40,
+  width: '100%',
+  borderColor: 'gray',
+  borderWidth: 1,
+  marginBottom: 20,
+  paddingLeft: 10,
+  borderRadius: 5,
+},
+
+button: {
+  backgroundColor: '#4CAF50',
+  width: "80%",
+  padding: 10,
+  borderRadius: 5,
+  marginBottom: 10,
+},
+
+buttonText: {
+  color: 'white',
+  textAlign: 'center',
+},
+
+closeButton: {
+  backgroundColor: '#D9534F',
+  width: "80%",
+  padding: 10,
+  borderRadius: 5,
+},
+
+closeButtonText: {
+  color: 'white',
+  textAlign: 'center',
+},
+
+
 })
