@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -25,7 +25,7 @@ export default function BroadcastCreate() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => navigation.navigate("BroadcastList")} />
         <Text style={styles.titleHeader}>Listas de transmissão</Text>
@@ -57,7 +57,7 @@ export default function BroadcastCreate() {
           </View>
         </TouchableHighlight>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
