@@ -60,7 +60,6 @@ export const GetGroupDetails = async ({ idGroup }) => {
     }
 };
 
-
 export const ArchiveGroup = async ({ group, archive }) => {
     const newGroup = {
         ...group,
@@ -68,7 +67,15 @@ export const ArchiveGroup = async ({ group, archive }) => {
     };
     try {
         const result = await sendAuthenticatedRequest(`/group/update/${group.id}`, 'PATCH', newGroup);
-        console.log(result)
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export const EditGroup = async ({ group, archive }) => {
+    try {
+        const result = await sendAuthenticatedRequest(`/group/update/${group.id}`, 'PATCH', group);
         return result;
     } catch (error) {
         throw new Error(error.message);

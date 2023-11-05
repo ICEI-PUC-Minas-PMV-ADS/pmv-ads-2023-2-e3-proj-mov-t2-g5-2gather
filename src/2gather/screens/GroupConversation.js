@@ -7,14 +7,13 @@ import { GetGroupDetails } from '../services/group.services';
 
 export default function GroupConversation({ route }) {
   const navigation = useNavigation();
-  const groupData = route.params ? route.params : {}
+  const groupId = route.params ? route.params : {}
   const [idGroup, setIdGroup] = useState('');
   const [title, setTitle] = useState('');
 
   const getGroup = async () => {
     try {
-      const result = await GetGroupDetails({ idGroup: groupData.id }) || [];
-      console.log(result)
+      const result = await GetGroupDetails({ idGroup: groupId.id }) || [];
       setTitle(result.title)
       setIdGroup(result.id)
     } catch (error) {
@@ -23,7 +22,7 @@ export default function GroupConversation({ route }) {
   };
 
   useEffect(() => {
-    if (groupData) {
+    if (groupId) {
       getGroup()
     }
     else {
@@ -31,11 +30,10 @@ export default function GroupConversation({ route }) {
     }
   }, []);
 
-  console.log('item')
   return (
     
     <View style={styles.container}>
-    <TouchableOpacity onPress={() => navigation.navigate('GroupInfo', {id: groupData.id})}>
+    <TouchableOpacity onPress={() => navigation.navigate('GroupInfo', {id: groupId.id})}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
         <Avatar.Icon size={24} icon="account-group" />

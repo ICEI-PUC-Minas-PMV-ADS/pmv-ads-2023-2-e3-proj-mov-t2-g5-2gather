@@ -20,6 +20,7 @@ import NewGroup from '../screens/NewGroup';
 import CreateNewGroup from '../screens/CreateNewGroup';
 import GroupConversation from '../screens/GroupConversation';
 import GroupInfo from '../screens/GroupInfo';
+import EditGroup from '../screens/EditGroup';
 
 const stack = createNativeStackNavigator();
 
@@ -110,7 +111,13 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
-
+            <stack.Screen
+                name="EditGroup"
+                component={EditGroup}
+                options={{
+                    header: () => null,
+                }}
+            />
 
 
         </stack.Navigator>

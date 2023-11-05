@@ -25,7 +25,6 @@ export default function GroupInfo({ route }) {
   const getGroup = async () => {
     try {
       const result = await GetGroupDetails({ idGroup: item.id }) || [];
-      console.log(result)
       setTitle(result.title)
       setIdGroup(result.id)
       setGroup(result)
@@ -45,7 +44,6 @@ export default function GroupInfo({ route }) {
   useEffect(() => {
     if (item) {
       getGroup()
-      console.log('item')
     }
   }, []);
 
@@ -107,7 +105,7 @@ export default function GroupInfo({ route }) {
             color={'#74D99F'}
             style={styles.button}
             icon="plus-circle-outline"
-            onPress={() => navigation.navigate('EditGroup', { participants })}>
+            onPress={() => navigation.navigate('EditGroup', { group: group })}>
             Editar
           </Button>
 
