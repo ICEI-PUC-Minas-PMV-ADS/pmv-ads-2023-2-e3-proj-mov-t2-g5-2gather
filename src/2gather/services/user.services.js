@@ -19,6 +19,16 @@ export const UpdateUserStatus = async ({userId, reason}) => {
     }
 };
 
+export const UpdatePublicE2e = async ({publicE2e}) => {
+    try {
+        const data = { 'pke': publicE2e };
+        const result = await sendAuthenticatedRequest(`/user/update/`, 'PATCH', data);
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
 export const UpdateUserDetails = async ({ name, email, phone, photo, description, idRole, lastActive, status }) => {
     const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
     try {

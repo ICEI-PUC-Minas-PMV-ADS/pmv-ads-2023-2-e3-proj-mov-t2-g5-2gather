@@ -30,7 +30,6 @@ const getYourGroups = async () => {
   try {      
       const result = await GetListYourGroups() || [];
       setYourGroups(result);
-      console.log(result)
   } catch (error) {
       console.log(error)
   } finally {  
@@ -48,7 +47,6 @@ const getYourLists = async () => {
   try {      
       const result = await GetTransmissionList() || [];
       setYourLists(result);
-      console.log(result)
   } catch (error) {
       console.log(error)
   } finally {  
@@ -171,90 +169,90 @@ return (
 }
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  backgroundColor: "#2368A2",
-},
-searchBar: {
-  padding: 10,
-  borderBottomWidth: 1,
-  borderBottomColor: "#ddd",
-},
-searchInput: {
-  backgroundColor: "#1a4971",
-  color: "#fffcf4",
-  borderRadius: 10,
-  padding: 10,
-  fontSize: 16,
-},
-groupBroadcastContainer: {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  padding: 10,
-  backgroundColor: "#2368A2", // mesma cor de fundo
-},
-broadcastText: {
-  fontSize: 18,
-  color: "#FFFFFF",
-},
-groupText: {
-  fontSize: 18,
-  color: "#FFFFFF",
-},
-whiteContainer: {
-  flex: 1,
-  backgroundColor: "#f1f3f5",
-},
-conversationList: {
-  flex: 1,
-},
-bottomBar: {
-  flexDirection: "row",
-  height: 100, // altura fixa
-  backgroundColor: "#2368A2",
-},
-bottomBarButton: {
-  flex: 1, // 1/3
-  alignItems: "center",
-  justifyContent: "center",
-  margin: 10,
-  borderRadius: 10,
-},
-buttonTextSmall: {
-  fontSize: 12,
-  color: "#FFFFFF",
-  fontWeight: "bold",
-  textAlign: "center",
-},
+    container: {
+      flex: 1,
+      backgroundColor: "#2368A2",
+    },
+    searchBar: {
+      padding: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: "#ddd",
+    },
+    searchInput: {
+      backgroundColor: "#1a4971",
+      color: "#fffcf4",
+      borderRadius: 10,
+      padding: 10,
+      fontSize: 16,
+    },
+    groupBroadcastContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      padding: 10,
+      backgroundColor: "#2368A2", // mesma cor de fundo
+    },
+    broadcastText: {
+      fontSize: 18,
+      color: "#FFFFFF",
+    },
+    groupText: {
+      fontSize: 18,
+      color: "#FFFFFF",
+    },
+    whiteContainer: {
+      flex: 1,
+      backgroundColor: "#f1f3f5",
+    },
+    conversationList: {
+      flex: 1,
+    },
+    bottomBar: {
+      flexDirection: "row",
+      height: 100, // altura fixa
+      backgroundColor: "#2368A2",
+    },
+    bottomBarButton: {
+      flex: 1, // 1/3
+      alignItems: "center",
+      justifyContent: "center",
+      margin: 10,
+      borderRadius: 10,
+    },
+    buttonTextSmall: {
+      fontSize: 12,
+      color: "#FFFFFF",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
 
-// Style do FlatList:
-container1: {
-  flex: 1,
-  backgroundColor: "#F1F3F5",
-  //borderRadius: 15,
-  marginVertical: 10,
-},
+    // Style do FlatList:
+    container1: {
+      flex: 1,
+      backgroundColor: "#F1F3F5",
+      //borderRadius: 15,
+      marginVertical: 10,
+    },
 
-itemList: {
-  margin: 25,
-  gap: 25,
-},
+    itemList: {
+      margin: 25,
+      gap: 25,
+    },
 
-contactItem: {
-  flexDirection: "row",
-  alignItems: "center",
-  marginBottom: 10,
-},
+    contactItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 10,
+    },
 
-contactPhoto: {
-  width: 35,
-  height: 35,
-  borderRadius: 17.5,
-  marginRight: 10,
-},
+    contactPhoto: {
+      width: 35,
+      height: 35,
+      borderRadius: 17.5,
+      marginRight: 10,
+    },
 
-contactText: {
-  fontSize: 16,
-},
+    contactText: {
+      fontSize: 16,
+    },
 
 });

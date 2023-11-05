@@ -5,27 +5,39 @@ import socket from "../services/socket";
 import MessageBox from "../components/unit/MessageBox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Appbar } from 'react-native-paper';
-import { combineAndHashStrings } from "../services/encryption.service";
-import { SendMessage, getMessageList } from "../services/message.service";
+import { SaveMessage, getMessageList } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
+import { Encrypt, Decrypt } from "../services/encryption.service";
 
 const Chat = ({ route, navigation }) => {
-	const {id, name} = useUser("");
-	const { room, partnerName, roomId } = route.params;
+	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
+	const { room, partnerName, partnerPke, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 
 	const getMessages = async () => {
-		try {      
+		try {
 			//ideal é ter as msgs em um local storage, caso não tenha, ai sim tentar pegar da api.
-			const result = await getMessageList({idGroup:roomId}) || [];
-			setChatMessages(result);
+			const result = await getMessageList({ idGroup: roomId }) || [];
+			const decryptedResult = result.map(item => decryptMessage(item));
+
+			setChatMessages(decryptedResult);
 		} catch (error) {
 			console.log(error)
 		}
-	  };
+	};
+
+	function decryptMessage(item) {
+		const publicKey = item.idSentBy == id ? item.pkeReceiver : item.pkeSentBy
+		const decryptedText = Decrypt(item.text, publicKey, privateE2eContext).message;
+
+		return {
+			...item,
+			text: decryptedText
+		};
+	}
 
 	useEffect(() => {
 		socket.emit("findRoom", roomId);
@@ -34,8 +46,10 @@ const Chat = ({ route, navigation }) => {
 		})()
 		if (messageListRef.current && isFirstLoad) {
 			setTimeout(() => {
-				messageListRef.current.scrollToEnd({ animated: true });
-				setIsFirstLoad(false);
+				if (messageListRef) {
+					messageListRef.current.scrollToEnd({ animated: true });
+					setIsFirstLoad(false);
+				}
 			}, 1000);
 		}
 
@@ -45,25 +59,40 @@ const Chat = ({ route, navigation }) => {
 	}, [isFirstLoad]);
 
 	const handleNewMessage = () => {
-		console.log(chatMessages)
 		const hour = new Date().getHours().toString().padStart(2, "0");
 		const mins = new Date().getMinutes().toString().padStart(2, "0");
 		if (name && message) {
-			socket.emit("newMessage", {
-				message,
-				room_id: roomId,
-				user:name,
-				timestamp: { hour, mins },
-			});
+			let encryptedMessage = null
+			if (room.isPrivate) {
+				if (partnerPke) {
+					encryptedMessage = Encrypt({'message':message}, partnerPke, privateE2eContext)
+					SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, pkeReceiver: partnerPke })
+				} else {
+					alert("This user needs to login for the first time before receiving messages.")
+				}
+			} else {
+				SaveMessage({ text: message, idSentBy: id, idGroup: roomId })
+			}
 			setMessage('');
+			let m = encryptedMessage ? encryptedMessage : message
+			let partnerPublicKey = partnerPke ? partnerPke : null
+			socket.emit("newMessage", {
+				message: m,
+				room_id: roomId,
+				user: name,
+				timestamp: { hour, mins },
+				pkeSentBy: publicE2eContext,
+				pkeReceiver: partnerPublicKey,
+				idSentBy: id,
+			});
 		}
-		SendMessage({text:message, idSentBy:id, idGroup:roomId})
 	};
 	useEffect(() => {
 		socket.on("roomMessage", (message) => {
-		  	setChatMessages(prevMessages => [...prevMessages, message]);
+			const decryptedMessage = decryptMessage(message)
+			setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
 		});
-	  }, [socket]);
+	}, [socket]);
 
 	return (
 
@@ -74,7 +103,7 @@ const Chat = ({ route, navigation }) => {
 					<TouchableOpacity onPress={() => { console.log("Deverá abrir a tela de detalhes?") }}>
 						<View style={styles.contentContainer}>
 							<Image style={styles.contactPhoto} source={require('../assets/profile.png')} />
-							<Text style={styles.contactName}>{ room.isPrivate ? partnerName : room.title}</Text>
+							<Text style={styles.contactName}>{room.isPrivate ? partnerName : room.title}</Text>
 						</View>
 					</TouchableOpacity>
 				</Appbar.Header>
@@ -84,7 +113,7 @@ const Chat = ({ route, navigation }) => {
 			<FlatList style={styles.messageContainer}
 				ref={messageListRef}
 				data={chatMessages}
-				renderItem={({ item }) => <MessageBox  isPrivate={room.isPrivate} item={item} user={name} />}
+				renderItem={({ item }) => <MessageBox isPrivate={room.isPrivate} item={item} user={name} />}
 				keyExtractor={(item) => item.id.toString()}
 				onContentSizeChange={() => {
 					if (!isFirstLoad) {

@@ -16,9 +16,10 @@ import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import socket from "../services/socket";
 import { getOrCreatePrivateGroup } from '../services/group.services';
+import { getAccesKey } from '../services/localDb/user.services';
 
 export default function Contacts({ navigation }) {
-  const { name, id  } = useUser();
+  const { name, id, privateE2eContext  } = useUser();
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const getContacts = async () => {
@@ -33,7 +34,7 @@ export default function Contacts({ navigation }) {
     }
   };
 
-  const handleNavigation = async (partnerId, partnerName) => {
+  const handleNavigation = async (partnerId, partnerName, partnerPubKey) => {
     try { 
       const result = await getOrCreatePrivateGroup({ idPartner: partnerId, idSelf: id})
       socket.emit("createRoom", result.id, partnerName);
@@ -41,6 +42,7 @@ export default function Contacts({ navigation }) {
         room: result,
         roomId: result.id,
         partnerName: partnerName,
+        partnerPke: partnerPubKey,
       });
 
     } catch (error) {
@@ -66,7 +68,7 @@ useEffect(() => {
         />
       </TouchableOpacity>
       <TouchableOpacity
-       onPress={() => handleNavigation(item.id, item.name)}>
+       onPress={() => handleNavigation(item.id, item.name, item.pke)}>
         <Text style={styles.contactText}>{item.name}</Text>
       </TouchableOpacity>
     </View>
@@ -89,7 +91,6 @@ useEffect(() => {
         </View>
       </View>
       <View style={styles.container1}>
-        <ScrollView>
         <FlatList
           contentContainerStyle={styles.itemList}
           data={contacts}
@@ -100,7 +101,6 @@ useEffect(() => {
             <Divider style={{ height: 1, backgroundColor: "grey" }} />
           )}
         />
-        </ScrollView>
       </View>
     </SafeAreaView>
   );
