@@ -19,3 +19,17 @@ export const SaveMessage = async ({text, idSentBy, idGroup, pkeSentBy, pkeReceiv
         throw new Error(error.message);
     }
 };
+
+
+//Nesse caso precisamos apresentar com quem estamos trocando as mensagens:
+export const GetMessages = async ({ idSentBy }) => {
+    try {
+        const data = { idSentBy }
+        const result = await sendAuthenticatedRequest('/message/list/', 'POST', data);
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+

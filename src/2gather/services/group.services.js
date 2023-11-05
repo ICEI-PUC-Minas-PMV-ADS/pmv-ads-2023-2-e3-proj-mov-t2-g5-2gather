@@ -18,6 +18,15 @@ export const GetListYourGroups = async () => {
     }
 };
 
+export const GetTransmissionList = async () => {
+    try {
+        const result = await sendAuthenticatedRequest('/group/list/transmission/', 'GET');
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
 export const CreateNewGroups = async ({ title, photo, description, idAdmin, isTransmission, isPrivate, archived, participants }) => {
     console.log(title, idAdmin)
     try {   
@@ -46,6 +55,15 @@ export const CreateNewList = async ({ title, idAdmin, isTransmission, isPrivate,
         return result;
     } catch (error) {
         //alert('Por favor, preencha o "Nome da lista"!')
+        throw new Error(error.message);
+    }
+};
+
+export const showListData = async () => {
+    try {
+        const result = await sendAuthenticatedRequest('/group/list/transmission/', 'GET');
+        return result;
+    } catch (error) {
         throw new Error(error.message);
     }
 };

@@ -46,3 +46,25 @@ export const UpdateUserDetails = async ({ name, email, phone, photo, description
         throw new Error(error.message);
     }
 };
+
+// Recuperação de Senha
+export const GetUserPassword = async () => {
+    try {
+        const result = await sendAuthenticatedRequest('/user/password/', 'GET');
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+
+// Troca de Senha
+export const UpdateUserPassword = async ({ currentPassword, newPassword }) => {
+    try {
+        const data = { currentPassword, newPassword };
+        const result = await sendAuthenticatedRequest('/user/update/user/', 'PATCH', data);
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
