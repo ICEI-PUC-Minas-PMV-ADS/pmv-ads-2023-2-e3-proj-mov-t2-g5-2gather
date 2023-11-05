@@ -47,14 +47,3 @@ export const GetUserPassword = async () => {
     }
 };
 
-
-// Troca de Senha
-export const UpdateUserPassword = async ({ currentPassword, newPassword }) => {
-    try {
-        const data = { currentPassword, newPassword };
-        const result = await sendAuthenticatedRequest('/user/update/user/', 'PATCH', data);
-        return result;
-    } catch (error) {
-        throw new Error(error.message);
-    }
-};

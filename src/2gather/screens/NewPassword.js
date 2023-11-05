@@ -8,8 +8,8 @@ import {
   Alert,
   SafeAreaView
 } from "react-native";
-import { UpdateUserPassword } from '../services/user.services';
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { updatePassword } from '../services/auth.services';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Appbar, Button } from 'react-native-paper';
 
 export default function NewPassword({ navigation }) {
@@ -25,18 +25,19 @@ export default function NewPassword({ navigation }) {
     }
 
     try {
-      await UpdateUserPassword ({
+      await updatePassword ({
+        userId: "userId",
         currentPassword,
         newPassword,
-      }),
+      });
         
-        navigation.goBack();
-
+      navigation.goBack();
     } catch (error) {
       console.error("Erro ao atualizar a senha:", error);
       Alert.alert(
         "Ocorreu um erro ao atualizar a senha. Por favor, tente novamente."
       );
+      
     }
   };
 
@@ -100,7 +101,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    //padding: 8,
   },
 
   container2: {
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     height: 65,
     backgroundColor: "#2368A2",
     display: "flex",
-    //paddingLeft: 10,
     alignItems: "center",
   },
 
