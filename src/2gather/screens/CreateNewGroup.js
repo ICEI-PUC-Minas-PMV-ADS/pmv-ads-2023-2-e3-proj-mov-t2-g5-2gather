@@ -131,19 +131,14 @@ export default function CreateNewGroup({ route, navigation }) {
     }
   };
 
-
   //Criar o grupo
-
   const handleCreateGroup = async () => {
-   
     try {
       if (!title) {
         // Se o título não estiver preenchido, exibe o alerta
         setShowAlert(true);
         return;
       }
-
- 
       const groupData = await CreateNewGroups({
         title: title,
         photo: photo,
@@ -154,21 +149,17 @@ export default function CreateNewGroup({ route, navigation }) {
         //archive: false,
         participants: selectedContactsState.map((contact) => contact.id),
       });
-       
     console.log(groupData);
     alert("Grupo criado com sucesso");
-
     navigation.navigate('GroupConversation', {id: groupData.id});
-
 
   } catch (error) {
     console.log(error);
     
   } finally {
-    
+  
   }
 };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -214,7 +205,6 @@ export default function CreateNewGroup({ route, navigation }) {
       </View>
 
       {renderSelectedContacts()}
-
       <View style={styles.container1}>
         <FlatList
           contentContainerStyle={styles.itemList}
@@ -235,8 +225,6 @@ export default function CreateNewGroup({ route, navigation }) {
       >
         <Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
       </TouchableOpacity>*/}
-
-
       {showAlert && (
         <View style={styles.alertContainer}>
           <Text style={styles.alertText}>Por favor, insira o nome do seu grupo!</Text>
@@ -428,8 +416,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
-
-
 
   //Botão Provisório
   buttonForecast: {

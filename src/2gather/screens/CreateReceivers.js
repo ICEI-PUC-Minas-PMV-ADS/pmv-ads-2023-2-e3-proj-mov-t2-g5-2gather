@@ -20,7 +20,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewList } from '../services/group.services';
 
 export default function CreateReceivers ({ route, navigation }) {
-
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
   const [contacts, setContacts] = useState([]);
@@ -131,17 +130,13 @@ export default function CreateReceivers ({ route, navigation }) {
   };
 
  //Criar o grupo
-
  const handleCreateList = async () => {
-   
   try {
     if (!title) {
       // Se o título não estiver preenchido, exibe o alerta
       setShowAlert(true);
       return;
     }
-
-
     const listData = await CreateNewList({
       title: title,
       //photo: photo,
@@ -152,7 +147,7 @@ export default function CreateReceivers ({ route, navigation }) {
       //archive: false,
       participants: selectedContactsState.map((contact) => contact.id),
     });
-     
+
   console.log(listData);
   alert("Lista criada com sucesso");
 
@@ -161,13 +156,10 @@ export default function CreateReceivers ({ route, navigation }) {
 
 } catch (error) {
   console.log(error);
-  
 } finally {
-  
+
 }
 };
-
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>

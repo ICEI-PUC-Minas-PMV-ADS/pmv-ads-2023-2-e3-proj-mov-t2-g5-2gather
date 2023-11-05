@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   },
   titleHeader: {
     color: '#FFFCF4',
+    fontSize: '20px',
   },
   containerMain: {
     // flex: 1,
