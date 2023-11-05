@@ -15,38 +15,91 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
-import {CheckBox} from 'react-native-elements';
+import { CheckBox } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { CreateNewGroups } from '../services/group.services';
+import { EditGroup } from '../services/group.services';
 
 export default function CreateNewGroup({ route, navigation }) {
   const { id } = useUser();
-  const { selectedContacts } = route.params || {};
+  const { group } = route.params || {};
   const [contacts, setContacts] = useState([]);
+
+
   const [contactsRef, setContactsRef] = useState([]);
-  const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
+  const [selectedContactsState, setSelectedContacts] = useState([]);
+
+  const [markedContacts, setMarkedContacts] = useState([]);
   const [title, setTitle] = useState("");
   const [photo, setPhoto] = useState("");
-  const [description, setDescription] = useState("");
-  const [idAdmin, setIdAdmin] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [marked, setMarked] = useState({});
 
   const getContacts = async () => {
     try {
+
+      if (group) {
+        setSelectedContacts(group.members)
+        setMarkedContacts(group.members.map((member) => member.id))
+        setTitle(group.title)
+      }
+      else {
+        console.log('Missing group data')
+      }
       const result = await GetUserList() || [];
+
+      const participantes = group.members.map((member) => member.id)
+      const array = result.map((member) => member.id)
+      const markeds = array.reduce((obj, chave) => {
+        if (participantes.includes(chave)) {
+          obj[chave] = true;
+        }
+        else {
+          obj[chave] = false;
+        }
+        return obj;
+      }, {});
+      setMarked(markeds)
+
       setContacts(result);
       setContactsRef(result);
-      console.log(result)
+
     } catch (error) {
       console.log(error)
     }
   };
-  
+
   useEffect(() => {
     getContacts();
   }, []);
-  
+
   const defaultImage = require('../assets/profile.png');
+
+  const toogleCheckbox = (item) => {
+    const updatedContacts = contacts.map((contact) =>
+      contact.id === item.id
+        ? { ...contact, checked: !contact.checked }
+        : contact
+    );
+    setContacts(updatedContacts);
+
+    marked[item.id] = !marked[item.id]
+
+    const isSelected = !item.checked;
+    if (isSelected) {
+      setSelectedContacts((prev) => [...prev, item]);
+    } else {
+      setSelectedContacts((prev) =>
+        prev.filter((contact) => contact.id !== item.id)
+      );
+    }
+  }
+
+  const checkIfIsMember = (item) => {
+    if (item.id in marked) {
+      return marked[item.id];
+    }
+  };
+
 
   const renderItem = ({ item }) => (
     <TouchableOpacity>
@@ -64,127 +117,126 @@ export default function CreateNewGroup({ route, navigation }) {
           containerStyle={styles.checkBoxContainer}
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
-          checked={item.checked} // Use item.checked instead of this.state.checked
-          onPress={() => {
-            // Update the 'checked' property of the corresponding item
-            const updatedContacts = contacts.map((contact) =>
-              contact.id === item.id
-                ? { ...contact, checked: !contact.checked }
-                : contact
-            );
-            setContacts(updatedContacts);
-
-            const isSelected = !item.checked;
-            if (isSelected) {
-              setSelectedContacts((prev) => [...prev, item]);
-            } else {
-              setSelectedContacts((prev) =>
-                prev.filter((contact) => contact.id !== item.id)
-              );
-            }
-          }}
+          checked={marked[item.id]} // Use item.checked instead of this.state.checked
+          onPress={() => toogleCheckbox(item)
+          }
         />
       </View>
     </TouchableOpacity>
   );
 
   const renderSelectedContacts = () => {
+    const participants = contacts.map((contact) => {
+      if (marked[contact.id] == true) {
+        return contact
+      }}).filter(elemento => elemento !== undefined);
+    
     return (
       <View style={styles.selectedContactsContainer}>
         <ScrollView horizontal>
-          {selectedContactsState.map((selectedContact) => (
-            <View style={styles.selectedContactItem} key={selectedContact.id}>
-              <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={() => handleDeleteSelectedContact(selectedContact.id)}
-              >
-                <Icon name="times-circle" size={24} color="red" />
-              </TouchableOpacity>
-              <Image
-                style={styles.selectedContactPhoto}
-                source={{ uri: selectedContact.photo || null }}
-                defaultSource={defaultImage}
-              />
-              <Text style={styles.selectedContactText}>
-                {selectedContact.name}
-              </Text>
-            </View>
-          ))}
+          {participants.map((participant) => 
+              <View style={styles.selectedContactItem} key={participant.id}>
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => handleDeleteSelectedContact(participant.id)}
+                >
+                  <Icon name="times-circle" size={24} color="red" />
+                </TouchableOpacity>
+                <Image
+                  style={styles.selectedContactPhoto}
+                  source={{ uri: participant.photo || null }}
+                  defaultSource={defaultImage}
+                />
+                <Text style={styles.selectedContactText}>
+                  {participant.name}
+                </Text>
+              </View>
+
+          )}
         </ScrollView>
       </View>
     );
   };
-  
+
   const handleDeleteSelectedContact = (contactId) => {
-    const updatedContacts = contacts.map((contact) =>
-      contact.id === contactId ? { ...contact, checked: false } : contact
-    );
-    setContacts(updatedContacts);
+    // const updatedContacts = contacts.map((contact) =>
+    //   contact.id === contactId ? { ...contact, checked: false } : contact
+    // );
+    // setContacts(updatedContacts);
 
     const updatedSelectedContacts = selectedContactsState.filter(
       (contact) => contact.id !== contactId
     );
     setSelectedContacts(updatedSelectedContacts);
-
-    if (updatedSelectedContacts.length === 0) {
-      navigation.navigate('NewGroup', { selectedContacts: [] });
-    }
+    marked[contactId] = false
   };
 
-  //Criar o grupo
-  const handleCreateGroup = async () => {
+
+  //Editar o grupo
+
+  const handleEditGroup = async () => {
+    const newParticipants = contacts.map((contact) => {
+      if (marked[contact.id] == true){
+        console.log(contact.id)
+        return contact.id
+      }
+    }).filter(elemento => elemento !== undefined);
+
     try {
       if (!title) {
         // Se o título não estiver preenchido, exibe o alerta
         setShowAlert(true);
         return;
       }
-      const groupData = await CreateNewGroups({
-        title: title,
-        photo: photo,
-        description: description,
-        idAdmin: id,
-        //isTransmission: false,
-        isPrivate: false,
-        //archive: false,
-        participants: selectedContactsState.map((contact) => contact.id),
-      });
-    console.log(groupData);
-    alert("Grupo criado com sucesso");
-    navigation.navigate('GroupConversation', {id: groupData.id});
+      console.log(group)
+      const newGroup = {
+        ...group,
+        "title": title,
+        participants: newParticipants,
+      }
 
-  } catch (error) {
-    console.log(error);
-    
-  } finally {
-  
-  }
-};
+      const groupData = await EditGroup({ group: newGroup });
+
+      console.log(groupData);
+      alert("Grupo editado com sucesso");
+
+      navigation.navigate('GroupConversation', { id: groupData.id });
+
+
+    } catch (error) {
+      console.log(error);
+
+    } finally {
+
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Adicionar participantes</Text>
         <View style={styles.cancelCreate}>
           <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.goBack()} >
-            <Icon             
-              name="chevron-left" 
-              size={24} 
-              color="white" 
+            <Icon
+              name="chevron-left"
+              size={24}
+              color="white"
               style={{ fontWeight: 'normal' }} />
           </TouchableOpacity>
           <View style={styles.nameList}>
-            <TextInput 
+            <TextInput
               style={styles.nameInput}
               onChangeText={(text) => setTitle(text)}
+              value={title}
               placeholder="Nome do grupo"
               placeholderTextColor="#aaa"
             />
           </View>
           <Text
             style={styles.headerTextTwo}
-            onPress={handleCreateGroup}
+            onPress={handleEditGroup}
           >
-            Criar
+            Editar
           </Text>
         </View>
 
@@ -205,6 +257,7 @@ export default function CreateNewGroup({ route, navigation }) {
       </View>
 
       {renderSelectedContacts()}
+
       <View style={styles.container1}>
         <FlatList
           contentContainerStyle={styles.itemList}
@@ -225,6 +278,8 @@ export default function CreateNewGroup({ route, navigation }) {
       >
         <Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
       </TouchableOpacity>*/}
+
+
       {showAlert && (
         <View style={styles.alertContainer}>
           <Text style={styles.alertText}>Por favor, insira o nome do seu grupo!</Text>
@@ -254,7 +309,7 @@ const styles = StyleSheet.create({
   header: {
     padding: 10,
     height: 175,
-    backgroundColor: "#2368A2",   
+    backgroundColor: "#2368A2",
   },
 
   headerText: {
@@ -267,12 +322,12 @@ const styles = StyleSheet.create({
   cancelCreate: {
     flexDirection: "row",
     justifyContent: "space-between",
-    },
+  },
 
-    iconContainer: {
-      height: '100%', 
-      justifyContent: 'center',  
-    },
+  iconContainer: {
+    height: '100%',
+    justifyContent: 'center',
+  },
 
   headerTextTwo: {
     fontSize: 18,
@@ -280,22 +335,22 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginEnd: 15,
     alignSelf: 'center',
-    },
+  },
 
   nameList: {
     paddingLeft: 20,
     marginTop: 7,
     marginBottom: 7,
     width: '80%',
-    },
-  
+  },
+
   nameInput: {
     backgroundColor: "#1a4971",
     color: "#fffcf4",
     borderRadius: 10,
     padding: 10,
     fontSize: 16,
-    },
+  },
 
   searchBar: {
     width: '75%',
@@ -314,12 +369,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: "#F1F3F5", 
+    backgroundColor: "#F1F3F5",
     borderRadius: 15,
     marginVertical: -25,
     height: 140,
   },
-  
+
   deleteButton: {
     marginLeft: 10,
   },
@@ -372,7 +427,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderWidth: 0,
     padding: 0,
-    marginRight: 10, 
+    marginRight: 10,
   },
 
   contactPhoto: {
@@ -417,11 +472,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+
+
   //Botão Provisório
   buttonForecast: {
     backgroundColor: "#1A4971",
     borderRadius: 10,
-    paddingVertical: 8, 
+    paddingVertical: 8,
     width: '80%',
     height: 50,
     alignSelf: 'center',
@@ -437,4 +494,4 @@ const styles = StyleSheet.create({
 
 
 
-});
+})
