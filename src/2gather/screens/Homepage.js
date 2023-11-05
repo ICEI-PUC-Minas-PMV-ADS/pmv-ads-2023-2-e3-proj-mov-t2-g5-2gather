@@ -30,7 +30,6 @@ const getYourGroups = async () => {
   try {      
       const result = await GetListYourGroups() || [];
       setYourGroups(result);
-      console.log(result)
   } catch (error) {
       console.log(error)
   } finally {  
@@ -48,7 +47,6 @@ const getYourLists = async () => {
   try {      
       const result = await GetTransmissionList() || [];
       setYourLists(result);
-      console.log(result)
   } catch (error) {
       console.log(error)
   } finally {  
