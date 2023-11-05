@@ -81,7 +81,7 @@ getYourMessages();
 
 const defaultImage = require('../assets/group.png');
 const renderItem = ({ item }) => (
-  <TouchableOpacity onPress={() => console.log(item)}>{/*handleItemPress(item)}>*/}
+  <TouchableOpacity onPress={() => navigation.navigate('GroupConversation', {id: item.id})}>{/*handleItemPress(item)}>*/}
     <View style={styles.contactItem}> 
     <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
     <Text style={styles.contactText}>{item.title}</Text>
