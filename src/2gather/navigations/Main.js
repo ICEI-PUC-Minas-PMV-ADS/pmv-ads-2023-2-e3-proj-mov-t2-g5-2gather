@@ -95,9 +95,6 @@ const MainNav = () => {
                 component={CreateNewGroup}
             />
 
-
-
-
         </stack.Navigator>
     );
 };

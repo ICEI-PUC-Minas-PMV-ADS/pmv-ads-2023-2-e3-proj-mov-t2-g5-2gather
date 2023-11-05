@@ -36,7 +36,6 @@ export default function CreateNewGroup({ route, navigation }) {
       const result = await GetUserList() || [];
       setContacts(result);
       setContactsRef(result);
-      console.log(result)
     } catch (error) {
       console.log(error)
     }

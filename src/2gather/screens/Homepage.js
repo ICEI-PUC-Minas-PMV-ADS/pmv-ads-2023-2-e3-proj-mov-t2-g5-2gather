@@ -26,13 +26,13 @@ export default function Homepage() {
 
       {/* View para Novo Grupo e Lista de Transmissão */}
       <View style={styles.groupBroadcastContainer}>
-        <Text 
+        <Text
           style={styles.broadcastText}
           onPress={() => navigation.navigate('BroadcastList')}
         >
           Lista de Transmissão
         </Text>
-        <Text 
+        <Text
           style={styles.groupText}
           onPress={() => navigation.navigate('NewGroup')}
         >
@@ -51,23 +51,20 @@ export default function Homepage() {
 
       {/* Barra Inferior */}
       <View style={styles.bottomBar}>
-  <TouchableOpacity style={styles.bottomBarButton}>
-    <Icon name="user" size={30} color="#FFFFFF" />
-    <Text style={styles.buttonTextSmall}
-    onPress={() => navigation.navigate('UserManagement')}>
-      Gerenciamento de Usuário</Text>
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.bottomBarButton}>
-    <Icon name="address-book" size={30} color="#FFFFFF" />
-    <Text style={styles.buttonTextSmall}
-    onPress={() => navigation.navigate('Contacts')}>Contatos</Text>
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.bottomBarButton}>
-    <Icon name="cog" size={30} color="#FFFFFF" />
-    <Text style={styles.buttonTextSmall}
-    onPress={() => navigation.navigate('Profile')}>Configurações</Text>
-  </TouchableOpacity>
-</View>
+        <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate('UserManagement')}>
+          <Icon name="user" size={30} color="#FFFFFF" />
+          <Text style={styles.buttonTextSmall}>
+            Gerenciamento de Usuário</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate('Contacts')}>
+          <Icon name="address-book" size={30} color="#FFFFFF" />
+          <Text style={styles.buttonTextSmall}>Contatos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate('Profile')}>
+          <Icon name="cog" size={30} color="#FFFFFF" />
+          <Text style={styles.buttonTextSmall}>Configurações</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -105,7 +102,7 @@ const styles = StyleSheet.create({
   },
   whiteContainer: {
     flex: 1,
-    backgroundColor: '#f1f3f5',  
+    backgroundColor: '#f1f3f5',
   },
   conversationList: {
     flex: 1,
@@ -117,15 +114,15 @@ const styles = StyleSheet.create({
   },
   bottomBarButton: {
     flex: 1,  // 1/3
-    alignItems: 'center',  
-    justifyContent: 'center',  
-    margin: 10, 
-    borderRadius: 10,  
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 10,
+    borderRadius: 10,
   },
   buttonTextSmall: {
-    fontSize: 12,  
+    fontSize: 12,
     color: '#FFFFFF',
     fontWeight: 'bold',
-    textAlign: 'center',  
+    textAlign: 'center',
   },
 });

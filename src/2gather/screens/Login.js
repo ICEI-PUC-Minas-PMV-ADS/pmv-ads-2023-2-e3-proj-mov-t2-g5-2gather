@@ -16,17 +16,20 @@ import { useState } from 'react';
 import { SignIn } from '../services/auth.services.js'
 import { useUser } from '../contexts/UserContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { dbGetE2e, dbSetE2e } from '../services/localDb/user.services.js';
+import { createE2E } from '../services/encryption.service.js';
+import { UpdatePublicE2e } from '../services/user.services.js';
 
 
 export default function Login(navigation) {
-  const { setSigned, setId ,setName } = useUser();
+  const { setSigned, setId, setName, setPrivateE2eContextContext, privateE2eContext } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSignIn = () => {
 
-    SignIn({ email: email, password: password }).then(res => {
+    SignIn({ email: email, password: password }).then(async (res) => {
       if (res.access && res.refresh) {
         setSigned(true);
         setName(res.name);
@@ -38,8 +41,23 @@ export default function Login(navigation) {
             }
           }
         }
+
+        let e2eKeys = await dbGetE2e(res.id)
+        if (!e2eKeys && !res.pke) {
+          e2eKeys = await createE2E()
+
+          if (e2eKeys) {
+            await dbSetE2e(res.id, e2eKeys.privateKey, e2eKeys.publicKey)
+            setPrivateE2eContextContext(e2eKeys.privateKey)
+            await UpdatePublicE2e({ publicE2e: e2eKeys.publicKey })
+            
+          } else {
+            console.log('Error creating e2e keys')
+          }
+        }else if(res.pke && !e2eKeys){
+            alert('This account is not yours. you will not be able to read any message.')
+        }
       } else {
-        //aviso para o usuario da falha
         alert('Usuário ou senha inválidos!');
       }
     });
@@ -78,7 +96,7 @@ export default function Login(navigation) {
             selectTextOnFocus={true}
           />
           <View style={styles.inputPasswordContainer}>
-            <TextInput 
+            <TextInput
               style={styles.password}
               value={password}
               placeholder="Digite a senha..."
