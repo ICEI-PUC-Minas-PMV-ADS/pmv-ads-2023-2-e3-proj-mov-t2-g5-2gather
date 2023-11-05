@@ -1,31 +1,41 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { showListData } from '../services/group.services';
 
 export default function BroadcastCreate() {
   const navigation = useNavigation();
 
-  const grupos = [
-    { nome: 'Grupo 1', destinatarios: 10 },
-    { nome: 'Grupo 2', destinatarios: 5 },
-  ];
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  
+
+  useEffect(() => {
+    showListData()
+    .then((result) => {
+      console.log(result);
+      setData(result);
+    })
+    .catch((err) => {
+      setError(err.message);
+    });
+  
+  }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => navigation.navigate("BroadcastList")} />
         <Text style={styles.titleHeader}>Listas de transmissão</Text>
-        <Appbar.Action icon="pencil" onPress={() => {
-          console.log('Você clicou em um ícone de Editar, vou inserir a rota para a página Editar Lista de Transmissão assim que ela for criada');
-        }} />
       </Appbar.Header>
 
       <View style={styles.containerMain}>
-        {grupos.map((grupo, index) => (
+        {data.map((grupo, index) => (
           <View key={index} style={styles.grupoContainer}>
-            <Text style={styles.grupoTitle}>Destinatários: {grupo.destinatarios}</Text>
+            <Text style={styles.grupoTitle}>{grupo.title}</Text>
+            {/* <Text style={styles.grupoParticipants}>{grupo.participants} participantes</Text> */}
             <TouchableOpacity
               style={styles.infoIconContainer}
               onPress={() => {
@@ -39,15 +49,15 @@ export default function BroadcastCreate() {
         <TouchableHighlight
           style={styles.buttonContainer}
           underlayColor="transparent"
-           onPress={() => navigation.navigate('NewList')}
-            >
+          onPress={() => navigation.navigate('NewList')}
+        >
           <View style={styles.button}>
             <Icon name="plus" style={styles.buttonIcon} />
             <Text style={styles.buttonText}>Nova lista</Text>
           </View>
         </TouchableHighlight>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -101,7 +111,8 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     alignSelf: 'center',
-    marginTop: '70%',
+    marginTop: '10%',
+    alignItems: 'center',
   },
   button: {
     flexDirection: 'row',

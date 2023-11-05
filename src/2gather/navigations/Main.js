@@ -8,6 +8,7 @@ import UserManagement from '../screens/UserManagement';
 import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
+import NewPassword from '../screens/NewPassword';
 import BroadcastList from '../screens/BroadcastList';
 import Chat from '../screens/Chat';
 import BroadcastCreate from '../screens/BroadcastCreate';
@@ -53,6 +54,10 @@ const MainNav = () => {
             <stack.Screen
                 name="Profile"
                 component={Profile}
+            />
+             <stack.Screen
+                name="NewPassword"
+                component={NewPassword}
             />
             <stack.Screen
                 name="BroadcastList"

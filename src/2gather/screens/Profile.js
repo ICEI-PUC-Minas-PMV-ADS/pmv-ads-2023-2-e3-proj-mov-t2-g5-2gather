@@ -250,8 +250,17 @@ export default function Profile({ route, navigation }) {
           <Text style={{ fontWeight: "bold" }}>Cargo</Text>
           <Text style={styles.dynamicText}>{isSelf ? role : route.params.item.roleName}</Text>
         </View>
+
         {isSelf && 
           <View>
+            <TouchableOpacity 
+              style={styles.buttonChangePassword}
+              onPress={() => navigation.navigate('NewPassword')}>
+              <Text style={styles.buttonText1}>Trocar Senha</Text>
+              <MaterialCommunityIcons name="lock" size={28} color="black" />
+            </TouchableOpacity>
+
+        
             <TouchableOpacity
               style={styles.buttonSave}
               onPress={() => {
@@ -262,6 +271,7 @@ export default function Profile({ route, navigation }) {
             </TouchableOpacity>
           </View>
         }
+
       </View>
     </SafeAreaView>
   );
@@ -371,18 +381,57 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
+  buttonChangePassword: {
+    backgroundColor: "#74D99F",
+    padding: 10,
+    borderRadius: 10,
+    justifyContent: "center",
+    flexDirection: "row",
+    marginLeft: 30,
+    marginRight: 30,
+    marginVertical: 10,
+    alignItems: 'center',
+  },
+
+
   buttonSave: {
     backgroundColor: "#2368A2",
     padding: 10,
     borderRadius: 10,
-    alignItems: "center",
-    width: 150,
-    alignSelf: "center",
-    marginVertical: 40,
+    marginLeft: 30,
+    marginRight: 30,
+    marginVertical: 10,
+    marginBottom: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonText1: {
+    color: "black",
+    fontSize: 20,
   },
 
   buttonText: {
     color: "#FFFCF4",
     fontSize: 20,
   },
+
+  button: {
+    backgroundColor: '#2368A2',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  
+  buttonText: {
+    color: '#FFFCF4',
+    fontSize: 20,
+  },
+
+
+
+
+
 });
