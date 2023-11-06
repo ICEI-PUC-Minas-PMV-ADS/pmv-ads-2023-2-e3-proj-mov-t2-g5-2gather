@@ -33,11 +33,18 @@ export default function CreateReceivers ({ route, navigation }) {
   const getContacts = async () => {
     try {
       const result = await GetUserList() || [];
-      setContacts(result);
-      setContactsRef(result);
-      console.log(result)
+
+      // Marcando os contatos que já estão selecionados
+      const markedContacts = result.map((contact) => ({
+        ...contact,
+        checked: selectedContactsState.some((selected) => selected.id === contact.id),
+      }));
+
+      setContacts(markedContacts);
+      setContactsRef(markedContacts); // Usando markedContacts como referência
+      console.log(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   
