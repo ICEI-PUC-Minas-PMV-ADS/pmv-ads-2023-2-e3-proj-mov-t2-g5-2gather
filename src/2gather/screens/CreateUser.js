@@ -10,10 +10,11 @@ import {
   ScrollView,
 } from "react-native";
 import { Register } from "../services/auth.services";
+import { Appbar } from "react-native-paper";
 import { GetRoles } from "../services/role.services";
-import leftarrow from "../../2gather/assets/leftarrow.png";
-import { Picker } from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Toast from "../components/Toast"; // Assuming Toast component is in the same folder
 
 export default function CreateUser({ navigation }) {
   const [email, setEmail] = useState("");
@@ -21,13 +22,12 @@ export default function CreateUser({ navigation }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState();
-
-  const [showNotification, setShowNotification] = useState(false);
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  const slideAnim = useRef(new Animated.Value(-100)).current;
+
+  const [toastVisible, setToastVisible] = useState(false);
 
   const getRoles = async () => {
     try {
@@ -48,7 +48,8 @@ export default function CreateUser({ navigation }) {
 
   const handleRegister = async () => {
     if (!isValidEmail(email)) {
-      showSlideNotification();
+      setToastVisible(true);
+      setTimeout(() => setToastVisible(false), 3000);
       return;
     }
     try {
@@ -59,11 +60,9 @@ export default function CreateUser({ navigation }) {
         password: password,
         idRole: role,
       });
-      console.log(result);
       alert("Conta criada com sucesso");
       navigation.navigate("Login");
     } catch (error) {
-      console.log(error);
       setError(error.message);
     } finally {
       setLoading(false);
@@ -74,44 +73,26 @@ export default function CreateUser({ navigation }) {
     getRoles();
   }, []);
 
-  const showSlideNotification = () => {
-    // sempre pensar em reutilização em formato de componenetes... isso seria bem mais util caso desse pra passar o texto & tipo e ser reutilizado em todos nossos templates.
-    setShowNotification(true);
-    Animated.timing(slideAnim, {
-      toValue: 0,
-      duration: 500,
-      useNativeDriver: false,
-    }).start(() => {
-      setTimeout(() => {
-        Animated.timing(slideAnim, {
-          toValue: -100,
-          duration: 500,
-          useNativeDriver: false,
-        }).start(() => {
-          setShowNotification(false);
-        });
-      }, 3000); //3 segundos
-    });
-  };
-
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={{ flexGrow: 1 }}
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
     >
-      <View style={styles.container}>
-        {showNotification && (
-          <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
-            <Text style={styles.notificationText}>
-              Por favor, insira um endereço de e-mail válido.
-            </Text>
-          </Animated.View>
-        )}
-        <Text style={styles.header} onPress={() => navigation.goBack()}>
-          <Image source={require("../assets/leftarrow.png")}></Image>
-          <Text>Criar Usuário</Text>
-        </Text>
+      <View style={styles.containerBody}>
+        <View style={styles.container}>
+          <Appbar.Header style={styles.header}>
+            <Appbar.BackAction
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+            <View style={styles.rowContainer}>
+              <Text style={styles.titleHeader}>Criar Usuário</Text>
+            </View>
+          </Appbar.Header>
+        </View>
+
         <View style={styles.container2}>
           <Text style={styles.headerInput}>Informe os dados abaixo</Text>
 
@@ -143,64 +124,74 @@ export default function CreateUser({ navigation }) {
           <Text>Cargo</Text>
 
           <Picker
-          selectedValue={role}
-          onValueChange={(value) => setRole(value)}
-          style={{
-            height: 40,
-            backgroundColor: "#ecf0f1",
-            borderRadius: 8,
-            paddingHorizontal: 10,
-            paddingVertical: 8,
-            color: "black",
-          }}
->
-  <Picker.Item label="Click e selecione um cargo" value="" />
-  {roles.map((item) => (
-    <Picker.Item key={item.id} label={item.name} value={item.id} />
-  ))}
-</Picker>
-
-
+            selectedValue={role}
+            onValueChange={(value) => setRole(value)}
+            style={{
+              height: 40,
+              backgroundColor: "#ecf0f1",
+              borderRadius: 8,
+              paddingHorizontal: 10,
+              paddingVertical: 8,
+              color: "black",
+            }}
+          >
+            <Picker.Item label="Click e selecione um cargo" value="" />
+            {roles.map((item) => (
+              <Picker.Item key={item.id} label={item.name} value={item.id} />
+            ))}
+          </Picker>
         </View>
         <TouchableOpacity
           style={styles.buttonCreate}
           onPress={() => {
-            handleRegister();
+            handleRegister();//navigation.navigate("CreatedBroadcastList"); handleRegister();
           }}
         >
           <Text style={styles.buttonText}>Criar</Text>
         </TouchableOpacity>
+        {toastVisible && (
+          <Toast
+            appName="2Gather"
+            senderName="CreateUser"
+            message="Por favor, insira um endereço de e-mail válido."
+            visible={toastVisible}
+            showSenderName={false}
+          />
+        )}
       </View>
     </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerInput: {
-    marginBottom: "10%",
-    fontSize: 20,
+  containerBody: {
+    flex: 1,
   },
   container: {
-    flex: 1,
+    paddingTop: 5,
     padding: 0,
+    borderBottomWidth: 1,
+    borderColor: "#BBB",
+  },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  header: {
+    backgroundColor: "#2368A2",
+    width: "100%",
+  },
+  titleHeader: {
+    color: "#FFFCF4",
   },
   container2: {
     padding: 20,
     gap: 2,
     display: "flex",
   },
-  header: {
-    gap: 10,
-    color: "#FFFCF4",
+  headerInput: {
+    marginBottom: "10%",
     fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
-    height: 65,
-    backgroundColor: "#2368A2",
-    padding: 0,
-    display: "flex",
-    alignItems: "center",
-    paddingLeft: 10,
   },
   input: {
     height: 40,
@@ -219,6 +210,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 150,
     alignSelf: "center",
+    marginTop: 10,
   },
   buttonText: {
     color: "#FFFCF4",

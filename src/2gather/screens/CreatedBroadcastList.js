@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform, KeyboardAvoidingView } from 'react-native';
 import { Appbar } from 'react-native-paper';
+import Toast from '../components/Toast';
 
-export default function ChatScreen({ navigation }) {
+export default function BroadcastList({ navigation }) {
     const [currentMessage, setCurrentMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [hasSentMessage, setHasSentMessage] = useState(false);
     const [creationDate, setCreationDate] = useState(new Date());
+    const [toastVisible, setToastVisible] = useState(false);
+
+    const numberOfParticipants = 2;
 
     const formatDate = (date) => {
         const today = new Date();
@@ -18,6 +22,16 @@ export default function ChatScreen({ navigation }) {
         return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     };
 
+    const showBroadcastNotification = () => {
+        setToastVisible(true);
+        setTimeout(() => setToastVisible(false), 3000);
+    };
+
+    const handleToastClick = () => {
+        setToastVisible(false);
+        navigation.navigate('Homepage');
+    };
+
     const handleSendMessage = () => {
         if (currentMessage.trim() !== '') {
             const timestamp = new Date();
@@ -25,14 +39,16 @@ export default function ChatScreen({ navigation }) {
 
             setMessages(prevMessages => [...prevMessages, { content: currentMessage, time: timeString }]);
             setCurrentMessage('');
+
             if (!hasSentMessage) {
                 setHasSentMessage(true);
+                showBroadcastNotification();
             }
         }
     };
 
     return (
-        <View style={styles.containerBody}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.containerBody}>
             <Appbar.Header style={styles.header}>
                 <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
                 <Text style={styles.titleHeader}>Nome da Lista</Text>
@@ -68,19 +84,29 @@ export default function ChatScreen({ navigation }) {
                     placeholder="Mensagem"
                     onSubmitEditing={handleSendMessage}
                 />
-                <TouchableOpacity onPress={handleSendMessage}>
+                <TouchableOpacity onPress={showBroadcastNotification}>
                     <Text style={styles.sendButton}>Enviar</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+
+            {toastVisible && 
+                <Toast 
+                    visible={toastVisible} 
+                    message={`Lista: Mensagem enviada para ${numberOfParticipants} participantes`} 
+                    appName={'2Gather'} 
+                    showSenderName={false}
+                    style={{ zIndex: 9999, position: 'absolute', top: 0 }}
+                    onPress={handleToastClick}
+                />
+            }
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
-
     containerBody: {
         flex: 1,
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
     },
     header: {
         backgroundColor: '#2368A2',
@@ -88,8 +114,7 @@ const styles = StyleSheet.create({
     titleHeader: {
         marginLeft: 10,
         fontSize: 18,
-        color: '#FFFCF4'
-        
+        color: '#FFFCF4',
     },
     broadcastMessage: {
         backgroundColor: '#F1F3F5',
@@ -111,7 +136,6 @@ const styles = StyleSheet.create({
     chatInputContainer: {
         flexDirection: 'row',
         padding: 10,
-        //backgroundColor: '#ADB5BD',
     },
     chatInput: {
         flex: 1,
@@ -132,9 +156,6 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         marginBottom: 10,
-    },
-    message: {
-        marginBottom: 5,
     },
     messageTime: {
         fontSize: 10,

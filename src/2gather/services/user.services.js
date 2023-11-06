@@ -23,15 +23,15 @@ export const UpdateUserStatus = async ({ userId, reason }) => {
   }
 };
 
-export const UpdateUserDetails = async ({ name, email, idRole }) => {
+export const UpdateUserDetails = async ({ userId, name, email, idRole }) => {
   const API_URL =
     process.env.NODE_ENV === "development"
-      ? REACT_APP_DEV_MODE
-      : REACT_APP_PROD_MODE;
-  const data = { name: name, email: email, idRole: idRole };
+      ? process.env.REACT_APP_DEV_API_URL 
+      : process.env.REACT_APP_PROD_API_URL; 
+  const data = { name, email, idRole };
   try {
     const response = await sendAuthenticatedRequest(
-      `${API_URL}user/update/${uuid}/admin/`,
+      `${API_URL}/user/update/${userId}/admin/`,
       "PATCH",
       data
     );

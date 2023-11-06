@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,101 +7,146 @@ import {
   TouchableOpacity,
   Animated,
 } from "react-native";
-
-import { UpdateUserDetails } from '../services/user.services'
+import { Picker } from "@react-native-picker/picker";
+import { Appbar } from "react-native-paper";
+import { GetRoles } from "../services/role.services";
+import { GetUserList, UpdateUserDetails } from "../services/user.services";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import  Notification  from "../components/Notification";
 
 export default function EditUser({ navigation }) {
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
+  const [emails, setEmails] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [userList, setUserList] = useState([]);
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [sector, setSector] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState();
+  const [roles, setRoles] = useState([]);
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   const [showNotification, setShowNotification] = useState(false);
   const slideAnim = useRef(new Animated.Value(-100)).current;
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState("");
 
-  function isValidEmail(email) {
-    return emailRegex.test(email);
-  }
+
+  useEffect(() => {
+    async function fetchUserList() {
+      try {
+        const users = await GetUserList();
+        setUserList(users);
+      } catch (error) {
+        console.error("Erro ao buscar a lista de usuários:", error);
+      }
+    }
+    fetchUserList();
+  }, []);
 
   const handleSubmit = async () => {
-    if (!isValidEmail(email)) {
-      showSlideNotification();
-      return;
-    }
+
     try {
-        const result = await UpdateUserDetails({
-            name: name,
-            email: email,
-            //phone: phone,
-            //description: description,
-            idRole: role,
-            //lastActive: lastActive,
-            //status: status,
-        });
-        console.log(result);
-        alert("Conta editada com sucesso");
-        navigation.navigate("Login");
-      } catch (error) {
-        console.log(error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    //console.log("Usuário editado");
+      setLoading(true);
+      const result = await UpdateUserDetails({
+        id,
+        name,
+        email,
+        phone,
+        idRole: role,
+      });
+      //notif sucesso
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
+      navigation.navigate("UserManagement");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const showSlideNotification = () => {
-    setShowNotification(true);
-    Animated.timing(slideAnim, {
-      toValue: 0,
-      duration: 500,
-      useNativeDriver: false,
-    }).start(() => {
-      setTimeout(() => {
-        Animated.timing(slideAnim, {
-          toValue: -100,
-          duration: 500,
-          useNativeDriver: false,
-        }).start(() => {
-          setShowNotification(false);
-        });
-      }, 3000); //3 segundos
-    });
+  const getRoles = async () => {
+    try {
+      setLoading(true);
+      const result = (await GetRoles()) || [];
+      setRoles(result);
+      setError(null);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    getRoles();
+  }, []);
 
   return (
-    <View style={styles.container}>
-      {showNotification && (
-        <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
-          <Text style={styles.notificationText}>
-            Por favor, insira um endereço de e-mail válido.
-          </Text>
-        </Animated.View>
-      )}
-      <Text style={styles.header} onPress={() => navigation.goBack()}>
-        <Text>Editar usuário</Text>
-      </Text>
-      <View style={styles.container2}>
-        <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={true}
+    >
+      <View style={styles.containerBody}>
+        <View style={styles.container}>
+          <View style={styles.container}>
+            <Appbar.Header style={styles.header}>
+              <Appbar.BackAction
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              />
+              <View style={styles.rowContainer}>
+                <Text style={styles.titleHeader}>Editar Usuário</Text>
+              </View>
+            </Appbar.Header>
+          </View>
+        </View>
+        <View style={styles.container2}>
+          <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
 
-        <Text>Email Corporativo</Text>
-        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+          <Text>Email Corporativo</Text>
+          <Picker
+            selectedValue={userId}
+            onValueChange={(itemValue) => setUserId(itemValue)}
+            style={styles.inputPicker}
+          >
+            {userList.map((user) => (
+              <Picker.Item key={user.id} label={user.email} value={user.id} />
+            ))}
+          </Picker>
 
-        <Text>Nome do Colaborador</Text>
-        <TextInput style={styles.input} value={name} onChangeText={setName} />
+          <Text>Nome do Colaborador</Text>
+          <TextInput style={styles.input} value={name} onChangeText={setName} />
 
-        <Text>Cargo</Text>
-        <TextInput style={styles.input} value={role} onChangeText={setRole} />
+          <Text>Telefone</Text>
+          <TextInput
+            style={styles.input}
+            value={phone}
+            onChangeText={setPhone}
+          />
+
+          <Text>Cargo</Text>
+
+          <Picker
+            selectedValue={role}
+            onValueChange={(value) => setRole(value)}
+            style={styles.inputPicker}
+          >
+            <Picker.Item label="Click e selecione um cargo" value="" />
+            {roles.map((item) => (
+              <Picker.Item key={item.id} label={item.name} value={item.id} />
+            ))}
+          </Picker>
+        </View>
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.buttonSave}
-            onPress={() => {
-              handleSubmit();
-            }}
+            onPress={() => handleSubmit()}
           >
             <Text style={styles.buttonText}>Salvar</Text>
           </TouchableOpacity>
@@ -112,19 +157,29 @@ export default function EditUser({ navigation }) {
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
         </View>
+        {showNotification && (
+          <Notification message="Usuário editado com sucesso!" />
+        )}
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  containerBody: {
+    flex: 1,
+  },
   headerInput: {
     marginBottom: "10%",
     fontSize: 20,
   },
   container: {
-    flex: 1,
+    paddingTop: 5,
     padding: 0,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   container2: {
     padding: 20,
@@ -132,17 +187,11 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   header: {
-    gap: 10,
-    color: "#FFFCF4",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
-    height: 65,
     backgroundColor: "#2368A2",
-    padding: 0,
-    display: "flex",
-    alignItems: "center",
-    paddingLeft: 10,
+    width: "100%",
+  },
+  titleHeader: {
+    color: "#FFFCF4",
   },
   input: {
     height: 40,
@@ -181,27 +230,40 @@ const styles = StyleSheet.create({
   },
   buttonSave: {
     backgroundColor: "#74D99F",
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20, 
     borderRadius: 15,
-    width: 120,
     alignItems: "center",
+    flex: 1, 
+    margin: 5, 
   },
   buttonCancel: {
     backgroundColor: "#ADB5BD",
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20, 
     borderRadius: 15,
-    width: 120,
     alignItems: "center",
+    flex: 1, 
+    margin: 5,
   },
+
   buttonText: {
     color: "#FFFCF4",
     fontSize: 20,
   },
   buttonContainer: {
-    display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 30, 
     marginTop: 20,
-    justifyContent: "center",
-    gap: 70,
+  },
+  inputPicker: {
+    height: 40,
+    backgroundColor: "#ecf0f1",
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    color: "black",
+    marginBottom: 10,
   },
 });
