@@ -186,12 +186,8 @@ export default function CreateNewGroup({ route, navigation }) {
 
     navigation.navigate('GroupConversation', {id: groupData.id});
 
-  } catch (error) {
-    console.log(error);
-    
-  } finally {
+  } 
   
-  }
 };
   return (
     <SafeAreaView style={styles.container}>
