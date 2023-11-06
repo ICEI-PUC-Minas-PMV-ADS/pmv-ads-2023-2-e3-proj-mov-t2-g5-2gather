@@ -9,7 +9,7 @@ export default function MessageBox({isPrivate, item, user }) {
         <View style={isSelf ? styles.messageSelf : styles.messagePartner}>
 			      <Text style={ isPrivate ? styles.hidden : styles.time}>{item.user}</Text>
           	<Text style={styles.messageText}>{item.text}</Text>
-      		<Text style={styles.time}>{ item.idSentBy ? item.date.split('T')[1].substring(0, 5) : item.time}</Text> 
+      		<Text style={styles.time}>{ item.bySocket ? item.time : item.date.split('T')[1].substring(0, 5) }</Text> 
         </View>
       </View>
     </View>
@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
   },
   time: {
     color: "gray",
-	fontSize: 10,
+	  fontSize: 10,
   },
 });

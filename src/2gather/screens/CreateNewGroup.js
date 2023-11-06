@@ -53,6 +53,10 @@ export default function CreateNewGroup({ route, navigation }) {
       setContacts(markedContacts);
       setContactsRef(markedContacts); // Usando markedContacts como referência
       console.log(result);
+
+      setContacts(result);
+      setContactsRef(result);
+
     } catch (error) {
       console.log(error);
     }
@@ -156,7 +160,6 @@ export default function CreateNewGroup({ route, navigation }) {
 
   //Criar o grupo
   const handleCreateGroup = async () => {
-   
     try {
       if (!title) {
         // Se o título não estiver preenchido, exibe o alerta
@@ -172,7 +175,6 @@ export default function CreateNewGroup({ route, navigation }) {
         isPrivate: false,
         participants: selectedContactsState.map((contact) => contact.id),
       });
-       
     console.log(groupData);
     alert("Grupo criado com sucesso");
 
@@ -181,9 +183,16 @@ export default function CreateNewGroup({ route, navigation }) {
   } catch (error) {
     console.log(error);   
   } finally {  
+
+    navigation.navigate('GroupConversation', {id: groupData.id});
+
+  } catch (error) {
+    console.log(error);
+    
+  } finally {
+  
   }
 };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -229,7 +238,6 @@ export default function CreateNewGroup({ route, navigation }) {
       </View>
 
       {renderSelectedContacts()}
-
       <View style={styles.container1}>
         <FlatList
           contentContainerStyle={styles.itemList}
@@ -433,8 +441,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
-
-
 
   //Botão Provisório
   buttonForecast: {
