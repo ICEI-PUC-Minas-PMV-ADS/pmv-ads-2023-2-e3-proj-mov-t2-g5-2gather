@@ -132,13 +132,21 @@ export default function CreateReceivers ({ route, navigation }) {
     );
     setSelectedContacts(updatedSelectedContacts);
 
-    if (updatedSelectedContacts.length === 0) {
+    // Verificar se não há contatos selecionados e navegar de volta para NewList
+    if (updatedSelectedContacts.length === 0 && updatedContacts.every(contact => !contact.checked)) {
       navigation.navigate('NewList', { selectedContacts: [] });
     }
   };
 
- //Criar o grupo
+  useEffect(() => {
+    // Navegar de volta para NewList se não houver contatos selecionados
+    if (selectedContactsState.length === 0 && contacts.every(contact => !contact.checked)) {
+      navigation.navigate('NewList', { selectedContacts: [] });
+    }
+  }, [selectedContactsState, contacts]);
 
+
+ //Criar a Lista
  const handleCreateList = async () => {
    
   try {
@@ -273,8 +281,9 @@ const styles = StyleSheet.create({
 
   header: {
     padding: 10,
-    height: 175,
-    backgroundColor: "#2368A2",   
+    height: 185,
+    backgroundColor: "#2368A2",
+    gap: 5,
   },
 
   headerText: {
@@ -290,8 +299,8 @@ const styles = StyleSheet.create({
     },
 
     iconContainer: {
-      height: '100%', 
-      justifyContent: 'center',  
+      height: '100%',
+      marginTop: 17,  
     },
 
   headerTextTwo: {

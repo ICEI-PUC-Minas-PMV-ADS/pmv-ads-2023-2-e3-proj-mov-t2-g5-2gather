@@ -16,6 +16,7 @@ import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import {CheckBox} from 'react-native-elements';
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function NewList ({ navigation }) {
   
@@ -49,6 +50,11 @@ useEffect(() => {
   }
 }, [selectedContacts]);
 
+useFocusEffect(
+  React.useCallback(() => {
+    setSelectedContacts([]);
+  }, [])
+);
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (

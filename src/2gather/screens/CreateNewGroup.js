@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewGroups } from '../services/group.services';
 
 export default function CreateNewGroup({ route, navigation }) {
+  
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
   const [contacts, setContacts] = useState([]);
@@ -34,11 +35,18 @@ export default function CreateNewGroup({ route, navigation }) {
   const getContacts = async () => {
     try {
       const result = await GetUserList() || [];
-      setContacts(result);
-      setContactsRef(result);
-      console.log(result)
+
+      // Marcando os contatos que já estão selecionados
+      const markedContacts = result.map((contact) => ({
+        ...contact,
+        checked: selectedContactsState.some((selected) => selected.id === contact.id),
+      }));
+
+      setContacts(markedContacts);
+      setContactsRef(markedContacts); // Usando markedContacts como referência
+      console.log(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   
@@ -126,10 +134,17 @@ export default function CreateNewGroup({ route, navigation }) {
     );
     setSelectedContacts(updatedSelectedContacts);
 
-    if (updatedSelectedContacts.length === 0) {
+    if (updatedSelectedContacts.length === 0 && updatedContacts.every(contact => !contact.checked)) {
       navigation.navigate('NewGroup', { selectedContacts: [] });
     }
   };
+
+  useEffect(() => {
+    // Navegar de volta para NewList se não houver contatos selecionados
+    if (selectedContactsState.length === 0 && contacts.every(contact => !contact.checked)) {
+      navigation.navigate('NewGroup', { selectedContacts: [] });
+    }
+  }, [selectedContactsState, contacts]);
 
 
   //Criar o grupo
@@ -265,8 +280,9 @@ const styles = StyleSheet.create({
 
   header: {
     padding: 10,
-    height: 175,
-    backgroundColor: "#2368A2",   
+    height: 185,
+    backgroundColor: "#2368A2",
+    gap: 5,
   },
 
   headerText: {
@@ -282,8 +298,8 @@ const styles = StyleSheet.create({
     },
 
     iconContainer: {
-      height: '100%', 
-      justifyContent: 'center',  
+      height: '100%',
+      marginTop: 17,  
     },
 
   headerTextTwo: {
