@@ -45,6 +45,7 @@ export default function CreateReceivers ({ route, navigation }) {
        const adminContact = markedContacts.find((contact) => contact.id === id);
        if (adminContact && !selectedContactsState.some((selected) => selected.id === id)) {
          setSelectedContacts((prev) => [adminContact, ...prev]);
+         adminContact.checked = true;
        }
 
       setContacts(markedContacts);

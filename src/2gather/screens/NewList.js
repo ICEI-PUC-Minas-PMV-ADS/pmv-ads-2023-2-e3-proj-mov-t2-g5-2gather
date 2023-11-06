@@ -43,7 +43,7 @@ useEffect(() => {
   getContacts();
 }, []);
 
-{/*
+
 useEffect(() => {
   // Navegue para a tela CreateReceivers quando um contato for selecionado
   if (selectedContacts.length > 0) {
@@ -51,8 +51,8 @@ useEffect(() => {
   }
 }, [selectedContacts]);
 
-*/}
 
+{/*
 useEffect(() => {
   // Verificar se o usuário Admin não está na lista de contatos selecionados
   const adminContact = contacts.find((contact) => contact.id === id);
@@ -64,7 +64,7 @@ useEffect(() => {
   if (selectedContacts.length > 0) {
     navigation.navigate("CreateReceivers", { selectedContacts });
   }
-}, [selectedContacts]);
+}, [selectedContacts]);*/}
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
