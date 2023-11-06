@@ -23,6 +23,7 @@ export default function CreateReceivers ({ route, navigation }) {
 
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
+
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
@@ -39,6 +40,12 @@ export default function CreateReceivers ({ route, navigation }) {
         ...contact,
         checked: selectedContactsState.some((selected) => selected.id === contact.id),
       }));
+
+       // Verificar se o usuário Admin não está na lista de contatos selecionados
+       const adminContact = markedContacts.find((contact) => contact.id === id);
+       if (adminContact && !selectedContactsState.some((selected) => selected.id === id)) {
+         setSelectedContacts((prev) => [adminContact, ...prev]);
+       }
 
       setContacts(markedContacts);
       setContactsRef(markedContacts); // Usando markedContacts como referência
@@ -156,15 +163,11 @@ export default function CreateReceivers ({ route, navigation }) {
       return;
     }
 
-
     const listData = await CreateNewList({
       title: title,
-      //photo: photo,
-      //description: description,
       idAdmin: id,
       isTransmission: true,
       isPrivate: false,
-      //archive: false,
       participants: selectedContactsState.map((contact) => contact.id),
     });
      
@@ -173,15 +176,12 @@ export default function CreateReceivers ({ route, navigation }) {
 
   //navigation.navigate("LISTA CRIADA - Screen do Leo");
 
-
 } catch (error) {
   console.log(error);
   
 } finally {
-  
 }
 };
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -242,16 +242,6 @@ export default function CreateReceivers ({ route, navigation }) {
         />
       </View>
 
-      {/*Botão Provisório
-
-      <TouchableOpacity
-        style={styles.buttonForecast}
-        onPress={() => navigation.navigate("NewGroup")}
-      >
-        <Text style={styles.buttonLoginText}>Go to NewGroup Screen</Text>
-      </TouchableOpacity>*/}
-
-
       {showAlert && (
         <View style={styles.alertContainer}>
           <Text style={styles.alertText}>Por favor, insira o nome da sua lista de transmissão!</Text>
@@ -264,9 +254,7 @@ export default function CreateReceivers ({ route, navigation }) {
         </View>
       )}
 
-
     </SafeAreaView>
-
   );
 }
 

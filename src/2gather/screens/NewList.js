@@ -23,7 +23,7 @@ export default function NewList ({ navigation }) {
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
-
+  const { id } = useUser();
 
   const getContacts = async () => {
     try {      
@@ -43,6 +43,7 @@ useEffect(() => {
   getContacts();
 }, []);
 
+{/*
 useEffect(() => {
   // Navegue para a tela CreateReceivers quando um contato for selecionado
   if (selectedContacts.length > 0) {
@@ -50,11 +51,20 @@ useEffect(() => {
   }
 }, [selectedContacts]);
 
-useFocusEffect(
-  React.useCallback(() => {
-    setSelectedContacts([]);
-  }, [])
-);
+*/}
+
+useEffect(() => {
+  // Verificar se o usuário Admin não está na lista de contatos selecionados
+  const adminContact = contacts.find((contact) => contact.id === id);
+  if (adminContact && !selectedContacts.some((selected) => selected.id === id)) {
+    setSelectedContacts((prev) => [adminContact, ...prev]);
+  }
+
+  // Navegue para a tela CreateReceivers quando um contato for selecionado
+  if (selectedContacts.length > 0) {
+    navigation.navigate("CreateReceivers", { selectedContacts });
+  }
+}, [selectedContacts]);
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
@@ -130,16 +140,6 @@ useFocusEffect(
         />
         </ScrollView>
       </View>
-
-
-
-
-     {/*Botão Provisório
-
-     <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("CreateNewGroup")}>
-      <Text style={styles.buttonLoginText}>Go to CreateNewGroup Screen</Text>
-      </TouchableOpacity> */}
-
     </SafeAreaView>
   );
 }

@@ -23,6 +23,7 @@ export default function CreateNewGroup({ route, navigation }) {
   
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
+
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
@@ -36,11 +37,17 @@ export default function CreateNewGroup({ route, navigation }) {
     try {
       const result = await GetUserList() || [];
 
-      // Marcando os contatos que já estão selecionados
+ // Marcando os contatos que já estão selecionados
       const markedContacts = result.map((contact) => ({
         ...contact,
         checked: selectedContactsState.some((selected) => selected.id === contact.id),
       }));
+
+       // Verificar se o usuário Admin não está na lista de contatos selecionados
+       const adminContact = markedContacts.find((contact) => contact.id === id);
+       if (adminContact && !selectedContactsState.some((selected) => selected.id === id)) {
+         setSelectedContacts((prev) => [adminContact, ...prev]);
+       }
 
       setContacts(markedContacts);
       setContactsRef(markedContacts); // Usando markedContacts como referência
@@ -146,9 +153,7 @@ export default function CreateNewGroup({ route, navigation }) {
     }
   }, [selectedContactsState, contacts]);
 
-
   //Criar o grupo
-
   const handleCreateGroup = async () => {
    
     try {
@@ -158,15 +163,12 @@ export default function CreateNewGroup({ route, navigation }) {
         return;
       }
 
- 
       const groupData = await CreateNewGroups({
         title: title,
         photo: photo,
         description: description,
         idAdmin: id,
-        //isTransmission: false,
         isPrivate: false,
-        //archive: false,
         participants: selectedContactsState.map((contact) => contact.id),
       });
        
@@ -175,12 +177,9 @@ export default function CreateNewGroup({ route, navigation }) {
 
     //navigation.navigate("GRUPO CRIADO - Screen da Hellen");
 
-
   } catch (error) {
-    console.log(error);
-    
-  } finally {
-    
+    console.log(error);   
+  } finally {  
   }
 };
 
@@ -243,15 +242,6 @@ export default function CreateNewGroup({ route, navigation }) {
         />
       </View>
 
-      {/*Botão Provisório
-      <TouchableOpacity
-        style={styles.buttonForecast}
-        onPress={() => navigation.navigate("HomePage")}
-      >
-        <Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
-      </TouchableOpacity>*/}
-
-
       {showAlert && (
         <View style={styles.alertContainer}>
           <Text style={styles.alertText}>Por favor, insira o nome do seu grupo!</Text>
@@ -263,8 +253,6 @@ export default function CreateNewGroup({ route, navigation }) {
           </TouchableOpacity>
         </View>
       )}
-
-
     </SafeAreaView>
   );
 }
