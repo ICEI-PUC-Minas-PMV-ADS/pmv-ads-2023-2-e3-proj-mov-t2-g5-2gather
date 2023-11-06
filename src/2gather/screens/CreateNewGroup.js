@@ -20,8 +20,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewGroups } from '../services/group.services';
 
 export default function CreateNewGroup({ route, navigation }) {
+  
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
+
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
@@ -34,10 +36,29 @@ export default function CreateNewGroup({ route, navigation }) {
   const getContacts = async () => {
     try {
       const result = await GetUserList() || [];
+
+ // Marcando os contatos que já estão selecionados
+      const markedContacts = result.map((contact) => ({
+        ...contact,
+        checked: selectedContactsState.some((selected) => selected.id === contact.id),
+      }));
+
+       // Verificar se o usuário Admin não está na lista de contatos selecionados
+       const adminContact = markedContacts.find((contact) => contact.id === id);
+       if (adminContact && !selectedContactsState.some((selected) => selected.id === id)) {
+         setSelectedContacts((prev) => [adminContact, ...prev]);
+         adminContact.checked = true;
+       }
+
+      setContacts(markedContacts);
+      setContactsRef(markedContacts); // Usando markedContacts como referência
+      console.log(result);
+
       setContacts(result);
       setContactsRef(result);
+
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   
@@ -125,10 +146,17 @@ export default function CreateNewGroup({ route, navigation }) {
     );
     setSelectedContacts(updatedSelectedContacts);
 
-    if (updatedSelectedContacts.length === 0) {
+    if (updatedSelectedContacts.length === 0 && updatedContacts.every(contact => !contact.checked)) {
       navigation.navigate('NewGroup', { selectedContacts: [] });
     }
   };
+
+  useEffect(() => {
+    // Navegar de volta para NewList se não houver contatos selecionados
+    if (selectedContactsState.length === 0 && contacts.every(contact => !contact.checked)) {
+      navigation.navigate('NewGroup', { selectedContacts: [] });
+    }
+  }, [selectedContactsState, contacts]);
 
   //Criar o grupo
   const handleCreateGroup = async () => {
@@ -138,18 +166,24 @@ export default function CreateNewGroup({ route, navigation }) {
         setShowAlert(true);
         return;
       }
+
       const groupData = await CreateNewGroups({
         title: title,
         photo: photo,
         description: description,
         idAdmin: id,
-        //isTransmission: false,
         isPrivate: false,
-        //archive: false,
         participants: selectedContactsState.map((contact) => contact.id),
       });
     console.log(groupData);
     alert("Grupo criado com sucesso");
+
+    //navigation.navigate("GRUPO CRIADO - Screen da Hellen");
+
+  } catch (error) {
+    console.log(error);   
+  } finally {  
+
     navigation.navigate('GroupConversation', {id: groupData.id});
 
   } catch (error) {
@@ -217,13 +251,6 @@ export default function CreateNewGroup({ route, navigation }) {
         />
       </View>
 
-      {/*Botão Provisório
-      <TouchableOpacity
-        style={styles.buttonForecast}
-        onPress={() => navigation.navigate("HomePage")}
-      >
-        <Text style={styles.buttonLoginText}>Go to NEXT Screen</Text>
-      </TouchableOpacity>*/}
       {showAlert && (
         <View style={styles.alertContainer}>
           <Text style={styles.alertText}>Por favor, insira o nome do seu grupo!</Text>
@@ -235,8 +262,6 @@ export default function CreateNewGroup({ route, navigation }) {
           </TouchableOpacity>
         </View>
       )}
-
-
     </SafeAreaView>
   );
 }
@@ -252,8 +277,9 @@ const styles = StyleSheet.create({
 
   header: {
     padding: 10,
-    height: 175,
-    backgroundColor: "#2368A2",   
+    height: 185,
+    backgroundColor: "#2368A2",
+    gap: 5,
   },
 
   headerText: {
@@ -269,8 +295,8 @@ const styles = StyleSheet.create({
     },
 
     iconContainer: {
-      height: '100%', 
-      justifyContent: 'center',  
+      height: '100%',
+      marginTop: 17,  
     },
 
   headerTextTwo: {

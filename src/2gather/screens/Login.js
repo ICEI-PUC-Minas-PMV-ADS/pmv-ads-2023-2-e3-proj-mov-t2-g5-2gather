@@ -128,10 +128,11 @@ export default function Login(navigation) {
 
         <Animatable.View animation="fadeInUp" style={styles.containerForm}>
           <Text style={styles.loginLabel}>E-mail</Text>
+          
           <TextInput
             value={email}
             placeholder="Digite seu e-mail..."
-            style={styles.input}
+            style={styles.inputEmail}
             keyboardType="email-address"
             outoCorrect={false}
             onChangeText={(text) => setEmail(text)}
@@ -259,6 +260,14 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
 
+  inputEmail: {
+    fontSize: 16,
+    height: 50,
+    width: '100%',
+    borderRadius: 10,
+    paddingStart: 10,
+    backgroundColor: '#AAD4F5',
+  },
 
   input: {
     borderBottomWidth: 1,
@@ -268,8 +277,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingStart: 10,
     width: '100%',
-    height: 50,
+    height: 200,
   },
+
 
   loginLabel: {
     color: '#FFFFFF',

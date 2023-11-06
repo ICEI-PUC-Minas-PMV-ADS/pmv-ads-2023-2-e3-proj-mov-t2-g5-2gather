@@ -127,7 +127,7 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
 };
 
 //Recuperação de Senha
-
+{/*
 export const sendPasswordRecoveryEmail = async (email) => {
     try {
       const response = await fetch(`${API_URL}/password-recovery/`, {
@@ -148,3 +148,23 @@ export const sendPasswordRecoveryEmail = async (email) => {
       return { success: false, error: 'Erro ao enviar e-mail de recuperação de senha.' };
     }
   };
+*/}
+
+  //Alteração de Senha
+
+export const updatePassword = async (userId, currentPassword, newPassword) => {
+    try {
+      const data = { currentPassword, newPassword };
+      const response = await sendAuthenticatedRequest(`/user/update/${userId}/`, 'PATCH', data);
+
+      if (response.ok) {
+        return true; // para troca de senha bem-sucedida
+      } else {
+        return false; // para falha na troca
+      }
+    } catch (error) {
+      console.log(error);
+      return false; // para erro durante a troca.
+    }
+};
+ 

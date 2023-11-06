@@ -22,6 +22,7 @@ import { CreateNewList } from '../services/group.services';
 export default function CreateReceivers ({ route, navigation }) {
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
+
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
@@ -32,11 +33,25 @@ export default function CreateReceivers ({ route, navigation }) {
   const getContacts = async () => {
     try {
       const result = await GetUserList() || [];
-      setContacts(result);
-      setContactsRef(result);
-      console.log(result)
+
+      // Marcando os contatos que já estão selecionados
+      const markedContacts = result.map((contact) => ({
+        ...contact,
+        checked: selectedContactsState.some((selected) => selected.id === contact.id),
+      }));
+
+       // Verificar se o usuário Admin não está na lista de contatos selecionados
+       const adminContact = markedContacts.find((contact) => contact.id === id);
+       if (adminContact && !selectedContactsState.some((selected) => selected.id === id)) {
+         setSelectedContacts((prev) => [adminContact, ...prev]);
+         adminContact.checked = true;
+       }
+
+      setContacts(markedContacts);
+      setContactsRef(markedContacts); // Usando markedContacts como referência
+      console.log(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   
@@ -124,12 +139,23 @@ export default function CreateReceivers ({ route, navigation }) {
     );
     setSelectedContacts(updatedSelectedContacts);
 
-    if (updatedSelectedContacts.length === 0) {
+    // Verificar se não há contatos selecionados e navegar de volta para NewList
+    if (updatedSelectedContacts.length === 0 && updatedContacts.every(contact => !contact.checked)) {
       navigation.navigate('NewList', { selectedContacts: [] });
     }
   };
 
- //Criar o grupo
+
+  useEffect(() => {
+    // Navegar de volta para NewList se não houver contatos selecionados
+    if (selectedContactsState.length === 0 && contacts.every(contact => !contact.checked)) {
+      navigation.navigate('NewList', { selectedContacts: [] });
+    }
+  }, [selectedContactsState, contacts]);
+
+
+ //Criar a Lista
+
  const handleCreateList = async () => {
   try {
     if (!title) {
@@ -137,14 +163,12 @@ export default function CreateReceivers ({ route, navigation }) {
       setShowAlert(true);
       return;
     }
+
     const listData = await CreateNewList({
       title: title,
-      //photo: photo,
-      //description: description,
       idAdmin: id,
       isTransmission: true,
       isPrivate: false,
-      //archive: false,
       participants: selectedContactsState.map((contact) => contact.id),
     });
 
@@ -153,13 +177,13 @@ export default function CreateReceivers ({ route, navigation }) {
 
   //navigation.navigate("LISTA CRIADA - Screen do Leo");
 
-
 } catch (error) {
   console.log(error);
 } finally {
 
 }
 };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -219,16 +243,6 @@ export default function CreateReceivers ({ route, navigation }) {
         />
       </View>
 
-      {/*Botão Provisório
-
-      <TouchableOpacity
-        style={styles.buttonForecast}
-        onPress={() => navigation.navigate("NewGroup")}
-      >
-        <Text style={styles.buttonLoginText}>Go to NewGroup Screen</Text>
-      </TouchableOpacity>*/}
-
-
       {showAlert && (
         <View style={styles.alertContainer}>
           <Text style={styles.alertText}>Por favor, insira o nome da sua lista de transmissão!</Text>
@@ -241,9 +255,7 @@ export default function CreateReceivers ({ route, navigation }) {
         </View>
       )}
 
-
     </SafeAreaView>
-
   );
 }
 
@@ -258,8 +270,9 @@ const styles = StyleSheet.create({
 
   header: {
     padding: 10,
-    height: 175,
-    backgroundColor: "#2368A2",   
+    height: 185,
+    backgroundColor: "#2368A2",
+    gap: 5,
   },
 
   headerText: {
@@ -275,8 +288,8 @@ const styles = StyleSheet.create({
     },
 
     iconContainer: {
-      height: '100%', 
-      justifyContent: 'center',  
+      height: '100%',
+      marginTop: 17,  
     },
 
   headerTextTwo: {
