@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TextInput, Text, TouchableOpacity, Picker } from 'react-native';
+import { View, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 import { Appbar } from 'react-native-paper';
 import { GetUserList, UpdateUserStatus  } from '../services/user.services';
 
