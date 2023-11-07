@@ -17,6 +17,7 @@ import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import {CheckBox} from 'react-native-elements';
 import { useFocusEffect } from "@react-navigation/native";
+import { Appbar } from 'react-native-paper';
 
 export default function NewList ({ navigation }) {
   
@@ -110,34 +111,47 @@ useEffect(() => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText} onPress={() => navigation.goBack()}>
-          Adicionar participantes à lista
-        </Text>
-        
+      <View style={styles.containerHeader}>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.navigate('BroadcastList');
+            }}
+          />
+          <View style={styles.rowContainer}>
+            <Text style={styles.titleHeader}>
+              Adicione participantes à Lista
+            </Text>
+          </View>
+        </Appbar.Header>
         <View style={styles.searchBar}>
-          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
-          
+          <TextInput
+            onChangeText={(value) => {
+              setContacts(
+                contactsRef.filter((obj) =>
+                  obj.name.toLowerCase().includes(value.toLowerCase())
+                )
+              );
+            }}
             style={styles.searchInput}
             placeholder="Pesquisar"
             placeholderTextColor="#aaa"
           />
         </View>
       </View>
-      
 
       <View style={styles.container1}>
         <ScrollView>
-        <FlatList
-          contentContainerStyle={styles.itemList}
-          data={contacts}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          inverted={false}
-          ItemSeparatorComponent={() => (
-            <Divider style={{ height: 1, backgroundColor: "grey" }} />
-          )}
-        />
+          <FlatList
+            contentContainerStyle={styles.itemList}
+            data={contacts}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            inverted={false}
+            ItemSeparatorComponent={() => (
+              <Divider style={{ height: 1, backgroundColor: "grey" }} />
+            )}
+          />
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -152,18 +166,29 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 
-  header: {
-    padding: 10,
-    height: 135,
-    backgroundColor: "#2368A2",
-    justifyContent: "space-between",
-  },
+  containerHeader: {
+    backgroundColor: '#2368A2',
+      padding: 0,
+      borderBottomWidth: 1,
+      borderColor: '#BBB',
 
-  headerText: {
-    fontSize: 20,
-    color: "#FFFCF4",
-    marginTop: 7,
-  },
+    },
+
+    rowContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+
+    header: {
+      backgroundColor: '#2368A2',
+      width: '100%',
+    },
+
+    titleHeader: {
+      color: '#FFFCF4',
+      fontSize: 20,
+    },
+
   searchBar: {
     padding: 10,
     marginBottom: 20,
@@ -181,7 +206,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F1F3F5",
     borderRadius: 15,
-    marginVertical: -25,
+    marginVertical: -21,
   },
 
   itemList: {

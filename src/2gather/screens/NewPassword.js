@@ -13,9 +13,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Appbar, Button } from 'react-native-paper';
 
 export default function NewPassword({ navigation }) {
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const handleChangePassword = async () => {
     // Adicione sua lógica para a troca de senha aqui
@@ -25,73 +25,72 @@ export default function NewPassword({ navigation }) {
     }
 
     try {
-      await updatePassword ({
+      await updatePassword({
         userId: "userId",
         currentPassword,
         newPassword,
       });
-        
+
       navigation.goBack();
     } catch (error) {
       console.error("Erro ao atualizar a senha:", error);
       Alert.alert(
         "Ocorreu um erro ao atualizar a senha. Por favor, tente novamente."
       );
-      
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-    <KeyboardAwareScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled={true}
-    >
-    <View style={styles.container}>
-      <Appbar.Header style={styles.header}>
-        <Appbar.BackAction onPress={() => navigation.navigate('Profile')} />
-        <Text style={styles.header}>Trocar Senha</Text>
-      </Appbar.Header>
-  
-      <View style={styles.container2}>
-        <Text style={styles.headerInput}>Nova Senha</Text>
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled={true}
+      >
+        <View style={styles.container1}>
+          <Appbar.Header style={styles.header}>
+            <Appbar.BackAction onPress={() => navigation.navigate("Profile")} />
+            <Text style={styles.titleHeader}>Trocar Senha</Text>
+          </Appbar.Header>
 
-        <View style={styles.form}>
-          <Text style={styles.textLabel}>Entre com a senha atual</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            value={currentPassword}
-            onChangeText={setCurrentPassword}
-          />
+          <View style={styles.container2}>
+            <Text style={styles.headerNewPassword}>Nova Senha</Text>
 
-          <Text style={styles.textLabel}>Digite a Nova Senha</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            value={newPassword}
-            onChangeText={setNewPassword}
-          />
+            <View style={styles.form}>
+              <Text style={styles.textLabel}>Entre com a senha atual</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                value={currentPassword}
+                onChangeText={setCurrentPassword}
+              />
 
-          <Text style={styles.textLabel}>Confirme a Nova Senha</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            value={confirmNewPassword}
-            onChangeText={setConfirmNewPassword}
-          />
+              <Text style={styles.textLabel}>Digite a Nova Senha</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                value={newPassword}
+                onChangeText={setNewPassword}
+              />
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleChangePassword}
-          >
-            <Text style={styles.buttonText}>Confirmar</Text>
-          </TouchableOpacity>
+              <Text style={styles.textLabel}>Confirme a Nova Senha</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry
+                value={confirmNewPassword}
+                onChangeText={setConfirmNewPassword}
+              />
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleChangePassword}
+              >
+                <Text style={styles.buttonText}>Confirmar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
-    </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
@@ -101,26 +100,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
+   },
+
+  
+  header: {
+    backgroundColor: '#2368A2',
+    height: 85,
+    marginBottom: 18,
+    //padding: 0,
+  },
+
+  titleHeader: {
+    color: '#FFFCF4',
+    fontSize: 20,
   },
 
   container2: {
     flex: 1,
-    padding: 20,
-    gap: 2,
-    display: "flex",
-  },
-
-  header: {
-    color: "#FFFCF4",
-    fontSize: 20,
-    height: 65,
-    backgroundColor: "#2368A2",
-    display: "flex",
-    alignItems: "center",
-  },
-
-  form: {
-    flex: 1,
+    backgroundColor: "#F1F3F5",
+    borderRadius: 15,
+    marginVertical: -25,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
 
   textLabel: {
@@ -128,8 +129,9 @@ const styles = StyleSheet.create({
     color: "black",
   },
 
-  headerInput: {
+  headerNewPassword: {
     marginBottom: "10%",
+    marginTop: "10%",
     fontSize: 20,
   },
 
