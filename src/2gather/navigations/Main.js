@@ -111,6 +111,7 @@ const MainNav = () => {
              <stack.Screen
                 name="ArchivedLists"
                 component={ArchivedLists}
+            />
             <stack.Screen
                 name="GroupConversation"
                 component={GroupConversation}
@@ -132,8 +133,6 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
-
-
         </stack.Navigator>
     );
 };
