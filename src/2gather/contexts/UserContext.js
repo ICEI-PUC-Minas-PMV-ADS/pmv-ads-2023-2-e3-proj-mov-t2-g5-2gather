@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { dbGetE2e } from '../services/localDb/user.services';
 export const UserContext = createContext();
 
 export default function UserProvider({ children }) {
@@ -10,6 +11,8 @@ export default function UserProvider({ children }) {
     const [role, setRole] = useState('');
     const [photo, setPhoto] = useState('');
     const [id, setId] = useState('');
+    const [privateE2eContext, setPrivateE2eContextContext] = useState('');
+    const [publicE2eContext, setPublicE2eContextContext] = useState('');
 
 
     useEffect(() => {
@@ -20,7 +23,9 @@ export default function UserProvider({ children }) {
                 const storedName = await AsyncStorage.getItem('name');
                 const access = await AsyncStorage.getItem('access');
                 const refresh = await AsyncStorage.getItem('refresh');
-                // value fazer um request aqui pra ver se a access/refresh token estão validas, caso n, deslogar.
+                const e2eKeys = await dbGetE2e(id)
+
+                // vale fazer um request aqui pra ver se a access/refresh token estão validas, caso n, deslogar.
                 if (storedSigned !== null && access !== null && refresh !== null && id != null) {
                     setSigned(true);
                     setId(id);
@@ -30,6 +35,10 @@ export default function UserProvider({ children }) {
                 }
                 if (storedName !== null) {
                     setName(storedName);
+                }
+                if(e2eKeys){
+                    setPrivateE2eContextContext(e2eKeys.privateKey)
+                    setPublicE2eContextContext(e2eKeys.publicKey)
                 }
             } catch (error) {
                 console.error('Error retrieving data from AsyncStorage:', error);
@@ -60,6 +69,10 @@ export default function UserProvider({ children }) {
                 setId,
                 name,
                 setName,
+                privateE2eContext,
+                setPrivateE2eContextContext,
+                publicE2eContext,
+                setPublicE2eContextContext
             }}>
             {children}
         </UserContext.Provider>
@@ -68,18 +81,28 @@ export default function UserProvider({ children }) {
 
 const checkKeys = async() =>{
     //gambiarra pra logout
-    const context = useContext(UserContext);
-    const { signed, setSigned, id, setId, name, setName } = context;
 
-    const access = await AsyncStorage.getItem('access');
-    const refresh = await AsyncStorage.getItem('refresh');
-    (access && refresh) ? {} : setSigned(false);
+    try {
+        const access = await AsyncStorage.getItem('access');
+        const refresh = await AsyncStorage.getItem('refresh');
+    
+        if (!access || !refresh) {
+            const context = useContext(UserContext);
+            const { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext } = context;
+            setSigned(false);
+            setId(null);
+            setName(null);
+        }
+      } catch (error) {
+        console.error('Error reading data from AsyncStorage:', error);
+      }
 }
 
 export function useUser() {
-    checkKeys()
     const context = useContext(UserContext);
+    if(context.signed == true)
+        checkKeys()
 
-    const { signed, setSigned, id, setId, name, setName } = context;
-    return { signed, setSigned, id, setId, name, setName };
+    const { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext } = context;
+    return { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext };
 }

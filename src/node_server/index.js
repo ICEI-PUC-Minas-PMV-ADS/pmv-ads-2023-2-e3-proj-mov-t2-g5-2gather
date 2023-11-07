@@ -34,13 +34,17 @@ socketIO.on("connection", (socket) => {
 	});
 
 	socket.on("newMessage", (data) => {
-		const { room_id, message, user, timestamp } = data;
+		const { room_id, message, user, timestamp, pkeSentBy, pkeReceiver, idSentBy} = data;
 		let result = chatRooms.filter((room) => room.id == room_id);
 		const newMessage = {
 			id: generateID(),
 			text: message,
 			user,
 			time: `${timestamp.hour}:${timestamp.mins}`,
+			pkeSentBy: pkeSentBy,
+			pkeReceiver: pkeReceiver,
+			idSentBy: idSentBy,
+			bySocket: true,
 		};
 		result[0].messages.push(newMessage);
 		socket.to(room_id).emit("roomMessage", newMessage);

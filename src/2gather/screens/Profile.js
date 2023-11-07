@@ -109,11 +109,10 @@ export default function Profile({ route, navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       {isSelf ?
-        <View style={styles.headerSelf}>
-
-          <Text style={styles.headerTextSelf} onPress={() => navigation.goBack()}>
-            Configurações básicas
-          </Text>
+        <Appbar.Header style={styles.headerSelf}>
+        <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
+        <Text style={styles.headerText}>Informações básicas do usuário</Text>
+         
           <TouchableOpacity
             onPress={() => {
               logout()
@@ -122,7 +121,7 @@ export default function Profile({ route, navigation }) {
           >
             <MaterialCommunityIcons name="logout" size={35} color="#FFFF" />
           </TouchableOpacity>
-        </View>
+        </Appbar.Header>
         :
         <Appbar.Header style={styles.header}>
           <Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
@@ -250,8 +249,17 @@ export default function Profile({ route, navigation }) {
           <Text style={{ fontWeight: "bold" }}>Cargo</Text>
           <Text style={styles.dynamicText}>{isSelf ? role : route.params.item.roleName}</Text>
         </View>
+
         {isSelf && 
-          <View>
+          <View style={styles.containerButtons}>
+            <TouchableOpacity 
+              style={styles.buttonChangePassword}
+              onPress={() => navigation.navigate('NewPassword')}>
+              <Text style={styles.buttonText1}>Trocar Senha</Text>
+              <MaterialCommunityIcons name="lock" size={28} color="black" />
+            </TouchableOpacity>
+
+        
             <TouchableOpacity
               style={styles.buttonSave}
               onPress={() => {
@@ -262,6 +270,7 @@ export default function Profile({ route, navigation }) {
             </TouchableOpacity>
           </View>
         }
+
       </View>
     </SafeAreaView>
   );
@@ -276,31 +285,31 @@ const styles = StyleSheet.create({
   },
 
   headerSelf: {
-    padding: 10,
+    padding: 0,
     height: 85,
     backgroundColor: "#2368A2",
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 18,
   },
 
   headerTextSelf: {
     fontSize: 20,
     color: "#FFFCF4",
-    marginTop: 7,
+    gap: 5,
   },
+
   header: {
     paddingBottom: 22,
     height: 85,
     backgroundColor: "#2368A2",
     flexDirection: "row",
-    //alignSelf: 'center',
-    //justifyContent: "space-between",
   },
 
   headerText: {
     fontSize: 20,
     color: "#FFFCF4",
-    //marginTop: 7,
+
   },
 
   container1: {
@@ -308,13 +317,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1F3F5",
     borderRadius: 15,
     marginVertical: -25,
-  },
-
-  perfilText: {
-    alignSelf: "center",
-    fontSize: 20,
-    flexDirection: "row",
-    marginTop: 25,
+    paddingHorizontal: 10,
   },
 
   containerCamera: {
@@ -331,7 +334,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 1,
     borderColor: "black",
-    margin: 5,
+    margin: 2,
     width: 115,
     height: 115,
     alignSelf: "center",
@@ -344,7 +347,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     marginStart: 30,
-    marginTop: 15,
+    marginTop: 0,
   },
 
   archivedGroupsIcon: {
@@ -364,25 +367,68 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 5,
     marginStart: 30,
-    marginTop: 40,
+    marginTop: 20,
   },
 
   dynamicText: {
     marginBottom: 20,
   },
 
+  containerButtons: {
+    flex: 1,
+  },
+
+  buttonChangePassword: {
+    backgroundColor: "#74D99F",
+    padding: 10,
+    borderRadius: 10,
+    justifyContent: "center",
+    flexDirection: "row",
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: '15%',
+    alignItems: 'center',
+  },
+
+
   buttonSave: {
     backgroundColor: "#2368A2",
     padding: 10,
     borderRadius: 10,
-    alignItems: "center",
-    width: 150,
-    alignSelf: "center",
-    marginVertical: 40,
+    marginLeft: 30,
+    marginRight: 30,
+    marginVertical: 5,
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonText1: {
+    color: "black",
+    fontSize: 20,
   },
 
   buttonText: {
     color: "#FFFCF4",
     fontSize: 20,
   },
+
+  button: {
+    backgroundColor: '#2368A2',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  
+  buttonText: {
+    color: '#FFFCF4',
+    fontSize: 20,
+  },
+
+
+
+
+
 });
