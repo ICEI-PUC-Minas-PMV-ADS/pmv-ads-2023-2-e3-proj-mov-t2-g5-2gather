@@ -25,7 +25,7 @@ import { GetUserPassword } from '../services/user.services.js';
 
 
 export default function Login(navigation) {
-  const { setSigned, setId, setName, setPrivateE2eContextContext, privateE2eContext } = useUser();
+  const { setSigned, setId, setName, setPrivateE2eContext, privateE2eContext, setPublicE2eContext, publicE2eContext } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -53,9 +53,9 @@ export default function Login(navigation) {
 
           if (e2eKeys) {
             await dbSetE2e(res.id, e2eKeys.privateKey, e2eKeys.publicKey)
-            setPrivateE2eContextContext(e2eKeys.privateKey)
             await UpdatePublicE2e({ publicE2e: e2eKeys.publicKey })
-            
+            setPrivateE2eContext(e2eKeys.privateKey)
+            setPublicE2eContext(e2eKeys.publicKey)
           } else {
             console.log('Error creating e2e keys')
           }

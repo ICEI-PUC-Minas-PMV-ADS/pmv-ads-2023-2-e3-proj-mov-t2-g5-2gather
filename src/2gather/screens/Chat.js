@@ -59,32 +59,36 @@ const Chat = ({ route, navigation }) => {
 	}, [isFirstLoad]);
 
 	const handleNewMessage = () => {
-		const hour = new Date().getHours().toString().padStart(2, "0");
-		const mins = new Date().getMinutes().toString().padStart(2, "0");
-		if (name && message) {
-			let encryptedMessage = null
-			if (room.isPrivate) {
-				if (partnerPke) {
-					encryptedMessage = Encrypt({'message':message}, partnerPke, privateE2eContext)
-					SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, pkeReceiver: partnerPke })
+		if(publicE2eContext){
+			const hour = new Date().getHours().toString().padStart(2, "0");
+			const mins = new Date().getMinutes().toString().padStart(2, "0");
+			if (name && message) {
+				let encryptedMessage = null
+				if (room.isPrivate) {
+					if (partnerPke) {
+						encryptedMessage = Encrypt({'message':message}, partnerPke, privateE2eContext)
+						SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, pkeReceiver: partnerPke })
+					} else {
+						alert("This user needs to login for the first time before receiving messages.")
+					}
 				} else {
-					alert("This user needs to login for the first time before receiving messages.")
+					SaveMessage({ text: message, idSentBy: id, idGroup: roomId })
 				}
-			} else {
-				SaveMessage({ text: message, idSentBy: id, idGroup: roomId })
+				setMessage('');
+				let m = encryptedMessage ? encryptedMessage : message
+				let partnerPublicKey = partnerPke ? partnerPke : null
+				socket.emit("newMessage", {
+					message: m,
+					room_id: roomId,
+					user: name,
+					timestamp: { hour, mins },
+					pkeSentBy: publicE2eContext,
+					pkeReceiver: partnerPublicKey,
+					idSentBy: id,
+				});
 			}
-			setMessage('');
-			let m = encryptedMessage ? encryptedMessage : message
-			let partnerPublicKey = partnerPke ? partnerPke : null
-			socket.emit("newMessage", {
-				message: m,
-				room_id: roomId,
-				user: name,
-				timestamp: { hour, mins },
-				pkeSentBy: publicE2eContext,
-				pkeReceiver: partnerPublicKey,
-				idSentBy: id,
-			});
+		}else{
+			alert("Something is wrong, please login again.")
 		}
 	};
 	useEffect(() => {
