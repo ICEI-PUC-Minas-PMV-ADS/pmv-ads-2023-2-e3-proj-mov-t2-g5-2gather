@@ -54,10 +54,16 @@ const MainNav = () => {
             <stack.Screen
                 name="Profile"
                 component={Profile}
+                options={{
+                    header: () => null,
+                }}
             />
              <stack.Screen
                 name="NewPassword"
                 component={NewPassword}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="BroadcastList"
@@ -70,22 +76,37 @@ const MainNav = () => {
             <stack.Screen
                 name="Contacts"
                 component={Contacts}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="ArchivedGroups"
                 component={ArchivedGroups}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="YourGroups"
                 component={YourGroups}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="NewList"
                 component={NewList}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="CreateReceivers"
                 component={CreateReceivers}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="Chat"
@@ -97,10 +118,16 @@ const MainNav = () => {
             <stack.Screen
                 name="NewGroup"
                 component={NewGroup}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="CreateNewGroup"
                 component={CreateNewGroup}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="GroupConversation"

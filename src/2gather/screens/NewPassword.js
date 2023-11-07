@@ -48,10 +48,10 @@ export default function NewPassword({ navigation }) {
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
     >
-    <View style={styles.container}>
+    <View >
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => navigation.navigate('Profile')} />
-        <Text style={styles.header}>Trocar Senha</Text>
+        <Text style={styles.titleHeader}>Trocar Senha</Text>
       </Appbar.Header>
   
       <View style={styles.container2}>
@@ -101,27 +101,31 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
+    padding: 8,
+    
+  },
+
+  header: {
+    backgroundColor: '#2368A2',
+    height: 85,
+    marginBottom: 18,
+    padding: 0,
+  },
+
+  titleHeader: {
+    color: '#FFFCF4',
+    fontSize: 20,
   },
 
   container2: {
     flex: 1,
     padding: 20,
     gap: 2,
-    display: "flex",
+    //display: "flex",
+    borderRadius: 15,
+    marginVertical: -25,
   },
 
-  header: {
-    color: "#FFFCF4",
-    fontSize: 20,
-    height: 65,
-    backgroundColor: "#2368A2",
-    display: "flex",
-    alignItems: "center",
-  },
-
-  form: {
-    flex: 1,
-  },
 
   textLabel: {
     fontSize: 15,

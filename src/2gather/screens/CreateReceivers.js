@@ -18,8 +18,10 @@ import { GetUserList } from '../services/user.services';
 import {CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewList } from '../services/group.services';
+import { Appbar } from 'react-native-paper';
 
 export default function CreateReceivers ({ route, navigation }) {
+
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
 
@@ -27,7 +29,6 @@ export default function CreateReceivers ({ route, navigation }) {
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
   const [title, setTitle] = useState("");
-  const [idAdmin, setIdAdmin] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const getContacts = async () => {
@@ -145,7 +146,6 @@ export default function CreateReceivers ({ route, navigation }) {
     }
   };
 
-
   useEffect(() => {
     // Navegar de volta para NewList se não houver contatos selecionados
     if (selectedContactsState.length === 0 && contacts.every(contact => !contact.checked)) {
@@ -153,9 +153,7 @@ export default function CreateReceivers ({ route, navigation }) {
     }
   }, [selectedContactsState, contacts]);
 
-
  //Criar a Lista
-
  const handleCreateList = async () => {
   try {
     if (!title) {
@@ -186,32 +184,26 @@ export default function CreateReceivers ({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Destinatários</Text>
-        <View style={styles.cancelCreate}>
-          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.goBack()} >
-            <Icon             
-              name="chevron-left" 
-              size={24} 
-              color="white" 
-              style={{ fontWeight: 'normal' }} />
-          </TouchableOpacity>
-          <View style={styles.nameList}>
-            <TextInput 
+      <View style={styles.containerHeader}>
+        <Text style={styles.titleHeader}>Destinatários</Text>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.navigate("NewList");
+            }}
+          />
+          <View style={styles.rowContainer}>
+            <TextInput
               style={styles.nameInput}
               onChangeText={(text) => setTitle(text)}
-              placeholder="Nome da lista"
+              placeholder="Nome da Lista"
               placeholderTextColor="#aaa"
             />
           </View>
-          <Text
-            style={styles.headerTextTwo}
-            onPress={handleCreateList}
-            >
-              Criar
-            </Text>
-          </View>
-
+          <Text style={styles.headerTextTwo} onPress={handleCreateList}>
+            Criar
+          </Text>
+        </Appbar.Header>
         <View style={styles.searchBar}>
           <TextInput
             onChangeText={(value) => {
@@ -268,43 +260,36 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 
-  header: {
-    padding: 10,
-    height: 185,
-    backgroundColor: "#2368A2",
-    gap: 5,
-  },
-
-  headerText: {
-    fontSize: 20,
-    color: "#FFFCF4",
-    marginTop: 7,
-    textAlign: "center",
-  },
-
-  cancelCreate: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  containerHeader: {
+    backgroundColor: '#2368A2',
+      padding: 0,
+      borderBottomWidth: 1,
+      borderColor: '#BBB',
+      height: 185,
     },
-
-    iconContainer: {
-      height: '100%',
-      marginTop: 17,  
+    rowContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '70%',
+    },
+    header: {
+      backgroundColor: '#2368A2',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+    },
+    titleHeader: {
+      color: '#FFFCF4',
+      fontSize: '20px',
+      alignSelf: 'center',
+      padding: 10,
     },
 
   headerTextTwo: {
     fontSize: 18,
     color: "#FFFCF4",
     marginLeft: 15,
-    marginEnd: 15,
-    alignSelf: 'center',
-    },
-
-  nameList: {
-    paddingLeft: 20,
-    marginTop: 7,
-    marginBottom: 7,
-    width: '80%',
     },
   
   nameInput: {
@@ -313,11 +298,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 16,
+    marginTop: 2,
+    width: '100%',
     },
 
   searchBar: {
-    width: '75%',
-    marginLeft: 35,
+    width: '65%',
+    marginLeft: 70,
+    marginTop: 7,
   },
 
   searchInput: {
@@ -334,7 +322,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#F1F3F5", 
     borderRadius: 15,
-    marginVertical: -25,
+    marginVertical: -27,
     height: 140,
   },
   
@@ -434,8 +422,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
-
-
 
   //Botão Provisório
   buttonForecast: {

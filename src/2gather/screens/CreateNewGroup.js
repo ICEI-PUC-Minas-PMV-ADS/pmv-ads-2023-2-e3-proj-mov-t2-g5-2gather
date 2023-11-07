@@ -18,6 +18,7 @@ import { GetUserList } from '../services/user.services';
 import {CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewGroups } from '../services/group.services';
+import { Appbar } from 'react-native-paper';
 
 export default function CreateNewGroup({ route, navigation }) {
   
@@ -30,7 +31,6 @@ export default function CreateNewGroup({ route, navigation }) {
   const [title, setTitle] = useState("");
   const [photo, setPhoto] = useState("");
   const [description, setDescription] = useState("");
-  const [idAdmin, setIdAdmin] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const getContacts = async () => {
@@ -53,10 +53,6 @@ export default function CreateNewGroup({ route, navigation }) {
       setContacts(markedContacts);
       setContactsRef(markedContacts); // Usando markedContacts como referência
       console.log(result);
-
-      setContacts(result);
-      setContactsRef(result);
-
     } catch (error) {
       console.log(error);
     }
@@ -175,52 +171,42 @@ export default function CreateNewGroup({ route, navigation }) {
         isPrivate: false,
         participants: selectedContactsState.map((contact) => contact.id),
       });
-    console.log(groupData);
-    alert("Grupo criado com sucesso");
 
-    //navigation.navigate("GRUPO CRIADO - Screen da Hellen");
+    console.log(groupData);
+    //alert("Grupo criado com sucesso");
+    //navigation.navigate("GRUPO CRIADO - Screen da Ellen")
+    navigation.navigate('GroupConversation', {id: groupData.id});
+    ;
 
   } catch (error) {
     console.log(error);   
   } finally {  
 
-    navigation.navigate('GroupConversation', {id: groupData.id});
-
-  } catch (error) {
-    console.log(error);
-    
-  } finally {
-  
-  }
+  }   
 };
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Adicionar participantes</Text>
-        <View style={styles.cancelCreate}>
-          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.goBack()} >
-            <Icon             
-              name="chevron-left" 
-              size={24} 
-              color="white" 
-              style={{ fontWeight: 'normal' }} />
-          </TouchableOpacity>
-          <View style={styles.nameList}>
-            <TextInput 
+      <View style={styles.containerHeader}>
+        <Text style={styles.titleHeader}>Adicionar participantes</Text>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.navigate("NewGroup");
+            }}
+          />
+          <View style={styles.rowContainer}>
+            <TextInput
               style={styles.nameInput}
               onChangeText={(text) => setTitle(text)}
               placeholder="Nome do grupo"
               placeholderTextColor="#aaa"
             />
           </View>
-          <Text
-            style={styles.headerTextTwo}
-            onPress={handleCreateGroup}
-          >
+          <Text style={styles.headerTextTwo} onPress={handleCreateGroup}>
             Criar
           </Text>
-        </View>
-
+        </Appbar.Header>
         <View style={styles.searchBar}>
           <TextInput
             onChangeText={(value) => {
@@ -238,6 +224,7 @@ export default function CreateNewGroup({ route, navigation }) {
       </View>
 
       {renderSelectedContacts()}
+
       <View style={styles.container1}>
         <FlatList
           contentContainerStyle={styles.itemList}
@@ -253,7 +240,9 @@ export default function CreateNewGroup({ route, navigation }) {
 
       {showAlert && (
         <View style={styles.alertContainer}>
-          <Text style={styles.alertText}>Por favor, insira o nome do seu grupo!</Text>
+          <Text style={styles.alertText}>
+            Por favor, insira o nome do seu grupo!
+          </Text>
           <TouchableOpacity
             style={styles.alertButton}
             onPress={() => setShowAlert(false)}
@@ -266,7 +255,6 @@ export default function CreateNewGroup({ route, navigation }) {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -275,43 +263,36 @@ const styles = StyleSheet.create({
     padding: 8,
   },
 
-  header: {
-    padding: 10,
-    height: 185,
-    backgroundColor: "#2368A2",
-    gap: 5,
-  },
-
-  headerText: {
-    fontSize: 20,
-    color: "#FFFCF4",
-    marginTop: 7,
-    textAlign: "center",
-  },
-
-  cancelCreate: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  containerHeader: {
+    backgroundColor: '#2368A2',
+      padding: 0,
+      borderBottomWidth: 1,
+      borderColor: '#BBB',
+      height: 185,
     },
-
-    iconContainer: {
-      height: '100%',
-      marginTop: 17,  
+    rowContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '70%',
+    },
+    header: {
+      backgroundColor: '#2368A2',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+    },
+    titleHeader: {
+      color: '#FFFCF4',
+      fontSize: '20px',
+      alignSelf: 'center',
+      padding: 10,
     },
 
   headerTextTwo: {
     fontSize: 18,
     color: "#FFFCF4",
     marginLeft: 15,
-    marginEnd: 15,
-    alignSelf: 'center',
-    },
-
-  nameList: {
-    paddingLeft: 20,
-    marginTop: 7,
-    marginBottom: 7,
-    width: '80%',
     },
   
   nameInput: {
@@ -320,11 +301,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 16,
+    marginTop: 2,
+    width: '100%',
     },
 
   searchBar: {
-    width: '75%',
-    marginLeft: 35,
+    width: '65%',
+    marginLeft: 70,
+    marginTop: 7,
   },
 
   searchInput: {
@@ -341,7 +325,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#F1F3F5", 
     borderRadius: 15,
-    marginVertical: -25,
+    marginVertical: -27,
     height: 140,
   },
   
