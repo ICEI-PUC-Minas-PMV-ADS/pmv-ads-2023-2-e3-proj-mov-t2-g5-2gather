@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
 
   titleHeader: {
     color: "#FFFCF4",
-    fontSize: "20px",
+    fontSize: 20,
   },
 
   searchBar: {
