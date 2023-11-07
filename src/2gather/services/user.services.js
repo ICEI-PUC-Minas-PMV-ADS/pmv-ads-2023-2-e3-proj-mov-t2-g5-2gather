@@ -24,7 +24,7 @@ export const UpdateUserStatus = async ({ userId, reason }) => {
 };
 
 
-export const UpdateUserDetails = async ({ userId, name, email, idRole }) => {
+/* export const UpdateUserDetails = async ({ userId, name, email, idRole }) => {
   const API_URL =
     process.env.NODE_ENV === "development"
       ? process.env.REACT_APP_DEV_API_URL 
@@ -44,7 +44,7 @@ export const UpdateUserDetails = async ({ userId, name, email, idRole }) => {
   } catch (error) {
     throw new Error(error.message);
   }
-};
+}; */
 
 export const UpdatePublicE2e = async ({publicE2e}) => {
     try {
