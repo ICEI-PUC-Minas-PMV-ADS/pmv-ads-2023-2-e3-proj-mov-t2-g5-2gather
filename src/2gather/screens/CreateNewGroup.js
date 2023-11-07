@@ -182,7 +182,8 @@ export default function CreateNewGroup({ route, navigation }) {
     console.log(error);   
   } finally {  
 
-  }   
+    navigation.navigate('GroupConversation', {id: groupData.id});
+  } 
 };
 
   return (
