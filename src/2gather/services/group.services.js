@@ -60,9 +60,9 @@ export const CreateNewList = async ({ title, idAdmin, isTransmission, isPrivate,
     }
 };
 
-export const showListData = async () => {
+export const showListData = async (userId) => {
     try {
-        const result = await sendAuthenticatedRequest('/group/list/transmission/', 'GET');
+        const result = await sendAuthenticatedRequest('/group/list/transmission/admin/', 'GET');
         return result;
     } catch (error) {
         throw new Error(error.message);

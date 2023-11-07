@@ -4,6 +4,7 @@ import { Appbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { showListData } from '../services/group.services';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function BroadcastCreate() {
   const navigation = useNavigation();
@@ -13,16 +14,18 @@ export default function BroadcastCreate() {
   
 
   useEffect(() => {
-    showListData()
-    .then((result) => {
-      console.log(result);
-      setData(result);
-    })
-    .catch((err) => {
-      setError(err.message);
+    AsyncStorage.getItem('id').then((userId) => {
+        if (userId) {
+            showListData(userId)
+                .then((result) => {
+                    setData(result);
+                })
+                .catch((err) => {
+                    setError(err.message);
+                });
+        }
     });
-  
-  }, []);
+}, []);
 
   return (
     <ScrollView style={styles.container}>
