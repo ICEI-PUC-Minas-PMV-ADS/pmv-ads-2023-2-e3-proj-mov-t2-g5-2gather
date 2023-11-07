@@ -11,13 +11,14 @@ export default function BroadcastCreate() {
   
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-
+  const [listCount, setListCount] = useState(0);
 
   useEffect(() => {
     AsyncStorage.getItem('id').then((userId) => {
         if (userId) {
             showListData(userId)
                 .then((result) => {
+                    setListCount(result.length)
                     setData(result);
                 })
                 .catch((err) => {
@@ -33,6 +34,8 @@ export default function BroadcastCreate() {
         <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
         <Text style={styles.titleHeader}>Listas de transmissão</Text>
       </Appbar.Header>
+
+      <Text style={styles.listCountText}>Você possui: {listCount} lista(s)</Text>
 
       {data.length > 0 ? (
         <View style={styles.containerMain}>
@@ -146,5 +149,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#FFFCF4',
+  },
+  listCountText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10,
+    color: '#2368A2',
   },
 });
