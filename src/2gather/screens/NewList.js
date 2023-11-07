@@ -115,7 +115,7 @@ useEffect(() => {
         <Appbar.Header style={styles.header}>
           <Appbar.BackAction
             onPress={() => {
-              navigation.navigate('BroadcastList');
+              navigation.navigate('BroadcastCreate');
             }}
           />
           <View style={styles.rowContainer}>

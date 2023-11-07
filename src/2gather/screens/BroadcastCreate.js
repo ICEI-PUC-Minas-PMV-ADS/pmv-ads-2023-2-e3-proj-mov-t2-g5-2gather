@@ -8,10 +8,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function BroadcastCreate() {
   const navigation = useNavigation();
-
+  
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  
+
 
   useEffect(() => {
     AsyncStorage.getItem('id').then((userId) => {
@@ -25,41 +25,58 @@ export default function BroadcastCreate() {
                 });
         }
     });
-}, []);
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
       <Appbar.Header style={styles.header}>
-        <Appbar.BackAction onPress={() => navigation.navigate("BroadcastList")} />
+        <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
         <Text style={styles.titleHeader}>Listas de transmissão</Text>
       </Appbar.Header>
 
-      <View style={styles.containerMain}>
-        {data.map((grupo, index) => (
-          <View key={index} style={styles.grupoContainer}>
-            <Text style={styles.grupoTitle}>{grupo.title}</Text>
-            {/* <Text style={styles.grupoParticipants}>{grupo.participants} participantes</Text> */}
-            <TouchableOpacity
-              style={styles.infoIconContainer}
-              onPress={() => {
-                console.log('Você clicou em um ícone de Informação, vou inserir a rota para a página Lista de transmissão informações assim que ela for criada');
-              }}>
-              <Icon name="info-circle" style={styles.infoIcon} />
-            </TouchableOpacity>
-          </View>
-        ))}
+      {data.length > 0 ? (
+        <View style={styles.containerMain}>
+          {data.map((grupo, index) => (
+            <View key={index} style={styles.grupoContainer}>
+              <Text style={styles.grupoTitle}>{grupo.title}</Text>
+              <TouchableOpacity
+                style={styles.infoIconContainer}
+                onPress={() => {
+                  console.log('Você clicou em um ícone de Informação, vou inserir a rota para a página Lista de transmissão informações assim que ela for criada');
+                }}>
+                <Icon name="info-circle" style={styles.infoIcon} />
+              </TouchableOpacity>
+            </View>
+          ))}
 
-        <TouchableHighlight
-          style={styles.buttonContainer}
-          underlayColor="transparent"
-          onPress={() => navigation.navigate('NewList')}
-        >
-          <View style={styles.button}>
-            <Icon name="plus" style={styles.buttonIcon} />
-            <Text style={styles.buttonText}>Nova lista</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
+          <TouchableHighlight
+            style={styles.buttonContainer}
+            underlayColor="transparent"
+            onPress={() => navigation.navigate('NewList')}
+          >
+            <View style={styles.button}>
+              <Icon name="plus" style={styles.buttonIcon} />
+              <Text style={styles.buttonText}>Nova lista</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      ) : (
+        <View style={styles.containerMain}>
+          <Text style={styles.titleMain}>
+            Você pode usar listas de transmissão para enviar mensagens para várias pessoas ao mesmo tempo.
+          </Text>
+          <TouchableHighlight
+            style={styles.buttonContainer}
+            underlayColor="transparent"
+            onPress={() => navigation.navigate('NewList')}
+          >
+            <View style={styles.button}>
+              <Icon name="user-plus" style={styles.buttonIcon} />
+              <Text style={styles.buttonText}>Nova lista</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      )}
     </ScrollView>
   );
 }
