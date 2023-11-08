@@ -147,21 +147,22 @@ return (
 
     {/* Barra Inferior */}
     <View style={styles.bottomBar}>
-<TouchableOpacity style={styles.bottomBarButton}>
+<TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate('UserManagement')}>
   <Icon name="user" size={30} color="#FFFFFF" />
-  <Text style={styles.buttonTextSmall}
-  onPress={() => navigation.navigate('UserManagement')}>
+  <Text style={styles.buttonTextSmall}>
     Gerenciamento de Usuário</Text>
 </TouchableOpacity>
-<TouchableOpacity style={styles.bottomBarButton}>
-  <Icon name="address-book" size={30} color="#FFFFFF" />
-  <Text style={styles.buttonTextSmall}
-  onPress={() => navigation.navigate('Contacts')}>Contatos</Text>
+<TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate('Contacts')}>
+  <Icon name="address-book" size={30} color="#FFFFFF"/>
+  <Text style={styles.buttonTextSmall}>
+    Contatos
+    </Text>
 </TouchableOpacity>
-<TouchableOpacity style={styles.bottomBarButton}>
+<TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate('Profile')}>
   <Icon name="cog" size={30} color="#FFFFFF" />
-  <Text style={styles.buttonTextSmall}
-  onPress={() => navigation.navigate('Profile')}>Configurações</Text>
+  <Text style={styles.buttonTextSmall}>
+    Configurações
+  </Text>
 </TouchableOpacity>
 </View>
   </View>

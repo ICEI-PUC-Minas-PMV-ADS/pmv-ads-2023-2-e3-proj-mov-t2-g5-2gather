@@ -187,7 +187,7 @@ export default function CreateNewGroup({ route, navigation }) {
 };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.containerHeader}>
         <Text style={styles.titleHeader}>Adicionar participantes</Text>
         <Appbar.Header style={styles.header}>
@@ -252,7 +252,7 @@ export default function CreateNewGroup({ route, navigation }) {
           </TouchableOpacity>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -261,7 +261,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
   containerHeader: {

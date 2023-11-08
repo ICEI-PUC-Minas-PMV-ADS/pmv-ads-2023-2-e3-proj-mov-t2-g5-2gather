@@ -110,7 +110,7 @@ useEffect(() => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.containerHeader}>
         <Appbar.Header style={styles.header}>
           <Appbar.BackAction
@@ -154,7 +154,7 @@ useEffect(() => {
           />
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -163,7 +163,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
   containerHeader: {

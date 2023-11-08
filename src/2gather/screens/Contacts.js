@@ -35,7 +35,7 @@ export default function Contacts({ navigation }) {
     }
   };
 
-  const handleNavigation = async (partnerId, partnerName, partnerPubKey) => {
+  const handleNavigation = async (partnerId, partnerName, partnerPubKey, partnerPhoto) => {
     try { 
       const result = await getOrCreatePrivateGroup({ idPartner: partnerId, idSelf: id})
       socket.emit("createRoom", result.id, partnerName);
@@ -43,6 +43,7 @@ export default function Contacts({ navigation }) {
         room: result,
         roomId: result.id,
         partnerName: partnerName,
+        partnerPhoto: partnerPhoto,
         partnerPke: partnerPubKey,
       });
 
@@ -57,27 +58,26 @@ useEffect(() => {
 }, []);
 
   const defaultImage = require('../assets/profile.png');
+  
   const renderItem = ({ item }) => (
 
-    <View style={styles.contactItem}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Profile', {item})}>
+    <TouchableOpacity style={styles.contactItem} onPress={() => handleNavigation(item.id, item.name, item.pke, item.photo)}>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile', {item})}>
         <Image
           style={styles.contactPhoto}
-          source={{ uri: item.photo || null }}
+          source={item.photo ? { uri: item.photo || null } : defaultImage}
           defaultSource={defaultImage}
         />
       </TouchableOpacity>
-      <TouchableOpacity
-       onPress={() => handleNavigation(item.id, item.name, item.pke)}>
+      <TouchableOpacity onPress={() => handleNavigation(item.id, item.name, item.pke, item.photo)}>
         <Text style={styles.contactText}>{item.name}</Text>
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
     
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.containerHeader}>
         <Appbar.Header style={styles.header}>
           <Appbar.BackAction onPress={() => {navigation.navigate("Homepage")}} />
@@ -107,7 +107,7 @@ useEffect(() => {
           )}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
   containerHeader: {
@@ -162,6 +161,7 @@ const styles = StyleSheet.create({
   },
 
   itemList: {
+    paddingBottom: 25,
     margin: 25,
     gap: 25,
   },
