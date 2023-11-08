@@ -32,11 +32,11 @@ const Chat = ({ route, navigation }) => {
 
 	function decryptMessage(item, text) {
 		let publicKey
-		if(message.many || room.isPrivate){
+		if(message.many || !room.isPrivate){
 			publicKey = item.pkeReceiver
 		}
 		else{
-			publicKey = item.idSentBy != id ? item.pkeReceiver : item.pkeSentBy
+			publicKey = item.idSentBy == id ? item.pkeReceiver : item.pkeSentBy
 		}
 		const decryptedText = Decrypt(text, publicKey, privateE2eContext).message;
 
@@ -101,7 +101,6 @@ const Chat = ({ route, navigation }) => {
 
 	useEffect(() => {
 		socket.on("roomMessage", (message) => {
-			console.log(message)
 			let decryptedMessage = "Couldn't decrypt the message"
 			if(message.many || !room.isPrivate){
 				decryptedMessage = id in message.text ? decryptMessage(message, message.text[id]) : "Couldn't decrypt the message"
