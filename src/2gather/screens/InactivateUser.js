@@ -32,6 +32,7 @@ export default function InactivateUser({ navigation }) {
       const success = await UpdateUserStatus({ userId: userId, reason: reason });
       if (success) {
         alert('Usuário inativado com sucesso');
+        navigation.navigate('UserManagement');
       } else {
         console.log('Falha na inativação do usuário');
       }
