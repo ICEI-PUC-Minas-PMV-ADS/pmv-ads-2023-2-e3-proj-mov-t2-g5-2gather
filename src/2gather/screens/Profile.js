@@ -31,6 +31,7 @@ export default function Profile({ route, navigation }) {
   const [photo, setPhoto] = useState('');
 
   const defaultImage = require('../assets/profile.png');
+  let image = isSelf ? photo : route.params.item.photo
 
   useEffect(() => {
     const fetchData = async () => {
@@ -134,7 +135,7 @@ export default function Profile({ route, navigation }) {
           <View style={{ alignItems: "center", margin: 20 }}>
             <Image
               style={styles.photo}
-              source={{ uri: isSelf ? photo : route.params.item.photo || null }}
+              source={image ? { uri: image } : defaultImage}
               defaultSource={defaultImage}
             />
             {isSelf && 
