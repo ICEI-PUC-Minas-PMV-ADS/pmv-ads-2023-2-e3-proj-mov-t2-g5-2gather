@@ -17,8 +17,6 @@ const Chat = ({ route, navigation }) => {
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	let image = (room.isPrivate ? partnerPhoto : room.Image)
 	image = image ? { uri: image } :  require('../assets/profile.png')
-	console.log(publicE2eContext, privateE2eContext)
-
 
 	const getMessages = async () => {
 		try {
@@ -32,9 +30,15 @@ const Chat = ({ route, navigation }) => {
 		}
 	};
 
-	function decryptMessage(item) {
-		const publicKey = item.idSentBy == id ? item.pkeReceiver : item.pkeSentBy
-		const decryptedText = Decrypt(item.text, publicKey, privateE2eContext).message;
+	function decryptMessage(item, text) {
+		let publicKey
+		if(message.many || !room.isPrivate){
+			publicKey = item.pkeReceiver
+		}
+		else{
+			publicKey = item.idSentBy != id ? item.pkeReceiver : item.pkeSentBy
+		}
+		const decryptedText = Decrypt(text, publicKey, privateE2eContext).message;
 
 		return {
 			...item,
@@ -68,7 +72,14 @@ const Chat = ({ route, navigation }) => {
 					alert("This user needs to login for the first time before receiving messages.")
 				}
 			} else {
-				SaveMessage({ text: message, idSentBy: id, idGroup: roomId })
+				let messages = {}
+				room.members.map((m) => {
+					messages[m.id] = Encrypt({'message':message}, m.pke, privateE2eContext)
+
+				})
+				encryptedMessage = messages
+
+				//SaveMessage({ text: message, idSentBy: id, idGroup: roomId })
 			}
 			setMessage('');
 			let m = encryptedMessage ? encryptedMessage : message
@@ -81,14 +92,22 @@ const Chat = ({ route, navigation }) => {
 				pkeSentBy: publicE2eContext,
 				pkeReceiver: partnerPublicKey,
 				idSentBy: id,
+				many: room.isPrivate ? false : true,
 			});
 		}else{
 			setMessage('');
 		}
 	};
+
 	useEffect(() => {
 		socket.on("roomMessage", (message) => {
-			const decryptedMessage = decryptMessage(message)
+			console.log(message)
+			let decryptedMessage = "Couldn't decrypt the message"
+			if(message.many || !room.isPrivate){
+				decryptedMessage = id in message.text ? decryptMessage(message, message.text[id]) : "Couldn't decrypt the message"
+			}else{
+				decryptedMessage = decryptMessage(message, message.text)
+			}
 			setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
 		});
 	}, [socket]);
