@@ -3,7 +3,6 @@ import { View, TextInput, FlatList, Text, StyleSheet, Pressable, TouchableOpacit
 import { FontAwesome } from '@expo/vector-icons';
 import socket from "../services/socket";
 import MessageBox from "../components/unit/MessageBox";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Appbar } from 'react-native-paper';
 import { SaveMessage, getMessageList } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
@@ -11,11 +10,13 @@ import { Encrypt, Decrypt } from "../services/encryption.service";
 
 const Chat = ({ route, navigation }) => {
 	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
-	const { room, partnerName, partnerPke, roomId } = route.params;
+	const { room, partnerName, partnerPke, partnerPhoto, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
+	let image = (room.isPrivate ? partnerPhoto : room.Image)
+	image = image ? { uri: image } :  require('../assets/profile.png')
 
 	const getMessages = async () => {
 		try {
@@ -29,9 +30,15 @@ const Chat = ({ route, navigation }) => {
 		}
 	};
 
-	function decryptMessage(item) {
-		const publicKey = item.idSentBy == id ? item.pkeReceiver : item.pkeSentBy
-		const decryptedText = Decrypt(item.text, publicKey, privateE2eContext).message;
+	function decryptMessage(item, text) {
+		let publicKey
+		if(message.many || room.isPrivate){
+			publicKey = item.pkeReceiver
+		}
+		else{
+			publicKey = item.idSentBy != id ? item.pkeReceiver : item.pkeSentBy
+		}
+		const decryptedText = Decrypt(text, publicKey, privateE2eContext).message;
 
 		return {
 			...item,
@@ -39,29 +46,23 @@ const Chat = ({ route, navigation }) => {
 		};
 	}
 
-	useEffect(() => {
+ 	useEffect(() => {
 		socket.emit("findRoom", roomId);
 		(async () => {
 			await getMessages()
 		})()
-		if (messageListRef.current && isFirstLoad) {
-			setTimeout(() => {
-				if (messageListRef) {
-					messageListRef.current.scrollToEnd({ animated: true });
-					setIsFirstLoad(false);
-				}
-			}, 1000);
-		}
 
+		messageListRef.current.scrollToEnd({ animated: true });
+		setIsFirstLoad(false);
 		return () => {
 			socket.off("foundRoom");
 		};
-	}, [isFirstLoad]);
+	}, [isFirstLoad]); 
 
 	const handleNewMessage = () => {
 		const hour = new Date().getHours().toString().padStart(2, "0");
 		const mins = new Date().getMinutes().toString().padStart(2, "0");
-		if (name && message) {
+		if (name && message && privateE2eContext) {
 			let encryptedMessage = null
 			if (room.isPrivate) {
 				if (partnerPke) {
@@ -71,7 +72,14 @@ const Chat = ({ route, navigation }) => {
 					alert("This user needs to login for the first time before receiving messages.")
 				}
 			} else {
-				SaveMessage({ text: message, idSentBy: id, idGroup: roomId })
+				let messages = {}
+				room.members.map((m) => {
+					messages[m.id] = Encrypt({'message':message}, m.pke, privateE2eContext)
+
+				})
+				encryptedMessage = messages
+
+				//SaveMessage({ text: message, idSentBy: id, idGroup: roomId })
 			}
 			setMessage('');
 			let m = encryptedMessage ? encryptedMessage : message
@@ -84,12 +92,22 @@ const Chat = ({ route, navigation }) => {
 				pkeSentBy: publicE2eContext,
 				pkeReceiver: partnerPublicKey,
 				idSentBy: id,
+				many: room.isPrivate ? false : true,
 			});
+		}else{
+			setMessage('');
 		}
 	};
+
 	useEffect(() => {
 		socket.on("roomMessage", (message) => {
-			const decryptedMessage = decryptMessage(message)
+			console.log(message)
+			let decryptedMessage = "Couldn't decrypt the message"
+			if(message.many || !room.isPrivate){
+				decryptedMessage = id in message.text ? decryptMessage(message, message.text[id]) : "Couldn't decrypt the message"
+			}else{
+				decryptedMessage = decryptMessage(message, message.text)
+			}
 			setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
 		});
 	}, [socket]);
@@ -102,7 +120,10 @@ const Chat = ({ route, navigation }) => {
 					<Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
 					<TouchableOpacity onPress={() => { console.log("Deverá abrir a tela de detalhes?") }}>
 						<View style={styles.contentContainer}>
-							<Image style={styles.contactPhoto} source={require('../assets/profile.png')} />
+							<Image
+								style={styles.contactPhoto}
+								source={image}
+							/>
 							<Text style={styles.contactName}>{room.isPrivate ? partnerName : room.title}</Text>
 						</View>
 					</TouchableOpacity>
