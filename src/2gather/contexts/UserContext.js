@@ -18,27 +18,29 @@ export default function UserProvider({ children }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const id = await AsyncStorage.getItem('id');
                 const storedSigned = await AsyncStorage.getItem('signed');
-                const storedName = await AsyncStorage.getItem('name');
-                const access = await AsyncStorage.getItem('access');
-                const refresh = await AsyncStorage.getItem('refresh');
-                const e2eKeys = await dbGetE2e(id)
+                if(storedSigned == 'true') {
+                    const id = await AsyncStorage.getItem('id');
+                    const storedName = await AsyncStorage.getItem('name');
+                    const access = await AsyncStorage.getItem('access');
+                    const refresh = await AsyncStorage.getItem('refresh');
+                    const e2eKeys = await dbGetE2e(id)
 
-                // vale fazer um request aqui pra ver se a access/refresh token estão validas, caso n, deslogar.
-                if (storedSigned !== null && access !== null && refresh !== null && id != null) {
-                    setSigned(true);
-                    setId(id);
-                } else {
-                    AsyncStorage.clear()
-                    setSigned(false);
-                }
-                if (storedName !== null) {
-                    setName(storedName);
-                }
-                if(e2eKeys){
-                    setPrivateE2eContextContext(e2eKeys.privateKey)
-                    setPublicE2eContextContext(e2eKeys.publicKey)
+                    // vale fazer um request aqui pra ver se a access/refresh token estão validas, caso n, deslogar.
+                    if (storedSigned !== null && access !== null && refresh !== null && id != null) {
+                        setSigned(true);
+                        setId(id);
+                    } else {
+                        AsyncStorage.clear()
+                        setSigned(false);
+                    }
+                    if (storedName !== null) {
+                        setName(storedName);
+                    }
+                    if(e2eKeys){
+                        setPrivateE2eContextContext(e2eKeys.privateKey)
+                        setPublicE2eContextContext(e2eKeys.publicKey)
+                    }
                 }
             } catch (error) {
                 console.error('Error retrieving data from AsyncStorage:', error);
@@ -60,6 +62,36 @@ export default function UserProvider({ children }) {
         saveData();
     }, [signed]);
 
+    useEffect(() => {
+        const checkKeys = async () => {
+          try {
+            if(signed){
+                const access = await AsyncStorage.getItem('access');
+                const refresh = await AsyncStorage.getItem('refresh');
+        
+                if (!access || !refresh) {
+                    if (signed == 'true') {
+                        setSigned(false);
+                        setId(null);
+                        setName(null);
+                    }
+                }
+            }
+          } catch (error) {
+            console.error('Error reading data from AsyncStorage:', error);
+          }
+        };
+    
+        checkKeys();
+    
+        const intervalId = setInterval(checkKeys, 10000);
+    
+        return () => {
+          clearInterval(intervalId);
+        };
+      }, [signed, setSigned]);
+
+
     return (
         <UserContext.Provider
             value={{
@@ -79,29 +111,9 @@ export default function UserProvider({ children }) {
     );
 }
 
-const checkKeys = async() =>{
-    //gambiarra pra logout
-
-    try {
-        const access = await AsyncStorage.getItem('access');
-        const refresh = await AsyncStorage.getItem('refresh');
-    
-        if (!access || !refresh) {
-            const context = useContext(UserContext);
-            const { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext } = context;
-            setSigned(false);
-            setId(null);
-            setName(null);
-        }
-      } catch (error) {
-        console.error('Error reading data from AsyncStorage:', error);
-      }
-}
 
 export function useUser() {
     const context = useContext(UserContext);
-    if(context.signed == true)
-        checkKeys()
 
     const { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext } = context;
     return { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext };

@@ -3,7 +3,6 @@ import { View, TextInput, FlatList, Text, StyleSheet, Pressable, TouchableOpacit
 import { FontAwesome } from '@expo/vector-icons';
 import socket from "../services/socket";
 import MessageBox from "../components/unit/MessageBox";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Appbar } from 'react-native-paper';
 import { SaveMessage, getMessageList } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
@@ -11,11 +10,15 @@ import { Encrypt, Decrypt } from "../services/encryption.service";
 
 const Chat = ({ route, navigation }) => {
 	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
-	const { room, partnerName, partnerPke, roomId } = route.params;
+	const { room, partnerName, partnerPke, partnerPhoto, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
+	let image = (room.isPrivate ? partnerPhoto : room.Image)
+	image = image ? { uri: image } :  require('../assets/profile.png')
+	console.log(publicE2eContext, privateE2eContext)
+
 
 	const getMessages = async () => {
 		try {
@@ -39,29 +42,23 @@ const Chat = ({ route, navigation }) => {
 		};
 	}
 
-	useEffect(() => {
+ 	useEffect(() => {
 		socket.emit("findRoom", roomId);
 		(async () => {
 			await getMessages()
 		})()
-		if (messageListRef.current && isFirstLoad) {
-			setTimeout(() => {
-				if (messageListRef) {
-					messageListRef.current.scrollToEnd({ animated: true });
-					setIsFirstLoad(false);
-				}
-			}, 1000);
-		}
 
+		messageListRef.current.scrollToEnd({ animated: true });
+		setIsFirstLoad(false);
 		return () => {
 			socket.off("foundRoom");
 		};
-	}, [isFirstLoad]);
+	}, [isFirstLoad]); 
 
 	const handleNewMessage = () => {
 		const hour = new Date().getHours().toString().padStart(2, "0");
 		const mins = new Date().getMinutes().toString().padStart(2, "0");
-		if (name && message) {
+		if (name && message && privateE2eContext) {
 			let encryptedMessage = null
 			if (room.isPrivate) {
 				if (partnerPke) {
@@ -85,6 +82,8 @@ const Chat = ({ route, navigation }) => {
 				pkeReceiver: partnerPublicKey,
 				idSentBy: id,
 			});
+		}else{
+			setMessage('');
 		}
 	};
 	useEffect(() => {
@@ -102,7 +101,10 @@ const Chat = ({ route, navigation }) => {
 					<Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
 					<TouchableOpacity onPress={() => { console.log("Deverá abrir a tela de detalhes?") }}>
 						<View style={styles.contentContainer}>
-							<Image style={styles.contactPhoto} source={require('../assets/profile.png')} />
+							<Image
+								style={styles.contactPhoto}
+								source={image}
+							/>
 							<Text style={styles.contactName}>{room.isPrivate ? partnerName : room.title}</Text>
 						</View>
 					</TouchableOpacity>
