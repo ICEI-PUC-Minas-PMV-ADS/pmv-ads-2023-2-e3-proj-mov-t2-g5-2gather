@@ -12,6 +12,7 @@ import { updatePassword } from '../services/auth.services';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Appbar, Button } from 'react-native-paper';
 
+
 export default function NewPassword({ navigation }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -20,28 +21,26 @@ export default function NewPassword({ navigation }) {
   const handleChangePassword = async () => {
     // Adicione sua lógica para a troca de senha aqui
     if (newPassword !== confirmNewPassword) {
-      Alert.alert("As senhas não coincidem. Por favor, tente novamente.");
+      alert('As senhas não coincidem. Por favor, tente novamente.');
       return;
     }
 
     try {
       await updatePassword({
-        userId: "userId",
         currentPassword,
         newPassword,
       });
-
+      alert('Sua senha foi trocada com sucesso!');
       navigation.goBack();
+
     } catch (error) {
       console.error("Erro ao atualizar a senha:", error);
-      Alert.alert(
-        "Ocorreu um erro ao atualizar a senha. Por favor, tente novamente."
-      );
+      alert('Ocorreu um erro ao atualizar a senha. Por favor, tente novamente.');
     }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <KeyboardAwareScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -91,7 +90,7 @@ export default function NewPassword({ navigation }) {
           </View>
         </View>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

@@ -77,7 +77,7 @@ useEffect(() => {
     
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.containerHeader}>
         <Appbar.Header style={styles.header}>
           <Appbar.BackAction onPress={() => {navigation.navigate("Homepage")}} />
@@ -107,7 +107,7 @@ useEffect(() => {
           )}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

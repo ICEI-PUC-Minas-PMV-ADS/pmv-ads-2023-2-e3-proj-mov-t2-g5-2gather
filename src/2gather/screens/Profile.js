@@ -108,7 +108,7 @@ export default function Profile({ route, navigation }) {
 
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {isSelf ?
         <Appbar.Header style={styles.headerSelf}>
         <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
@@ -231,7 +231,7 @@ export default function Profile({ route, navigation }) {
             />
               <TouchableOpacity>
                   <Text style={styles.buttonArchivedGroups}
-                  onPress={() => navigation.navigate('ArchivedGroups')}>Seus grupos arquivados</Text>
+                  onPress={() => navigation.navigate('ArchivedGroups')}>Veja seus conteúdos arquivados</Text>
               </TouchableOpacity>
             
           </View>
@@ -273,7 +273,7 @@ export default function Profile({ route, navigation }) {
         }
 
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -282,7 +282,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
   headerSelf: {
@@ -354,14 +353,14 @@ const styles = StyleSheet.create({
   archivedGroupsIcon: {
     width: 35,
     height: 35,
-    alignSelf: "flex-start",
+    alignSelf: "center",
     fontSize: 18,
   },
 
   buttonArchivedGroups: {
     fontSize: 17,
     fontWeight: "bold",
-
+    color: "#2368A2",
   },
 
   containerData: {
