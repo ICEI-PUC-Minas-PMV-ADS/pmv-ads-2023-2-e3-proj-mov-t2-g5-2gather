@@ -7,7 +7,9 @@ import { GetUserList, UpdateUserStatus  } from '../services/user.services';
 export default function InactivateUser({ navigation }) {
   const [userId, setUserId] = useState(''); 
   const [reason, setReason] = useState('');
-  const [userList, setUserList] = useState([]); 
+  const [userList, setUserList] = useState([]);
+  const [errorUserId, setErrorUserId] = useState(false);
+  const [errorReason, setErrorReason] = useState(false); 
 
   useEffect(() => {
     async function fetchUserList() {
@@ -22,18 +24,24 @@ export default function InactivateUser({ navigation }) {
   }, []);
 
   const handleInactivateUser = async () => {
+
+    setErrorUserId(false);
+    setErrorReason(false);
+
     if (userId && reason) {
       const success = await UpdateUserStatus({ userId: userId, reason: reason });
       if (success) {
-        // inativação bem-sucedida
         alert('Usuário inativado com sucesso');
       } else {
-        // tratar caso de falha na inativação
         console.log('Falha na inativação do usuário');
       }
     } else {
-      // lidar com campos em branco ou validação
-      console.log('Preencha todos os campos');
+      if (!userId) {
+        setErrorUserId(true);
+      }
+      if (!reason) {
+        setErrorReason(true);
+      }
     }
   };
 
@@ -58,6 +66,10 @@ export default function InactivateUser({ navigation }) {
           <Picker
             selectedValue={userId}
             onValueChange={(itemValue) => setUserId(itemValue)}
+            style={[
+              styles.input,
+              { backgroundColor: 'white', borderColor: errorUserId ? 'red' : '#BBB' },
+            ]}
           >
             <Picker.Item label="Selecione um usuário" value={null} />
             {userList.map((user) => (
@@ -73,7 +85,8 @@ export default function InactivateUser({ navigation }) {
         <View style={styles.inputContainer}>
           <Text style={styles.inputTitle}>Motivo:</Text>
           <TextInput
-            style={[styles.input, { backgroundColor: 'white' }]}
+            style={[styles.input, { backgroundColor: 'white', borderColor: errorReason ? 'red' : '#BBB'  }
+          ]}
             onChangeText={setReason}
             placeholder="Digite o motivo aqui"
             placeholderTextColor="gray"
@@ -94,7 +107,9 @@ export default function InactivateUser({ navigation }) {
             style={[styles.button, { backgroundColor: '#ADB5BD', width: 104, height: 60 }]}
             onPress={() => {
               setUserId(''); 
-              setReason(''); 
+              setReason('');
+              setErrorUserId(false);
+              setErrorReason(false);
               navigation.navigate('UserManagement')
             }}
           >
