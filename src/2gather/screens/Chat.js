@@ -22,7 +22,7 @@ const Chat = ({ route, navigation }) => {
 		try {
 			//ideal é ter as msgs em um local storage, caso não tenha, ai sim tentar pegar da api.
 			const result = await getMessageList({ idGroup: roomId }) || [];
-			const decryptedResult = result.map(item => decryptMessage(item));
+			const decryptedResult = result.map(item => decryptMessage(item, item.text));
 
 			setChatMessages(decryptedResult);
 		} catch (error) {
