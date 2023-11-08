@@ -46,10 +46,16 @@ const MainNav = () => {
             <stack.Screen
                 name="InactivateUser"
                 component={InactivateUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="UserManagement"
                 component={UserManagement}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="Profile"
@@ -72,6 +78,9 @@ const MainNav = () => {
             <stack.Screen
                 name="BroadcastCreate"
                 component={BroadcastCreate}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="Contacts"

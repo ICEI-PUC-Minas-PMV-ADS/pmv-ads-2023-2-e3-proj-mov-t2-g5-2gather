@@ -54,11 +54,12 @@ export default function InactivateUser({ navigation }) {
         </Text>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Escolher usuário</Text>
+          <Text style={styles.inputTitle}>Escolher usuário:</Text>
           <Picker
             selectedValue={userId}
             onValueChange={(itemValue) => setUserId(itemValue)}
           >
+            <Picker.Item label="Selecione um usuário" value={null} />
             {userList.map((user) => (
               <Picker.Item
                 key={user.id}
@@ -70,10 +71,12 @@ export default function InactivateUser({ navigation }) {
         </View>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Motivo</Text>
+          <Text style={styles.inputTitle}>Motivo:</Text>
           <TextInput
             style={[styles.input, { backgroundColor: 'white' }]}
             onChangeText={setReason}
+            placeholder="Digite o motivo aqui"
+            placeholderTextColor="gray"
           />
         </View>
 
@@ -105,7 +108,6 @@ export default function InactivateUser({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
     padding: 0,
     borderBottomWidth: 1,
     borderColor: '#BBB',
@@ -116,10 +118,12 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#2368A2',
-    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     color: '#FFFCF4',
+    fontSize: 20,
   },
   containerMain: {
     margin: 20,
