@@ -32,7 +32,7 @@ const Chat = ({ route, navigation }) => {
 
 	function decryptMessage(item, text) {
 		let publicKey
-		if(message.many || !room.isPrivate){
+		if(message.many || room.isPrivate){
 			publicKey = item.pkeReceiver
 		}
 		else{
