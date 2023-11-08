@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
   archivedGroupsIcon: {
     width: 35,
     height: 35,
-    alignSelf: "flexWrap",
+    alignSelf: "center",
     fontSize: 18,
   },
 
