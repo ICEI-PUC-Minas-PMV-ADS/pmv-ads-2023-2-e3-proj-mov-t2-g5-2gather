@@ -152,11 +152,10 @@ export const sendPasswordRecoveryEmail = async (email) => {
 
   //Alteração de Senha
 
-export const updatePassword = async (userId, currentPassword, newPassword) => {
+export const updatePassword = async ({ currentPassword, newPassword }) => {
     try {
-      const data = { currentPassword, newPassword };
-      const response = await sendAuthenticatedRequest(`/user/update/${userId}/`, 'PATCH', data);
-
+      const data = { old_password: currentPassword, password: newPassword };
+      const response = await sendAuthenticatedRequest(`/user/update/password/`, 'PATCH', data);
       if (response.ok) {
         return true; // para troca de senha bem-sucedida
       } else {
