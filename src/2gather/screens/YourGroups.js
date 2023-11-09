@@ -16,6 +16,7 @@ import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import { GetListYourGroups } from '../services/group.services';
+import { Appbar } from 'react-native-paper';
 
 export default function YourGroups ({ navigation }) {
   
@@ -38,17 +39,12 @@ useEffect(() => {
 }, []);
 
 
-
-
 {/* // Navegar para a tela de ABRIR O GRUPO ao pressionar (item).
 const handleItemPress = (item) => {
   //o nome da Screen precisa ser confirmado, assim como a identificação do Grupo...
   navigation.navigate('Talks', { groupId: item.id });
 };
 */}
-
-
-
 
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
@@ -60,14 +56,12 @@ const handleItemPress = (item) => {
     </TouchableOpacity>
   );
     
-
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText} onPress={() => navigation.goBack()}>
-          Seus Grupos
-        </Text>
-      </View>
+    <View style={styles.container}>
+      <Appbar.Header style={styles.header}>
+        <Appbar.BackAction onPress={() => navigation.navigate("Profile")} />
+        <Text style={styles.titleHeader}>Seus grupos</Text>
+      </Appbar.Header>
       <View style={styles.container1}>
         <ScrollView>
         <FlatList
@@ -82,17 +76,7 @@ const handleItemPress = (item) => {
         />
         </ScrollView>
       </View>
-
-
-
-
-     {/*Botão Provisório
-
-  <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("NewList")}>
-  <Text style={styles.buttonLoginText}>Go To NewList Screen</Text>
-      </TouchableOpacity> */}
-
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -101,31 +85,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
   header: {
-    padding: 10,
+    backgroundColor: '#2368A2',
     height: 85,
-    backgroundColor: "#2368A2",
-    justifyContent: "space-between",
+    marginBottom: 18,
+    padding: 0,
   },
 
-  headerText: {
+  titleHeader: {
+    color: '#FFFCF4',
     fontSize: 20,
-    color: "#FFFCF4",
-    marginTop: 7,
-  },
-  searchBar: {
-    padding: 10,
-    marginBottom: 20,
-  },
-  searchInput: {
-    backgroundColor: "#2368A2",
-    color: "#fffcf4",
-    borderRadius: 10,
-    padding: 10,
-    fontSize: 16,
   },
 
   container1: {

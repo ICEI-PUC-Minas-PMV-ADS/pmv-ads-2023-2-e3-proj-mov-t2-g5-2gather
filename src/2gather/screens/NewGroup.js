@@ -16,13 +16,14 @@ import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
 import {CheckBox} from 'react-native-elements';
+import { Appbar } from 'react-native-paper';
 
 export default function NewGroup ({ navigation }) {
   
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
-
+  const { id } = useUser();
 
   const getContacts = async () => {
     try {      
@@ -42,12 +43,28 @@ useEffect(() => {
   getContacts();
 }, []);
 
+
 useEffect(() => {
   // Navegue para a tela CreateNewGroup quando um contato for selecionado
   if (selectedContacts.length > 0) {
     navigation.navigate("CreateNewGroup", { selectedContacts });
   }
 }, [selectedContacts]);
+
+{/*
+useEffect(() => {
+  // Verificar se o usuário Admin não está na lista de contatos selecionados
+  const adminContact = contacts.find((contact) => contact.id === id);
+  if (adminContact && !selectedContacts.some((selected) => selected.id === id)) {
+    setSelectedContacts((prev) => [adminContact, ...prev]);
+  }
+
+  // Navegue para a tela CreateReceivers quando um contato for selecionado
+  if (selectedContacts.length > 0) {
+    navigation.navigate("CreateNewGroup", { selectedContacts });
+  }
+}, [selectedContacts]);
+*/}
 
 
   const defaultImage = require('../assets/profile.png');
@@ -93,47 +110,51 @@ useEffect(() => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText} onPress={() => navigation.goBack()}>
-          Adicionar participantes ao Grupo
-        </Text>
+    <View style={styles.container}>
+      <View style={styles.containerHeader}>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.navigate("Homepage");
+            }}
+          />
+          <View style={styles.rowContainer}>
+            <Text style={styles.titleHeader}>
+              Adicione participantes ao Grupo
+            </Text>
+          </View>
+        </Appbar.Header>
         <View style={styles.searchBar}>
-          <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
-          
+          <TextInput
+            onChangeText={(value) => {
+              setContacts(
+                contactsRef.filter((obj) =>
+                  obj.name.toLowerCase().includes(value.toLowerCase())
+                )
+              );
+            }}
             style={styles.searchInput}
             placeholder="Pesquisar"
             placeholderTextColor="#aaa"
           />
         </View>
       </View>
-      
 
       <View style={styles.container1}>
         <ScrollView>
-        <FlatList
-          contentContainerStyle={styles.itemList}
-          data={contacts}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          inverted={false}
-          ItemSeparatorComponent={() => (
-            <Divider style={{ height: 1, backgroundColor: "grey" }} />
-          )}
-        />
+          <FlatList
+            contentContainerStyle={styles.itemList}
+            data={contacts}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            inverted={false}
+            ItemSeparatorComponent={() => (
+              <Divider style={{ height: 1, backgroundColor: "grey" }} />
+            )}
+          />
         </ScrollView>
       </View>
-
-
-
-
-     {/*Botão Provisório
-
-     <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("CreateNewGroup")}>
-      <Text style={styles.buttonLoginText}>Go to CreateNewGroup Screen</Text>
-      </TouchableOpacity> */}
-
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -142,21 +163,30 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
+  },
+
+  containerHeader: {
+    backgroundColor: "#2368A2",
+    padding: 0,
+    borderBottomWidth: 1,
+    borderColor: "#BBB",
+  },
+
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   header: {
-    padding: 10,
-    height: 135,
     backgroundColor: "#2368A2",
-    justifyContent: "space-between",
+    width: "100%",
   },
 
-  headerText: {
-    fontSize: 20,
+  titleHeader: {
     color: "#FFFCF4",
-    marginTop: 7,
+    fontSize: 20,
   },
+
   searchBar: {
     padding: 10,
     marginBottom: 20,
@@ -174,7 +204,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F1F3F5",
     borderRadius: 15,
-    marginVertical: -25,
+    marginVertical: -21,
   },
 
   itemList: {
@@ -193,10 +223,10 @@ const styles = StyleSheet.create({
   },
 
   checkBoxContainer: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderWidth: 0,
     padding: 0,
-    marginRight: 10, 
+    marginRight: 10,
   },
 
   contactPhoto: {
@@ -210,23 +240,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-
   //Botão Provisório
   buttonForecast: {
     backgroundColor: "#1A4971",
     borderRadius: 10,
-    paddingVertical: 8, 
-    width: '80%',
+    paddingVertical: 8,
+    width: "80%",
     height: 50,
-    alignSelf: 'center',
-    marginBottom: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: "center",
+    marginBottom: "15%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   buttonLoginText: {
     fontSize: 18,
-    color: '#FFFFFF',
-  }
-
+    color: "#FFFFFF",
+  },
 });

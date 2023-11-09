@@ -1,26 +1,32 @@
 import { sendAuthenticatedRequest } from "./auth.services.js";
 
 export const GetUserList = async () => {
-  try {
-    const result = await sendAuthenticatedRequest("/user/list/", "GET");
-    return result;
-  } catch (error) {
-    throw new Error(error.message);
-  }
+    try {
+        const result = await sendAuthenticatedRequest('/user/list/', 'GET');
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
 };
 
-export const UpdateUserStatus = async ({ userId, reason }) => {
-  try {
-    const data = { status: 0 };
-    const result = await sendAuthenticatedRequest(
-      `/user/update/${userId}/admin/`,
-      "PATCH",
-      data
-    );
-    return result;
-  } catch (error) {
-    throw new Error(error.message);
-  }
+export const UpdateUserStatus = async ({userId, reason}) => {
+    try {
+        const data = { 'status':0 };
+        const result = await sendAuthenticatedRequest(`/user/update/${userId}/admin/`, 'PATCH', data);
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export const UpdatePublicE2e = async ({publicE2e}) => {
+    try {
+        const data = { 'pke': publicE2e };
+        const result = await sendAuthenticatedRequest(`/user/update/`, 'PATCH', data);
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
 };
 
 export const UpdateUserDetails = async ({ userId, name, email, idRole }) => {
@@ -44,3 +50,14 @@ export const UpdateUserDetails = async ({ userId, name, email, idRole }) => {
     throw new Error(error.message);
   }
 };
+
+// Recuperação de Senha
+export const GetUserPassword = async () => {
+    try {
+        const result = await sendAuthenticatedRequest('/user/password/', 'GET');
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+

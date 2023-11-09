@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 const http = require("http").Server(app);
 const cors = require("cors");
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const socketIO = require("socket.io")(http, {
 	cors: {
-		origin: "http://localhost:19006" ,
+		origin: "*" ,
 	},
 });
 
@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-const generateID = () => Math.random().toString(36).substring(2, 10);
+const generateID = () => Math.random().toString(36).substring(2, 18);
 let chatRooms = [];
 
 socketIO.on("connection", (socket) => {
@@ -34,13 +34,19 @@ socketIO.on("connection", (socket) => {
 	});
 
 	socket.on("newMessage", (data) => {
-		const { room_id, message, user, timestamp } = data;
+		const { room_id, message, user, timestamp, pkeSentBy, pkeReceiver, idSentBy, many} = data;
+		
 		let result = chatRooms.filter((room) => room.id == room_id);
 		const newMessage = {
 			id: generateID(),
 			text: message,
 			user,
 			time: `${timestamp.hour}:${timestamp.mins}`,
+			pkeSentBy: pkeSentBy,
+			pkeReceiver: pkeReceiver,
+			idSentBy: idSentBy,
+			bySocket: true,
+			many: many
 		};
 		result[0].messages.push(newMessage);
 		socket.to(room_id).emit("roomMessage", newMessage);

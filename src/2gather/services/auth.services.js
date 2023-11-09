@@ -125,3 +125,46 @@ export const sendAuthenticatedRequest = async (url, method = 'GET', data = null)
         throw new Error(error.message);
     }
 };
+
+//Recuperação de Senha
+{/*
+export const sendPasswordRecoveryEmail = async (email) => {
+    try {
+      const response = await fetch(`${API_URL}/password-recovery/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+  
+      const result = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(JSON.stringify(result));
+      }
+  
+      return { success: true };
+    } catch (error) {
+      console.error('Erro ao enviar e-mail de recuperação de senha:', error);
+      return { success: false, error: 'Erro ao enviar e-mail de recuperação de senha.' };
+    }
+  };
+*/}
+
+  //Alteração de Senha
+
+export const updatePassword = async ({ currentPassword, newPassword }) => {
+    try {
+      const data = { old_password: currentPassword, password: newPassword };
+      const response = await sendAuthenticatedRequest(`/user/update/password/`, 'PATCH', data);
+
+      if (response.ok) {
+        return true; // para troca de senha bem-sucedida
+      } else {
+        return false; // para falha na troca
+      }
+    } catch (error) {
+      console.log(error);
+      return false; // para erro durante a troca.
+    }
+};
+ 

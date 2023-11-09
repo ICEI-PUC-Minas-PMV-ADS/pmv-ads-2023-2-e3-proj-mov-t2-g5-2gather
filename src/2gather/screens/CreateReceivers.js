@@ -18,26 +18,41 @@ import { GetUserList } from '../services/user.services';
 import {CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewList } from '../services/group.services';
+import { Appbar } from 'react-native-paper';
 
 export default function CreateReceivers ({ route, navigation }) {
 
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
+
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
   const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
   const [title, setTitle] = useState("");
-  const [idAdmin, setIdAdmin] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const getContacts = async () => {
     try {
       const result = await GetUserList() || [];
-      setContacts(result);
-      setContactsRef(result);
-      console.log(result)
+
+      // Marcando os contatos que já estão selecionados
+      const markedContacts = result.map((contact) => ({
+        ...contact,
+        checked: selectedContactsState.some((selected) => selected.id === contact.id),
+      }));
+
+       // Verificar se o usuário Admin não está na lista de contatos selecionados
+       const adminContact = markedContacts.find((contact) => contact.id === id);
+       if (adminContact && !selectedContactsState.some((selected) => selected.id === id)) {
+         setSelectedContacts((prev) => [adminContact, ...prev]);
+         adminContact.checked = true;
+       }
+
+      setContacts(markedContacts);
+      setContactsRef(markedContacts); // Usando markedContacts como referência
+      console.log(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   
@@ -125,15 +140,21 @@ export default function CreateReceivers ({ route, navigation }) {
     );
     setSelectedContacts(updatedSelectedContacts);
 
-    if (updatedSelectedContacts.length === 0) {
+    // Verificar se não há contatos selecionados e navegar de volta para NewList
+    if (updatedSelectedContacts.length === 0 && updatedContacts.every(contact => !contact.checked)) {
       navigation.navigate('NewList', { selectedContacts: [] });
     }
   };
 
- //Criar o grupo
+  useEffect(() => {
+    // Navegar de volta para NewList se não houver contatos selecionados
+    if (selectedContactsState.length === 0 && contacts.every(contact => !contact.checked)) {
+      navigation.navigate('NewList', { selectedContacts: [] });
+    }
+  }, [selectedContactsState, contacts]);
 
+ //Criar a Lista
  const handleCreateList = async () => {
-   
   try {
     if (!title) {
       // Se o título não estiver preenchido, exibe o alerta
@@ -141,61 +162,48 @@ export default function CreateReceivers ({ route, navigation }) {
       return;
     }
 
-
     const listData = await CreateNewList({
       title: title,
-      //photo: photo,
-      //description: description,
       idAdmin: id,
       isTransmission: true,
       isPrivate: false,
-      //archive: false,
       participants: selectedContactsState.map((contact) => contact.id),
     });
-     
+
   console.log(listData);
   alert("Lista criada com sucesso");
 
   //navigation.navigate("LISTA CRIADA - Screen do Leo");
 
-
 } catch (error) {
   console.log(error);
-  
 } finally {
-  
+
 }
 };
 
-
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Destinatários</Text>
-        <View style={styles.cancelCreate}>
-          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.goBack()} >
-            <Icon             
-              name="chevron-left" 
-              size={24} 
-              color="white" 
-              style={{ fontWeight: 'normal' }} />
-          </TouchableOpacity>
-          <View style={styles.nameList}>
-            <TextInput 
+    <View style={styles.container}>
+      <View style={styles.containerHeader}>
+        <Text style={styles.titleHeader}>Destinatários</Text>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.navigate("NewList");
+            }}
+          />
+          <View style={styles.rowContainer}>
+            <TextInput
               style={styles.nameInput}
               onChangeText={(text) => setTitle(text)}
-              placeholder="Nome da lista"
+              placeholder="Nome da Lista"
               placeholderTextColor="#aaa"
             />
           </View>
-          <Text
-            style={styles.headerTextTwo}
-            onPress={handleCreateList}
-            >
-              Criar
-            </Text>
-          </View>
-
+          <Text style={styles.headerTextTwo} onPress={handleCreateList}>
+            Criar
+          </Text>
+        </Appbar.Header>
         <View style={styles.searchBar}>
           <TextInput
             onChangeText={(value) => {
@@ -227,16 +235,6 @@ export default function CreateReceivers ({ route, navigation }) {
         />
       </View>
 
-      {/*Botão Provisório
-
-      <TouchableOpacity
-        style={styles.buttonForecast}
-        onPress={() => navigation.navigate("NewGroup")}
-      >
-        <Text style={styles.buttonLoginText}>Go to NewGroup Screen</Text>
-      </TouchableOpacity>*/}
-
-
       {showAlert && (
         <View style={styles.alertContainer}>
           <Text style={styles.alertText}>Por favor, insira o nome da sua lista de transmissão!</Text>
@@ -248,10 +246,7 @@ export default function CreateReceivers ({ route, navigation }) {
           </TouchableOpacity>
         </View>
       )}
-
-
-    </SafeAreaView>
-
+    </View>
   );
 }
 
@@ -261,45 +256,38 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
-  header: {
-    padding: 10,
-    height: 175,
-    backgroundColor: "#2368A2",   
-  },
-
-  headerText: {
-    fontSize: 20,
-    color: "#FFFCF4",
-    marginTop: 7,
-    textAlign: "center",
-  },
-
-  cancelCreate: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  containerHeader: {
+    backgroundColor: '#2368A2',
+      padding: 0,
+      borderBottomWidth: 1,
+      borderColor: '#BBB',
+      height: 185,
     },
-
-    iconContainer: {
-      height: '100%', 
-      justifyContent: 'center',  
+    rowContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '70%',
+    },
+    header: {
+      backgroundColor: '#2368A2',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+    },
+    titleHeader: {
+      color: '#FFFCF4',
+      fontSize: 20,
+      alignSelf: 'center',
+      padding: 10,
     },
 
   headerTextTwo: {
     fontSize: 18,
     color: "#FFFCF4",
     marginLeft: 15,
-    marginEnd: 15,
-    alignSelf: 'center',
-    },
-
-  nameList: {
-    paddingLeft: 20,
-    marginTop: 7,
-    marginBottom: 7,
-    width: '80%',
     },
   
   nameInput: {
@@ -308,11 +296,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     fontSize: 16,
+    marginTop: 2,
+    width: '100%',
     },
 
   searchBar: {
-    width: '75%',
-    marginLeft: 35,
+    width: '65%',
+    marginLeft: 70,
+    marginTop: 7,
   },
 
   searchInput: {
@@ -329,7 +320,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#F1F3F5", 
     borderRadius: 15,
-    marginVertical: -25,
+    marginVertical: -27,
     height: 140,
   },
   
@@ -429,8 +420,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
   },
-
-
 
   //Botão Provisório
   buttonForecast: {
