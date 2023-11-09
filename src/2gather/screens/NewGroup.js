@@ -30,7 +30,6 @@ export default function NewGroup ({ navigation }) {
         const result = await GetUserList() || [];
         setContacts(result);
         setContactsRef(result);
-        console.log(result)
     } catch (error) {
         console.log(error)
     } finally {  
@@ -141,7 +140,7 @@ useEffect(() => {
       </View>
 
       <View style={styles.container1}>
-        <ScrollView>
+        
           <FlatList
             contentContainerStyle={styles.itemList}
             data={contacts}
@@ -152,7 +151,7 @@ useEffect(() => {
               <Divider style={{ height: 1, backgroundColor: "grey" }} />
             )}
           />
-        </ScrollView>
+       
       </View>
     </View>
   );

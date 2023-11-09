@@ -91,13 +91,13 @@ export default function GroupInfo({ route }) {
             Participantes
           </Text>
           <Divider></Divider>
-          <ScrollView style={styles.containerParticipants}>
+         
             <FlatList
               data={participants}
               renderItem={renderItem}
               keyExtractor={(item) => item}
             />
-          </ScrollView>
+        
         </View>
         <View styles={styles.containerButtons}>
           <Button
