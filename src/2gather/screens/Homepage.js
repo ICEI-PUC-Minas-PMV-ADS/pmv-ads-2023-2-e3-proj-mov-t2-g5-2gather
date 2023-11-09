@@ -7,7 +7,6 @@ import {
   StyleSheet,
   FlatList,
   Image,
-  ScrollView,
   Button,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';

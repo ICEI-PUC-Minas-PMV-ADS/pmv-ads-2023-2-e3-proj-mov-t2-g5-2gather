@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
   TextInput,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
   Button,
 } from "react-native";

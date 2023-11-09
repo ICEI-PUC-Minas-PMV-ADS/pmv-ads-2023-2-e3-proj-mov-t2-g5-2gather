@@ -7,7 +7,6 @@ import {
   TextInput,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
   Button,
 } from "react-native";

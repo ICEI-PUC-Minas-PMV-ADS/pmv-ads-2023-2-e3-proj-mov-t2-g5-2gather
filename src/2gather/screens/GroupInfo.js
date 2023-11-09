@@ -3,7 +3,6 @@ import {
   View, Text, StyleSheet,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity
 } from 'react-native';
 import { Appbar, Avatar, Button, Divider } from 'react-native-paper';
