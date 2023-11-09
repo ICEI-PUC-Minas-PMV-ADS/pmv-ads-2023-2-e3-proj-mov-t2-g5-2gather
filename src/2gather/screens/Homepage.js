@@ -108,7 +108,7 @@ return (
     <View style={styles.groupBroadcastContainer}>
       <Text 
         style={styles.broadcastText}
-        onPress={() => navigation.navigate('BroadcastList')}
+        onPress={() => navigation.navigate('BroadcastCreate')}
       >
         Lista de Transmissão
       </Text>

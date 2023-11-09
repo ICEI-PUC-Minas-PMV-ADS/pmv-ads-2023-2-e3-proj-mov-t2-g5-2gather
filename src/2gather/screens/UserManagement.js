@@ -72,7 +72,6 @@ export default function UserManagement() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
     padding: 0,
     borderBottomWidth: 1,
     borderColor: '#BBB',
@@ -83,7 +82,8 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#2368A2',
-    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   titleHeader: {
     color: '#FFFCF4',
