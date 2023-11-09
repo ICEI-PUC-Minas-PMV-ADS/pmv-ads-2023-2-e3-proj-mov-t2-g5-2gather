@@ -57,10 +57,10 @@ const handleItemPress = (item) => {
   );
     
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => navigation.navigate("Profile")} />
-        <Text style={styles.titleHeader}>Comunicações Arquivadas</Text>
+        <Text style={styles.titleHeader}>Seus grupos</Text>
       </Appbar.Header>
       <View style={styles.container1}>
         <ScrollView>
@@ -76,7 +76,7 @@ const handleItemPress = (item) => {
         />
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
   header: {

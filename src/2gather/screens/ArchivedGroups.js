@@ -59,7 +59,7 @@ const handleItemPress = (item) => {
     
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => navigation.navigate("Profile")} />
         <Text style={styles.titleHeader}>Comunicações Arquivadas</Text>
@@ -87,7 +87,7 @@ const handleItemPress = (item) => {
       >
         <Text style={styles.buttonLoginText}>Go To YourGroups Screen</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
   header: {
