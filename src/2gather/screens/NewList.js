@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
   TextInput,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
   Button,
 } from "react-native";
@@ -31,7 +29,6 @@ export default function NewList ({ navigation }) {
         const result = await GetUserList() || [];
         setContacts(result);
         setContactsRef(result);
-        console.log(result)
     } catch (error) {
         console.log(error)
     } finally {  
@@ -115,7 +112,7 @@ useEffect(() => {
         <Appbar.Header style={styles.header}>
           <Appbar.BackAction
             onPress={() => {
-              navigation.navigate('BroadcastList');
+              navigation.navigate('BroadcastCreate');
             }}
           />
           <View style={styles.rowContainer}>
@@ -141,7 +138,7 @@ useEffect(() => {
       </View>
 
       <View style={styles.container1}>
-        <ScrollView>
+       
           <FlatList
             contentContainerStyle={styles.itemList}
             data={contacts}
@@ -152,7 +149,7 @@ useEffect(() => {
               <Divider style={{ height: 1, backgroundColor: "grey" }} />
             )}
           />
-        </ScrollView>
+        
       </View>
     </View>
   );

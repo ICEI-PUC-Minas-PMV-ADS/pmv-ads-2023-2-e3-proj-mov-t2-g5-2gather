@@ -7,7 +7,6 @@ import {
   TextInput,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
   Button,
 } from "react-native";
@@ -50,7 +49,7 @@ export default function CreateReceivers ({ route, navigation }) {
 
       setContacts(markedContacts);
       setContactsRef(markedContacts); // Usando markedContacts como referência
-      console.log(result);
+      
     } catch (error) {
       console.log(error);
     }
@@ -105,7 +104,7 @@ export default function CreateReceivers ({ route, navigation }) {
   const renderSelectedContacts = () => {
     return (
       <View style={styles.selectedContactsContainer}>
-        <ScrollView horizontal>
+        
           {selectedContactsState.map((selectedContact) => (
             <View style={styles.selectedContactItem} key={selectedContact.id}>
               <TouchableOpacity
@@ -124,7 +123,7 @@ export default function CreateReceivers ({ route, navigation }) {
               </Text>
             </View>
           ))}
-        </ScrollView>
+       
       </View>
     );
   };
@@ -170,7 +169,7 @@ export default function CreateReceivers ({ route, navigation }) {
       participants: selectedContactsState.map((contact) => contact.id),
     });
 
-  console.log(listData);
+  //console.log(listData);
   alert("Lista criada com sucesso");
 
   //navigation.navigate("LISTA CRIADA - Screen do Leo");

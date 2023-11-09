@@ -9,7 +9,7 @@ import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import NewPassword from '../screens/NewPassword';
-import BroadcastList from '../screens/BroadcastList';
+// import BroadcastList from '../screens/BroadcastList';
 import Chat from '../screens/Chat';
 import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
@@ -48,10 +48,16 @@ const MainNav = () => {
             <stack.Screen
                 name="InactivateUser"
                 component={InactivateUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="UserManagement"
                 component={UserManagement}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="Profile"
@@ -67,13 +73,16 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
-            <stack.Screen
+            {/* <stack.Screen
                 name="BroadcastList"
                 component={BroadcastList}
-            />
+            /> */}
             <stack.Screen
                 name="BroadcastCreate"
                 component={BroadcastCreate}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="Contacts"

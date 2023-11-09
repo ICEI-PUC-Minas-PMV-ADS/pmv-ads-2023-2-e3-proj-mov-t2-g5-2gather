@@ -7,7 +7,6 @@ import {
   StyleSheet,
   FlatList,
   Image,
-  ScrollView,
   Button,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -109,7 +108,7 @@ return (
     <View style={styles.groupBroadcastContainer}>
       <Text 
         style={styles.broadcastText}
-        onPress={() => navigation.navigate('BroadcastList')}
+        onPress={() => navigation.navigate('BroadcastCreate')}
       >
         Lista de Transmissão
       </Text>
@@ -131,7 +130,7 @@ return (
     </View>*/}
 
     <View style={styles.container1}>
-      <ScrollView>
+      
       <FlatList
         contentContainerStyle={styles.itemList}
         data={[...yourGroups, ...yourLists, ...yourMessages]}
@@ -142,7 +141,7 @@ return (
           <Divider style={{ height: 1, backgroundColor: "grey" }} />
         )}
       />
-      </ScrollView>
+      
     </View>
 
     {/* Barra Inferior */}

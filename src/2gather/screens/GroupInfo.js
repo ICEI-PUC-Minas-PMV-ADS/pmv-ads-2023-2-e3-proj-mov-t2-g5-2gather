@@ -3,7 +3,6 @@ import {
   View, Text, StyleSheet,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity
 } from 'react-native';
 import { Appbar, Avatar, Button, Divider } from 'react-native-paper';
@@ -91,13 +90,13 @@ export default function GroupInfo({ route }) {
             Participantes
           </Text>
           <Divider></Divider>
-          <ScrollView style={styles.containerParticipants}>
+         
             <FlatList
               data={participants}
               renderItem={renderItem}
               keyExtractor={(item) => item}
             />
-          </ScrollView>
+        
         </View>
         <View styles={styles.containerButtons}>
           <Button
