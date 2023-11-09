@@ -7,7 +7,6 @@ import {
   TextInput,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
   Button,
 } from "react-native";
@@ -52,7 +51,6 @@ export default function CreateNewGroup({ route, navigation }) {
 
       setContacts(markedContacts);
       setContactsRef(markedContacts); // Usando markedContacts como referência
-      console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -107,7 +105,7 @@ export default function CreateNewGroup({ route, navigation }) {
   const renderSelectedContacts = () => {
     return (
       <View style={styles.selectedContactsContainer}>
-        <ScrollView horizontal>
+      
           {selectedContactsState.map((selectedContact) => (
             <View style={styles.selectedContactItem} key={selectedContact.id}>
               <TouchableOpacity
@@ -126,7 +124,7 @@ export default function CreateNewGroup({ route, navigation }) {
               </Text>
             </View>
           ))}
-        </ScrollView>
+       
       </View>
     );
   };

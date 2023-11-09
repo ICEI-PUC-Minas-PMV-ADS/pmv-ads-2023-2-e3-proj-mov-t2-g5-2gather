@@ -7,7 +7,6 @@ import {
   TextInput,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
   Button,
 } from "react-native";
@@ -65,7 +64,7 @@ const handleItemPress = (item) => {
         <Text style={styles.titleHeader}>Comunicações Arquivadas</Text>
       </Appbar.Header>
       <View style={styles.container1}>
-        <ScrollView>
+       
           <FlatList
             contentContainerStyle={styles.itemList}
             data={archivedGroups}
@@ -76,7 +75,7 @@ const handleItemPress = (item) => {
               <Divider style={{ height: 1, backgroundColor: "grey" }} />
             )}
           />
-        </ScrollView>
+        
       </View>
 
       {/*Botão Provisório*/}
