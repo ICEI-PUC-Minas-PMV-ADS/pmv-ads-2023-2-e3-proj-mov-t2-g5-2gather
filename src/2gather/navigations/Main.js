@@ -19,6 +19,8 @@ import NewList from '../screens/NewList';
 import CreateReceivers from '../screens/CreateReceivers';
 import NewGroup from '../screens/NewGroup';
 import CreateNewGroup from '../screens/CreateNewGroup';
+import CreatedBroadcastList from '../screens/CreatedBroadcastList';
+import ArchivedLists from '../screens/ArchivedLists';
 import GroupConversation from '../screens/GroupConversation';
 import GroupInfo from '../screens/GroupInfo';
 import EditGroup from '../screens/EditGroup';
@@ -129,6 +131,14 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
+             <stack.Screen
+                name="CreatedBroadcastList"
+                component={CreatedBroadcastList}
+            />
+             <stack.Screen
+                name="ArchivedLists"
+                component={ArchivedLists}
+            />
             <stack.Screen
                 name="GroupConversation"
                 component={GroupConversation}
@@ -150,8 +160,6 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
-
-
         </stack.Navigator>
     );
 };
