@@ -12,15 +12,15 @@ export default function BroadcastList({ navigation }) {
 
     const numberOfParticipants = 2;
 
-    const formatDate = (date) => {
-        const today = new Date();
-        if (date.getDate() === today.getDate() &&
-            date.getMonth() === today.getMonth() &&
-            date.getFullYear() === today.getFullYear()) {
-            return 'Hoje';
-        }
-        return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-    };
+    // const formatDate = (date) => {
+    //     const today = new Date();
+    //     if (date.getDate() === today.getDate() &&
+    //         date.getMonth() === today.getMonth() &&
+    //         date.getFullYear() === today.getFullYear()) {
+    //         return 'Hoje';
+    //     }
+    //     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    // };
 
     const showBroadcastNotification = () => {
         setToastVisible(true);
@@ -42,7 +42,7 @@ export default function BroadcastList({ navigation }) {
 
             if (!hasSentMessage) {
                 setHasSentMessage(true);
-                showBroadcastNotification();
+                // showBroadcastNotification(false);
             }
         }
     };
@@ -54,9 +54,9 @@ export default function BroadcastList({ navigation }) {
                 <Text style={styles.titleHeader}>Nome da Lista</Text>
             </Appbar.Header>
 
-            <View style={styles.dateContainer}>
+            {/* <View style={styles.dateContainer}>
                 <Text style={styles.dateText}>{formatDate(creationDate)}</Text>
-            </View>
+            </View> */}
 
             <View style={styles.messagesContainer}>
                 {!hasSentMessage && (
@@ -84,7 +84,8 @@ export default function BroadcastList({ navigation }) {
                     placeholder="Mensagem"
                     onSubmitEditing={handleSendMessage}
                 />
-                <TouchableOpacity onPress={showBroadcastNotification}>
+                <TouchableOpacity onPress={handleSendMessage}>
+                    {/* onPress={showBroadcastNotification} */}
                     <Text style={styles.sendButton}>Enviar</Text>
                 </TouchableOpacity>
             </View>

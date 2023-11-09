@@ -25,7 +25,7 @@ const Toast = ({ appName, senderName, message, visible, showSenderName = true })
   }, [visible]);
 
   return (
-    <Animated.View style={[styles.toast, { top: slideAnim }]}>
+    <Animated.View style={[styles.toast]}>
       <View style={styles.header}>
         <Text style={styles.appName}>{appName}</Text>
         <Text style={styles.timestamp}>agora</Text>
