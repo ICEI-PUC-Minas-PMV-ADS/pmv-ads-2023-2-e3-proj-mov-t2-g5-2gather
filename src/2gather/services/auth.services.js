@@ -168,3 +168,22 @@ export const updatePassword = async ({ currentPassword, newPassword }) => {
     }
 };
  
+
+ //Alteração/Registro de foto
+
+ export const updateUserPhoto = async ({ newPhoto }) => {
+    try {
+        const data = { photo: newPhoto };
+        const response = await sendAuthenticatedRequest(`/user/update/photo/`, 'PATCH', data);
+    
+        if (response.ok) {
+          return true; // Registro de nova foto bem-sucedido
+        } else {
+          return false; // Falha no registro da nova foto
+        }
+      } catch (error) {
+        console.log('Error updating user photo:', error);
+        return false; // Erro durante a troca
+      }
+    };
+

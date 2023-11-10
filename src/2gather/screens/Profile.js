@@ -8,38 +8,101 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../services/auth.services';
 import { Appbar } from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
-import { UpdateUserPhoto } from '../services/user.services';
+import { updateUserPhoto } from '../services/auth.services';
 
 export default function Profile({ route, navigation }) {
   
   const isSelf = route.params ? false : true;
 
   const { setSigned } = useUser();
-  const [textInputVisible, setTextInputVisible] = useState(false);
+  //const [textInputVisible, setTextInputVisible] = useState(false);
   const [title, setTitle] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  //const [imageUrl, setImageUrl] = useState('');
+  //const [id, setId] = useState("");
+  //const [photo, setphoto] = useState("");
+  //const [currentPhoto, setCurrentPhoto] = useState("");
+  const [newPhoto, setNewPhoto] = useState("");
 
   const handleCameraPress = () => {
     setTitle(!title);
+
   }
+  
+  const handleSaveImage = async () => {
+    // Adicione sua lógica para a troca de imagem
+    console.log('newPhoto:', newPhoto);
+  
+    try {
+      await updateUserPhoto({ newPhoto });
+      console.log('Imagem alterada com sucesso!');
+      alert('Sua imagem foi alterada com sucesso!');
+    } catch (error) {
+      console.error("Erro ao alterar sua imagem:", error);
+      alert('Ocorreu um erro ao atualizar a imagem. Por favor, tente novamente.');
+    }
+  };
 
+
+
+
+
+  {/*
     const handleSaveImage = async () => {
-    if(title && imageUrl.trim() !== '') {
+   
+      if(title && imageUrl.trim() !== '') {
       console.log('URL salva:', imageUrl);
+      return;
+    }
 
-      try {
-        await UpdateUserPhoto({
+    try {
+      console.log('Chamando UpdateUserPhoto');
+      const result = await UpdateUserPhoto({
+          id: id,
           photo: imageUrl,
         });
+        console.log('Resultado de UpdateUserPhoto:', result);
         alert('Sua imagem foi salva com sucesso!');
       } catch (error) {
       console.error("Erro ao salvar a imagem", error);
       alert('Ocorreu um erro ao salvar a sua imagem. Por favor, confira se a URL é válida e está em png.');
-      }
-  } else {
-    alert('Por favor, insiva uma URL válida antes de salvar.')
+      } finally {
+      alert('Por favor, insiva uma URL válida antes de salvar.')
   }
+  console.log('Fim da função handleSaveImage');
 };
+
+*/}
+{/*
+
+
+
+const handleSubmit = async () => {
+  if (!isValidEmail(email)) {
+    return;
+  }
+  try {
+      const result = await UpdateUserDetails({
+          //name: name,
+          email: email,
+          photo: photo,
+          //description: description,
+          //idRole: role,
+          //lastActive: lastActive,
+          //status: status,
+      });
+      console.log(result);
+      alert("Conta editada com sucesso");
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  //console.log("Usuário editado");
+};
+*/}
+
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
