@@ -25,7 +25,6 @@ export default function Profile({ route, navigation }) {
 
   const handleCameraPress = () => {
     setTitle(!title);
-
   }
   
   const handleSaveImage = async () => {
@@ -191,7 +190,7 @@ const handleSubmit = async () => {
                 {title && (
                   <TextInput
                     style={styles.inputUrlImage}
-                    onChangeText={(text) => setTitle(text)}
+                    onChangeText={(text) => setNewPhoto(text)}
                     placeholder="Inclua a URL da sua Foto em png"
                     placeholderTextColor="#aaa"
                   />

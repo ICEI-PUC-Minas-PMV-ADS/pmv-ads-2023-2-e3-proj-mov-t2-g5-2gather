@@ -174,8 +174,8 @@ export const updatePassword = async ({ currentPassword, newPassword }) => {
  export const updateUserPhoto = async ({ newPhoto }) => {
     try {
         const data = { photo: newPhoto };
-        const response = await sendAuthenticatedRequest(`/user/update/photo/`, 'PATCH', data);
-    
+        const response = await sendAuthenticatedRequest(`/user/update/`, 'PATCH', data);
+        console.log(data)
         if (response.ok) {
           return true; // Registro de nova foto bem-sucedido
         } else {
