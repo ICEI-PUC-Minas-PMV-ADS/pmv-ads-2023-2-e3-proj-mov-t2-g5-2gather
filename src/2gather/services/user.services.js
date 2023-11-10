@@ -57,3 +57,20 @@ export const GetUserPassword = async () => {
     }
 };
 
+export const UpdateUserPhoto = async ({ photo }) => {
+    const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
+    try {
+        const response = await fetch(`${API_URL}user/update/${uuid}/admin/`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ photo })
+        });
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(JSON.stringify(result));
+        }
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};

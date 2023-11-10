@@ -78,14 +78,6 @@ const handleItemPress = (item) => {
         
       </View>
 
-      {/*Botão Provisório*/}
-
-      <TouchableOpacity
-        style={styles.buttonForecast}
-        onPress={() => navigation.navigate("YourGroups")}
-      >
-        <Text style={styles.buttonLoginText}>Go To YourGroups Screen</Text>
-      </TouchableOpacity>
     </View>
   );
 }
