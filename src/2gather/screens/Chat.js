@@ -10,12 +10,12 @@ import { Encrypt, Decrypt } from "../services/encryption.service";
 
 const Chat = ({ route, navigation }) => {
 	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
-	const { room, partnerName, partnerPke, partnerPhoto, roomId } = route.params;
+	const { room, partner, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
-	let image = (room.isPrivate ? partnerPhoto : room.Image)
+	let image = (room.isPrivate ? partner.photo : room.Image)
 	image = image ? { uri: image } :  require('../assets/profile.png')
 
 	const getMessages = async () => {
@@ -60,42 +60,46 @@ const Chat = ({ route, navigation }) => {
 	}, [isFirstLoad]); 
 
 	const handleNewMessage = () => {
-		const hour = new Date().getHours().toString().padStart(2, "0");
-		const mins = new Date().getMinutes().toString().padStart(2, "0");
-		if (name && message && privateE2eContext) {
-			let encryptedMessage = null
-			if (room.isPrivate) {
-				if (partnerPke) {
-					encryptedMessage = Encrypt({'message':message}, partnerPke, privateE2eContext)
-					SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, pkeReceiver: partnerPke })
+		if(publicE2eContext){
+			const hour = new Date().getHours().toString().padStart(2, "0");
+			const mins = new Date().getMinutes().toString().padStart(2, "0");
+			if (name && message && privateE2eContext) {
+				let encryptedMessage = null
+				if (room.isPrivate) {
+					if (partner && partner.pke) {
+						encryptedMessage = Encrypt({'message':message}, partner.pke, privateE2eContext)
+						SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, pkeReceiver: partner.pke, readBy: id })
+					} else {
+						alert("This user needs to login for the first time before receiving messages.")
+					}
 				} else {
-					alert("This user needs to login for the first time before receiving messages.")
+					let messages = {}
+					room.members.map((m) => {
+						messages[m.id] = Encrypt({'message':message}, m.pke, privateE2eContext)
+					})
+					encryptedMessage = messages
+
+					SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, readBy: id })//tenho que testar se está funcionando com algum grupo
+																																   //como a logica ficou meio complicada, fica ruim de adulterar só pra testar.
 				}
-			} else {
-				let messages = {}
-				room.members.map((m) => {
-					messages[m.id] = Encrypt({'message':message}, m.pke, privateE2eContext)
-
-				})
-				encryptedMessage = messages
-
-				//SaveMessage({ text: message, idSentBy: id, idGroup: roomId })
+				setMessage('');
+				let m = encryptedMessage ? encryptedMessage : message
+				let partnerPublicKey = partner.pke ? partner.pke : null
+				socket.emit("newMessage", {
+					message: m,
+					room_id: roomId,
+					user: name,
+					timestamp: { hour, mins },
+					pkeSentBy: publicE2eContext,
+					pkeReceiver: partnerPublicKey,
+					idSentBy: id,
+					many: room.isPrivate ? false : true,
+				});
+			}else{
+				setMessage('');
 			}
-			setMessage('');
-			let m = encryptedMessage ? encryptedMessage : message
-			let partnerPublicKey = partnerPke ? partnerPke : null
-			socket.emit("newMessage", {
-				message: m,
-				room_id: roomId,
-				user: name,
-				timestamp: { hour, mins },
-				pkeSentBy: publicE2eContext,
-				pkeReceiver: partnerPublicKey,
-				idSentBy: id,
-				many: room.isPrivate ? false : true,
-			});
 		}else{
-			setMessage('');
+			print("Something went wrong, please contact support.")
 		}
 	};
 
@@ -117,13 +121,13 @@ const Chat = ({ route, navigation }) => {
 			<View >
 				<Appbar.Header style={styles.header}>
 					<Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
-					<TouchableOpacity onPress={() => { console.log("Deverá abrir a tela de detalhes?") }}>
+					<TouchableOpacity onPress={() => navigation.navigate('Profile', {item: partner})}> {/* Precisa implementar a logica pra redirecionar pra grupos */}
 						<View style={styles.contentContainer}>
 							<Image
 								style={styles.contactPhoto}
 								source={image}
 							/>
-							<Text style={styles.contactName}>{room.isPrivate ? partnerName : room.title}</Text>
+							<Text style={styles.contactName}>{room.isPrivate ? partner.name : room.title}</Text>
 						</View>
 					</TouchableOpacity>
 				</Appbar.Header>
