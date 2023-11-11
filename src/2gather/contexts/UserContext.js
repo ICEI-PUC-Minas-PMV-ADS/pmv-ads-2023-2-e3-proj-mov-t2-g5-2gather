@@ -11,8 +11,8 @@ export default function UserProvider({ children }) {
     const [role, setRole] = useState('');
     const [photo, setPhoto] = useState('');
     const [id, setId] = useState('');
-    const [privateE2eContext, setPrivateE2eContextContext] = useState('');
-    const [publicE2eContext, setPublicE2eContextContext] = useState('');
+    const [privateE2eContext, setPrivateE2eContext] = useState('');
+    const [publicE2eContext, setPublicE2eContext] = useState('');
 
 
     useEffect(() => {
@@ -38,8 +38,8 @@ export default function UserProvider({ children }) {
                         setName(storedName);
                     }
                     if(e2eKeys){
-                        setPrivateE2eContextContext(e2eKeys.privateKey)
-                        setPublicE2eContextContext(e2eKeys.publicKey)
+                        setPrivateE2eContext(e2eKeys.privateKey)
+                        setPublicE2eContext(e2eKeys.publicKey)
                     }
                 }
             } catch (error) {
@@ -102,9 +102,9 @@ export default function UserProvider({ children }) {
                 name,
                 setName,
                 privateE2eContext,
-                setPrivateE2eContextContext,
+                setPrivateE2eContext,
                 publicE2eContext,
-                setPublicE2eContextContext
+                setPublicE2eContext
             }}>
             {children}
         </UserContext.Provider>
@@ -115,6 +115,6 @@ export default function UserProvider({ children }) {
 export function useUser() {
     const context = useContext(UserContext);
 
-    const { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext } = context;
-    return { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext };
+    const { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContext, publicE2eContext, setPublicE2eContext } = context;
+    return { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContext, publicE2eContext, setPublicE2eContext };
 }
