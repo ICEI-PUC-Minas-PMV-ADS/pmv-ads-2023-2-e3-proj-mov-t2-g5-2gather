@@ -151,5 +151,5 @@ export function useUser() {
         publicE2eContext, setPublicE2eContext 
     } = context;
 
-    return { signed, setSigned, id, setId, name, setName, photo, setPhoto, email, setEmail, phone, setPhone, role, setRole, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext };
+    return { signed, setSigned, id, setId, name, setName, photo, setPhoto, email, setEmail, phone, setPhone, role, setRole, privateE2eContext, setPrivateE2eContext, publicE2eContext, setPublicE2eContext };
 }
