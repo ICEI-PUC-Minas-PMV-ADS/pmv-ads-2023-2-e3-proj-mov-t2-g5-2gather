@@ -40,10 +40,16 @@ const MainNav = () => {
             <stack.Screen
                 name="CreateUser"
                 component={CreateUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="EditUser"
                 component={EditUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="InactivateUser"
@@ -143,6 +149,9 @@ const MainNav = () => {
              <stack.Screen
                 name="CreatedBroadcastList"
                 component={CreatedBroadcastList}
+                options={{
+                    header: () => null,
+                }}
             />
              <stack.Screen
                 name="ArchivedLists"

@@ -1,12 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Animated,
-  Image,
   ScrollView,
 } from "react-native";
 import { Register } from "../services/auth.services";
@@ -14,64 +12,85 @@ import { Appbar } from "react-native-paper";
 import { GetRoles } from "../services/role.services";
 import { Picker } from "@react-native-picker/picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Toast from "../components/Toast"; // Assuming Toast component is in the same folder
+import Toast from "../components/Toast";
 
 export default function CreateUser({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [role, setRole] = useState();
+  const [role, setRole] = useState("");
   const [roles, setRoles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastVisibleError, setToastVisibleError] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({
+    email: false,
+    password: false,
+    name: false,
+    phone: false,
+    role: false,
+  });
+
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-  const [toastVisible, setToastVisible] = useState(false);
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        setLoading(true);
+        const result = await GetRoles();
+        setRoles(result || []);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const getRoles = async () => {
-    try {
-      setLoading(true);
-      const result = (await GetRoles()) || [];
-      setRoles(result);
-      setError(null);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    fetchRoles();
+  }, []);
 
-  function isValidEmail(email) {
-    return emailRegex.test(email);
-  }
+  const isValidEmail = (email) => emailRegex.test(email);
 
   const handleRegister = async () => {
-    if (!isValidEmail(email)) {
-      setToastVisible(true);
-      setTimeout(() => setToastVisible(false), 3000);
+    setFieldErrors({
+      email: false,
+      password: false,
+      name: false,
+      phone: false,
+      role: false,
+    });
+
+    let errors = {};
+    if (!email || !isValidEmail(email)) errors.email = true;
+    if (!password) errors.password = true;
+    if (!name) errors.name = true;
+    if (!phone) errors.phone = true;
+    if (!role) errors.role = true;
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setToastVisibleError(true);
+      setTimeout(() => setToastVisibleError(false), 3000);
       return;
     }
+
     try {
-      const result = await Register({
-        name: name,
-        email: email,
-        phone: phone,
-        password: password,
+      await Register({
+        name,
+        email,
+        phone,
+        password,
         idRole: role,
       });
-      alert("Conta criada com sucesso");
-      navigation.navigate("Login");
+      setToastVisible(true);
+      setTimeout(() => setToastVisible(false), 3000);
+      //navigation.navigate("Homepage");
     } catch (error) {
       setError(error.message);
-    } finally {
-      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    getRoles();
-  }, []);
 
   return (
     <KeyboardAwareScrollView
@@ -80,82 +99,89 @@ export default function CreateUser({ navigation }) {
       scrollEnabled={true}
     >
       <View style={styles.containerBody}>
-        <View style={styles.container}>
-          <Appbar.Header style={styles.header}>
-            <Appbar.BackAction
-              onPress={() => {
-                navigation.goBack();
-              }}
-            />
-            <View style={styles.rowContainer}>
-              <Text style={styles.titleHeader}>Criar Usuário</Text>
-            </View>
-          </Appbar.Header>
-        </View>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction onPress={() => navigation.goBack()} />
+          <View style={styles.rowContainer}>
+            <Text style={styles.title}>Criar Usuário</Text>
+          </View>
+        </Appbar.Header>
 
         <View style={styles.container2}>
           <Text style={styles.headerInput}>Informe os dados abaixo</Text>
 
           <Text>Email Corporativo</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, fieldErrors.email && styles.errorInput]}
             value={email}
             onChangeText={setEmail}
+            placeholder="Email Corporativo"
           />
 
           <Text>Telefone</Text>
           <TextInput
-            style={styles.input}
+            keyboardType="numeric"
+            style={[styles.input, fieldErrors.phone && styles.errorInput]}
             value={phone}
             onChangeText={setPhone}
+            placeholder="Telefone"
           />
 
           <Text>Senha</Text>
           <TextInput
-            style={styles.input}
+            style={[styles.input, fieldErrors.password && styles.errorInput]}
             value={password}
             onChangeText={setPassword}
             secureTextEntry
+            placeholder="Senha"
           />
 
           <Text>Nome do Colaborador</Text>
-          <TextInput style={styles.input} value={name} onChangeText={setName} />
+          <TextInput
+            style={[styles.input, fieldErrors.name && styles.errorInput]}
+            value={name}
+            onChangeText={setName}
+            placeholder="Nome do Colaborador"
+          />
 
           <Text>Cargo</Text>
-
-          <Picker
-            selectedValue={role}
-            onValueChange={(value) => setRole(value)}
-            style={{
-              height: 40,
-              backgroundColor: "#ecf0f1",
-              borderRadius: 8,
-              paddingHorizontal: 10,
-              paddingVertical: 8,
-              color: "black",
-            }}
+          <View
+            style={[
+              fieldErrors.role && styles.errorInput,
+            ]}
           >
-            <Picker.Item label="Click e selecione um cargo" value="" />
-            {roles.map((item) => (
-              <Picker.Item key={item.id} label={item.name} value={item.id} />
-            ))}
-          </Picker>
+            <Picker
+              selectedValue={role}
+              onValueChange={(itemValue) => setRole(itemValue)}
+              style={styles.inputPicker}
+            >
+              <Picker.Item label="Selecione um cargo" value="" />
+              {roles.map((role) => (
+                <Picker.Item key={role.id} label={role.name} value={role.id} />
+              ))}
+            </Picker>
+          </View>
         </View>
-        <TouchableOpacity
-          style={styles.buttonCreate}
-          onPress={() => {
-            handleRegister();//navigation.navigate("CreatedBroadcastList"); handleRegister();
-          }}
-        >
+
+        <TouchableOpacity style={styles.buttonCreate} onPress={handleRegister}>
           <Text style={styles.buttonText}>Criar</Text>
         </TouchableOpacity>
+
+        {toastVisibleError && (
+          <Toast
+            visible={toastVisibleError}
+            message={"Preencha todos os campos corretamente."}
+            appName={"2Gather"}
+            showSenderName={false}
+            style={{ zIndex: 9999, position: "absolute", top: 0 }}
+          />
+        )}
         {toastVisible && (
           <Toast
-            appName="2Gather"
-            senderName="CreateUser"
-            message="Por favor, insira um endereço de e-mail válido."
             visible={toastVisible}
+            message={"Conta criada com sucesso!"}
+            appName={"2Gather"}
             showSenderName={false}
+            style={{ zIndex: 9999, position: "absolute", top: 0 }}
           />
         )}
       </View>
@@ -228,5 +254,38 @@ const styles = StyleSheet.create({
   notificationText: {
     color: "white",
     fontSize: 16,
+  },
+  errorInput: {
+    borderColor: "red",
+    borderWidth: 2,
+  },
+  pickerContainer: {
+    height: 40,
+    borderColor: "#868E96",
+    borderWidth: 1,
+    borderRadius: 8,
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  picker: {
+    width: "100%",
+    backgroundColor: "transparent",
+  },
+  title: {
+    color: "#FFFCF4",
+    fontSize: 20,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  inputPicker: {
+    height: 40,
+    backgroundColor: "#FFFCF4",
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    color: "black",
+    marginBottom: 10,
   },
 });
