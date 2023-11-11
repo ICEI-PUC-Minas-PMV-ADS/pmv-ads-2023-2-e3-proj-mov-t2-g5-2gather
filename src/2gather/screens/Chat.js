@@ -120,7 +120,7 @@ const Chat = ({ route, navigation }) => {
 		<View style={styles.container}>
 			<View >
 				<Appbar.Header style={styles.header}>
-					<Appbar.BackAction onPress={() => navigation.goBack()}/>
+					<Appbar.BackAction onPress={() => navigation.navigate('Homepage') }/>
 					<TouchableOpacity onPress={() => {
 						{
 							room.isPrivate

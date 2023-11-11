@@ -160,14 +160,15 @@ export default function CreateNewGroup({ route, navigation }) {
         setShowAlert(true);
         return;
       }
-
+      const participants = selectedContactsState.map((contact) => contact.id);
+      participants.push(id)
       const groupData = await CreateNewGroups({
         title: title,
         photo: photo,
         description: description,
         idAdmin: id,
         isPrivate: false,
-        participants: selectedContactsState.map((contact) => contact.id),
+        participants: participants,
       });
 
     navigation.navigate('Chat', { room: groupData, roomId: groupData.id });
