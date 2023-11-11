@@ -36,9 +36,6 @@ export default function Login(navigation) {
 
     SignIn({ email: email, password: password }).then(async (res) => {
       if (res.access && res.refresh) {
-        setSigned(true);
-        setName(res.name);
-        setId(res.id);
         for (const key in res) {
           if (res.hasOwnProperty(key)) {
             if (res[key] !== null) {
@@ -46,6 +43,9 @@ export default function Login(navigation) {
             }
           }
         }
+        setSigned(true);
+        setName(res.name);
+        setId(res.id);
 
         let e2eKeys = await dbGetE2e(res.id)
         if (!e2eKeys && !res.pke) {

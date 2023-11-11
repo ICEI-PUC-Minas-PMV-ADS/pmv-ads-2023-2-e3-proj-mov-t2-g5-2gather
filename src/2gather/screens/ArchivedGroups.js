@@ -37,18 +37,17 @@ useEffect(() => {
 }, []);
 
 
-{/* // Navegar para a tela de ABRIR O GRUPO ao pressionar (item).
+
 const handleItemPress = (item) => {
-  //o nome da Screen precisa ser confirmado, assim como a identificação do Grupo...
-  navigation.navigate('Talks', { groupId: item.id });
+  navigation.navigate('GroupConversation', { groupId: item.id });
 };
-*/}
+
 
 
 
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => console.log(item)}>{/*handleItemPress(item)}>*/}
+    <TouchableOpacity onPress={() => navigation.navigate('GroupConversation', {id: item.id})}>
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
       <Text style={styles.contactText}>{item.title}</Text>
@@ -78,14 +77,6 @@ const handleItemPress = (item) => {
         
       </View>
 
-      {/*Botão Provisório*/}
-
-      <TouchableOpacity
-        style={styles.buttonForecast}
-        onPress={() => navigation.navigate("YourGroups")}
-      >
-        <Text style={styles.buttonLoginText}>Go To YourGroups Screen</Text>
-      </TouchableOpacity>
     </View>
   );
 }
