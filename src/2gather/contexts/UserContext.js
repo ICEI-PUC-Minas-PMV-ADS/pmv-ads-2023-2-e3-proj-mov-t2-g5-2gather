@@ -28,7 +28,11 @@ export default function UserProvider({ children }) {
                     const email = await AsyncStorage.getItem('email');
                     const phone = await AsyncStorage.getItem('phone');
                     const role = await AsyncStorage.getItem('role');
-                    const e2eKeys = await dbGetE2e(id)
+                    let e2eKeys = null
+                    try{
+                        e2eKeys = await dbGetE2e(id)
+                    }
+                    catch{}
 
                     // vale fazer um request aqui pra ver se a access/refresh token estão validas, caso n, deslogar.
                     if (storedSigned !== null && access !== null && refresh !== null && id != null) {
