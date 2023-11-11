@@ -24,6 +24,7 @@ export default function GroupInfo({ route }) {
   const [isArchived, setIsArchived] = useState(false);
   const [group, setGroup] = useState([]);
   let image = require('../assets/group.png')
+  let isGroupAdmin = (group.idAdmin == id)
 
   const getGroup = async () => {
     try {
@@ -124,15 +125,18 @@ export default function GroupInfo({ route }) {
 
         </View>
         <View styles={styles.containerButtons}>
-          <Button
-            mode="contained"
-            color={'#74D99F'}
-            style={styles.button}
-            icon="plus-circle-outline"
-            onPress={() => navigation.navigate('EditGroup', { group: group })}>
-            Editar
-          </Button>
-
+          {isGroupAdmin ?
+            <Button
+              mode="contained"
+              color={'#74D99F'}
+              style={styles.button}
+              icon="plus-circle-outline"
+              onPress={() => navigation.navigate('EditGroup', { group: group })}>
+              Editar
+            </Button>
+          :
+          console.log("not admin")
+          }
           <Button
             mode="contained"
             color={'#FAE29F'}
