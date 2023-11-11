@@ -14,7 +14,6 @@ import Chat from '../screens/Chat';
 import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
 import ArchivedGroups from '../screens/ArchivedGroups';
-import YourGroups from '../screens/YourGroups';
 import NewList from '../screens/NewList';
 import CreateReceivers from '../screens/CreateReceivers';
 import NewGroup from '../screens/NewGroup';
@@ -92,13 +91,6 @@ const MainNav = () => {
             <stack.Screen
                 name="ArchivedGroups"
                 component={ArchivedGroups}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="YourGroups"
-                component={YourGroups}
                 options={{
                     header: () => null,
                 }}
