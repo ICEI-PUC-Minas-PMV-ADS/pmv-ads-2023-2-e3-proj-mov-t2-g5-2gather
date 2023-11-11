@@ -40,17 +40,21 @@ export default function BroadcastCreate() {
       {data.length > 0 ? (
         <View style={styles.containerMain}>
           {data.map((grupo, index) => (
-            <View key={index} style={styles.grupoContainer}>
+            <TouchableOpacity
+            key={index} style={styles.grupoContainer}
+            onPress={() => {
+              navigation.navigate('GroupConversation', { id: grupo.id });
+            }}>
               <Text style={styles.grupoTitle}>{grupo.title}</Text>
               <TouchableOpacity
                 style={styles.infoIconContainer}
                 onPress={() => {
-                  console.log('Você clicou em um ícone de Informação, vou inserir a rota para a página Lista de transmissão informações assim que ela for criada');
+                  navigation.navigate('GroupInfo', { id: grupo.id }); 
                 }}>
                 <Icon name="info-circle" style={styles.infoIcon} />
               </TouchableOpacity>
-            </View>
-          ))}
+            </TouchableOpacity>
+  ))}
 
           <TouchableHighlight
             style={styles.buttonContainer}
