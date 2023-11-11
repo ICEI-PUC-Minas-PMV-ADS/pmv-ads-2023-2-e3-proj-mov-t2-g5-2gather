@@ -4,59 +4,82 @@ import { Appbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { showListData } from '../services/group.services';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function BroadcastCreate() {
   const navigation = useNavigation();
-
+  
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  
+  const [listCount, setListCount] = useState(0);
 
   useEffect(() => {
-    showListData()
-    .then((result) => {
-      console.log(result);
-      setData(result);
-    })
-    .catch((err) => {
-      setError(err.message);
+    AsyncStorage.getItem('id').then((userId) => {
+        if (userId) {
+            showListData(userId)
+                .then((result) => {
+                    setListCount(result.length)
+                    setData(result);
+                })
+                .catch((err) => {
+                    setError(err.message);
+                });
+        }
     });
-  
   }, []);
 
   return (
     <ScrollView style={styles.container}>
       <Appbar.Header style={styles.header}>
-        <Appbar.BackAction onPress={() => navigation.navigate("BroadcastList")} />
+        <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
         <Text style={styles.titleHeader}>Listas de transmissão</Text>
       </Appbar.Header>
 
-      <View style={styles.containerMain}>
-        {data.map((grupo, index) => (
-          <View key={index} style={styles.grupoContainer}>
-            <Text style={styles.grupoTitle}>{grupo.title}</Text>
-            {/* <Text style={styles.grupoParticipants}>{grupo.participants} participantes</Text> */}
-            <TouchableOpacity
-              style={styles.infoIconContainer}
-              onPress={() => {
-                console.log('Você clicou em um ícone de Informação, vou inserir a rota para a página Lista de transmissão informações assim que ela for criada');
-              }}>
-              <Icon name="info-circle" style={styles.infoIcon} />
-            </TouchableOpacity>
-          </View>
-        ))}
+      <Text style={styles.listCountText}>Você possui: {listCount} lista(s)</Text>
 
-        <TouchableHighlight
-          style={styles.buttonContainer}
-          underlayColor="transparent"
-          onPress={() => navigation.navigate('NewList')}
-        >
-          <View style={styles.button}>
-            <Icon name="plus" style={styles.buttonIcon} />
-            <Text style={styles.buttonText}>Nova lista</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
+      {data.length > 0 ? (
+        <View style={styles.containerMain}>
+          {data.map((grupo, index) => (
+            <View key={index} style={styles.grupoContainer}>
+              <Text style={styles.grupoTitle}>{grupo.title}</Text>
+              <TouchableOpacity
+                style={styles.infoIconContainer}
+                onPress={() => {
+                  console.log('Você clicou em um ícone de Informação, vou inserir a rota para a página Lista de transmissão informações assim que ela for criada');
+                }}>
+                <Icon name="info-circle" style={styles.infoIcon} />
+              </TouchableOpacity>
+            </View>
+          ))}
+
+          <TouchableHighlight
+            style={styles.buttonContainer}
+            underlayColor="transparent"
+            onPress={() => navigation.navigate('NewList')}
+          >
+            <View style={styles.button}>
+              <Icon name="plus" style={styles.buttonIcon} />
+              <Text style={styles.buttonText}>Nova lista</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      ) : (
+        <View style={styles.containerMain}>
+          <Text style={styles.titleMain}>
+            Você pode usar listas de transmissão para enviar mensagens para várias pessoas ao mesmo tempo.
+          </Text>
+          <TouchableHighlight
+            style={styles.buttonContainer}
+            underlayColor="transparent"
+            onPress={() => navigation.navigate('NewList')}
+          >
+            <View style={styles.button}>
+              <Icon name="user-plus" style={styles.buttonIcon} />
+              <Text style={styles.buttonText}>Nova lista</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+      )}
     </ScrollView>
   );
 }
@@ -126,5 +149,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#FFFCF4',
+  },
+  listCountText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10,
+    color: '#2368A2',
   },
 });

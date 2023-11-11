@@ -10,9 +10,9 @@ export const getMessageList = async ({idGroup}) => {
     }
 };
 
-export const SaveMessage = async ({text, idSentBy, idGroup, pkeSentBy, pkeReceiver}) => {
+export const SaveMessage = async ({text, idSentBy, idGroup, pkeSentBy, pkeReceiver, readBy}) => {
     try {
-        const data = { text:text, idSentBy:idSentBy, idGroup:idGroup, pkeSentBy:pkeSentBy, pkeReceiver:pkeReceiver, priority:0 }
+        const data = { text:text, idSentBy:idSentBy, idGroup:idGroup, pkeSentBy:pkeSentBy, pkeReceiver:pkeReceiver, priority:0, readBy: [readBy] }
         const result = await sendAuthenticatedRequest('/message/create/', 'POST', data);
         return result;
     } catch (error) {
