@@ -17,7 +17,7 @@ import { GetListYourGroups } from '../services/group.services';
 import { GetTransmissionList } from '../services/group.services';
 import { GetMessages } from '../services/message.service';
 import socket from "../services/socket";
-import { getGroupChat } from '../services/group.services';
+import { GetGroupDetails } from '../services/group.services';
 
 export default function Homepage() {
   const navigation = useNavigation();  
@@ -78,19 +78,13 @@ useEffect(() => {
 getYourMessages();
 }, []);
 
-const handleItemPress = async (groupId, partnerName, partnerPubKey, partnerPhoto) => {
-  try { 
-    console.log(groupId)
-    const result = await getGroupChat({ idGroup: groupId, idSelf: id})
-    socket.emit("createRoom", result.id, partnerName);
+const handleItemPress = async (groupId) => {
+  try {
+    const result = await GetGroupDetails({ idGroup: groupId }) || [];
     navigation.navigate("Chat", {
       room: result,
       roomId: result.id,
-      partnerName: partnerName,
-      partnerPhoto: partnerPhoto,
-      partnerPke: partnerPubKey,
     });
-
   } catch (error) {
     alert('error')
     console.log(error)
@@ -99,7 +93,7 @@ const handleItemPress = async (groupId, partnerName, partnerPubKey, partnerPhoto
 
 const defaultImage = require('../assets/group.png');
 const renderItem = ({ item }) => (
-  <TouchableOpacity onPress={() => /*navigation.navigate('Chat', {room, partnerName, partnerPke, partnerPhoto, roomId})}{*/handleItemPress(item.id, item.title, null, null)}>
+  <TouchableOpacity onPress={() => handleItemPress(item.id)}>
     <View style={styles.contactItem}> 
     <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
     <Text style={styles.contactText}>{item.title}</Text>
