@@ -60,7 +60,7 @@ export default function CreateNewGroup({ route, navigation }) {
     getContacts();
   }, []);
   
-  const defaultImage = require('../assets/profile.png');
+  const defaultImage = require('../assets/group.png');
 
   const renderItem = ({ item }) => (
     <TouchableOpacity>
@@ -170,7 +170,6 @@ export default function CreateNewGroup({ route, navigation }) {
         participants: selectedContactsState.map((contact) => contact.id),
       });
 
-    console.log(groupData);
     navigation.navigate('Chat', { room: groupData, roomId: groupData.id });
 
   } catch (error) {

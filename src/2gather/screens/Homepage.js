@@ -78,18 +78,18 @@ useEffect(() => {
 getYourMessages();
 }, []);
 
-const handleItemPress = async (groupId) => {
-  try {
-    const result = await GetGroupDetails({ idGroup: groupId }) || [];
-    navigation.navigate("Chat", {
-      room: result,
-      roomId: result.id,
-    });
-  } catch (error) {
-    alert('error')
-    console.log(error)
-  }
-};
+  const handleItemPress = async (groupId) => {
+    try {
+      const result = await GetGroupDetails({ idGroup: groupId }) || [];
+      navigation.navigate("Chat", {
+        room: result,
+        roomId: result.id,
+      });
+    } catch (error) {
+      alert('error')
+      console.log(error)
+    }
+  };
 
 const defaultImage = require('../assets/group.png');
 const renderItem = ({ item }) => (

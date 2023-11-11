@@ -181,15 +181,13 @@ export default function CreateNewGroup({ route, navigation }) {
         return contact.id
       }
     }).filter(elemento => elemento !== undefined);
-
+    newParticipants.push(group.idAdmin)
     try {
       if (!title) {
         // Se o título não estiver preenchido, exibe o alerta
         setShowAlert(true);
         return;
       }
-      console.log('newParticipants')
-      console.log(newParticipants)
       const newGroup = {
         ...group,
         "title": title,

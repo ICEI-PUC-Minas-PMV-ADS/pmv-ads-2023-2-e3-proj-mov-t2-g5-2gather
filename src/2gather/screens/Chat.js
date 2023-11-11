@@ -15,7 +15,7 @@ const Chat = ({ route, navigation }) => {
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
-	let image = (room.isPrivate ? partnerPhoto : require('../assets/group.png'))
+	let image = (room.isPrivate ? room.photo : require('../assets/group.png'))
 	image = image ? { uri: image } :  require('../assets/profile.png')
 
 	const getMessages = async () => {
@@ -120,12 +120,7 @@ const Chat = ({ route, navigation }) => {
 		<View style={styles.container}>
 			<View >
 				<Appbar.Header style={styles.header}>
-					<Appbar.BackAction onPress={() => {
-						room.isPrivate
-						? navigation.navigate("Contacts")
-						: navigation.navigate('Homepage')
-					}
-					} />
+					<Appbar.BackAction onPress={() => navigation.goBack()}/>
 					<TouchableOpacity onPress={() => {
 						{
 							room.isPrivate
