@@ -142,7 +142,7 @@ export default function GroupInfo({ route }) {
               Editar
             </Button>
           :
-          console.log("not admin")
+          console.log("")
           }
           <Button
             mode="contained"

@@ -15,8 +15,8 @@ const Chat = ({ route, navigation }) => {
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
-	let image = (room.isPrivate ? room.photo : require('../assets/group.png'))
-	image = image ? { uri: image } :  require('../assets/profile.png')
+	//Se for conversa privada, tenta carregar a url que está em photo do destinatário, se não conseguir/não houver, carrega profile.png. Se for conversa em grupo, pega imagem default de grupo
+	let image = (room.isPrivate ? (partner.photo ? { uri: partner.photo } :  require('../assets/profile.png')) : require('../assets/group.png'))
 
 	const getMessages = async () => {
 		try {

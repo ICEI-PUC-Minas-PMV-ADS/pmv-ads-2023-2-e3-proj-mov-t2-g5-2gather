@@ -103,9 +103,10 @@ const defaultImage = require('../assets/group.png');
 const renderItem = ({ item }) => (
   <TouchableOpacity onPress={() => handleItemPress(item.id)}>
     <View style={styles.contactItem}> 
-    <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-    <Text style={styles.contactText}>{item.title}</Text>
-  </View>
+      {/*Se item.photo não retornar uma url válida, carrega imagem default de grupos */}
+    <Image style={styles.contactPhoto} source={item.photo ? { uri: item.photo || null } : defaultImage} defaultSource={defaultImage} />     
+      <Text style={styles.contactText}>{item.title}</Text>
+    </View>
   </TouchableOpacity>
 );
 
