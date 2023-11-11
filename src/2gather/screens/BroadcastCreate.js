@@ -111,6 +111,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     marginTop: 30,
+    paddingBottom: 30,
+    flexGrow: 1,
   },
   grupoContainer: {
     backgroundColor: '#F1F3F5',
@@ -138,7 +140,8 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     alignSelf: 'center',
-    marginTop: '10%',
+    marginTop: 30,
+    flex: 1,
     alignItems: 'center',
   },
   button: {
