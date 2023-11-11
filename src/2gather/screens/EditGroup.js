@@ -177,7 +177,6 @@ export default function CreateNewGroup({ route, navigation }) {
   const handleEditGroup = async () => {
     const newParticipants = contacts.map((contact) => {
       if (marked[contact.id] == true){
-        console.log(contact.id)
         return contact.id
       }
     }).filter(elemento => elemento !== undefined);
@@ -196,9 +195,8 @@ export default function CreateNewGroup({ route, navigation }) {
 
       const groupData = await EditGroup({ group: newGroup });
 
-      console.log(groupData);
       alert("Grupo editado com sucesso");
-      navigation.goBack()
+      navigation.navigate('GroupInfo', {id: groupData.id})
 
 
     } catch (error) {

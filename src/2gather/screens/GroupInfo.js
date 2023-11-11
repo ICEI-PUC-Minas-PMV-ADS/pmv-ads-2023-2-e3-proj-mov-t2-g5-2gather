@@ -6,12 +6,12 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Appbar, Avatar, Button, Divider } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from "../contexts/UserContext";
 import socket from "../services/socket";
 import { getOrCreatePrivateGroup } from '../services/group.services';
 import { GetGroupDetails, ArchiveGroup } from '../services/group.services';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function GroupInfo({ route }) {
   const navigation = useNavigation();
@@ -44,6 +44,13 @@ export default function GroupInfo({ route }) {
     }
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      if (item) {
+        getGroup()
+      }
+    }, [])
+  );
 
   useEffect(() => {
     if (item) {

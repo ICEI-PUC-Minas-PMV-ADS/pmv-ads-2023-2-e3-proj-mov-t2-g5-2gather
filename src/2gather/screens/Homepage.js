@@ -18,6 +18,7 @@ import { GetTransmissionList } from '../services/group.services';
 import { GetMessages } from '../services/message.service';
 import socket from "../services/socket";
 import { GetGroupDetails } from '../services/group.services';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Homepage() {
   const navigation = useNavigation();  
@@ -43,7 +44,6 @@ const getYourGroups = async () => {
 useEffect(() => {
 getYourGroups();
 }, []);
-
 
 //Buscar Listas de Transmissão ativas
 const getYourLists = async () => {
@@ -78,6 +78,14 @@ useEffect(() => {
 getYourMessages();
 }, []);
 
+useFocusEffect(
+  React.useCallback(() => {
+    getYourGroups();
+    getYourLists();
+    getYourMessages();
+  }, [])
+)
+
   const handleItemPress = async (groupId) => {
     try {
       const result = await GetGroupDetails({ idGroup: groupId }) || [];
@@ -100,8 +108,6 @@ const renderItem = ({ item }) => (
   </View>
   </TouchableOpacity>
 );
-
-
 
 //Listagem das Listas de Transmissão que participa e estão ativas.
 
