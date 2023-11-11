@@ -48,7 +48,7 @@ export const UpdateUserDetails = async ({ name, email, phone, photo, description
 };
 
 // Recuperação de Senha
-export const GetUserPassword = async () => {
+export const GetUserPassword = async () => { // o nome dessa função está um pouco ruim, e esse endpoint não existe. talvez password recovery? e nesse caso pode ficar no auth.services
     try {
         const result = await sendAuthenticatedRequest('/user/password/', 'GET');
         return result;
@@ -57,20 +57,18 @@ export const GetUserPassword = async () => {
     }
 };
 
-export const UpdateUserPhoto = async ({ photo }) => {
-    const API_URL = process.env.NODE_ENV === 'development' ? REACT_APP_DEV_MODE : REACT_APP_PROD_MODE;
+//Alteração/Registro de foto
+export const updateUserPhoto = async ({ newPhoto }) => {
     try {
-        const response = await fetch(`${API_URL}user/update/${uuid}/admin/`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ photo })
-        });
-        const result = await response.json();
-        if (!response.ok) {
-            throw new Error(JSON.stringify(result));
+        const data = { photo: newPhoto };
+        const response = await sendAuthenticatedRequest(`/user/update/`, 'PATCH', data);
+        if (response.ok) {
+            return true; // Registro de nova foto bem-sucedido
+        } else {
+            return false; // Falha no registro da nova foto
         }
-        return result;
     } catch (error) {
-        throw new Error(error.message);
+        console.log('Error updating user photo:', error);
+        return false; // Erro durante a troca
     }
 };

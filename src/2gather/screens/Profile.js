@@ -8,20 +8,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../services/auth.services';
 import { Appbar } from 'react-native-paper';
 import * as Animatable from 'react-native-animatable';
-import { updateUserPhoto } from '../services/auth.services';
+import { updateUserPhoto } from '../services/user.services';
 
 export default function Profile({ route, navigation }) {
   
   const isSelf = route.params ? false : true;
 
-  const { setSigned } = useUser();
+  const { setSigned, name, photo, setPhoto, email, phone, role } = useUser();
   const [title, setTitle] = useState('');
   const [newPhoto, setNewPhoto] = useState("");
   const [showSaveButton, setShowSaveButton] = useState(false);
 
+  const defaultImage = require('../assets/profile.png');
+  let image = isSelf ? photo : route.params.item.photo
+
   const handleCameraPress = () => {
     setTitle(!title);
-    setShowSaveButton(!showSaveButton);
+    setShowSaveButton(!showSaveButton); 
   }
   
   const handleSaveImage = async () => {
@@ -34,45 +37,6 @@ export default function Profile({ route, navigation }) {
       alert('Ocorreu um erro ao atualizar a imagem. Por favor, tente novamente.');
     }
   };
-
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [role, setRole] = useState('');
-  const [photo, setPhoto] = useState('');
-
-  const defaultImage = require('../assets/profile.png');
-  let image = isSelf ? photo : route.params.item.photo
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const asyncEmail= await AsyncStorage.getItem('email');
-        const asyncName= await AsyncStorage.getItem('name');
-        const asyncPhone= await AsyncStorage.getItem('phone');
-        const asyncRole= await AsyncStorage.getItem('role');
-        const asyncPhoto= await AsyncStorage.getItem('photo');
-        if (asyncEmail!== null) {
-          setEmail(asyncEmail);   
-        }
-        if (asyncName!== null) {
-          setName(asyncName);        
-        }
-        if (asyncPhone!== null) {
-          setPhone(asyncPhone);        
-        }
-        if (asyncRole!== null) {
-          setRole(asyncRole);
-        }
-        if (asyncPhoto !== null) {
-          setPhoto(asyncPhoto);
-        }
-      } catch (error) {
-        console.error('Error loading data from AsyncStorage: ', error);
-      }
-    }
-    fetchData()
-  }, []);
 
   return (
     <View style={styles.container}>
