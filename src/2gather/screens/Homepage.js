@@ -10,14 +10,18 @@ import {
   Button,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useUser } from "../contexts/UserContext";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Divider } from "react-native-paper";
 import { GetListYourGroups } from '../services/group.services';
 import { GetTransmissionList } from '../services/group.services';
 import { GetMessages } from '../services/message.service';
+import socket from "../services/socket";
+import { getGroupChat } from '../services/group.services';
 
 export default function Homepage() {
-  const navigation = useNavigation();
+  const navigation = useNavigation();  
+  const { name, id, privateE2eContext  } = useUser();
 
 //Listagem dos grupos, listas e mensagens no qual participa e estão ativos.
 const [yourGroups, setYourGroups] = useState([]);
@@ -74,11 +78,28 @@ useEffect(() => {
 getYourMessages();
 }, []);
 
+const handleItemPress = async (groupId, partnerName, partnerPubKey, partnerPhoto) => {
+  try { 
+    console.log(groupId)
+    const result = await getGroupChat({ idGroup: groupId, idSelf: id})
+    socket.emit("createRoom", result.id, partnerName);
+    navigation.navigate("Chat", {
+      room: result,
+      roomId: result.id,
+      partnerName: partnerName,
+      partnerPhoto: partnerPhoto,
+      partnerPke: partnerPubKey,
+    });
 
+  } catch (error) {
+    alert('error')
+    console.log(error)
+  }
+};
 
 const defaultImage = require('../assets/group.png');
 const renderItem = ({ item }) => (
-  <TouchableOpacity onPress={() => navigation.navigate('GroupConversation', {id: item.id})}>{/*handleItemPress(item)}>*/}
+  <TouchableOpacity onPress={() => /*navigation.navigate('Chat', {room, partnerName, partnerPke, partnerPhoto, roomId})}{*/handleItemPress(item.id, item.title, null, null)}>
     <View style={styles.contactItem}> 
     <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
     <Text style={styles.contactText}>{item.title}</Text>

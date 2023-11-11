@@ -171,16 +171,10 @@ export default function CreateNewGroup({ route, navigation }) {
       });
 
     console.log(groupData);
-    //alert("Grupo criado com sucesso");
-    //navigation.navigate("GRUPO CRIADO - Screen da Ellen")
-    navigation.navigate('GroupConversation', {id: groupData.id});
-    ;
+    navigation.navigate('Chat', { room: groupData, roomId: groupData.id });
 
   } catch (error) {
     console.log(error);   
-  } finally {  
-
-    navigation.navigate('GroupConversation', {id: groupData.id});
   } 
 };
 

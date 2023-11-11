@@ -199,8 +199,8 @@ export default function CreateNewGroup({ route, navigation }) {
 
       console.log(groupData);
       alert("Grupo editado com sucesso");
-
-      navigation.navigate('GroupConversation', { id: groupData.id });
+      navigation.goBack()
+      // navigation.navigate('GroupConversation', { id: groupData.id });
 
 
     } catch (error) {

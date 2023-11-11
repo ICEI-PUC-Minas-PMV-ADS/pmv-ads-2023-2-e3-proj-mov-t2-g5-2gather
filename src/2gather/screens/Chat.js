@@ -15,7 +15,7 @@ const Chat = ({ route, navigation }) => {
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
-	let image = (room.isPrivate ? partner.photo : room.Image)
+	let image = (room.isPrivate ? partnerPhoto : require('../assets/group.png'))
 	image = image ? { uri: image } :  require('../assets/profile.png')
 
 	const getMessages = async () => {
@@ -121,7 +121,7 @@ const Chat = ({ route, navigation }) => {
 			<View >
 				<Appbar.Header style={styles.header}>
 					<Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
-					<TouchableOpacity onPress={() => navigation.navigate('Profile', {item: partner})}> {/* Precisa implementar a logica pra redirecionar pra grupos */}
+					<TouchableOpacity onPress={() => { console.log("Deverá abrir a tela de detalhes?") }}>
 						<View style={styles.contentContainer}>
 							<Image
 								style={styles.contactPhoto}

@@ -77,7 +77,13 @@ export default function GroupInfo({ route }) {
     <View style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction
-          onPress={() => navigation.navigate('GroupConversation', { id: idGroup })}
+          onPress={() =>
+            navigation.navigate("Chat", {
+              room: group,
+              roomId: group.id,
+              partnerPke: group.partnerPubKey,
+            })
+          }
         />
       </Appbar.Header>
       <View style={styles.groupHeader}>
@@ -90,13 +96,13 @@ export default function GroupInfo({ route }) {
             Participantes
           </Text>
           <Divider></Divider>
-         
-            <FlatList
-              data={participants}
-              renderItem={renderItem}
-              keyExtractor={(item) => item}
-            />
-        
+
+          <FlatList
+            data={participants}
+            renderItem={renderItem}
+            keyExtractor={(item) => item}
+          />
+
         </View>
         <View styles={styles.containerButtons}>
           <Button
