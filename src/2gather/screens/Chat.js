@@ -120,8 +120,19 @@ const Chat = ({ route, navigation }) => {
 		<View style={styles.container}>
 			<View >
 				<Appbar.Header style={styles.header}>
-					<Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
-					<TouchableOpacity onPress={() => { console.log("Deverá abrir a tela de detalhes?") }}>
+					<Appbar.BackAction onPress={() => {
+						room.isPrivate
+						? navigation.navigate("Contacts")
+						: navigation.navigate('Homepage')
+					}
+					} />
+					<TouchableOpacity onPress={() => {
+						{
+							room.isPrivate
+							? navigation.navigate('Profile', { item: partner })
+							: navigation.navigate('GroupInfo', { id: room.id })
+						}
+					}}>
 						<View style={styles.contentContainer}>
 							<Image
 								style={styles.contactPhoto}

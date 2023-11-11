@@ -188,7 +188,8 @@ export default function CreateNewGroup({ route, navigation }) {
         setShowAlert(true);
         return;
       }
-      console.log(group)
+      console.log('newParticipants')
+      console.log(newParticipants)
       const newGroup = {
         ...group,
         "title": title,
@@ -200,7 +201,6 @@ export default function CreateNewGroup({ route, navigation }) {
       console.log(groupData);
       alert("Grupo editado com sucesso");
       navigation.goBack()
-      // navigation.navigate('GroupConversation', { id: groupData.id });
 
 
     } catch (error) {
