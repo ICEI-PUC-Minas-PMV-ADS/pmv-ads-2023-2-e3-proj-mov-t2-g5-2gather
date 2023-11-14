@@ -7,12 +7,12 @@ export default function UserProvider({ children }) {
     const [signed, setSigned] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [telefone, setTelefone] = useState('');
+    const [phone, setPhone] = useState('');
     const [role, setRole] = useState('');
     const [photo, setPhoto] = useState('');
     const [id, setId] = useState('');
-    const [privateE2eContext, setPrivateE2eContextContext] = useState('');
-    const [publicE2eContext, setPublicE2eContextContext] = useState('');
+    const [privateE2eContext, setPrivateE2eContext] = useState('');
+    const [publicE2eContext, setPublicE2eContext] = useState('');
 
 
     useEffect(() => {
@@ -24,7 +24,15 @@ export default function UserProvider({ children }) {
                     const storedName = await AsyncStorage.getItem('name');
                     const access = await AsyncStorage.getItem('access');
                     const refresh = await AsyncStorage.getItem('refresh');
-                    const e2eKeys = await dbGetE2e(id)
+                    const photo = await AsyncStorage.getItem('photo');
+                    const email = await AsyncStorage.getItem('email');
+                    const phone = await AsyncStorage.getItem('phone');
+                    const role = await AsyncStorage.getItem('role');
+                    let e2eKeys = null
+                    try{
+                        e2eKeys = await dbGetE2e(id)
+                    }
+                    catch{}
 
                     // vale fazer um request aqui pra ver se a access/refresh token estão validas, caso n, deslogar.
                     if (storedSigned !== null && access !== null && refresh !== null && id != null) {
@@ -37,9 +45,21 @@ export default function UserProvider({ children }) {
                     if (storedName !== null) {
                         setName(storedName);
                     }
+                    if(photo !== null) {
+                        setPhoto(photo)
+                    }
+                    if(email !== null) {
+                        setEmail(email)
+                    }
+                    if(phone !== null) {
+                        setPhone(phone)
+                    }
+                    if(role !== null) {
+                        setRole(role)
+                    }
                     if(e2eKeys){
-                        setPrivateE2eContextContext(e2eKeys.privateKey)
-                        setPublicE2eContextContext(e2eKeys.publicKey)
+                        setPrivateE2eContext(e2eKeys.privateKey)
+                        setPublicE2eContext(e2eKeys.publicKey)
                     }
                 }
             } catch (error) {
@@ -48,7 +68,7 @@ export default function UserProvider({ children }) {
         };
 
         fetchData();
-    }, []);
+    }, [signed]);
 
     useEffect(() => {
         const saveData = async () => {
@@ -101,10 +121,18 @@ export default function UserProvider({ children }) {
                 setId,
                 name,
                 setName,
+                photo,
+                setPhoto,
+                email,
+                setEmail,
+                phone,
+                setPhone,
+                role,
+                setRole,
                 privateE2eContext,
-                setPrivateE2eContextContext,
+                setPrivateE2eContext,
                 publicE2eContext,
-                setPublicE2eContextContext
+                setPublicE2eContext
             }}>
             {children}
         </UserContext.Provider>
@@ -115,6 +143,17 @@ export default function UserProvider({ children }) {
 export function useUser() {
     const context = useContext(UserContext);
 
-    const { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext } = context;
-    return { signed, setSigned, id, setId, name, setName, privateE2eContext, setPrivateE2eContextContext, publicE2eContext, setPublicE2eContextContext };
+    const { 
+        signed, setSigned,
+        id, setId,
+        name, setName,
+        photo, setPhoto,
+        email, setEmail,
+        phone, setPhone,
+        role, setRole,
+        privateE2eContext, setPrivateE2eContext,
+        publicE2eContext, setPublicE2eContext 
+    } = context;
+
+    return { signed, setSigned, id, setId, name, setName, photo, setPhoto, email, setEmail, phone, setPhone, role, setRole, privateE2eContext, setPrivateE2eContext, publicE2eContext, setPublicE2eContext };
 }

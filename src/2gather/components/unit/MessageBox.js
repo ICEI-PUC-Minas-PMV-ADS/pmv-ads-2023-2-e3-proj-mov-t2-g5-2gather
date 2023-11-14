@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function MessageBox({isPrivate, item, user }) {
   const isSelf = item.user === user;
@@ -9,7 +10,7 @@ export default function MessageBox({isPrivate, item, user }) {
         <View style={isSelf ? styles.messageSelf : styles.messagePartner}>
 			      <Text style={ isPrivate ? styles.hidden : styles.time}>{item.user}</Text>
           	<Text style={styles.messageText}>{item.text}</Text>
-      		<Text style={styles.time}>{ item.bySocket ? item.time : item.date.split('T')[1].substring(0, 5) }</Text> 
+      		<Text style={styles.time}>{ item.bySocket ? item.time : item.date.split('T')[1].substring(0, 5) } {item.readByAll ? <Icon name="check" color='green'/> : <Icon name="check"/>}</Text> 
         </View>
       </View>
     </View>

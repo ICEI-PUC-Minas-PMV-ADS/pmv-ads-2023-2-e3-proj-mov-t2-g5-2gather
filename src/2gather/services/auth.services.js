@@ -166,4 +166,3 @@ export const updatePassword = async ({ currentPassword, newPassword }) => {
       return false; // para erro durante a troca.
     }
 };
- 

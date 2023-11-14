@@ -35,16 +35,14 @@ export default function Contacts({ navigation }) {
     }
   };
 
-  const handleNavigation = async (partnerId, partnerName, partnerPubKey, partnerPhoto) => {
+  const handleNavigation = async (partner) => {
     try { 
-      const result = await getOrCreatePrivateGroup({ idPartner: partnerId, idSelf: id})
-      socket.emit("createRoom", result.id, partnerName);
+      const result = await getOrCreatePrivateGroup({ idPartner: partner.id, idSelf: id})
+      socket.emit("createRoom", result.id, partner.name);
       navigation.navigate("Chat", {
         room: result,
         roomId: result.id,
-        partnerName: partnerName,
-        partnerPhoto: partnerPhoto,
-        partnerPke: partnerPubKey,
+        partner: partner,
       });
 
     } catch (error) {
@@ -61,7 +59,7 @@ useEffect(() => {
   
   const renderItem = ({ item }) => (
 
-    <TouchableOpacity style={styles.contactItem} onPress={() => handleNavigation(item.id, item.name, item.pke, item.photo)}>
+    <TouchableOpacity style={styles.contactItem} onPress={() => handleNavigation(item)}>
       <TouchableOpacity onPress={() => navigation.navigate('Profile', {item})}>
         <Image
           style={styles.contactPhoto}
@@ -69,7 +67,7 @@ useEffect(() => {
           defaultSource={defaultImage}
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleNavigation(item.id, item.name, item.pke, item.photo)}>
+      <TouchableOpacity onPress={() => handleNavigation(item)}>
         <Text style={styles.contactText}>{item.name}</Text>
       </TouchableOpacity>
     </TouchableOpacity>
