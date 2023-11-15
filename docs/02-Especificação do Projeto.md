@@ -150,8 +150,8 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-06 | A aplicação deve permitir ao interlocutor obter uma confirmação de leitura de seu destinatário. | MÉDIA |
 |RF-07  |  A aplicação deve disparar notificações de mensagens. | MÉDIA |
 |RF-08 | A aplicação deve permitir visualizar informações básicas dos usuários. | BAIXA |
-|RF-09  | A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.   | BAIXA |
-|RF-10 | A aplicação deve permitir a definição de status de prioridade nas mensagens.  | BAIXA |
+|RF-09  | A aplicação deve requerer senha para fazer login e que seja criptorgrafada.   | BAIXA |
+|RF-10 | A aplicação deve permitir que o usuário consiga trocar sua senha pessoal.  | BAIXA |
 |RF-11  | A aplicação deve permitir gerenciar canais de chat com funções de administração.  | BAIXA |
 
 ### Requisitos não Funcionais
