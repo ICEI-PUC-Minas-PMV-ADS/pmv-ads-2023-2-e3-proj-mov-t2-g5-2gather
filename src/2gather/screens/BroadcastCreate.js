@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { showListData } from '../services/group.services';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,7 +13,7 @@ export default function BroadcastCreate() {
   const [error, setError] = useState(null);
   const [listCount, setListCount] = useState(0);
 
-  useEffect(() => {
+  const loadData = useCallback(() => {
     AsyncStorage.getItem('id').then((userId) => {
       if (userId) {
         showListData(userId)
@@ -27,6 +27,16 @@ export default function BroadcastCreate() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadData(); // Chama loadData sempre que a tela estiver focada
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
