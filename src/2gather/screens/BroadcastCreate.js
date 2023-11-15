@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -8,10 +8,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function BroadcastCreate() {
   const navigation = useNavigation();
-  
+
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [listCount, setListCount] = useState(0);
+  const [showScrollTopButton, setShowScrollTopButton] = useState(false);
 
   const loadData = useCallback(() => {
     AsyncStorage.getItem('id').then((userId) => {
@@ -34,9 +35,20 @@ export default function BroadcastCreate() {
 
   useFocusEffect(
     useCallback(() => {
-      loadData(); // Chama loadData sempre que a tela estiver focada
+      loadData();
     }, [])
   );
+
+  const handleScroll = (event) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    setShowScrollTopButton(offsetY > 100);
+  };
+
+  const scrollToTop = () => {
+    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+  };
+
+  const scrollViewRef = useRef();
 
   return (
     <View style={styles.container}>
@@ -45,7 +57,7 @@ export default function BroadcastCreate() {
         <Text style={styles.titleHeader}>Listas de transmissão</Text>
       </Appbar.Header>
 
-      <ScrollView style={styles.scrollContainer}>
+      <ScrollView style={styles.scrollContainer} onScroll={handleScroll} ref={scrollViewRef} scrollEventThrottle={16}>
         <Text style={styles.listCountText}>Você possui: {listCount} lista(s)</Text>
 
         {data.length > 0 ? (
@@ -60,7 +72,7 @@ export default function BroadcastCreate() {
                 <TouchableOpacity
                   style={styles.infoIconContainer}
                   onPress={() => {
-                    navigation.navigate('GroupInfo', { id: grupo.id }); 
+                    navigation.navigate('GroupInfo', { id: grupo.id });
                   }}>
                   <Icon name="info-circle" style={styles.infoIcon} />
                 </TouchableOpacity>
@@ -80,12 +92,23 @@ export default function BroadcastCreate() {
         style={styles.fixedButtonContainer}
         underlayColor="transparent"
         onPress={() => navigation.navigate('NewList')}
-      >
+        >
         <View style={styles.button}>
           <Icon name="user-plus" style={styles.buttonIcon} />
           <Text style={styles.buttonText}>Nova lista</Text>
         </View>
       </TouchableHighlight>
+
+      {showScrollTopButton && (
+        <TouchableHighlight
+          style={styles.scrollTopButton}
+          underlayColor="transparent"
+          onPress={scrollToTop}>
+          <View>
+            <Icon name="arrow-up" style={styles.scrollTopIcon} />
+          </View>
+        </TouchableHighlight>
+      )}
     </View>
   );
 }
@@ -165,6 +188,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   buttonText: {
+    fontSize: 20,
+    color: '#FFFCF4',
+  },
+  scrollTopButton: {
+    backgroundColor: '#2368A2',
+    padding: 10,
+    borderRadius: 50,
+    position: 'absolute',
+    bottom: 30,
+    right: 16,
+  },
+  scrollTopIcon: {
     fontSize: 20,
     color: '#FFFCF4',
   },
