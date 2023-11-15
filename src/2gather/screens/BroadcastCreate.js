@@ -15,76 +15,68 @@ export default function BroadcastCreate() {
 
   useEffect(() => {
     AsyncStorage.getItem('id').then((userId) => {
-        if (userId) {
-            showListData(userId)
-                .then((result) => {
-                    setListCount(result.length)
-                    setData(result);
-                })
-                .catch((err) => {
-                    setError(err.message);
-                });
-        }
+      if (userId) {
+        showListData(userId)
+          .then((result) => {
+            setListCount(result.length);
+            setData(result);
+          })
+          .catch((err) => {
+            setError(err.message);
+          });
+      }
     });
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
         <Text style={styles.titleHeader}>Listas de transmissão</Text>
       </Appbar.Header>
 
-      <Text style={styles.listCountText}>Você possui: {listCount} lista(s)</Text>
+      <ScrollView style={styles.scrollContainer}>
+        <Text style={styles.listCountText}>Você possui: {listCount} lista(s)</Text>
 
-      {data.length > 0 ? (
-        <View style={styles.containerMain}>
-          {data.map((grupo, index) => (
-            <TouchableOpacity
-            key={index} style={styles.grupoContainer}
-            onPress={() => {
-              navigation.navigate('GroupConversation', { id: grupo.id });
-            }}>
-              <Text style={styles.grupoTitle}>{grupo.title}</Text>
+        {data.length > 0 ? (
+          <View style={styles.containerMain}>
+            {data.map((grupo, index) => (
               <TouchableOpacity
-                style={styles.infoIconContainer}
+                key={index} style={styles.grupoContainer}
                 onPress={() => {
-                  navigation.navigate('GroupInfo', { id: grupo.id }); 
+                  navigation.navigate('GroupConversation', { id: grupo.id });
                 }}>
-                <Icon name="info-circle" style={styles.infoIcon} />
+                <Text style={styles.grupoTitle}>{grupo.title}</Text>
+                <TouchableOpacity
+                  style={styles.infoIconContainer}
+                  onPress={() => {
+                    navigation.navigate('GroupInfo', { id: grupo.id }); 
+                  }}>
+                  <Icon name="info-circle" style={styles.infoIcon} />
+                </TouchableOpacity>
               </TouchableOpacity>
-            </TouchableOpacity>
-  ))}
+            ))}
+          </View>
+        ) : (
+          <View style={styles.containerMain}>
+            <Text style={styles.titleMain}>
+              Você pode usar listas de transmissão para enviar mensagens para várias pessoas ao mesmo tempo.
+            </Text>
+          </View>
+        )}
+      </ScrollView>
 
-          <TouchableHighlight
-            style={styles.buttonContainer}
-            underlayColor="transparent"
-            onPress={() => navigation.navigate('NewList')}
-          >
-            <View style={styles.button}>
-              <Icon name="plus" style={styles.buttonIcon} />
-              <Text style={styles.buttonText}>Nova lista</Text>
-            </View>
-          </TouchableHighlight>
+      <TouchableHighlight
+        style={styles.fixedButtonContainer}
+        underlayColor="transparent"
+        onPress={() => navigation.navigate('NewList')}
+      >
+        <View style={styles.button}>
+          <Icon name="user-plus" style={styles.buttonIcon} />
+          <Text style={styles.buttonText}>Nova lista</Text>
         </View>
-      ) : (
-        <View style={styles.containerMain}>
-          <Text style={styles.titleMain}>
-            Você pode usar listas de transmissão para enviar mensagens para várias pessoas ao mesmo tempo.
-          </Text>
-          <TouchableHighlight
-            style={styles.buttonContainer}
-            underlayColor="transparent"
-            onPress={() => navigation.navigate('NewList')}
-          >
-            <View style={styles.button}>
-              <Icon name="user-plus" style={styles.buttonIcon} />
-              <Text style={styles.buttonText}>Nova lista</Text>
-            </View>
-          </TouchableHighlight>
-        </View>
-      )}
-    </ScrollView>
+      </TouchableHighlight>
+    </View>
   );
 }
 
@@ -103,9 +95,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     flex: 1,
   },
-  editIcon: {
-    color: '#FFFCF4',
-    marginRight: 16,
+  scrollContainer: {
+    flex: 1,
+  },
+  listCountText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10,
+    color: '#2368A2',
   },
   containerMain: {
     flex: 1,
@@ -135,14 +133,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#000000',
   },
-  buttonContainer: {
+  titleMain: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  fixedButtonContainer: {
     backgroundColor: '#2368A2',
     padding: 16,
     borderRadius: 8,
     alignSelf: 'center',
-    marginTop: 30,
-    flex: 1,
-    alignItems: 'center',
+    position: 'absolute',
+    bottom: 30,
   },
   button: {
     flexDirection: 'row',
@@ -156,12 +157,5 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#FFFCF4',
-  },
-  listCountText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 10,
-    color: '#2368A2',
   },
 });
