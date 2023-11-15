@@ -13,8 +13,8 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários conseguem trocar mensagens em tempo real.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Abrir uma conversa ou grupo</li><li>Enviar uma mensagem</li><li>Verificar se a mensagem é recebida pelo outro usuário imediatamente</li></ol> |	A mensagem enviada deve ser exibida na conversa do outro usuário imediatamente após o envio.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/76147c01-d99b-4efb-9649-d9f7fbe0795f)  | Data do Teste: 15/11/2023 - Resultado: Negativo - Ocorreu um erro no simulador ao tentar encaminhar e mensagem | Grave |
+
 
 <br>
 
@@ -42,7 +42,8 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |-|-|-|
 |Verificar se a interface administrativa permite editar um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Editar um usuário existente</li></ol> |	As alterações feitas no usuário devem ser salvas e refletidas na lista de usuários.
 | Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/a1784757-46ab-42e6-9b57-c7f952a84f19) | Data do Teste: 14/10/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue acessar a página de Editar Usuário a partir da seção de Gerenciamento de Usuário, porém a integração da página com a API da aplicação ainda não foi realizada. | Grave |
-||
+| Registro da tela: |![Edição de usuário - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/7757046f-5d3e-4b85-ae5f-525011900a04) | Data do Teste: 15/11/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue acessar a página de Editar Usuário a partir da seção de Gerenciamento de Usuário, porém a integração da página com a API da aplicação ainda não foi realizada. | Grave |
+
 
 <br>
 
@@ -89,8 +90,8 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se apenas administradores podem enviar mensagens em listas de transmissão.	|<ol><li>Acessar a aplicação com uma conta não administrativa</li><li>Realizar login</li><li>Navegar até uma lista de transmissão</li><li>Tentar enviar uma mensagem</li></ol> |	O usuário não administrador não deve ser capaz de enviar mensagens em listas de transmissão.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/8d6848e4-02e1-4b4a-ad05-20bfb11d2846) | Data do Teste: 15/11/2023 - Resultado: Negativo - Não foi possivel realizar o teste, foi apresentado um erro ao emular o aplicativo.| Grave |
+|||
 
 <br>
 
@@ -101,8 +102,8 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se o interlocutor recebe confirmação de leitura.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Enviar uma mensagem para outro usuário</li><li>Esperar que o outro usuário leia a mensagem</li></ol> |	Deve aparecer uma confirmação (por exemplo, dois tiques azuis) indicando que a mensagem foi lida pelo destinatário.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/8d6848e4-02e1-4b4a-ad05-20bfb11d2846) | Data do Teste: 15/11/2023 - Resultado: Negativo - Não foi possivel realizar o teste, foi apresentado um erro ao emular o aplicativo. | Grave |
+|||
 
 <br>
 
@@ -113,7 +114,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se o usuário recebe notificações de novas mensagens.	|<ol><li>Acessar a aplicação em um dispositivo</li><li>Realizar login</li><li>Com outro usuário, enviar uma mensagem para o primeiro usuário</li></ol> |	O usuário destinatário deve receber uma notificação indicando que uma nova mensagem foi recebida.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
+| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/8d6848e4-02e1-4b4a-ad05-20bfb11d2846) | Data do Teste: 15/11/2023 - Resultado: Negativo - Não foi possivel realizar o teste, foi apresentado um erro ao emular o aplicativo. | Grave |
 ||
 
 <br>
@@ -132,37 +133,35 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-09.1 - Autenticação de Dois Fatores com Dados Inválidos	|RF-09 – A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.|
+|CT-09.1 - Login com Dados inválidos	|RF-09 – A aplicação deve requerer senha para fazer login e que seja criptorgrafada.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se a autenticação de dois fatores é negada para dados inválidos.	|<ol><li>Acessar a aplicação</li><li>Tentar realizar o primeiro login com dados inválidos</li></ol> |	O usuário não deve conseguir acessar a aplicação e deve receber uma mensagem de erro ou aviso.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+|Verificar se a autenticação de e-mail e senha é negada para dados inválidos.	|<ol><li>Acessar a aplicação</li><li>Tentar realizar o primeiro login com dados inválidos</li></ol> |	O usuário não deve conseguir acessar a aplicação e deve receber uma mensagem de erro ou aviso.
+| Registro da tela: | ![Login ](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/355b6422-54d0-4ed6-99d8-9dfc63b25dba) | Data do Teste: 15/11/2023 - Resultado: Positivo - O aplicativo negou login com as credênciais incorretas e emitiu um aviso. | XXX | ||
+
 
 <br>
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-09.2 - Autenticação de Dois Fatores com Dados Válidos	|RF-09 – A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.|
+|CT-09.2 - Login com Dados válidos|RF-09 – A aplicação deve requerer senha para fazer login e que seja criptorgrafada.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se a autenticação de dois fatores é aceita para dados válidos.	|<ol><li>Acessar a aplicação</li><li>Realizar o primeiro login fornecendo o segundo fator de autenticação corretamente</li></ol> |	O usuário deve ser capaz de acessar a aplicação após fornecer o segundo fator de autenticação corretamente.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+|Verificar se a autenticação de e-mail e senha é negada para dados válidos.	|<ol><li>Acessar a aplicação</li><li>Realizar o  login fornecendo os dados corretos </li></ol> |	O usuário deve ser capaz de acessar a aplicação.
+| Registro da tela: | ![Login](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/17d315cf-3443-4c13-ac4b-35121d5167b0) | Data do Teste: 15/11/2023 - Resultado: Positivo - O aplicativo aprovou login com as credênciais corretas. | XXX | ||
 
 <br>
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-10 - Status de Prioridade nas Mensagens	|RF-10 – A aplicação deve permitir a definição de status de prioridade nas mensagens.|
+|CT-10 - Troca de senha pessoal	|RF-10 – A aplicação deve permitir que o usuário consiga trocar sua senha pessoal.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se é possível definir um status de prioridade ao enviar uma mensagem.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Escrever uma mensagem</li><li>Definir um status de prioridade para a mensagem</li><li>Enviar a mensagem</li></ol> |	A mensagem enviada deve exibir o status de prioridade definido pelo usuário.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+|Verificar se é possível que o usuário troque sua senha.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Acessar o botão 'configuraçõe' na HomePage</li><li>Clicar no botão "Trocar a senha"</li><li>Redefinir a senha e salvar</li></ol> |	A solicitação de troca deve ocorrer com sucesso e exibir o alerta de troca efetuada.
+| Registro da tela: |  ![Alteração de senha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/d079c33b-41ba-44de-96ab-a3bf293eaf04)| Data do Teste: 15/11/2023 - Resultado: Positivo - A troca de senha foi efetuada com sucesso | XXX |||
 
 <br>
 
@@ -173,8 +172,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se é possível adicionar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Adicionar um novo canal</li></ol> |	O canal deve ser criado e aparecer na lista de canais.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+| Registro da tela: | ![Criação de Lista de transmissão](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/9cc5721a-5d28-478a-8638-84eaf26f6534) | Data do Teste: 15/11/2023 - Resultado: Positivo - Foi possivel adicionar uma nova lista de transmissão | XXX |||
 
 <br>
 
@@ -185,8 +183,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se é possível editar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Editar um canal existente</li></ol> |	As alterações feitas no canal devem ser salvas e refletidas na lista de canais.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+| Registro da tela: | ![Edição de lista de transmissão](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/cdf9399b-eb91-41a8-8780-64ee2bf7c37a) | Data do Teste: 15/11/2023 - Resultado: Positivo - Foi possivel editar uma lista de transmissão | XXX |||
 
 <br>
 
@@ -233,7 +230,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar o tempo de resposta da aplicação.	|<ol><li>Acessar a aplicação</li><li>Realizar várias ações, como enviar mensagens, criar grupos, etc.</li><li>Monitorar o tempo de resposta para cada ação</li></ol> |	Nenhuma ação deve levar mais de 30 segundos para ser concluída.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
+| Registro da tela: | ![Inativar usuário](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/109a3d42-f1da-401c-832c-9c9264ff7d82) | Data do Teste: 15/11/2023 - Resultado: Positivo - Foi possivel efetuar todos os testes com tempo inferior a 30 segundos | XXX |
 ||
 
 <br>
