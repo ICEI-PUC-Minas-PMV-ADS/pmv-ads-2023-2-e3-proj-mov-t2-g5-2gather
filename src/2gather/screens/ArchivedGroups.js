@@ -36,12 +36,11 @@ useEffect(() => {
 }, []);
 
 
-{/* // Navegar para a tela de ABRIR O GRUPO ao pressionar (item).
+
 const handleItemPress = (item) => {
-  //o nome da Screen precisa ser confirmado, assim como a identificação do Grupo...
-  navigation.navigate('Talks', { groupId: item.id });
+  navigation.navigate('GroupConversation', { groupId: item.id });
 };
-*/}
+
 
 
 
@@ -76,16 +75,6 @@ const handleItemPress = (item) => {
           />
         
       </View>
-
-      {/*Botão Provisório*/}
-
-      {/* <TouchableOpacity
-        style={styles.buttonForecast}
-        onPress={() => navigation.navigate("YourGroups")}
-      > 
-        <Text style={styles.buttonLoginText}>Go To YourGroups Screen</Text>
-      </TouchableOpacity>
-      */}
     </View>
   );
 }

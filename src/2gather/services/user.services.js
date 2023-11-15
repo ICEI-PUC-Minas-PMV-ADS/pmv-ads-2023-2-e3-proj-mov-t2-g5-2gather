@@ -48,7 +48,7 @@ export const UpdateUserDetails = async ({ name, email, phone, photo, description
 };
 
 // Recuperação de Senha
-export const GetUserPassword = async () => {
+export const GetUserPassword = async () => { // o nome dessa função está um pouco ruim, e esse endpoint não existe. talvez password recovery? e nesse caso pode ficar no auth.services
     try {
         const result = await sendAuthenticatedRequest('/user/password/', 'GET');
         return result;
@@ -57,3 +57,18 @@ export const GetUserPassword = async () => {
     }
 };
 
+//Alteração/Registro de foto
+export const updateUserPhoto = async ({ newPhoto }) => {
+    try {
+        const data = { photo: newPhoto };
+        const response = await sendAuthenticatedRequest(`/user/update/`, 'PATCH', data);
+        if (response.ok) {
+            return true; // Registro de nova foto bem-sucedido
+        } else {
+            return false; // Falha no registro da nova foto
+        }
+    } catch (error) {
+        console.log('Error updating user photo:', error);
+        return false; // Erro durante a troca
+    }
+};

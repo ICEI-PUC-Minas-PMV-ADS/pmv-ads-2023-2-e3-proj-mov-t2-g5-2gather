@@ -8,7 +8,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  Button,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
@@ -105,7 +105,7 @@ export default function CreateNewGroup({ route, navigation }) {
   const renderSelectedContacts = () => {
     return (
       <View style={styles.selectedContactsContainer}>
-      
+        <ScrollView horizontal>
           {selectedContactsState.map((selectedContact) => (
             <View style={styles.selectedContactItem} key={selectedContact.id}>
               <TouchableOpacity
@@ -124,7 +124,7 @@ export default function CreateNewGroup({ route, navigation }) {
               </Text>
             </View>
           ))}
-       
+        </ScrollView>
       </View>
     );
   };
