@@ -23,8 +23,7 @@ export default function ArchivedGroups ({ navigation }) {
   const getArchivedGroups = async () => {
     try {      
         const result = await GetListArchivedGroups() || [];
-        setArchivedGroups(result);
-        console.log(result)
+        setArchivedGroups(result)
     } catch (error) {
         console.log(error)
     } finally {  
@@ -47,7 +46,7 @@ const handleItemPress = (item) => {
 
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('GroupConversation', {id: item.id})}>
+    <TouchableOpacity onPress={() => navigation.navigate('GroupInfo', { id: item.id })}>
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
       <Text style={styles.contactText}>{item.title}</Text>
@@ -76,7 +75,6 @@ const handleItemPress = (item) => {
           />
         
       </View>
-
     </View>
   );
 }

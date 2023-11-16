@@ -91,7 +91,7 @@ export const ArchiveGroup = async ({ group, archive }) => {
     }
 };
 
-export const EditGroup = async ({ group, archive }) => {
+export const EditGroup = async ({ group }) => {
     try {
         const result = await sendAuthenticatedRequest(`/group/update/${group.id}`, 'PATCH', group);
         return result;

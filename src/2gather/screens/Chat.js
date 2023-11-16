@@ -15,8 +15,8 @@ const Chat = ({ route, navigation }) => {
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
-	let image = (room.isPrivate ? partner.photo : room.Image)
-	image = image ? { uri: image } :  require('../assets/profile.png')
+	//Se for conversa privada, tenta carregar a url que está em photo do destinatário, se não conseguir/não houver, carrega profile.png. Se for conversa em grupo, pega imagem default de grupo
+	let image = (room.isPrivate ? (partner.photo ? { uri: partner.photo } :  require('../assets/profile.png')) : require('../assets/group.png'))
 
 	const getMessages = async () => {
 		try {
@@ -120,8 +120,14 @@ const Chat = ({ route, navigation }) => {
 		<View style={styles.container}>
 			<View >
 				<Appbar.Header style={styles.header}>
-					<Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
-					<TouchableOpacity onPress={() => navigation.navigate('Profile', {item: partner})}> {/* Precisa implementar a logica pra redirecionar pra grupos */}
+					<Appbar.BackAction onPress={() => navigation.navigate('Homepage') }/>
+					<TouchableOpacity onPress={() => {
+						{
+							room.isPrivate
+							? navigation.navigate('Profile', { item: partner })
+							: navigation.navigate('GroupInfo', { id: room.id })
+						}
+					}}>
 						<View style={styles.contentContainer}>
 							<Image
 								style={styles.contactPhoto}

@@ -10,14 +10,19 @@ import {
   Button,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useUser } from "../contexts/UserContext";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Divider } from "react-native-paper";
 import { GetListYourGroups } from '../services/group.services';
 import { GetTransmissionList } from '../services/group.services';
 import { GetMessages } from '../services/message.service';
+import socket from "../services/socket";
+import { GetGroupDetails } from '../services/group.services';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Homepage() {
-  const navigation = useNavigation();
+  const navigation = useNavigation();  
+  const { name, id, privateE2eContext  } = useUser();
 
 //Listagem dos grupos, listas e mensagens no qual participa e estão ativos.
 const [yourGroups, setYourGroups] = useState([]);
@@ -39,7 +44,6 @@ const getYourGroups = async () => {
 useEffect(() => {
 getYourGroups();
 }, []);
-
 
 //Buscar Listas de Transmissão ativas
 const getYourLists = async () => {
@@ -74,19 +78,37 @@ useEffect(() => {
 getYourMessages();
 }, []);
 
+useFocusEffect(
+  React.useCallback(() => {
+    getYourGroups();
+    getYourLists();
+    getYourMessages();
+  }, [])
+)
 
+  const handleItemPress = async (groupId) => {
+    try {
+      const result = await GetGroupDetails({ idGroup: groupId }) || [];
+      navigation.navigate("Chat", {
+        room: result,
+        roomId: result.id,
+      });
+    } catch (error) {
+      alert('error')
+      console.log(error)
+    }
+  };
 
 const defaultImage = require('../assets/group.png');
 const renderItem = ({ item }) => (
-  <TouchableOpacity onPress={() => navigation.navigate('GroupConversation', {id: item.id})}>{/*handleItemPress(item)}>*/}
+  <TouchableOpacity onPress={() => handleItemPress(item.id)}>
     <View style={styles.contactItem}> 
-    <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-    <Text style={styles.contactText}>{item.title}</Text>
-  </View>
+      {/*Se item.photo não retornar uma url válida, carrega imagem default de grupos */}
+    <Image style={styles.contactPhoto} source={item.photo ? { uri: item.photo || null } : defaultImage} defaultSource={defaultImage} />     
+      <Text style={styles.contactText}>{item.title}</Text>
+    </View>
   </TouchableOpacity>
 );
-
-
 
 //Listagem das Listas de Transmissão que participa e estão ativas.
 

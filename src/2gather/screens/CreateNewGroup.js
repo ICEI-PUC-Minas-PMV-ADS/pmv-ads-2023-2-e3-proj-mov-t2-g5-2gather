@@ -60,7 +60,7 @@ export default function CreateNewGroup({ route, navigation }) {
     getContacts();
   }, []);
   
-  const defaultImage = require('../assets/profile.png');
+  const defaultImage = require('../assets/group.png');
 
   const renderItem = ({ item }) => (
     <TouchableOpacity>
@@ -160,27 +160,21 @@ export default function CreateNewGroup({ route, navigation }) {
         setShowAlert(true);
         return;
       }
-
+      const participants = selectedContactsState.map((contact) => contact.id);
+      participants.push(id)
       const groupData = await CreateNewGroups({
         title: title,
         photo: photo,
         description: description,
         idAdmin: id,
         isPrivate: false,
-        participants: selectedContactsState.map((contact) => contact.id),
+        participants: participants,
       });
 
-    console.log(groupData);
-    //alert("Grupo criado com sucesso");
-    //navigation.navigate("GRUPO CRIADO - Screen da Ellen")
-    navigation.navigate('GroupConversation', {id: groupData.id});
-    ;
+    navigation.navigate('Chat', { room: groupData, roomId: groupData.id });
 
   } catch (error) {
     console.log(error);   
-  } finally {  
-
-    navigation.navigate('GroupConversation', {id: groupData.id});
   } 
 };
 
