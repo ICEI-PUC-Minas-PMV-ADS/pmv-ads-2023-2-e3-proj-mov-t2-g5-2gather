@@ -67,7 +67,7 @@ Além disso, na parte superior estão disponíveis os botões de `Lista de Trans
 
 Na parte inferior estão disponíveis os botões de:
 
-- Gerenciamente de Usuários: Nessa sessão o Admin pode Criar, Editar e Inativar usuários;
+- Gerenciamento de Usuários: Nessa sessão o Admin pode Criar, Editar e Inativar usuários;
 - Contatos: Nessa sessão todos os usuários tem acesso a lista de pessoas cadastradas, podendo visualizar as informações básicas dos demais ao clicar sobre a foto 
 e pode enviar mensagens diretas clicando sobre o nome do contato escolhido;
 - Configurações: Nesta última sessão, o usuário tem a possibilidade de Editar a Foto do seu Perfil e fazer a troca da sua senha pessoal, clicando no botão específico.
