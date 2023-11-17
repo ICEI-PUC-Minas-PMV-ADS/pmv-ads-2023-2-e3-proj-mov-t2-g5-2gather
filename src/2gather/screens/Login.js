@@ -42,6 +42,7 @@ export default function Login(navigation) {
               AsyncStorage.setItem(key, String(res[key])).then();
             }
           }
+          AsyncStorage.setItem('signed', String(true)).then();
         }
         setSigned(true);
         setName(res.name);
