@@ -28,7 +28,7 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
 
 ## Instuções de Acesso:
 
-A Aplicação Mobile "2Gether" está disponível e pode ser acessada pelo link: (https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather). Agora com 
+A Aplicação Mobile "2Gather" está disponível e pode ser acessada pelo link: (https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather). Agora com 
 o projeto identificado, selecione a "main", vá até "<>Code" e escolha a forma a qual entende ser adequado para clocar o arquivo e salvá-lo em uma pasta no diretório escolhido 
 para então abrí-lo no VS Code. 
 
