@@ -2,14 +2,6 @@
 
 <span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="5-Arquitetura da Solução.md"> Arquitetura da Solução</a>
 
-<!-- Implementação do sistema descritas por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos os artefatos criados (código fonte) além das estruturas de dados utilizadas e as instruções para acesso e verificação da implementação que deve estar funcional no ambiente de hospedagem.
-
-Para cada requisito funcional, pode ser entregue um artefato desse tipo -->
-
-# Programação de Funcionalidades
-
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="5-Arquitetura da Solução.md"> Arquitetura da Solução</a>
-
 Implementação do sistema descrita por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos com os artefatos criados (código fonte), deverão apresentadas as instruções para acesso e verificação da implementação que deve estar funcional no ambiente de hospedagem.
 
 ### Funcionalidade 01: Fazer Publicações (RF-001)
@@ -43,54 +35,62 @@ A funcionalidade permite que o usuário realize com sucesso o cadastro na platar
 * [User.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Models/User.cs)
 * [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
 
-### Funcionalidade 03: Efetuar Login	(RF-006) 
-A funcionalidade permite que o usuário realize com sucesso o login na platarforma da `Study2gether`.
+### Funcionalidade 03: Criar Grupos (RF-03)
 
-![Screenshot 2023-05-07 143223](https://user-images.githubusercontent.com/107289791/236693541-74942825-5920-4273-a7e2-b30db3eca14e.png)
+A funcionalidade permite que os usuários criem Grupos no App da `2Gather`.
 
-##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Clique no botão `Login`.
-3. Insira o `e-mail` e a `senha` já cadastrados previamente.
-4. Clique no botão `Entrar`.
-
-##### Artefatos produzidos
-* [Login.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/Login.cshtml)
-* [User.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Models/User.cs)
-* [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
-
-### Funcionalidade 04: Visualizar publicações (RF-008)
-
-A funcionalidade permite que os usuários visualizem as postagens de indicações, perguntas ou interações na platarforma da `Study2gether`.
-
-![Pagina de Interações](https://user-images.githubusercontent.com/114435981/236595542-a8e16566-daaa-4e59-af18-8db9534eebd1.png)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/c3452472-21e6-4c1b-b3cc-949ae0374622) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/2b2e4011-150f-439e-baa6-a3563b09b553) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/930e0568-7045-4382-bdc0-0a6ae6d202d5)
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Clicar em "Indicações", "Perguntas" ou "Interações".
-3. Clicar na postagem desejada para ser visualisada.
+1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a Aplicação no VSCode e a inicialize conforme descrito detalhadamente no README.
+3. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
+4. Com o login já efetuado, clicar em "Grupos" na parte superior da HomePage.
+5. Na Tela "Adicione participantes ao Grupo" Selecionar o primeiro participante e na próxima tela incluir outros participantes ao Grupo.
+7. Nomear o Grupo e clicar em "Criar"
 
 ##### Artefatos produzidos
-* [Perguntas.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Perguntas.cshtml)
-* [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
-* [Interacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Interacoes.cshtml)
-* [Indicacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Indicacoes.cshtml)
+* [NewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewGroup.js)
+* [CreateNewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/CreateNewGroup.js)
+* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
 
-### Funcionalidade 05: Postar Perguntas e Interações (RF-003)
+### Funcionalidade 04: Criar Lista de Transmissão (RF-04)
 
-A aplicação deve permitir ao usuário postar perguntas e interações na platarforma da `Study2gether`.
+A funcionalidade permite que os usuários criem Listas de Transmissão no App da `2Gather`.
 
-![Postar perguntar](img/teladeperguntas.jpg)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/3ee72e73-4708-4fb9-862b-d1ca7896d9ef) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/d6739eba-c0f1-442d-8cd4-88119844ea69) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/e6058435-4cb8-425b-8cea-9b76d5d8fa7c)
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Clicar em "Perguntas" ou "Interações".
-3. Clicar em "+" (usuários já cadastrados e previamente logados).
+1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a Aplicação no VSCode e a inicialize conforme descrito detalhadamente no README.
+3. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
+4. Com o login já efetuado, clicar em "Lista de Transmissão" na parte superior da HomePage.
+5. Na Tela "Listas de transmissão" clicar no botão "Nova lista".
+6. Na próxima tela Selecione os destinatários da Lista.
+7. Nomear a Lista e clicar em "Criar"
 
 ##### Artefatos produzidos
-* [Perguntas.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Perguntas.cshtml)
-* [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
-* [Interacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Interacoes.cshtml)
+* [NewList.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewList.js)
+* [CreateReceivers](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/CreateReceivers.js)
+* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
+
+### Funcionalidade 05: Permitir que apenas os administradores da lista de transmissão possam enviar mensagens (RF-05)
+
+A funcionalidade permite que apenas ao Criador/Administrador da lista de transmissão possa enviar mensagens nesta Lista Criada por ele no App `2Gather`.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/95e35cce-fce2-45d4-ab1a-cc93b029f883)
+
+##### Instruções de acesso
+1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a Aplicação no VSCode e a inicialize conforme descrito detalhadamente no README.
+3. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
+4. Com o login já efetuado, clicar em "Lista de Transmissão" na parte superior da HomePage.
+5. Na Tela Listas de transmissão, o Administrador terá todas as suas listas criadas podendo enviar mensagens, editá-las e arquivá-las.
+6. Caso não seja o Administrador da Lista não será possível o envio de mensagens, tendo acesso apenas à leitura.
+
+##### Artefatos produzidos
+* [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/BroadcastCreate.js)
+* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
 
 ### Funcionalidade 06: Postar Respostas (RF-004)
 A aplicação deve permitir ao usuário responder as perguntas na platarforma da `Study2gether`.
@@ -127,68 +127,60 @@ A funcionalidade permite que o usuário, logado na `Study2gether`, acesse sua p�
 * [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
 * [Historico.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/feature-96/src/Study2gether/Study2gether/wwwroot/js/historico.js)
 
-### Funcionalidade 08: Editar o perfil de usuário (RF-007 e RF-006)
-A funcionalidade permite que o usuário, logado na `Study2gether`, acesse seu perfil de usuário e edite suas informações de perfil.
+### Funcionalidade 08: Visualizar informações básicas dos usuários (RF-08)
 
-![Editar Perfil](https://user-images.githubusercontent.com/12260321/236688846-03e2b3c5-d952-4256-9dbe-6dc66fe913fd.png)
+A funcionalidade permite que um usuário, logado na `2Gather`, visualize as informações básicas dos demais usuários.
 
-##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com)
-2. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
-3. Com o login já efetuado, clicar em seu nome de usuário no canto superior direito.
-4. Na tela Perfil/Histórico, clicar em `Editar Perfil`.
-5. Na tela de `Editar Perfil`, editar as informações.
-6. Clicar em `Salvar Perfil`. 
-
-##### Artefatos produzidos
-* [Historico.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/Historico.cshtml)
-* [EditarPerfil.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/EditarPerfil.cshtml)
-* [EditarPerfil.css](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/wwwroot/css/editarPerfil.css)
-* [User.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Models/User.cs)
-* [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
-
-### Funcionalidade 09: Excluir a conta (RF-006)
-A funcionalidade permite que o usuário, logado na `Study2gether`, exclua sua conta de usuário.
-
-![Excluir Perfil](https://user-images.githubusercontent.com/12260321/236689149-b2fd74bc-7bea-4a10-9744-b04b9989d393.png)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/c7df69ae-083a-405a-8383-3fcab23f6900)
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com)
-2. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
-3. Com o login já efetuado, clicar em seu nome de usuário no canto superior direito.
-4. Na tela Perfil/Histórico, clicar em `Editar Perfil`.
-5. Na tela de `Editar Perfil`, clicar em `Excluir Perfil`.
-6. Um prompt de confirmação será exibido informando que a exclusão será definitiva.
-7. Caso escolha `Sim`, a conta é definitivamente excluída e o usuário poderá fazer outro cadastro com esse email futuramente.
-8. Caso escolha `Cancelar`, a ação é abortada.
+1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a Aplicação no VSCode e a inicialize conforme descrito detalhadamente no README.
+3. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
+4. Com o login já efetuado, clicar em "Contatos" na parte inferior da HomePage.
+5. Na tela Contatos, clicar sobre a foto daquele usuário que gostaria de visualizar as informações básicas.
 
 ##### Artefatos produzidos
-* [Historico.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/Historico.cshtml)
-* [EditarPerfil.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/EditarPerfil.cshtml)
-* [EditarPerfil.css](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/wwwroot/css/editarPerfil.css)
-* [User.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Models/User.cs)
-* [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
+* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Profile.js)
 
-### Funcionalidade 10: Alterar senha com usuário logado (RF-010)
-A funcionalidade permite que o usuário logado na `Study2gether` acesse seu Perfil e altere sua senha.
+### Funcionalidade 09: Efetuar Login	(RF-09)
 
-![Alterar senha](https://user-images.githubusercontent.com/12260321/236688584-29440457-fa83-4c6e-8022-523ae1209be3.png)
+A funcionalidade permite que o usuário realize com sucesso o login no App `2Gather`.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/34fd38e6-2d19-4ec4-b102-30dd5d7bd003) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/88b7d84a-ea3a-48de-b64a-2cbeb0e7d359)
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
-3. Com o login já efetuado, clicar em seu nome de usuário no canto superior direito.
-4. Na tela Perfil/Histórico, clicar em `Alterar senha`.
-5. Na tela `Alterar Senha`, inserir qual a senha atual, qual será a senha nova e confirmar a nova senha.
-6. Clicar em `Alterar Senha`.
+1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a Aplicação no VSCode e a inicialize conforme descrito detalhadamente no README.
+3. Na tela inicial clique no botão `Login`.
+4. Insira o `e-mail` e a `senha` já cadastrados.
+5. Clique no botão `Entrar`.
 
 ##### Artefatos produzidos
-* [Historico.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/Historico.cshtml)
-* [AlterarSenha.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/AlterarSenha.cshtml)
-* [EditarPerfil.css](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/wwwroot/css/editarPerfil.css)
-* [User.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Models/User.cs)
-* [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
+* [Home.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Home.js)
+* [Login.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Login.js)
+* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/auth.services.js)
 
+### Funcionalidade 10: Alterar senha pessoal (RF-010)
+
+A funcionalidade permite que o usuário do App `2Gather` acesse seu Perfil e altere sua senha.
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/79d2dbe8-e375-43d2-8d38-e41564b41e62) ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/f4d57cc0-9277-4a89-bdc1-ceaa37f34d7a)
+
+##### Instruções de acesso
+1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a Aplicação no VSCode e a inicialize conforme descrito detalhadamente no README.
+3. com a aplicação inicializada, Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
+4. Com o login já efetuado, clicar em "Configurações" na parte inferior da HomePage.
+5. Na tela Perfil, clicar no botão `Alterar senha`.
+6. Na tela `Alterar Senha`, inserir qual a senha atual, qual será a senha nova e confirmar a nova senha.
+7. Clicar em `Alterar Senha`.
+
+##### Artefatos produzidos
+* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Profile.js)
+* [NewPassword](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewPassword.js)
+* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/auth.services.js)
+  
 ### Funcionalidade 11: Administrador inserir postagem de indicações de materiais relevantes. (RF-011)
 
 A aplicação deve permitir ao administrador inserir postagem de indicações de materiais relevantes. `Study2gether`.
