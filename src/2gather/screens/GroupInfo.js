@@ -3,9 +3,11 @@ import {
   View, Text, StyleSheet,
   Image,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
 } from 'react-native';
-import { Appbar, Avatar, Button, Divider } from 'react-native-paper';
+import { Appbar, Button, Divider } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { useUser } from "../contexts/UserContext";
 import socket from "../services/socket";
@@ -16,7 +18,7 @@ import { useFocusEffect } from '@react-navigation/native';
 export default function GroupInfo({ route }) {
   const navigation = useNavigation();
 
-  const { name, id, privateE2eContext  } = useUser();
+  const { name, id, privateE2eContext } = useUser();
   const item = route.params ? route.params : {};
   const [idGroup, setIdGroup] = useState("");
   const [title, setTitle] = useState("");
@@ -59,8 +61,8 @@ export default function GroupInfo({ route }) {
   }, []);
 
   const handleOpenChatWithContact = async (partner) => {
-    try { 
-      const result = await getOrCreatePrivateGroup({ idPartner: partner.id, idSelf: id})
+    try {
+      const result = await getOrCreatePrivateGroup({ idPartner: partner.id, idSelf: id })
       socket.emit("createRoom", result.id, partner.name);
       navigation.navigate("Chat", {
         room: result,
@@ -131,28 +133,30 @@ export default function GroupInfo({ route }) {
           />
 
         </View>
-        <View styles={styles.containerButtons}>
           {isGroupAdmin ?
+        <View styles={styles.containerButtons}>
             <Button
               mode="contained"
+              uppercase={false}
               color={'#74D99F'}
               style={styles.button}
-              icon="plus-circle-outline"
+              icon="pencil"
               onPress={() => navigation.navigate('EditGroup', { group: group })}>
               Editar
             </Button>
-          :
-          console.log("")
-          }
           <Button
             mode="contained"
+            uppercase={false}
             color={'#FAE29F'}
             style={styles.button}
-            icon="minus-circle-outline"
+            icon="folder-open"
             onPress={() => handleArchiveGroup()}>
             {isArchived == false ? 'Arquivar' : 'Desarquivar'}
           </Button>
         </View>
+          :
+          console.log("")
+        }
       </View>
     </View >
   );
@@ -194,17 +198,14 @@ const styles = StyleSheet.create({
   },
   containerParticipants: {
     marginBottom: 15,
-    height: 500,
-  },
-  containerButtons: {
-    flex: 1,
+    height: '70%',
   },
   contactItem: {
-    padding: 10, 
-    borderBottomWidth: 1, 
-    borderBottomColor: '#ccc', 
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
     flexDirection: "row",
-    alignItems: "center", 
+    alignItems: "center",
   },
   contactPhoto: {
     width: 20,
@@ -212,9 +213,20 @@ const styles = StyleSheet.create({
     borderRadius: 17.5,
     marginRight: 10,
   },
+  containerButtons: {
+    flex: 1,
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
+    height: '10%',
+  },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    margin: 5
+    justifyContent: "center",
+    borderRadius: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    margin: 5,
   },
 });
