@@ -150,7 +150,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a autenticação de e-mail e senha é negada para dados válidos.	|<ol><li>Acessar a aplicação</li><li>Realizar o  login fornecendo os dados corretos </li></ol> |	O usuário deve ser capaz de acessar a aplicação.
-| Registro da tela: | ![Login](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/17d315cf-3443-4c13-ac4b-35121d5167b0) | Data do Teste: 15/11/2023 - Resultado: Positivo - O aplicativo aprovou login com as credênciais corretas. | XXX | ||
+| Registro da tela: | ![Login](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/17d315cf-3443-4c13-ac4b-35121d5167b0) | Data do Teste: 15/11/2023 - Resultado: Positivo - O aplicativo aprovou login com as credênciais corretas. | 
 
 <br>
 
@@ -172,7 +172,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se é possível adicionar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Adicionar um novo canal</li></ol> |	O canal deve ser criado e aparecer na lista de canais.
-| Registro da tela: | ![Criação de Lista de transmissão](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/9cc5721a-5d28-478a-8638-84eaf26f6534) | Data do Teste: 15/11/2023 - Resultado: Positivo - Foi possivel adicionar uma nova lista de transmissão | XXX |||
+| Registro da tela: | ![Criação de Lista de transmissão](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/9cc5721a-5d28-478a-8638-84eaf26f6534) | Data do Teste: 15/11/2023 - Resultado: Positivo - Foi possivel adicionar uma nova lista de transmissão | 
 
 <br>
 
@@ -183,19 +183,17 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se é possível editar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Editar um canal existente</li></ol> |	As alterações feitas no canal devem ser salvas e refletidas na lista de canais.
-| Registro da tela: | ![Edição de lista de transmissão](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/cdf9399b-eb91-41a8-8780-64ee2bf7c37a) | Data do Teste: 15/11/2023 - Resultado: Positivo - Foi possivel editar uma lista de transmissão | XXX |||
-
+| Registro da tela: | ![Edição de lista de transmissão](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/cdf9399b-eb91-41a8-8780-64ee2bf7c37a) | Data do Teste: 15/11/2023 - Resultado: Positivo - Foi possivel editar uma lista de transmissão e grupos de conversas | 
 <br>
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-11.3 - Remover Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
+|CT-11.3 - Arquivar Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se é possível remover um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Remover um canal</li></ol> |	O canal deve ser removido da lista de canais.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+|Verificar se é possível arquivar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Arquivar um canal</li></ol> |	O canal deve ser arquivado da lista de canais.
+| Registro da tela: |![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/0b3c76b2-b520-4fce-b2d0-b24e0d52c309) | Data do Teste: 17/11/2023 - Resultado: Positivo - Foi possivel arquivar lista de transmissão e grupos de conversas| 
 
 <br>
 
@@ -266,7 +264,5 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar o funcionamento da aplicação offline e online.	|<ol><li>Acessar a aplicação com conexão à internet</li><li>Verificar funcionalidades</li><li>Desconectar da internet</li><li>Acessar a aplicação novamente</li><li>Verificar funcionalidades restritas</li></ol> |	A aplicação deve ter funcionalidades restritas quando offline e todas as funcionalidades disponíveis quando online.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
-
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/1b3563b3-4855-4a15-b19a-ce18fa822d2a)| Data do Teste: 17/11/2023 - Resultado: Positivo - Sem acesso à internet não foi possivel iniciar a aplicação e com a internet foi possivel acessar de livremente. | 
 <br>
