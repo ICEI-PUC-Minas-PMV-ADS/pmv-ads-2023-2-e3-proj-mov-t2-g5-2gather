@@ -23,7 +23,9 @@ O sistema deve fornecer uma interface administrativa que permita aos administrad
 
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/f913b28d-b5ea-479c-a7de-99f3f1d81afb)
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/25be55d2-cb61-48f8-be66-678e68462ff9)
-
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1537e4ec-e73f-4a5f-8b20-4406dac8b6e5)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1c73f65b-55bc-47e0-9478-bfb28c10c335)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/9dab2582-8325-445e-baf5-c0011a6ddfcb)
 
 ##### Instruções de acesso
 1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
@@ -31,6 +33,9 @@ O sistema deve fornecer uma interface administrativa que permita aos administrad
 3. Caso o usuário não esteja logado, realize o login.
 4. Após realizar o login como 'ADMINISTRADOR', clique na opção "Gerenciamento de Usuário", localizada na parte inferior da HomePage.
 5. Na tela de Gerenciamento de Usuário, o usuário com perfil de ADMINISTRADOR terá a capacidade de executar ações como Criar Usuário, Editar Usuário ou Inativar Usuário.
+6. Na interface 'Criar Usuário', o administrador precisa inserir o e-mail corporativo, número de telefone, senha, nome do colaborador e cargo. Posteriormente, deve clicar no botão 'Criar'.
+Ao acessar a opção 'Editar Usuário', é necessário selecionar o ID do usuário, e-mail corporativo, senha, nome do colaborador, setor e cargo. Em seguida, o administrador pode clicar em 'Salvar' para aplicar as alterações ou em 'Cancelar' para desfazê-las.
+Para 'Inativar Usuário', o administrador deve escolher um usuário específico e fornecer o motivo da inativação. Após isso, pode clicar em 'Inativar' para confirmar a ação ou em 'Cancelar' para anular o processo.
 
 ##### Artefatos produzidos
 * [UserManagement.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/UserManagement.js)
