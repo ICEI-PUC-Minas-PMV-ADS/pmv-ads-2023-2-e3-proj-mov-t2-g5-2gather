@@ -49,8 +49,9 @@ de 10 à 15 pontos a avaliação de usabilidade é Boa / ótima.
 
 |Caso de teste | Objetivo do teste | Tarefa| Nota da avaliação pós-tarefa (ASQ)|
 |------|-----------------------------------------|----|----|
-|CT-05 | Validar usabilidade do envio de mensagens na lista de transmissão | Enviar mensagens em lista de transmissão| 5 |
-![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/f07dc4e0-1150-4383-a388-2eceaa1a6ef7)
+|CT-05 | Validar usabilidade do envio de mensagens na lista de transmissão | Enviar mensagens em lista de transmissão| 15 |
+
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/2e9c17d4-2528-4f19-a186-cb967c8e0d9c)
 
 
 |Caso de teste | Objetivo do teste | Tarefa| Nota da avaliação pós-tarefa (ASQ)|
