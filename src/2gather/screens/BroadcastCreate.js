@@ -43,7 +43,7 @@ export default function BroadcastCreate() {
             <TouchableOpacity
             key={index} style={styles.grupoContainer}
             onPress={() => {
-              navigation.navigate('GroupConversation', { id: grupo.id });
+              navigation.navigate('ListConversation', { id: grupo.id });
             }}>
               <Text style={styles.grupoTitle}>{grupo.title}</Text>
               <TouchableOpacity

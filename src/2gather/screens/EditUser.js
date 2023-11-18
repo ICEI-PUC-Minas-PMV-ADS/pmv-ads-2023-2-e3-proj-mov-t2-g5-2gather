@@ -127,10 +127,11 @@ export default function EditUser({ navigation }) {
           <Picker
             selectedValue={userId}
             onValueChange={(itemValue) => setUserId(itemValue)}
-            style={styles.inputPicker}
+            style={[styles.inputPicker, fieldErrors.role && styles.errorInput]}
           >
+            <Picker.Item label="Selecione um e-mail" value="null" />
             {userList.map((user) => (
-              <Picker.Item key={user.id} label={user.email} value={user.id} />
+              <Picker.Item  key={user.id} label={user.email} value={user.id} />
             ))}
           </Picker>
 
@@ -158,7 +159,7 @@ export default function EditUser({ navigation }) {
               onValueChange={(value) => setRole(value)}
               style={[styles.inputPicker, fieldErrors.role && styles.errorInput]}
             >
-              <Picker.Item label="Click e selecione um cargo" value="" />
+              <Picker.Item label="Selecione um cargo" value="null" />
               {roles.map((item) => (
                 <Picker.Item key={item.id} label={item.name} value={item.id} />
               ))}

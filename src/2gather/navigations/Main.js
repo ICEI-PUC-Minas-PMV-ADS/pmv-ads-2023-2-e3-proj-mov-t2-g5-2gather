@@ -22,6 +22,7 @@ import CreatedBroadcastList from '../screens/CreatedBroadcastList';
 import ArchivedLists from '../screens/ArchivedLists';
 import GroupConversation from '../screens/GroupConversation';
 import GroupInfo from '../screens/GroupInfo';
+import ListConversation from '../screens/ListConversation';
 import EditGroup from '../screens/EditGroup';
 
 const stack = createNativeStackNavigator();
@@ -152,6 +153,13 @@ const MainNav = () => {
             <stack.Screen
                 name="GroupConversation"
                 component={GroupConversation}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
+                name="ListConversation"
+                component={ListConversation}
                 options={{
                     header: () => null,
                 }}

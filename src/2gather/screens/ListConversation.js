@@ -1,50 +1,44 @@
-// import React, { useState } from 'react';
-// import {
-//   View,
-//   Text,
-//   TextInput,
-//   StyleSheet,
-//   TouchableOpacity,
-//   Platform,
-//   KeyboardAvoidingView,
-// } from 'react-native';
-// import { Appbar } from 'react-native-paper';
-// import { useUser } from '../contexts/UserContext';
-// import { useToast } from '../contexts/ToastContext'; //toast
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Platform, KeyboardAvoidingView} from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
 import { Appbar, Avatar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { GetGroupDetails } from '../services/group.services';
 import { useUser } from '../contexts/UserContext';
-import { useToast } from '../contexts/ToastContext'; //toast
+import { useToast } from '../contexts/ToastContext';
 
-export default function GroupConversation({ route }) {
+export default function ListConversation({ route }) {
   const navigation = useNavigation();
-  const groupId = route.params ? route.params : {}
-  const [idGroup, setIdGroup] = useState('');
-  const [title, setTitle] = useState('');
-  const [currentMessage, setCurrentMessage] = useState('');
+  const groupId = route.params ? route.params : {};
+  const [idGroup, setIdGroup] = useState("");
+  const [title, setTitle] = useState("");
+  const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [isGroupFocused, setIsGroupFocused] = useState(false);
 
   const { user, name } = useUser();
-  const { showToast } = useToast(); //toast
-  // const userName = user?.name || 'Carregando...';
+  const { showToast } = useToast();
   const userName = name;
   const userId = user?.id;
   const isAdmin = userId === user?.idAdmin;
-  // const isAdmin = user?.isAdmin; //admin off
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsGroupFocused(true);
+      return () => setIsGroupFocused(false);
+    }, [])
+  );
 
   const handleSendMessage = () => {
-    if (isAdmin && currentMessage.trim() !== '') {
+    if (isAdmin && currentMessage.trim() !== "") {
       const timestamp = new Date();
       const timeString = `${timestamp
         .getHours()
         .toString()
-        .padStart(2, '0')}:${timestamp
+        .padStart(2, "0")}:${timestamp
         .getMinutes()
         .toString()
-        .padStart(2, '0')}`;
+        .padStart(2, "0")}`;
       setMessages((prevMessages) => [
         ...prevMessages,
         {
@@ -53,43 +47,47 @@ export default function GroupConversation({ route }) {
           time: timeString,
         },
       ]);
-      setCurrentMessage('');
-      showToast('Lista de transmissão', userName, '2Gather'); //toast
+      setCurrentMessage("");
+      if (!isGroupFocused) {
+        showToast("Lista de transmissão", userName, "2Gather"); //toast
+      }
     }
   };
   const getGroup = async () => {
     try {
-      const result = await GetGroupDetails({ idGroup: groupId.id }) || [];
-      setTitle(result.title)
-      setIdGroup(result.id)
+      const result = (await GetGroupDetails({ idGroup: groupId.id })) || [];
+      setTitle(result.title);
+      setIdGroup(result.id);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   useEffect(() => {
     if (groupId) {
-      getGroup()
-    }
-    else {
-      console.log('Missing group id')
+      getGroup();
+    } else {
+      console.log("Missing group id");
     }
   }, []);
 
-
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.containerBody}
     >
       <View>
-      <TouchableOpacity onPress={() => navigation.navigate('GroupInfo', {id: groupId.id})}>
-      <Appbar.Header style={styles.header}>
-        <Appbar.BackAction onPress={() => navigation.navigate('Homepage')} />
-        <Avatar.Icon size={24} icon="account-group" />
-        <Text style={styles.titleHeader}>{title}</Text>
-      </Appbar.Header>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("GroupInfo", { id: groupId.id })}
+        >
+          <Appbar.Header style={styles.header}>
+            <Appbar.BackAction
+              onPress={() => navigation.navigate("Homepage")}
+            />
+            <Avatar.Icon size={24} icon="account-group" />
+            <Text style={styles.titleHeader}>{title}</Text>
+          </Appbar.Header>
+        </TouchableOpacity>
       </View>
       <View style={styles.messagesContainer}>
         {messages.map((message, index) => (
@@ -108,8 +106,8 @@ export default function GroupConversation({ route }) {
           style={styles.chatInput}
           placeholder={
             isAdmin
-              ? 'Digite sua mensagem...'
-              : 'Apenas um admin pode enviar mensagens'
+              ? "Digite sua mensagem..."
+              : "Apenas um admin pode enviar mensagens"
           }
           onSubmitEditing={handleSendMessage}
           editable={isAdmin}
@@ -129,67 +127,67 @@ export default function GroupConversation({ route }) {
 const styles = StyleSheet.create({
   containerBody: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   header: {
-    backgroundColor: '#2368A2',
+    backgroundColor: "#2368A2",
   },
   titleHeader: {
     marginLeft: 10,
     fontSize: 18,
-    color: '#FFFCF4',
+    color: "#FFFCF4",
   },
   messagesContainer: {
     flex: 1,
     padding: 10,
   },
   messageContainer: {
-    backgroundColor: '#FFFCF4',
+    backgroundColor: "#FFFCF4",
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
   },
   message: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   messageTime: {
     fontSize: 10,
-    color: '#888',
-    alignSelf: 'flex-end',
+    color: "#888",
+    alignSelf: "flex-end",
   },
   userName: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4,
-    color: '#2368A2',
+    color: "#2368A2",
   },
   chatInputContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderTopWidth: 1,
-    borderColor: '#EEE',
+    borderColor: "#EEE",
   },
   chatInput: {
     flex: 1,
-    backgroundColor: '#F1F3F5',
+    backgroundColor: "#F1F3F5",
     padding: 10,
     borderRadius: 20,
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: '#2368A2',
+    backgroundColor: "#2368A2",
     padding: 10,
     borderRadius: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   sendButtonDisabled: {
-    backgroundColor: '#CCCCCC',
+    backgroundColor: "#CCCCCC",
     padding: 10,
     borderRadius: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   sendButtonText: {
-    color: 'white',
+    color: "white",
   },
 });
