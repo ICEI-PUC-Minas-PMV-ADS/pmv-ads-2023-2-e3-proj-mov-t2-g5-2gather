@@ -154,18 +154,18 @@ export default function EditUser({ navigation }) {
           />
 
           <Text>Cargo</Text>
-          <>
+          <View style={styles.emailInput}>
             <Picker
               selectedValue={role}
               onValueChange={(value) => setRole(value)}
-              style={[styles.inputPicker, fieldErrors.role && styles.errorInput]}
+              style={[fieldErrors.role && styles.errorInput]}
             >
               <Picker.Item label="Selecione um cargo" value="null" />
               {roles.map((item) => (
                 <Picker.Item key={item.id} label={item.name} value={item.id} />
               ))}
             </Picker>
-          </>
+          </View>
         </View>
 
         <View style={styles.buttonContainer}>
