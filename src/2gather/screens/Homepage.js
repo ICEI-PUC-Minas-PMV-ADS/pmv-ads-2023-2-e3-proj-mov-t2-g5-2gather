@@ -92,8 +92,7 @@ export default function Homepage() {
       const result = await GetGroupDetails({ idGroup: group.id }) || [];
       socket.emit("createRoom", result.id, group.title);
       navigation.navigate("GroupConversation", {
-        room: result,
-        roomId: result.id,
+        id: result.id,
       });
     } catch (error) {
       alert('error');

@@ -1,11 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
-import { Appbar, Avatar } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
-import { GetGroupDetails } from '../services/group.services';
-import { useUser } from '../contexts/UserContext';
-import { useToast } from '../contexts/ToastContext';
+import React, { useState, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Platform,
+  KeyboardAvoidingView,
+} from "react-native";
+import { Appbar, Avatar } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import { GetGroupDetails } from "../services/group.services";
+import { useUser } from "../contexts/UserContext";
+import { useToast } from "../contexts/ToastContext";
 
 export default function GroupConversation({ route }) {
   const navigation = useNavigation();
@@ -28,7 +36,7 @@ export default function GroupConversation({ route }) {
   );
 
   const handleSendMessage = () => {
-    if (isAdmin && currentMessage.trim() !== "") {
+    if (currentMessage.trim() !== "") {
       const timestamp = new Date();
       const timeString = `${timestamp
         .getHours()
@@ -107,10 +115,7 @@ export default function GroupConversation({ route }) {
           onSubmitEditing={handleSendMessage}
           editable={true}
         />
-        <TouchableOpacity
-          onPress={handleSendMessage}
-          style={styles.sendButton}
-        >
+        <TouchableOpacity onPress={handleSendMessage} style={styles.sendButton}>
           <Text style={styles.sendButtonText}>Enviar</Text>
         </TouchableOpacity>
       </View>
