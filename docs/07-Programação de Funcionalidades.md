@@ -50,9 +50,9 @@ A funcionalidade permite que os usuários criem Grupos no App da `2Gather`.
 7. Nomear o Grupo e clicar em "Criar"
 
 ##### Artefatos produzidos
-* [NewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewGroup.js)
-* [CreateNewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/CreateNewGroup.js)
-* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
+* [NewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/NewGroup.js)
+* [CreateNewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/CreateNewGroup.js)
+* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/group.services.js)
 
 ### Funcionalidade 04: Criar Lista de Transmissão (RF-04)
 
@@ -70,13 +70,13 @@ A funcionalidade permite que os usuários criem Listas de Transmissão no App da
 7. Nomear a Lista e clicar em "Criar"
 
 ##### Artefatos produzidos
-* [NewList.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewList.js)
-* [CreateReceivers](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/CreateReceivers.js)
-* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
+* [NewList.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/NewList.js)
+* [CreateReceivers](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/CreateReceivers.js)
+* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/group.services.js)
 
 ### Funcionalidade 05: Permitir que apenas os administradores da lista de transmissão possam enviar mensagens (RF-05)
 
-A funcionalidade permite que apenas ao Criador/Administrador da lista de transmissão possa enviar mensagens nesta Lista Criada por ele no App `2Gather`.
+A funcionalidade permite que apenas o Criador/Administrador da lista de transmissão possa enviar mensagens nesta Lista Criada por ele no App `2Gather`.
 
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/95e35cce-fce2-45d4-ab1a-cc93b029f883)
 
@@ -89,8 +89,8 @@ A funcionalidade permite que apenas ao Criador/Administrador da lista de transmi
 6. Caso não seja o Administrador da Lista não será possível o envio de mensagens, tendo acesso apenas à leitura.
 
 ##### Artefatos produzidos
-* [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/BroadcastCreate.js)
-* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
+* [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/BroadcastCreate.js)
+* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/group.services.js)
 
 ### Funcionalidade 06: Postar Respostas (RF-004)
 A aplicação deve permitir ao usuário responder as perguntas na platarforma da `Study2gether`.
@@ -141,7 +141,7 @@ A funcionalidade permite que um usuário, logado na `2Gather`, visualize as info
 5. Na tela Contatos, clicar sobre a foto daquele usuário que gostaria de visualizar as informações básicas.
 
 ##### Artefatos produzidos
-* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Profile.js)
+* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/Profile.js)
 
 ### Funcionalidade 09: Efetuar Login	(RF-09)
 
@@ -157,9 +157,9 @@ A funcionalidade permite que o usuário realize com sucesso o login no App `2Gat
 5. Clique no botão `Entrar`.
 
 ##### Artefatos produzidos
-* [Home.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Home.js)
-* [Login.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Login.js)
-* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/auth.services.js)
+* [Home.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/Home.js)
+* [Login.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/Login.js)
+* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/auth.services.js)
 
 ### Funcionalidade 10: Alterar senha pessoal (RF-010)
 
@@ -177,9 +177,9 @@ A funcionalidade permite que o usuário do App `2Gather` acesse seu Perfil e alt
 7. Clicar em `Alterar Senha`.
 
 ##### Artefatos produzidos
-* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Profile.js)
-* [NewPassword](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewPassword.js)
-* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/auth.services.js)
+* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/Profile.js)
+* [NewPassword](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/NewPassword.js)
+* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/auth.services.js)
   
 ### Funcionalidade 11: Administrador inserir postagem de indicações de materiais relevantes. (RF-011)
 
