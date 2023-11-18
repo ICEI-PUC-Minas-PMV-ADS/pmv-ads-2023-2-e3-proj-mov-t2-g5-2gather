@@ -50,7 +50,6 @@ export const getOrCreatePrivateGroup = async ({ idPartner, idSelf }) => {
 };
 
 export const CreateNewList = async ({ title, idAdmin, isTransmission, isPrivate, archived, participants }) => {
-    console.log(title, idAdmin)
     try {
         const result = await sendAuthenticatedRequest('/group/create/', 'POST', { title, idAdmin, isTransmission, isPrivate, archived, participants });
         return result;
