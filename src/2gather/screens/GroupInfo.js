@@ -3,23 +3,30 @@ import {
   View, Text, StyleSheet,
   Image,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableHighlight
 } from 'react-native';
-import { Appbar, Avatar, Button, Divider } from 'react-native-paper';
+import { Appbar, Button, Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import { GetUserList } from '../services/user.services';
+import { useUser } from "../contexts/UserContext";
+import socket from "../services/socket";
+import { getOrCreatePrivateGroup } from '../services/group.services';
 import { GetGroupDetails, ArchiveGroup } from '../services/group.services';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function GroupInfo({ route }) {
   const navigation = useNavigation();
 
+  const { name, id, privateE2eContext } = useUser();
   const item = route.params ? route.params : {};
   const [idGroup, setIdGroup] = useState("");
   const [title, setTitle] = useState("");
   const [participants, setParticipants] = useState([]);
   const [isArchived, setIsArchived] = useState(false);
   const [group, setGroup] = useState([]);
+  let image = require('../assets/group.png')
+  let isGroupAdmin = (group.idAdmin == id)
 
   const getGroup = async () => {
     try {
@@ -39,12 +46,35 @@ export default function GroupInfo({ route }) {
     }
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      if (item) {
+        getGroup()
+      }
+    }, [])
+  );
 
   useEffect(() => {
     if (item) {
       getGroup()
     }
   }, []);
+
+  const handleOpenChatWithContact = async (partner) => {
+    try {
+      const result = await getOrCreatePrivateGroup({ idPartner: partner.id, idSelf: id })
+      socket.emit("createRoom", result.id, partner.name);
+      navigation.navigate("Chat", {
+        room: result,
+        roomId: result.id,
+        partner: partner,
+      });
+
+    } catch (error) {
+      alert('error')
+      console.log(error)
+    }
+  };
 
   const handleArchiveGroup = () => {
     const archiveGroup = async () => {
@@ -64,10 +94,10 @@ export default function GroupInfo({ route }) {
 
   const defaultImage = require('../assets/profile.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('Chat', { roomId: item.id })}>
+    <TouchableOpacity onPress={() => handleOpenChatWithContact(item)}>
       <View style={styles.contactItem}>
         <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />
-        <Text style={styles.contactText}>{item.name}</Text>
+        <Text>{item.name}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -77,11 +107,16 @@ export default function GroupInfo({ route }) {
     <View style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction
-          onPress={() => navigation.navigate('GroupConversation', { id: idGroup })}
+          onPress={() =>
+            navigation.navigate("Chat", {
+              room: group,
+              roomId: group.id,
+            })
+          }
         />
       </Appbar.Header>
       <View style={styles.groupHeader}>
-        <Avatar.Icon size={100} icon="account-group" />
+        <Image style={styles.groupImage} source={image} />
         <Text style={styles.titleHeader}>{title}</Text>
       </View>
       <View style={styles.containerMain}>
@@ -90,33 +125,38 @@ export default function GroupInfo({ route }) {
             Participantes
           </Text>
           <Divider></Divider>
-         
-            <FlatList
-              data={participants}
-              renderItem={renderItem}
-              keyExtractor={(item) => item}
-            />
-        
-        </View>
-        <View styles={styles.containerButtons}>
-          <Button
-            mode="contained"
-            color={'#74D99F'}
-            style={styles.button}
-            icon="plus-circle-outline"
-            onPress={() => navigation.navigate('EditGroup', { group: group })}>
-            Editar
-          </Button>
 
+          <FlatList
+            data={participants}
+            renderItem={renderItem}
+            keyExtractor={(item) => item}
+          />
+
+        </View>
+          {isGroupAdmin ?
+        <View styles={styles.containerButtons}>
+            <Button
+              mode="contained"
+              uppercase={false}
+              color={'#74D99F'}
+              style={styles.button}
+              icon="pencil"
+              onPress={() => navigation.navigate('EditGroup', { group: group })}>
+              Editar
+            </Button>
           <Button
             mode="contained"
+            uppercase={false}
             color={'#FAE29F'}
             style={styles.button}
-            icon="minus-circle-outline"
+            icon="folder-open"
             onPress={() => handleArchiveGroup()}>
-            {isArchived == false ? 'Arquivar grupo' : 'Desarquivar grupo'}
+            {isArchived == false ? 'Arquivar' : 'Desarquivar'}
           </Button>
         </View>
+          :
+          console.log("")
+        }
       </View>
     </View >
   );
@@ -140,6 +180,12 @@ const styles = StyleSheet.create({
     color: '#FFFCF4',
     fontSize: 20,
   },
+  groupImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginRight: 10,
+  },
   containerMain: {
     flex: 1,
     padding: 10,
@@ -152,17 +198,35 @@ const styles = StyleSheet.create({
   },
   containerParticipants: {
     marginBottom: 15,
-    height: 500,
+    height: '70%',
+  },
+  contactItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  contactPhoto: {
+    width: 20,
+    height: 20,
+    borderRadius: 17.5,
+    marginRight: 10,
   },
   containerButtons: {
     flex: 1,
-  },
-  contactItem: {
-    padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc'
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
+    height: '10%',
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    margin: 5
+    justifyContent: "center",
+    borderRadius: 10,
+    marginLeft: 30,
+    marginRight: 30,
+    margin: 5,
   },
 });
