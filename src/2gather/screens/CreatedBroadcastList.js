@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import { useUser } from '../contexts/UserContext';
+import { useToast } from '../contexts/ToastContext'; //toast
 
 export default function BroadcastList({ navigation }) {
   const [currentMessage, setCurrentMessage] = useState('');
@@ -17,6 +18,7 @@ export default function BroadcastList({ navigation }) {
 
 
   const { user } = useUser();
+  const { showToast } = useToast(); //toast
   const userName = user?.name || 'Carregando...';
   const userId = user?.id;
   const isAdmin = userId === user?.idAdmin;
@@ -36,6 +38,7 @@ export default function BroadcastList({ navigation }) {
         },
       ]);
       setCurrentMessage('');
+      showToast("Lista de transmissão", userName, "2Gather"); //toast
     }
   };
 
