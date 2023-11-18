@@ -25,136 +25,140 @@ import EditGroup from '../screens/EditGroup';
 const stack = createNativeStackNavigator();
 
 const MainNav = () => {
-    return (
-        <stack.Navigator initialRouteName="Homepage">
-            <stack.Screen
-                name="Homepage"
-                component={Homepage}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="CreateUser"
-                component={CreateUser}
-            />
-            <stack.Screen
-                name="EditUser"
-                component={EditUser}
-            />
-            <stack.Screen
-                name="InactivateUser"
-                component={InactivateUser}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="UserManagement"
-                component={UserManagement}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                    header: () => null,
-                }}
-            />
-             <stack.Screen
-                name="NewPassword"
-                component={NewPassword}
-                options={{
-                    header: () => null,
-                }}
-            />
-            {/* <stack.Screen
+  return (
+    <stack.Navigator initialRouteName="Homepage">
+      <stack.Screen
+        name="Homepage"
+        component={Homepage}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="CreateUser"
+        component={CreateUser}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="EditUser"
+        component={EditUser}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="InactivateUser"
+        component={InactivateUser}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="UserManagement"
+        component={UserManagement}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="NewPassword"
+        component={NewPassword}
+        options={{
+          header: () => null,
+        }}
+      />
+      {/* <stack.Screen
                 name="BroadcastList"
                 component={BroadcastList}
             /> */}
-            <stack.Screen
-                name="BroadcastCreate"
-                component={BroadcastCreate}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="Contacts"
-                component={Contacts}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="ArchivedGroups"
-                component={ArchivedGroups}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="NewList"
-                component={NewList}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="CreateReceivers"
-                component={CreateReceivers}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="Chat"
-                component={Chat}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="NewGroup"
-                component={NewGroup}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="CreateNewGroup"
-                component={CreateNewGroup}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="GroupConversation"
-                component={GroupConversation}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="GroupInfo"
-                component={GroupInfo}
-                options={{
-                    header: () => null,
-                }}
-            />
-            <stack.Screen
-                name="EditGroup"
-                component={EditGroup}
-                options={{
-                    header: () => null,
-                }}
-            />
-
-
-        </stack.Navigator>
-    );
+      <stack.Screen
+        name="BroadcastCreate"
+        component={BroadcastCreate}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="Contacts"
+        component={Contacts}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="ArchivedGroups"
+        component={ArchivedGroups}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="NewList"
+        component={NewList}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="CreateReceivers"
+        component={CreateReceivers}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="Chat"
+        component={Chat}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="NewGroup"
+        component={NewGroup}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="CreateNewGroup"
+        component={CreateNewGroup}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="GroupConversation"
+        component={GroupConversation}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="GroupInfo"
+        component={GroupInfo}
+        options={{
+          header: () => null,
+        }}
+      />
+      <stack.Screen
+        name="EditGroup"
+        component={EditGroup}
+        options={{
+          header: () => null,
+        }}
+      />
+    </stack.Navigator>
+  );
 };
 
 export default MainNav;
