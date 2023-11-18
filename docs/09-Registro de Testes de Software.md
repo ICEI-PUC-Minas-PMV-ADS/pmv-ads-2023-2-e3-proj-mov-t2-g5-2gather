@@ -13,7 +13,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários conseguem trocar mensagens em tempo real.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Abrir uma conversa ou grupo</li><li>Enviar uma mensagem</li><li>Verificar se a mensagem é recebida pelo outro usuário imediatamente</li></ol> |	A mensagem enviada deve ser exibida na conversa do outro usuário imediatamente após o envio.
-| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/76147c01-d99b-4efb-9649-d9f7fbe0795f)  | Data do Teste: 15/11/2023 - Resultado: Negativo - Ocorreu um erro no simulador ao tentar encaminhar e mensagem | Grave |
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/33d9e294-377e-4552-a6bc-ceda4041d574)  | Data do Teste: 18/11/2023 - Resultado: Positivo - Foi possivel encaminhar uma mensagem em tempo real.|
 
 
 <br>
@@ -25,12 +25,10 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a interface administrativa permite adicionar um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Adicionar um novo usuário</li></ol> |	O usuário deve ser adicionado sem erros e deve aparecer na lista de usuários.
-| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/94860bc8-5963-4ba5-a379-22644d081e3f) | Data do Teste: 14/10/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue navegar até a sessão de Gerenciamento de Usuário e realizar o cadastro de um novo usuário. Mas não consegue visualizar o usuário na lista de usuários como a seção de Contatos ainda não foi implementada. | Grave |
-||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/94860bc8-5963-4ba5-a379-22644d081e3f) | Data do Teste: 14/10/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue navegar até a sessão de Gerenciamento de Usuário e realizar o cadastro de um novo usuário. Mas não consegue visualizar o usuário na lista de usuários como a seção de Contatos ainda não foi implementada. | 
 | Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/b1fe467f-3191-4a82-a11f-f236cdf95b0d) | Data do Teste: 01/11/2023 - Resultado: Positivo - O usuário logado com a conta administrativa consegue navegar até a sessão de Gerenciamento de Usuário e realizar o cadastro de um novo usuário e o visualiza na lista de Contatos/Nova Conversa. | Sucesso |
 ||
-| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/30d1370c-1ff9-4548-ac4c-9ea113dec21b) | Data do Teste: 01/11/2023 - Resultado: Positivo - O usuário cadastrado é visualizado na lista de usuários na seção de Contatos/Nova Conversa. | Sucesso |
-||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/30d1370c-1ff9-4548-ac4c-9ea113dec21b) | Data do Teste: 01/11/2023 - Resultado: Positivo - O usuário cadastrado é visualizado na lista de usuários na seção de Contatos/Nova Conversa. | 
 
 <br>
 
@@ -41,8 +39,9 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a interface administrativa permite editar um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Editar um usuário existente</li></ol> |	As alterações feitas no usuário devem ser salvas e refletidas na lista de usuários.
-| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/a1784757-46ab-42e6-9b57-c7f952a84f19) | Data do Teste: 14/10/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue acessar a página de Editar Usuário a partir da seção de Gerenciamento de Usuário, porém a integração da página com a API da aplicação ainda não foi realizada. | Grave |
-| Registro da tela: |![Edição de usuário - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/7757046f-5d3e-4b85-ae5f-525011900a04) | Data do Teste: 15/11/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue acessar a página de Editar Usuário a partir da seção de Gerenciamento de Usuário, porém a integração da página com a API da aplicação ainda não foi realizada. | Grave |
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/a1784757-46ab-42e6-9b57-c7f952a84f19) | Data do Teste: 14/10/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue acessar a página de Editar Usuário a partir da seção de Gerenciamento de Usuário, porém a integração da página com a API da aplicação ainda não foi realizada. | 
+| Registro da tela: |![Edição de usuário - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/7757046f-5d3e-4b85-ae5f-525011900a04) | Data do Teste: 15/11/2023 - Resultado: Negativo - O usuário logado com a conta administrativa consegue acessar a página de Editar Usuário a partir da seção de Gerenciamento de Usuário, porém a integração da página com a API da aplicação ainda não foi realizada. | 
+| Registro da tela: |![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/d28a6cd1-743d-464d-ba56-042936591421)| Data do Teste: 18/11/2023 - Resultado: Positivo - Foi possivel fazer a edição do usuário atraves de uma conta administradora. | 
 
 
 <br>
@@ -54,8 +53,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a interface administrativa permite inativar um usuário. |<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de gerenciamento de usuários</li><li>Inativar um usuário</li></ol> |	O usuário deve ser inativado da lista de usuários e não deve mais ter acesso ao sistema.
-| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/4d2709eb-8b46-49e2-a236-7d486ed38916) | Data do Teste: 14/10/2023 - Resultado: Positivo - O usuário logado com a conta administrativa consegue acessar a página de Inativar Usuário a partir da seção de Gerenciamento de Usuário, e inativar o usuário desejado | Sucesso |
-||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/4d2709eb-8b46-49e2-a236-7d486ed38916) | Data do Teste: 14/10/2023 - Resultado: Positivo - O usuário logado com a conta administrativa consegue acessar a página de Inativar Usuário a partir da seção de Gerenciamento de Usuário, e inativar o usuário desejado |
 
 <br>
 
@@ -66,8 +64,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem criar grupos.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até a seção de grupos</li><li>Criar um novo grupo</li><li>Enviar uma mensagem para o grupo criado.</li></ol> |	A mensagem deve ser enviada e visível para os membros do grupo.
-| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/1830bac7-8161-4ef3-8eed-74ed10ecf453) | Data do Teste: 01/11/2023 - Positivo - O usuário Admin consegue criar o Grupo com sucesso, dando nome a ele e tem a flexibilidade de selecionar e desfazer a seleção em poucos clicks antes de realizar a sua criação. | Sucesso |
-||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/1830bac7-8161-4ef3-8eed-74ed10ecf453) | Data do Teste: 01/11/2023 - Positivo - O usuário Admin consegue criar o Grupo com sucesso, dando nome a ele e tem a flexibilidade de selecionar e desfazer a seleção em poucos clicks antes de realizar a sua criação. |
 
 <br>
 
@@ -78,8 +75,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se os usuários podem criar listas de transmissão.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Navegar até a seção de listas de transmissão</li><li>Criar uma nova lista</li><li>Enviar uma mensagem através da lista de transmissão criada.</li></ol>	| A mensagem deve ser enviada e recebida pelos membros da lista de transmissão.
-| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/c520a23c-fbb4-423d-aafa-dc2e6c80df09) | Data do Teste: 01/11/2023 - Positivo - O usuário Admin consegue criar a Lista de Transmissão com sucesso, dando nome a ela e tem a flexibilidade de selecionar e desfazer a seleção em poucos clicks antes de realizar a sua criação. | Sucesso |
-||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/c520a23c-fbb4-423d-aafa-dc2e6c80df09) | Data do Teste: 01/11/2023 - Positivo - O usuário Admin consegue criar a Lista de Transmissão com sucesso, dando nome a ela e tem a flexibilidade de selecionar e desfazer a seleção em poucos clicks antes de realizar a sua criação. |
 
 <br>
 
@@ -90,8 +86,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se apenas administradores podem enviar mensagens em listas de transmissão.	|<ol><li>Acessar a aplicação com uma conta não administrativa</li><li>Realizar login</li><li>Navegar até uma lista de transmissão</li><li>Tentar enviar uma mensagem</li></ol> |	O usuário não administrador não deve ser capaz de enviar mensagens em listas de transmissão.
-| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/8d6848e4-02e1-4b4a-ad05-20bfb11d2846) | Data do Teste: 15/11/2023 - Resultado: Negativo - Não foi possivel realizar o teste, foi apresentado um erro ao emular o aplicativo.| Grave |
-|||
+| Registro da tela: |![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/2e9c17d4-2528-4f19-a186-cb967c8e0d9c) | Data do Teste: 18/11/2023 - Resultado: Positivo - O apenas o administrador da lista de transmissão conseguiu encaminnhar mensagem.| 
 
 <br>
 
@@ -102,8 +97,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se o interlocutor recebe confirmação de leitura.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Enviar uma mensagem para outro usuário</li><li>Esperar que o outro usuário leia a mensagem</li></ol> |	Deve aparecer uma confirmação (por exemplo, dois tiques azuis) indicando que a mensagem foi lida pelo destinatário.
-| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/8d6848e4-02e1-4b4a-ad05-20bfb11d2846) | Data do Teste: 15/11/2023 - Resultado: Negativo - Não foi possivel realizar o teste, foi apresentado um erro ao emular o aplicativo. | Grave |
-|||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/1d684b93-86d1-4e9e-89ba-3703419e250e) | Data do Teste: 18/11/2023 - Resultado: Positivo - No momento que a mensagem foi lida o icone check que antes era cinza ficou verde, como esperado.| 
 
 <br>
 
@@ -114,8 +108,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se o usuário recebe notificações de novas mensagens.	|<ol><li>Acessar a aplicação em um dispositivo</li><li>Realizar login</li><li>Com outro usuário, enviar uma mensagem para o primeiro usuário</li></ol> |	O usuário destinatário deve receber uma notificação indicando que uma nova mensagem foi recebida.
-| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/8d6848e4-02e1-4b4a-ad05-20bfb11d2846) | Data do Teste: 15/11/2023 - Resultado: Negativo - Não foi possivel realizar o teste, foi apresentado um erro ao emular o aplicativo. | Grave |
-||
+| Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/8d6848e4-02e1-4b4a-ad05-20bfb11d2846) | Data do Teste: 15/11/2023 - Resultado: Negativo - Não foi possivel realizar o teste, foi apresentado um erro ao emular o aplicativo. | 
 
 <br>
 
@@ -138,7 +131,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a autenticação de e-mail e senha é negada para dados inválidos.	|<ol><li>Acessar a aplicação</li><li>Tentar realizar o primeiro login com dados inválidos</li></ol> |	O usuário não deve conseguir acessar a aplicação e deve receber uma mensagem de erro ou aviso.
-| Registro da tela: | ![Login ](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/355b6422-54d0-4ed6-99d8-9dfc63b25dba) | Data do Teste: 15/11/2023 - Resultado: Positivo - O aplicativo negou login com as credênciais incorretas e emitiu um aviso. | XXX | ||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/eeb94a36-aa33-4551-8702-e0220b679d43) | Data do Teste: 15/11/2023 - Resultado: Positivo - O aplicativo negou login com as credênciais incorretas e emitiu um aviso. | XXX | ||
 
 
 <br>
@@ -161,7 +154,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se é possível que o usuário troque sua senha.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Acessar o botão 'configuraçõe' na HomePage</li><li>Clicar no botão "Trocar a senha"</li><li>Redefinir a senha e salvar</li></ol> |	A solicitação de troca deve ocorrer com sucesso e exibir o alerta de troca efetuada.
-| Registro da tela: |  ![Alteração de senha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/d079c33b-41ba-44de-96ab-a3bf293eaf04)| Data do Teste: 15/11/2023 - Resultado: Positivo - A troca de senha foi efetuada com sucesso | XXX |||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/4effb00e-a8e8-4500-93d9-468c20610509)| Data do Teste: 15/11/2023 - Resultado: Positivo - A troca de senha foi efetuada com sucesso | 
 
 <br>
 
@@ -172,7 +165,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se é possível adicionar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Adicionar um novo canal</li></ol> |	O canal deve ser criado e aparecer na lista de canais.
-| Registro da tela: | ![Criação de Lista de transmissão](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/9cc5721a-5d28-478a-8638-84eaf26f6534) | Data do Teste: 15/11/2023 - Resultado: Positivo - Foi possivel adicionar uma nova lista de transmissão | 
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/c4cbfde7-71de-45d5-a621-fd09f88a70e5) | Data do Teste: 18/11/2023 - Resultado: Positivo - Foi possivel adicionar uma nova lista de transmissão | 
 
 <br>
 
