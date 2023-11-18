@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
+import { Appbar } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
@@ -208,18 +209,15 @@ export default function CreateNewGroup({ route, navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Adicionar participantes</Text>
-        <View style={styles.cancelCreate}>
-          <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.goBack()} >
-            <Icon
-              name="chevron-left"
-              size={24}
-              color="white"
-              style={{ fontWeight: 'normal' }} />
-          </TouchableOpacity>
-          <View style={styles.nameList}>
+    <View style={styles.container}>
+      <View style={styles.containerHeader}>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+          <View style={styles.rowContainer}>
             <TextInput
               style={styles.nameInput}
               onChangeText={(text) => setTitle(text)}
@@ -234,7 +232,7 @@ export default function CreateNewGroup({ route, navigation }) {
           >
             Editar
           </Text>
-        </View>
+          </Appbar.Header>
 
         <View style={styles.searchBar}>
           <TextInput
@@ -289,7 +287,7 @@ export default function CreateNewGroup({ route, navigation }) {
       )}
 
 
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -299,58 +297,58 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
-  header: {
-    padding: 10,
-    height: 175,
-    backgroundColor: "#2368A2",
-  },
-
-  headerText: {
-    fontSize: 20,
-    color: "#FFFCF4",
-    marginTop: 7,
-    textAlign: "center",
-  },
-
-  cancelCreate: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
-  iconContainer: {
-    height: '100%',
-    justifyContent: 'center',
-  },
+  containerHeader: {
+    backgroundColor: '#2368A2',
+      padding: 0,
+      borderBottomWidth: 1,
+      borderColor: '#BBB',
+      height: 185,
+    },
+    rowContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '70%',
+    },
+    header: {
+      backgroundColor: '#2368A2',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      elevation: 0,
+      shadowOpacity: 0,
+      borderBottomWidth: 0,
+    },
+    titleHeader: {
+      color: '#FFFCF4',
+      fontSize: 20,
+      alignSelf: 'center',
+      padding: 10,
+    },
 
   headerTextTwo: {
     fontSize: 18,
     color: "#FFFCF4",
     marginLeft: 15,
-    marginEnd: 15,
-    alignSelf: 'center',
   },
-
-  nameList: {
-    paddingLeft: 20,
-    marginTop: 7,
-    marginBottom: 7,
-    width: '80%',
-  },
-
   nameInput: {
     backgroundColor: "#1a4971",
     color: "#fffcf4",
     borderRadius: 10,
     padding: 10,
     fontSize: 16,
-  },
+    marginTop: 2,
+    width: '100%',
+    height: 45,
+    },
 
   searchBar: {
-    width: '75%',
-    marginLeft: 35,
+    width: '64%',
+    height: 45,
+    marginLeft: 65,
+    marginTop: 4,
   },
 
   searchInput: {
@@ -367,10 +365,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#F1F3F5",
     borderRadius: 15,
-    marginVertical: -25,
+    marginVertical: -27,
     height: 140,
   },
-
   deleteButton: {
     marginLeft: 10,
   },

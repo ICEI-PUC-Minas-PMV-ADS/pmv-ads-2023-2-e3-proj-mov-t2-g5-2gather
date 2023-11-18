@@ -276,3 +276,18 @@ A aplicação deve permitir ao usuário recuperar a senha na aplicação `Study2
 * [RecuperarSenha.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/RecuperarSenha.cshtml)
 * [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
 
+### Funcionalidade 16: A aplicação deve permitir ao usuário gerenciar seus grupos (RF-011)
+
+A aplicação deve permitir ao usuário gerenciar seus grupos criados, podendo visualizar quem são os participantes do grupo. Caso o usuário quem criou o grupo, então ele terá permissão de administrador no grupo que permitirá que ele edite o nome, adicione ou remova participantes, arquive ou desarquive o grupo.
+
+![Informações de grupo](![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/9b7cc341-da60-4fc3-8ad6-f67977be0e25))
+
+
+##### Instruções de acesso
+1. Acesse o aplicativo
+2. Realize seu `Login`
+3. Clique em algum grupo criado na Homepage ou crie seu próprio grupo
+
+##### Artefatos produzidos
+* [EditGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/EditGroup.js)
+* [GroupInfo.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/GroupInfo.js)

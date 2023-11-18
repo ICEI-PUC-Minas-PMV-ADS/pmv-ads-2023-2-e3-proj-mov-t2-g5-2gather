@@ -181,7 +181,6 @@ export default function CreateNewGroup({ route, navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.containerHeader}>
-        <Text style={styles.titleHeader}>Adicionar participantes</Text>
         <Appbar.Header style={styles.header}>
           <Appbar.BackAction
             onPress={() => {
@@ -273,6 +272,9 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center',
       paddingHorizontal: 16,
+      elevation: 0,
+      shadowOpacity: 0,
+      borderBottomWidth: 0,
     },
     titleHeader: {
       color: '#FFFCF4',
@@ -295,12 +297,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 2,
     width: '100%',
+    height: 45,
     },
-
+  
   searchBar: {
     width: '65%',
-    marginLeft: 70,
-    marginTop: 7,
+    height: 45,
+    marginLeft: 67,
+    marginTop: 4,
   },
 
   searchInput: {
