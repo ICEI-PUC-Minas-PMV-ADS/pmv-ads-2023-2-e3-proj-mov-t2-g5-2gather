@@ -150,6 +150,11 @@ const Chat = ({ route, navigation }) => {
 						messageListRef.current.scrollToEnd({ animated: true });
 					}
 				}}
+				onLayout={() => {
+					if (!isFirstLoad) {
+						messageListRef.current.scrollToEnd({animated: true})
+					}
+				}}
 			/>
 
 			<View style={styles.inputContainer}>
