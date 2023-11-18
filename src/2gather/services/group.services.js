@@ -50,7 +50,6 @@ export const getOrCreatePrivateGroup = async ({ idPartner, idSelf }) => {
 };
 
 export const CreateNewList = async ({ title, idAdmin, isTransmission, isPrivate, archived, participants }) => {
-    console.log(title, idAdmin)
     try {
         const result = await sendAuthenticatedRequest('/group/create/', 'POST', { title, idAdmin, isTransmission, isPrivate, archived, participants });
         return result;
@@ -91,7 +90,7 @@ export const ArchiveGroup = async ({ group, archive }) => {
     }
 };
 
-export const EditGroup = async ({ group, archive }) => {
+export const EditGroup = async ({ group }) => {
     try {
         const result = await sendAuthenticatedRequest(`/group/update/${group.id}`, 'PATCH', group);
         return result;

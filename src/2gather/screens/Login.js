@@ -42,6 +42,7 @@ export default function Login(navigation) {
               AsyncStorage.setItem(key, String(res[key])).then();
             }
           }
+          AsyncStorage.setItem('signed', String(true)).then();
         }
         setSigned(true);
         setName(res.name);
@@ -98,8 +99,7 @@ export default function Login(navigation) {
         alert('Falha ao enviar o e-mail de recuperação de senha. Tente novamente.');
       }
     } catch (error) {
-      console.error('Erro ao processar a recuperação de senha:', error);
-      alert('Erro ao processar a recuperação de senha. Tente novamente mais tarde.');
+      alert('A implementação da "Recuperação de Senha" será realizada em versões futuras. Obrigado!');
     }
   };
 
