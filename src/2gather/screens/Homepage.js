@@ -38,7 +38,6 @@ export default function Homepage() {
   const getYourGroups = async () => {
     try {
       const result = (await GetListYourGroups()) || [];
-      console.log(result);
       setYourGroups(result);
     } catch (error) {
       console.log(error);
@@ -70,7 +69,6 @@ export default function Homepage() {
     try {
       const result = (await GetMessages()) || [];
       setYourMessages(result);
-      console.log(result);
     } catch (error) {
       console.log(error);
     } finally {
@@ -89,10 +87,11 @@ export default function Homepage() {
     }, [])
   );
 
-  const handleItemPress = async (groupId) => {
+  const handleItemPress = async (group) => {
     try {
-      const result = (await GetGroupDetails({ idGroup: groupId })) || [];
-      navigation.navigate('Chat', {
+      const result = await GetGroupDetails({ idGroup: group.id }) || [];
+      socket.emit("createRoom", result.id, group.title);
+      navigation.navigate("Chat", {
         room: result,
         roomId: result.id,
       });
@@ -104,7 +103,7 @@ export default function Homepage() {
 
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleItemPress(item.id)}>
+    <TouchableOpacity onPress={() => handleItemPress(item)}>
       <View style={styles.contactItem}>
         {/*Se item.photo não retornar uma url válida, carrega imagem default de grupos */}
         <Image
@@ -154,7 +153,7 @@ export default function Homepage() {
         // renderItem={/* render function for conversations
         // keyExtractor={/* key extractor for conversations 
         style={styles.conversationList}
-      />
+      />  
     </View>*/}
 
       <View style={styles.container1}>
