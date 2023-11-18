@@ -64,11 +64,16 @@ export default function BroadcastCreate() {
           <View style={styles.containerMain}>
             {data.map((grupo, index) => (
               <TouchableOpacity
-                key={index} style={styles.grupoContainer}
+                key={index}  style={grupo.archive ? styles.grupoContainerArchived : styles.grupoContainer}
                 onPress={() => {
                   navigation.navigate('GroupConversation', { id: grupo.id });
                 }}>
-                <Text style={styles.grupoTitle}>{grupo.title}</Text>
+                  <View>
+                    <Text style={styles.grupoTitle}>{grupo.title}</Text>
+                    {grupo.archive && (
+                    <Text style={styles.grupoArchivedText}>Arquivado</Text>
+                    )}
+                  </View>
                 <TouchableOpacity
                   style={styles.infoIconContainer}
                   onPress={() => {
@@ -154,8 +159,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  grupoContainerArchived: {
+    backgroundColor: '#DBDBDB',
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   grupoTitle: {
     fontSize: 16,
+  },
+  grupoArchivedText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    color: '#545454',
   },
   infoIconContainer: {
     backgroundColor: '#ffffff',

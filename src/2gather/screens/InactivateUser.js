@@ -95,17 +95,17 @@ export default function InactivateUser({ navigation }) {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: '#FAE29F', width: 89, height: 60 }]}
-            onPress={handleInactivateUser}
-          >
-            <Text style={styles.buttonText}>Inativar</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.inativarButton]}
+          onPress={handleInactivateUser}
+        >
+          <Text style={styles.buttonText}>Inativar</Text>
+        </TouchableOpacity>
 
-          <View style={{ width: 29 }}></View> 
+        <View style={{ width: 29 }}></View> 
 
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: '#ADB5BD', width: 104, height: 60 }]}
+        <TouchableOpacity
+          style={[styles.button, styles.cancelarButton]}
             onPress={() => {
               setUserId(''); 
               setReason('');
@@ -173,6 +173,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    width: 100,
+    height: 60,
+  },
+  inativarButton: {
+    backgroundColor: '#FAE29F',
+  },
+  cancelarButton: {
+    backgroundColor: '#ADB5BD',
   },
   buttonText: {
     color: 'black',
