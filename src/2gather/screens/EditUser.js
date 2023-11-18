@@ -124,17 +124,18 @@ export default function EditUser({ navigation }) {
           <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
 
           <Text>Email Corporativo</Text>
-          <Picker
-            selectedValue={userId}
-            onValueChange={(itemValue) => setUserId(itemValue)}
-            style={[styles.inputPicker, fieldErrors.role && styles.errorInput]}
-          >
-            <Picker.Item label="Selecione um e-mail" value="null" />
-            {userList.map((user) => (
-              <Picker.Item  key={user.id} label={user.email} value={user.id} />
-            ))}
-          </Picker>
-
+          <View style={styles.emailInput}>
+            <Picker
+              selectedValue={userId}
+              onValueChange={(itemValue) => setUserId(itemValue)}
+              style={[fieldErrors.role && styles.errorInput]}
+            >
+              <Picker.Item label="Selecione um e-mail" value="null" />
+              {userList.map((user) => (
+                <Picker.Item  key={user.id} label={user.email} value={user.id} />
+              ))}
+            </Picker>
+          </View>
           <Text>Nome do Colaborador</Text>
           <TextInput
             style={[styles.input, fieldErrors.name && styles.errorInput]}
@@ -153,7 +154,7 @@ export default function EditUser({ navigation }) {
           />
 
           <Text>Cargo</Text>
-          <View>
+          <>
             <Picker
               selectedValue={role}
               onValueChange={(value) => setRole(value)}
@@ -164,7 +165,7 @@ export default function EditUser({ navigation }) {
                 <Picker.Item key={item.id} label={item.name} value={item.id} />
               ))}
             </Picker>
-          </View>
+          </>
         </View>
 
         <View style={styles.buttonContainer}>
@@ -176,7 +177,7 @@ export default function EditUser({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonCancel}
-            onPress={() => navigation.navigate("CreatedBroadcastList")} //UserManagement
+            onPress={() => navigation.goBack()} //UserManagement
           >
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
@@ -296,7 +297,6 @@ const styles = StyleSheet.create({
   inputPicker: {
     height: 40,
     backgroundColor: "#FFFCF4",
-    borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 8,
     color: "black",
@@ -318,4 +318,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 10,
   },
+  emailInput: { 
+    backgroundColor: '#FFFCF4', 
+    borderWidth: 1, 
+    borderRadius: 10, 
+    borderColor: '#868E96', 
+    height: 40, 
+    justifyContent: 'center', 
+    marginBottom: 10 
+  }
 });
