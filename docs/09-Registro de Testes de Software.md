@@ -209,8 +209,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se as mensagens são criptografadas de ponta a ponta.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Enviar uma mensagem</li><li>Interceptar a mensagem usando uma ferramenta de monitoramento de rede</li></ol> |	A mensagem interceptada deve estar criptografada e não deve ser legível sem a chave de descriptografia apropriada.
-| Registro da tela: |  | Data do Teste: XX/XX/XXXX - Resultado: XXX - Descrição | XXX |
-||
+| Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/3134a500-eb00-4303-ae6c-aaf295185f74) | Data do Teste: 18/11/2023 - Resultado: Positivo - A mensagem foi criptografada e não foi possivel acessa-la de outro dispositivo, a não ser o de origem.| 
 
 <br>
 
@@ -252,10 +251,10 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-NF06 - Funcionamento Offline	|RNF-06 – A aplicação deve ter um funcionamento restrito sem conexão com internet e irrestrito com conexão com a internet.|
+|CT-NF06 - Funcionamento Online	|RNF-06 – A aplicação deve ter um funcionamento irrestrito apenas com conexão à internet.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar o funcionamento da aplicação offline e online.	|<ol><li>Acessar a aplicação com conexão à internet</li><li>Verificar funcionalidades</li><li>Desconectar da internet</li><li>Acessar a aplicação novamente</li><li>Verificar funcionalidades restritas</li></ol> |	A aplicação deve ter funcionalidades restritas quando offline e todas as funcionalidades disponíveis quando online.
+|Verificar o funcionamento da aplicação offline e online.	|<ol><li>Acessar a aplicação com conexão à internet</li><li>Verificar funcionalidades</li><li>Desconectar da internet</li><li>Acessar a aplicação novamente</li><li>Verificar se há funcionalidade sem internet</li></ol> |	A aplicação deve ter funcionalidades irrestritas quando online.
 | Registro da tela: | ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/1b3563b3-4855-4a15-b19a-ce18fa822d2a)| Data do Teste: 17/11/2023 - Resultado: Positivo - Sem acesso à internet não foi possivel iniciar a aplicação e com a internet foi possivel acessar de livremente. | 
 <br>
