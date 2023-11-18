@@ -13,13 +13,16 @@ export default function UserProvider({ children }) {
     const [id, setId] = useState('');
     const [privateE2eContext, setPrivateE2eContext] = useState('');
     const [publicE2eContext, setPublicE2eContext] = useState('');
-
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const storedSigned = await AsyncStorage.getItem('signed');
                 if(storedSigned == 'true') {
+                    setSigned(true)
+                }
+                if(storedSigned == 'true' && signed == true) {
                     const id = await AsyncStorage.getItem('id');
                     const storedName = await AsyncStorage.getItem('name');
                     const access = await AsyncStorage.getItem('access');
@@ -28,7 +31,9 @@ export default function UserProvider({ children }) {
                     const email = await AsyncStorage.getItem('email');
                     const phone = await AsyncStorage.getItem('phone');
                     const role = await AsyncStorage.getItem('role');
+                    const admin = await AsyncStorage.getItem('isAdmin');
                     let e2eKeys = null
+
                     try{
                         e2eKeys = await dbGetE2e(id)
                     }
@@ -42,25 +47,20 @@ export default function UserProvider({ children }) {
                         AsyncStorage.clear()
                         setSigned(false);
                     }
-                    if (storedName !== null) {
-                        setName(storedName);
-                    }
-                    if(photo !== null) {
-                        setPhoto(photo)
-                    }
-                    if(email !== null) {
-                        setEmail(email)
-                    }
-                    if(phone !== null) {
-                        setPhone(phone)
-                    }
-                    if(role !== null) {
-                        setRole(role)
-                    }
+                    setName(storedName);
+                    setPhoto(photo)
+                    setEmail(email)
+                    setPhone(phone)
+                    setRole(role)
+                    setIsAdmin(admin);
                     if(e2eKeys){
                         setPrivateE2eContext(e2eKeys.privateKey)
                         setPublicE2eContext(e2eKeys.publicKey)
+                    }else{
+                        setPrivateE2eContext('KeyNotFound')
+                        setPublicE2eContext('KeyNotFound')
                     }
+                    
                 }
             } catch (error) {
                 console.error('Error retrieving data from AsyncStorage:', error);
@@ -68,18 +68,6 @@ export default function UserProvider({ children }) {
         };
 
         fetchData();
-    }, [signed]);
-
-    useEffect(() => {
-        const saveData = async () => {
-            try {
-                await AsyncStorage.setItem('signed', JSON.stringify(signed));
-            } catch (error) {
-                console.error('Error saving data to AsyncStorage:', error);
-            }
-        };
-
-        saveData();
     }, [signed]);
 
     useEffect(() => {
@@ -132,7 +120,9 @@ export default function UserProvider({ children }) {
                 privateE2eContext,
                 setPrivateE2eContext,
                 publicE2eContext,
-                setPublicE2eContext
+                setPublicE2eContext,
+                isAdmin,
+                setIsAdmin,
             }}>
             {children}
         </UserContext.Provider>
@@ -152,8 +142,10 @@ export function useUser() {
         phone, setPhone,
         role, setRole,
         privateE2eContext, setPrivateE2eContext,
-        publicE2eContext, setPublicE2eContext 
+        publicE2eContext, setPublicE2eContext,
+        isAdmin,
+        setIsAdmin,
     } = context;
 
-    return { signed, setSigned, id, setId, name, setName, photo, setPhoto, email, setEmail, phone, setPhone, role, setRole, privateE2eContext, setPrivateE2eContext, publicE2eContext, setPublicE2eContext };
+    return { signed, setSigned, id, setId, name, setName, photo, setPhoto, email, setEmail, phone, setPhone, role, setRole, privateE2eContext, setPrivateE2eContext, publicE2eContext, setPublicE2eContext,  isAdmin, setIsAdmin };
 }

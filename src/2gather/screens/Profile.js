@@ -56,7 +56,7 @@ export default function Profile({ route, navigation }) {
         </Appbar.Header>
       ) : (
         <Appbar.Header style={styles.header}>
-          <Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
+          <Appbar.BackAction onPress={() =>  navigation.goBack()} />
           <Text style={styles.headerText}>Informações básicas do usuário</Text>
         </Appbar.Header>
       )}

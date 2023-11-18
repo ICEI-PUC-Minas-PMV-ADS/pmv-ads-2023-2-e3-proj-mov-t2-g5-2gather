@@ -126,7 +126,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-09.1 - Login com Dados inválidos	|RF-09 – A aplicação deve requerer senha para fazer login e que seja criptorgrafada.|
+|CT-09.1 - Login com Dados inválidos	|RF-09 – A aplicação deve requerer senha para fazer login e que seja criptografada.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
@@ -138,12 +138,13 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-09.2 - Login com Dados válidos|RF-09 – A aplicação deve requerer senha para fazer login e que seja criptorgrafada.|
+|CT-09.2 - Login com Dados válidos|RF-09 – A aplicação deve requerer senha para fazer login e que seja criptografada.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
 |Verificar se a autenticação de e-mail e senha é negada para dados válidos.	|<ol><li>Acessar a aplicação</li><li>Realizar o  login fornecendo os dados corretos </li></ol> |	O usuário deve ser capaz de acessar a aplicação.
 | Registro da tela: | ![Login](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/17d315cf-3443-4c13-ac4b-35121d5167b0) | Data do Teste: 15/11/2023 - Resultado: Positivo - O aplicativo aprovou login com as credênciais corretas. | 
+
 
 <br>
 
