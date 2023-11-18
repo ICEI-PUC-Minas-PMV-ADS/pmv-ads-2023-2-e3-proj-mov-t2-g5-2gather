@@ -23,7 +23,6 @@ O template criado está dispoto nos seguintes layouts:
 * Home
 * Login
 * Tela inicial (todas as conversas)
-* Arquivar conversa
 * Contatos
 * Conversas
 * Configurações
@@ -57,14 +56,7 @@ Este layout é utilizado para que os usuários insiram suas credenciais e acesse
 
 Neste layout, os usuários podem visualizar todas as suas conversas ativas e recentes.
 
-![Tela Inicial](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/3c22c877-35df-44a0-9a8e-d325421c1a86)
-
-
-## Arquivar Conversa
-
-Aqui, os usuários têm a opção de arquivar conversas específicas, removendo-as da tela inicial, mas mantendo-as salvas para consulta futura.
-
-![Arquivar Conversa](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/3489b153-b261-46e5-95d1-e16e8882b3d6)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/3f2467e7-3070-4923-9683-40fe011fab32)
 
 
 ## Contatos
@@ -85,14 +77,7 @@ Neste espaço, os usuários podem ver todas as suas conversas, sejam elas indivi
 
 Os usuários podem acessar este layout para ajustar preferências, configurações de privacidade e outros detalhes relacionados à sua conta.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/d6e52f2d-347b-4efa-8368-d27126149415)
-
-
-## Seus Grupos
-
-Aqui, os usuários podem visualizar e gerenciar todos os grupos dos quais fazem parte.
-
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/ae75f72f-36a4-4e5e-83a4-bda47732e3a6)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/c4b236e6-79b6-4935-a0bc-40358b86b0d2)
 
 
 ## Grupos Arquivados
@@ -113,14 +98,14 @@ Os usuários podem criar listas de transmissão para enviar mensagens para vári
 
 Este layout é utilizado quando um usuário deseja criar uma nova lista de transmissão.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/248b0077-6021-4bc2-b326-27fbebb77e66)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/af32514f-29bb-40fe-ad3d-9e69d5a8432c)
 
 
 ## Criar
 
 Aqui, os usuários podem iniciar novas conversas, grupos ou listas de transmissão.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/2875cf73-ed92-4deb-9b3e-b32ee3bea07d)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/f36415c6-e64b-458e-8c01-bf74b59eec12)
 
 
 ## Notificação de Mensagem
@@ -134,7 +119,7 @@ Neste espaço, os usuários são alertados sobre novas mensagens recebidas.
 
 Layout específico para administradores, oferecendo uma visão geral e facilitando a gestão da plataforma.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/441bb913-3d8f-4af7-9986-187a6690e47a)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/7b6239aa-2b60-4e29-b64f-15fef29c5169)
 
 
 ## Gerenciamento de Usuários
@@ -162,6 +147,4 @@ Os administradores usam este layout para fazer alterações nas contas dos usuá
 
 Aqui, os administradores podem optar por inativar contas de usuário, impedindo-os de acessar a plataforma temporariamente ou permanentemente.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/d5a9c612-90d9-4bbe-9d95-c389722d2f8f)
-
-
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/29cca0a5-551a-424e-9e5e-4f404b7c82ca)
