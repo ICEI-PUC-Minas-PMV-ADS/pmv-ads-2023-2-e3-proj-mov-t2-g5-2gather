@@ -180,7 +180,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-NF06 - Funcionamento Offline	|RNF-06 – A aplicação deve ter um funcionamento restrito sem conexão com internet e irrestrito com conexão com a internet.|
+|CT-NF06 - Funcionamento Online	|RNF-06 – A aplicação deve ter um funcionamento irrestrito apenas com conexão à internet.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
