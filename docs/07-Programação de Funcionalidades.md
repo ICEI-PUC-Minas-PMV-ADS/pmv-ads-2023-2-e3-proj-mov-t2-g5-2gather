@@ -18,22 +18,30 @@ A funcionalidade permite que o usuário faça uma postagem na pagina de Interaç
 * [Interacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Interacoes.cshtml)
 * [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
 
-### Funcionalidade 02: Efetuar Cadastro	(RF-006)
-A funcionalidade permite que o usuário realize com sucesso o cadastro na platarforma da `Study2gether`.
+### Funcionalidade 02: A aplicação deve ter uma interface administrativa para gerenciar os usuários (RF-02)
+O sistema deve fornecer uma interface administrativa que permita aos administradores adicionar, editar e inativar usuários do sistema.
 
-![Screenshot 2023-05-07 143228](https://user-images.githubusercontent.com/107289791/236693557-0f332727-bfe7-4258-a912-ece1326ff57b.png)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/f913b28d-b5ea-479c-a7de-99f3f1d81afb)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/25be55d2-cb61-48f8-be66-678e68462ff9)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1537e4ec-e73f-4a5f-8b20-4406dac8b6e5)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1c73f65b-55bc-47e0-9478-bfb28c10c335)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/9dab2582-8325-445e-baf5-c0011a6ddfcb)
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Clique no botão `Cadastre-se`.
-3. Insira um `e-mail` com o formato `nome@sga.pucminas.br`.
-4. Insira uma `senha` com ao menos 8 caracteres.
-5. Clique no botão `Cadastrar`.
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
+3. Caso o usuário não esteja logado, realize o login.
+4. Após realizar o login como 'ADMINISTRADOR', clique na opção "Gerenciamento de Usuário", localizada na parte inferior da HomePage.
+5. Na tela de Gerenciamento de Usuário, o usuário com perfil de ADMINISTRADOR terá a capacidade de executar ações como Criar Usuário, Editar Usuário ou Inativar Usuário.
+6. Na interface 'Criar Usuário', o administrador precisa inserir o e-mail corporativo, número de telefone, senha, nome do colaborador e cargo. Posteriormente, deve clicar no botão 'Criar'.
+Ao acessar a opção 'Editar Usuário', é necessário selecionar o ID do usuário, e-mail corporativo, senha, nome do colaborador, setor e cargo. Em seguida, o administrador pode clicar em 'Salvar' para aplicar as alterações ou em 'Cancelar' para desfazê-las.
+Para 'Inativar Usuário', o administrador deve escolher um usuário específico e fornecer o motivo da inativação. Após isso, pode clicar em 'Inativar' para confirmar a ação ou em 'Cancelar' para anular o processo.
 
 ##### Artefatos produzidos
-* [Cadastro.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/Cadastro.cshtml)
-* [User.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Models/User.cs)
-* [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
+* [UserManagement.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/UserManagement.js)
+* [CreateUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/CreateUser.js)
+* [EditUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/EditUser.js)
+* [InactivateUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/InactivateUser.js)
 
 ### Funcionalidade 03: Criar Grupos (RF-03)
 
@@ -76,17 +84,18 @@ A funcionalidade permite que os usuários criem Listas de Transmissão no App da
 
 ### Funcionalidade 05: Permitir que apenas os administradores da lista de transmissão possam enviar mensagens (RF-05)
 
-A funcionalidade permite que apenas o Criador/Administrador da lista de transmissão possa enviar mensagens nesta Lista Criada por ele no App `2Gather`.
+A funcionalidade permite que apenas ao Criador/Administrador da lista de transmissão possa enviar mensagens nesta Lista Criada por ele no App `2Gather`.
+Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista, uma mensagem informativa será exibida, destacando que por meio das listas de transmissão, ele poderá enviar mensagens a várias pessoas simultaneamente. Além disso, será apresentado um botão para adicionar uma 'Nova Lista'. Se o usuário já tiver uma ou mais listas criadas, estas serão renderizadas na tela, oferecendo a opção de clicar na lista para enviar mensagens, acessar informações através do ícone 'i', e, no mesmo ícone de informações, editar ou arquivar a lista, será exibido também o botão para adicionar uma 'Nova Lista'. Adicionalmente, caso o usuário possua listas de transmissão 'arquivadas', essas serão renderizadas com um diferencial de background e acompanhadas de uma mensagem informando que estão arquivadas, se o usuário clicar no ícone 'i' de uma lista arquivada, terá a opção de desarquivá-la. É importante destacar que somente as listas criadas pelo próprio usuário serão visíveis nessa tela. As listas em que o usuário é apenas um 'participante/destinatário' serão exibidas diretamente na HomePage. Ele poderá visualizar as mensagens postadas pelo administrador da lista, sem a possibilidade de interação.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/95e35cce-fce2-45d4-ab1a-cc93b029f883)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/aae7e268-182f-4cdc-99ae-62aa008ac8dc)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1222c5fd-17cb-4caa-bcb5-b81776214e3a)
 
 ##### Instruções de acesso
-1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
-2. Abra a Aplicação no VSCode e a inicialize conforme descrito detalhadamente no README.
-3. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
-4. Com o login já efetuado, clicar em "Lista de Transmissão" na parte superior da HomePage.
-5. Na Tela Listas de transmissão, o Administrador terá todas as suas listas criadas podendo enviar mensagens, editá-las e arquivá-las.
-6. Caso não seja o Administrador da Lista não será possível o envio de mensagens, tendo acesso apenas à leitura.
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
+3. Caso o usuário não esteja logado, realize o login.
+4. Após o login, clique em "Lista de Transmissão" localizado na parte superior da HomePage.
+5. Clique no botão 'Nova Lista' ou seleciona uma lista já criada. 
 
 ##### Artefatos produzidos
 * [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/BroadcastCreate.js)
@@ -271,3 +280,18 @@ A aplicação deve permitir ao usuário recuperar a senha na aplicação `Study2
 * [RecuperarSenha.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/RecuperarSenha.cshtml)
 * [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
 
+### Funcionalidade 16: A aplicação deve permitir ao usuário gerenciar seus grupos (RF-011)
+
+A aplicação deve permitir ao usuário gerenciar seus grupos criados, podendo visualizar quem são os participantes do grupo. Caso o usuário quem criou o grupo, então ele terá permissão de administrador no grupo que permitirá que ele edite o nome, adicione ou remova participantes, arquive ou desarquive o grupo.
+
+![Informações de grupo](![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/9b7cc341-da60-4fc3-8ad6-f67977be0e25))
+
+
+##### Instruções de acesso
+1. Acesse o aplicativo
+2. Realize seu `Login`
+3. Clique em algum grupo criado na Homepage ou crie seu próprio grupo
+
+##### Artefatos produzidos
+* [EditGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/EditGroup.js)
+* [GroupInfo.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/GroupInfo.js)
