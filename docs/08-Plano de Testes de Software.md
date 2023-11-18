@@ -132,11 +132,11 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-11.3 - Remover Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
+|CT-11.3 - Arquivar Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se é possível remover um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Remover um canal</li></ol> |	O canal deve ser removido da lista de canais.
+|Verificar se é possível arquivar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Arquivar um canal</li></ol> |	O canal deve ser arquivado da lista de canais.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
