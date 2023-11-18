@@ -16,20 +16,25 @@ export default function BroadcastList({ navigation }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
-
-  const { user } = useUser();
+  const { user, name } = useUser();
   const { showToast } = useToast(); //toast
-  const userName = user?.name || 'Carregando...';
+  // const userName = user?.name || 'Carregando...';
+  const userName = name;
   const userId = user?.id;
   const isAdmin = userId === user?.idAdmin;
   // const isAdmin = user?.isAdmin; //admin off
-  
 
   const handleSendMessage = () => {
     if (isAdmin && currentMessage.trim() !== '') {
       const timestamp = new Date();
-      const timeString = `${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
-      setMessages(prevMessages => [
+      const timeString = `${timestamp
+        .getHours()
+        .toString()
+        .padStart(2, '0')}:${timestamp
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')}`;
+      setMessages((prevMessages) => [
         ...prevMessages,
         {
           userName: userName,
@@ -38,14 +43,17 @@ export default function BroadcastList({ navigation }) {
         },
       ]);
       setCurrentMessage('');
-      showToast("Lista de transmissão", userName, "2Gather"); //toast
+      showToast('Lista de transmissão', userName, '2Gather'); //toast
     }
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.containerBody}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.containerBody}
+    >
       <Appbar.Header style={styles.header}>
-        <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
+        <Appbar.BackAction onPress={() => navigation.navigate('Homepage')} />
         <Text style={styles.titleHeader}>Nome da Lista</Text>
       </Appbar.Header>
 
@@ -64,11 +72,15 @@ export default function BroadcastList({ navigation }) {
           value={currentMessage}
           onChangeText={isAdmin ? setCurrentMessage : null}
           style={styles.chatInput}
-          placeholder={isAdmin ? "Digite sua mensagem..." : "Apenas um admin pode enviar mensagens"}
+          placeholder={
+            isAdmin
+              ? 'Digite sua mensagem...'
+              : 'Apenas um admin pode enviar mensagens'
+          }
           onSubmitEditing={handleSendMessage}
           editable={isAdmin}
         />
-        <TouchableOpacity 
+        <TouchableOpacity
           onPress={handleSendMessage}
           disabled={!isAdmin}
           style={!isAdmin ? styles.sendButtonDisabled : styles.sendButton}
@@ -83,15 +95,15 @@ export default function BroadcastList({ navigation }) {
 const styles = StyleSheet.create({
   containerBody: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   header: {
-    backgroundColor: "#2368A2",
+    backgroundColor: '#2368A2',
   },
   titleHeader: {
     marginLeft: 10,
     fontSize: 18,
-    color: "#FFFCF4",
+    color: '#FFFCF4',
   },
   messagesContainer: {
     flex: 1,
@@ -105,12 +117,12 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 16,
-    color: "#333",
+    color: '#333',
   },
   messageTime: {
     fontSize: 10,
-    color: "#888",
-    alignSelf: "flex-end",
+    color: '#888',
+    alignSelf: 'flex-end',
   },
   userName: {
     fontWeight: 'bold',
@@ -118,32 +130,32 @@ const styles = StyleSheet.create({
     color: '#2368A2',
   },
   chatInputContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     padding: 10,
-    backgroundColor: "#FFF",
+    backgroundColor: '#FFF',
     borderTopWidth: 1,
-    borderColor: "#EEE",
+    borderColor: '#EEE',
   },
   chatInput: {
     flex: 1,
-    backgroundColor: "#F1F3F5",
+    backgroundColor: '#F1F3F5',
     padding: 10,
     borderRadius: 20,
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: "#2368A2",
+    backgroundColor: '#2368A2',
     padding: 10,
     borderRadius: 20,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   sendButtonDisabled: {
-    backgroundColor: "#CCCCCC",
+    backgroundColor: '#CCCCCC',
     padding: 10,
     borderRadius: 20,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   sendButtonText: {
-    color: "white",
+    color: 'white',
   },
 });
