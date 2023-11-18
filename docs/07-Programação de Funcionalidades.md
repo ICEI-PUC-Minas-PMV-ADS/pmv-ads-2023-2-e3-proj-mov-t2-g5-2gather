@@ -18,10 +18,10 @@ A funcionalidade permite que o usuário faça uma postagem na pagina de Interaç
 * [Interacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Interacoes.cshtml)
 * [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
 
-### Funcionalidade 02: A aplicação deve ter uma interface administrativa para gerenciar os usuários.	(RF-02)
-O sistema deve fornecer uma interface administrativa que permita aos administradores adicionar, editar e remover usuários do sistema.
+### Funcionalidade 02: A aplicação deve ter uma interface administrativa para gerenciar os usuários (RF-02)
+O sistema deve fornecer uma interface administrativa que permita aos administradores adicionar, editar e inativar usuários do sistema.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/5e204422-4877-4995-aa00-05290f640c5f)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/f913b28d-b5ea-479c-a7de-99f3f1d81afb)
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/25be55d2-cb61-48f8-be66-678e68462ff9)
 
 
@@ -90,8 +90,9 @@ A funcionalidade permite que apenas ao Criador/Administrador da lista de transmi
 2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
 3. Caso o usuário não esteja logado, realize o login.
 4. Após o login, clique em "Lista de Transmissão" localizado na parte superior da HomePage.
-5. Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista, uma mensagem informativa será exibida, destacando que por meio das listas de transmissão, ele poderá enviar mensagens a várias pessoas simultaneamente. Além disso, será apresentado um botão para adicionar uma 'Nova Lista'. Se o usuário já tiver uma ou mais listas criadas, estas serão renderizadas na tela, oferecendo a opção de clicar na lista para enviar mensagens, acessar informações através do ícone 'i', e, no mesmo ícone de informações, editar ou arquivar a lista, será exibido também o botão para adicionar uma 'Nova Lista'. É importante destacar que somente as listas criadas pelo próprio usuário serão visíveis nessa tela.
-6. As listas em que o usuário é apenas um 'participante/destinatário' serão exibidas diretamente na HomePage. Ele poderá visualizar as mensagens postadas pelo administrador da lista, sem a possibilidade de interação.
+5. Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista, uma mensagem informativa será exibida, destacando que por meio das listas de transmissão, ele poderá enviar mensagens a várias pessoas simultaneamente. Além disso, será apresentado um botão para adicionar uma 'Nova Lista'. Se o usuário já tiver uma ou mais listas criadas, estas serão renderizadas na tela, oferecendo a opção de clicar na lista para enviar mensagens, acessar informações através do ícone 'i', e, no mesmo ícone de informações, editar ou arquivar a lista, será exibido também o botão para adicionar uma 'Nova Lista'. Adicionalmente, caso o usuário possua listas de transmissão 'arquivadas', essas serão renderizadas com um diferencial de background e acompanhadas de uma mensagem informando que estão arquivadas, se o usuário clicar no ícone 'i' de uma lista arquivada, terá a opção de desarquivá-la.
+6. É importante destacar que somente as listas criadas pelo próprio usuário serão visíveis nessa tela.
+7. As listas em que o usuário é apenas um 'participante/destinatário' serão exibidas diretamente na HomePage. Ele poderá visualizar as mensagens postadas pelo administrador da lista, sem a possibilidade de interação.
 
 ##### Artefatos produzidos
 * [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/BroadcastCreate.js)
