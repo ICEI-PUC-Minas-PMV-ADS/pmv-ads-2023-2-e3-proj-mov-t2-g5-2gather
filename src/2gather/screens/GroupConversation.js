@@ -28,9 +28,15 @@ export default function GroupConversation({ route }) {
   );
 
   const handleSendMessage = () => {
-    if (currentMessage.trim() !== '') {
+    if (isAdmin && currentMessage.trim() !== "") {
       const timestamp = new Date();
-      const timeString = `${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
+      const timeString = `${timestamp
+        .getHours()
+        .toString()
+        .padStart(2, "0")}:${timestamp
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
       setMessages((prevMessages) => [
         ...prevMessages,
         {
@@ -39,17 +45,16 @@ export default function GroupConversation({ route }) {
           time: timeString,
         },
       ]);
-      setCurrentMessage('');
-
+      setCurrentMessage("");
       if (!isGroupFocused) {
-        showToast('Mensagem recebida', userName, '2Gather');
+        showToast("Nova mensagem", userName, "2Gather");
       }
     }
   };
 
   const getGroup = async () => {
     try {
-      const result = await GetGroupDetails({ idGroup: groupId.id }) || [];
+      const result = (await GetGroupDetails({ idGroup: groupId.id })) || [];
       setTitle(result.title);
       setIdGroup(result.id);
     } catch (error) {
@@ -61,19 +66,23 @@ export default function GroupConversation({ route }) {
     if (groupId) {
       getGroup();
     } else {
-      console.log('Missing group id');
+      console.log("Missing group id");
     }
   }, []);
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.containerBody}
     >
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate('GroupInfo', { id: groupId.id })}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("GroupInfo", { id: groupId.id })}
+        >
           <Appbar.Header style={styles.header}>
-            <Appbar.BackAction onPress={() => navigation.navigate('Homepage')} />
+            <Appbar.BackAction
+              onPress={() => navigation.navigate("Homepage")}
+            />
             <Avatar.Icon size={24} icon="account-group" />
             <Text style={styles.titleHeader}>{title}</Text>
           </Appbar.Header>
@@ -94,7 +103,7 @@ export default function GroupConversation({ route }) {
           value={currentMessage}
           onChangeText={setCurrentMessage}
           style={styles.chatInput}
-          placeholder='Digite sua mensagem...'
+          placeholder="Digite sua mensagem..."
           onSubmitEditing={handleSendMessage}
           editable={true}
         />
@@ -112,67 +121,67 @@ export default function GroupConversation({ route }) {
 const styles = StyleSheet.create({
   containerBody: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
   header: {
-    backgroundColor: '#2368A2',
+    backgroundColor: "#2368A2",
   },
   titleHeader: {
     marginLeft: 10,
     fontSize: 18,
-    color: '#FFFCF4',
+    color: "#FFFCF4",
   },
   messagesContainer: {
     flex: 1,
     padding: 10,
   },
   messageContainer: {
-    backgroundColor: '#FFFCF4',
+    backgroundColor: "#FFFCF4",
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
   },
   message: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
   },
   messageTime: {
     fontSize: 10,
-    color: '#888',
-    alignSelf: 'flex-end',
+    color: "#888",
+    alignSelf: "flex-end",
   },
   userName: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4,
-    color: '#2368A2',
+    color: "#2368A2",
   },
   chatInputContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderTopWidth: 1,
-    borderColor: '#EEE',
+    borderColor: "#EEE",
   },
   chatInput: {
     flex: 1,
-    backgroundColor: '#F1F3F5',
+    backgroundColor: "#F1F3F5",
     padding: 10,
     borderRadius: 20,
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: '#2368A2',
+    backgroundColor: "#2368A2",
     padding: 10,
     borderRadius: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   sendButtonDisabled: {
-    backgroundColor: '#CCCCCC',
+    backgroundColor: "#CCCCCC",
     padding: 10,
     borderRadius: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   sendButtonText: {
-    color: 'white',
+    color: "white",
   },
 });

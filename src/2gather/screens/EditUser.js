@@ -158,7 +158,7 @@ export default function EditUser({ navigation }) {
             <Picker
               selectedValue={role}
               onValueChange={(value) => setRole(value)}
-              style={[fieldErrors.role && styles.errorInput]}
+              style={[styles.emailInput, fieldErrors.role && styles.errorInput]}
             >
               <Picker.Item label="Selecione um cargo" value="null" />
               {roles.map((item) => (
@@ -177,11 +177,7 @@ export default function EditUser({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonCancel}
-<<<<<<< HEAD
-            onPress={() => navigation.goBack("")}
-=======
             onPress={() => navigation.goBack()} //UserManagement
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
           >
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
@@ -323,12 +319,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   emailInput: { 
-    backgroundColor: '#FFFCF4', 
-    borderWidth: 1, 
-    borderRadius: 10, 
-    borderColor: '#868E96', 
-    height: 40, 
-    justifyContent: 'center', 
-    marginBottom: 10 
+    height: 40,
+    borderColor: "#868E96",
+    backgroundColor: "#FFFCF4",
+    borderWidth: 1,
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 10,
   }
 });

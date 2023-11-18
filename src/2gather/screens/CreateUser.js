@@ -144,18 +144,15 @@ export default function CreateUser({ navigation }) {
           />
 
           <Text>Cargo</Text>
-          <View>
+          <View style={styles.emailInput}>
             <Picker
               selectedValue={role}
-              onValueChange={(itemValue) => setRole(itemValue)}
-              // style={styles.inputPicker}
-              style={[
-                styles.inputPicker, fieldErrors.role && styles.errorInput,
-              ]}
+              onValueChange={(value) => setRole(value)}
+              style={[fieldErrors.role && styles.errorInput]}
             >
-              <Picker.Item label="Selecione um cargo" value="" />
-              {roles.map((role) => (
-                <Picker.Item key={role.id} label={role.name} value={role.id} />
+              <Picker.Item label="Selecione um cargo" value="null" />
+              {roles.map((item) => (
+                <Picker.Item key={item.id} label={item.name} value={item.id} />
               ))}
             </Picker>
           </View>
@@ -287,4 +284,13 @@ const styles = StyleSheet.create({
     color: "black",
     marginBottom: 10,
   },
+  emailInput: { 
+    backgroundColor: '#FFFCF4', 
+    borderWidth: 1, 
+    borderRadius: 10, 
+    borderColor: '#868E96', 
+    height: 40, 
+    justifyContent: 'center', 
+    marginBottom: 10 
+  }
 });

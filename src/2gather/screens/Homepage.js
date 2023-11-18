@@ -38,10 +38,6 @@ export default function Homepage() {
   const getYourGroups = async () => {
     try {
       const result = (await GetListYourGroups()) || [];
-<<<<<<< HEAD
-      console.log(result);
-=======
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
       setYourGroups(result);
     } catch (error) {
       console.log(error);
@@ -73,10 +69,6 @@ export default function Homepage() {
     try {
       const result = (await GetMessages()) || [];
       setYourMessages(result);
-<<<<<<< HEAD
-      console.log(result);
-=======
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
     } catch (error) {
       console.log(error);
     } finally {
@@ -95,18 +87,11 @@ export default function Homepage() {
     }, [])
   );
 
-<<<<<<< HEAD
-  const handleItemPress = async (groupId) => {
-    try {
-      const result = (await GetGroupDetails({ idGroup: groupId })) || [];
-      navigation.navigate('GroupConversation', {
-=======
   const handleItemPress = async (group) => {
     try {
       const result = await GetGroupDetails({ idGroup: group.id }) || [];
       socket.emit("createRoom", result.id, group.title);
-      navigation.navigate("Chat", {
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
+      navigation.navigate("GroupConversation", {
         room: result,
         roomId: result.id,
       });
@@ -118,11 +103,7 @@ export default function Homepage() {
 
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
-<<<<<<< HEAD
-    <TouchableOpacity onPress={() => handleItemPress(item.id)}>
-=======
     <TouchableOpacity onPress={() => handleItemPress(item)}>
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
       <View style={styles.contactItem}>
         {/*Se item.photo não retornar uma url válida, carrega imagem default de grupos */}
         <Image
