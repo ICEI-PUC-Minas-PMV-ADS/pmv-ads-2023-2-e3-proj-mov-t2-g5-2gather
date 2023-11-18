@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { View, TextInput, FlatList, Text, StyleSheet, Pressable, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
 import socket from "../services/socket";
@@ -15,15 +15,17 @@ const Chat = ({ route, navigation }) => {
 	const [message, setMessage] = useState("");
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
+	const roomRef = useRef(room);
+
 	//Se for conversa privada, tenta carregar a url que está em photo do destinatário, se não conseguir/não houver, carrega profile.png. Se for conversa em grupo, pega imagem default de grupo
 	let image = (room.isPrivate ? (partner.photo ? { uri: partner.photo } :  require('../assets/profile.png')) : require('../assets/group.png'))
 
 	const getMessages = async () => {
 		try {
 			//ideal é ter as msgs em um local storage, caso não tenha, ai sim tentar pegar da api.
+			//minha ideia era apenas salvar msgs que já foram vistas por todas no sqlite, assim evitando fazer verificações se é necessario alterar o tempo todo.
 			const result = await getMessageList({ idGroup: roomId }) || [];
-			const decryptedResult = result.map(item => decryptMessage(item, item.text));
-
+			const decryptedResult = result.map(item => decryptMessage(item, item.text, room));
 			setChatMessages(decryptedResult);
 		} catch (error) {
 			console.log(error)
@@ -32,14 +34,15 @@ const Chat = ({ route, navigation }) => {
 
 	function decryptMessage(item, text) {
 		let publicKey
-		if(message.many || !room.isPrivate){
-			publicKey = item.pkeReceiver
+		if(item.many == 'true' || !room.isPrivate){
+			publicKey = item.pkeSentBy
+			try{text = JSON.parse(text);}catch{}
+			text = id in text ?  text[id] : "Couldn't decrypt the message"
 		}
 		else{
 			publicKey = item.idSentBy == id ? item.pkeReceiver : item.pkeSentBy
 		}
 		const decryptedText = Decrypt(text, publicKey, privateE2eContext).message;
-
 		return {
 			...item,
 			text: decryptedText
@@ -75,16 +78,17 @@ const Chat = ({ route, navigation }) => {
 				} else {
 					let messages = {}
 					room.members.map((m) => {
-						messages[m.id] = Encrypt({'message':message}, m.pke, privateE2eContext)
+						if(m.pke){
+							messages[m.id] = Encrypt({'message':message}, m.pke, privateE2eContext)
+						}
 					})
 					encryptedMessage = messages
-
-					SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, readBy: id })//tenho que testar se está funcionando com algum grupo
+					SaveMessage({ text: JSON.stringify(encryptedMessage), idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, readBy: id })//tenho que testar se está funcionando com algum grupo
 																																   //como a logica ficou meio complicada, fica ruim de adulterar só pra testar.
 				}
 				setMessage('');
 				let m = encryptedMessage ? encryptedMessage : message
-				let partnerPublicKey = partner.pke ? partner.pke : null
+				let partnerPublicKey = partner ? partner.pke : null
 				socket.emit("newMessage", {
 					message: m,
 					room_id: roomId,
@@ -99,21 +103,27 @@ const Chat = ({ route, navigation }) => {
 				setMessage('');
 			}
 		}else{
-			print("Something went wrong, please contact support.")
+			console.log("Something went wrong, please contact support.")
 		}
 	};
 
+	const handleRoomMessage = useCallback((message) => {
+		console.log(roomRef.current);
+		let decryptedMessage = decryptMessage(message, message.text);
+		setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
+	}, [setChatMessages, roomRef]);
+
 	useEffect(() => {
-		socket.on("roomMessage", (message) => {
-			let decryptedMessage = "Couldn't decrypt the message"
-			if(message.many || !room.isPrivate){
-				decryptedMessage = id in message.text ? decryptMessage(message, message.text[id]) : "Couldn't decrypt the message"
-			}else{
-				decryptedMessage = decryptMessage(message, message.text)
-			}
-			setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
-		});
-	}, [socket]);
+		roomRef.current = room;
+	}, [room]);
+
+	useEffect(() => {
+		socket.on("roomMessage", handleRoomMessage);
+	
+		return () => {
+			socket.off("roomMessage", handleRoomMessage);
+		};
+	}, [socket, handleRoomMessage]);
 
 	return (
 
@@ -144,7 +154,7 @@ const Chat = ({ route, navigation }) => {
 				ref={messageListRef}
 				data={chatMessages}
 				renderItem={({ item }) => <MessageBox isPrivate={room.isPrivate} item={item} user={name} />}
-				keyExtractor={(item) => item.id.toString()}
+				key={(item) => {item.id.toString();}}
 				onContentSizeChange={() => {
 					if (!isFirstLoad) {
 						messageListRef.current.scrollToEnd({ animated: true });
