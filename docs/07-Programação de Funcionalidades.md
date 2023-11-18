@@ -78,15 +78,17 @@ A funcionalidade permite que os usuários criem Listas de Transmissão no App da
 
 A funcionalidade permite que apenas ao Criador/Administrador da lista de transmissão possa enviar mensagens nesta Lista Criada por ele no App `2Gather`.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/95e35cce-fce2-45d4-ab1a-cc93b029f883)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/aae7e268-182f-4cdc-99ae-62aa008ac8dc)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/d26098e4-496a-45f6-acff-e74bd6715ef7)
+
 
 ##### Instruções de acesso
-1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
-2. Abra a Aplicação no VSCode e a inicialize conforme descrito detalhadamente no README.
-3. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
-4. Com o login já efetuado, clicar em "Lista de Transmissão" na parte superior da HomePage.
-5. Na Tela Listas de transmissão, o Administrador terá todas as suas listas criadas podendo enviar mensagens, editá-las e arquivá-las.
-6. Caso não seja o Administrador da Lista não será possível o envio de mensagens, tendo acesso apenas à leitura.
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
+3. Caso o usuário não esteja logado, realize o login.
+4. Após o login, clique em "Lista de Transmissão" localizado na parte superior da HomePage.
+5. Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista, uma mensagem informativa será exibida, destacando que por meio das listas de transmissão, ele poderá enviar mensagens a várias pessoas simultaneamente. Além disso, será apresentado um botão para adicionar uma 'Nova Lista'. Se o usuário já tiver uma ou mais listas criadas, estas serão renderizadas na tela, oferecendo a opção de clicar na lista para enviar mensagens, acessar informações através do ícone 'i', e, no mesmo ícone de informações, editar ou arquivar a lista, será exibido também o botão para adicionar uma 'Nova Lista'. É importante destacar que somente as listas criadas pelo próprio usuário serão visíveis nessa tela.
+6. As listas em que o usuário é apenas um 'participante/destinatário' serão exibidas diretamente na HomePage. Ele poderá visualizar as mensagens postadas pelo administrador da lista, sem a possibilidade de interação.
 
 ##### Artefatos produzidos
 * [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/BroadcastCreate.js)
