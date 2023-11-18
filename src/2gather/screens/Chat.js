@@ -125,7 +125,7 @@ const Chat = ({ route, navigation }) => {
 			<View >
 				<Appbar.Header style={styles.header}>
 					<Appbar.BackAction onPress={() => navigation.navigate("Contacts")} />
-					<TouchableOpacity onPress={() => navigation.navigate('Profile', {item: partner})}> {/* Precisa implementar a logica pra redirecionar pra grupos */}
+					<TouchableOpacity onPress={() => navigation.navigate('Profile', {item: partner})}> 
 						<View style={styles.contentContainer}>
 							<Image
 								style={styles.contactPhoto}
