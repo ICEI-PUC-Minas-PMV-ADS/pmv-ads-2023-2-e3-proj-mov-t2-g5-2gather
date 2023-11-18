@@ -144,15 +144,14 @@ export default function CreateUser({ navigation }) {
           />
 
           <Text>Cargo</Text>
-          <View
-            style={[
-              fieldErrors.role && styles.errorInput,
-            ]}
-          >
+          <View>
             <Picker
               selectedValue={role}
               onValueChange={(itemValue) => setRole(itemValue)}
-              style={styles.inputPicker}
+              // style={styles.inputPicker}
+              style={[
+                styles.inputPicker, fieldErrors.role && styles.errorInput,
+              ]}
             >
               <Picker.Item label="Selecione um cargo" value="" />
               {roles.map((role) => (

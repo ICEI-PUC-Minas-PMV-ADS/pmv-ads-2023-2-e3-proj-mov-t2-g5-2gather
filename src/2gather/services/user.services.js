@@ -73,3 +73,20 @@ export const updateUserPhoto = async ({ newPhoto }) => {
         return false; // Erro durante a troca
     }
 };
+
+// Editar usuario
+export const UpdateUser = async ({ userId, name, phone, email, idRole }) => {
+    try {
+        const data = { name, phone, email, idRole };
+        const response = await sendAuthenticatedRequest(`/user/update/${userId}/admin/`, 'PATCH', data);
+
+        if (response.ok) {
+            return true; // para atualização bem-sucedida
+        } else {
+            return false; // para falha na atualização
+        }
+    } catch (error) {
+        console.log(error);
+        return false; // para erro durante a atualização
+    }
+};

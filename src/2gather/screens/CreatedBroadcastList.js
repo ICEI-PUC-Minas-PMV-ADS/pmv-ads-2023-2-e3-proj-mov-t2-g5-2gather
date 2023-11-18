@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,24 +9,22 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import Toast from '../components/Toast';
 import { useUser } from '../contexts/UserContext';
 
 export default function BroadcastList({ navigation }) {
   const [currentMessage, setCurrentMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [toastVisible, setToastVisible] = useState(false);
+
 
   const { user } = useUser();
-  const userName = user?.name || 'Carregando...'; // verificar a resposta da req
-
-  const showBroadcastNotification = () => {
-    setToastVisible(true);
-    setTimeout(() => setToastVisible(false), 3000);
-  };
+  const userName = user?.name || 'Carregando...';
+  const userId = user?.id;
+  const isAdmin = userId === user?.idAdmin;
+  // const isAdmin = user?.isAdmin; //admin off
+  
 
   const handleSendMessage = () => {
-    if (currentMessage.trim() !== '') {
+    if (isAdmin && currentMessage.trim() !== '') {
       const timestamp = new Date();
       const timeString = `${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
       setMessages(prevMessages => [
@@ -61,26 +59,20 @@ export default function BroadcastList({ navigation }) {
       <View style={styles.chatInputContainer}>
         <TextInput
           value={currentMessage}
-          onChangeText={setCurrentMessage}
+          onChangeText={isAdmin ? setCurrentMessage : null}
           style={styles.chatInput}
-          placeholder="Mensagem"
+          placeholder={isAdmin ? "Digite sua mensagem..." : "Apenas um admin pode enviar mensagens"}
           onSubmitEditing={handleSendMessage}
+          editable={isAdmin}
         />
-        <TouchableOpacity onPress={showBroadcastNotification}> 
-        {/* handleSendMessage */}
-          <Text style={styles.sendButton}>Enviar</Text>
+        <TouchableOpacity 
+          onPress={handleSendMessage}
+          disabled={!isAdmin}
+          style={!isAdmin ? styles.sendButtonDisabled : styles.sendButton}
+        >
+          <Text style={styles.sendButtonText}>Enviar</Text>
         </TouchableOpacity>
       </View>
-
-      {toastVisible && (
-        <Toast
-          visible={toastVisible}
-          message="Mensagem enviada para a lista de transmissão."
-          appName={"2Gather"}
-          showSenderName={false}
-          style={{ zIndex: 9999, position: "absolute", top: 0 }}
-        />
-      )}
     </KeyboardAvoidingView>
   );
 }
@@ -138,9 +130,17 @@ const styles = StyleSheet.create({
   },
   sendButton: {
     backgroundColor: "#2368A2",
-    color: "white",
     padding: 10,
     borderRadius: 20,
     alignSelf: "center",
+  },
+  sendButtonDisabled: {
+    backgroundColor: "#CCCCCC",
+    padding: 10,
+    borderRadius: 20,
+    alignSelf: "center",
+  },
+  sendButtonText: {
+    color: "white",
   },
 });

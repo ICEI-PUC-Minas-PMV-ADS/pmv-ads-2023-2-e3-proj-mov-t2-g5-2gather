@@ -30,7 +30,7 @@ const Toast = ({ appName, senderName, message, visible, showSenderName = true })
         <Text style={styles.appName}>{appName}</Text>
         <Text style={styles.timestamp}>agora</Text>
       </View>
-      {showSenderName && <Text style={styles.senderName}>{`Nova notificação de: ${senderName}`}</Text>}
+      {showSenderName && <Text style={styles.senderName}>{`Nova mensagem de ${senderName}`}</Text>}
       <Text style={styles.message}>{message}</Text>
     </Animated.View>
   );

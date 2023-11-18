@@ -10,8 +10,9 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { Appbar } from "react-native-paper";
 import { GetRoles } from "../services/role.services";
-import { GetUserList, UpdateUserDetails } from "../services/user.services";
+import { GetUserList, UpdateUserDetails, UpdateUser } from "../services/user.services";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Toast from "../components/Toast";
 
 export default function EditUser({ navigation }) {
   const [id, setId] = useState("");
@@ -27,27 +28,14 @@ export default function EditUser({ navigation }) {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  const [showNotification, setShowNotification] = useState(false);
-  const slideAnim = useRef(new Animated.Value(-100)).current;
   const [toastVisible, setToastVisible] = useState(false);
+  const [toastVisibleError, setToastVisibleError] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({
     userId: false,
     name: false,
     phone: false,
     role: false,
   });
-
-  const validateFields = () => {
-    let errors = {};
-    if (!userId) errors.userId = true;
-    if (!name) errors.name = true;
-    if (!phone) errors.phone = true;
-    if (!role) errors.role = true;
-
-    setFieldErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
 
   useEffect(() => {
     async function fetchUserList() {
@@ -58,55 +46,61 @@ export default function EditUser({ navigation }) {
         console.error("Erro ao buscar a lista de usuários:", error);
       }
     }
+
     fetchUserList();
   }, []);
 
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        setLoading(true);
+        const result = await GetRoles();
+        setRoles(result || []);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRoles();
+  }, []);
+
   const handleSubmit = async () => {
-    if (!validateFields()) {
+    setFieldErrors({
+      userId: false,
+      name: false,
+      phone: false,
+      role: false,
+    });
+
+    let errors = {};
+    if (!userId) errors.userId = true;
+    if (!name) errors.name = true;
+    if (!phone) errors.phone = true;
+    if (!role) errors.role = true;
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setToastVisibleError(true);
+      setTimeout(() => setToastVisibleError(false), 3000);
       return;
     }
 
     try {
-      setLoading(true);
-      const result = await UpdateUserDetails({
-        id: userId,
+      await UpdateUser({
+        userId,
         name,
-        email,
         phone,
         idRole: role,
       });
-      setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 3000);
-      navigation.navigate("UserManagement");
+      setToastVisible(true);
+      setTimeout(() => setToastVisible(false), 3000);
+      //navigation.navigate("Homepage");
     } catch (error) {
       setError(error.message);
-    } finally {
-      setLoading(false);
     }
   };
-
-  const getRoles = async () => {
-    try {
-      setLoading(true);
-      const result = (await GetRoles()) || [];
-      setRoles(result);
-      setError(null);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getRoles();
-  }, []);
-
-  const handleToastClick = () => {
-    setToastVisible(false);
-    setTimeout(() => setToastVisible(false), 3000);
-    //navigation.navigate('Homepage');
-};
 
   return (
     <KeyboardAwareScrollView
@@ -115,19 +109,16 @@ export default function EditUser({ navigation }) {
       scrollEnabled={true}
     >
       <View style={styles.containerBody}>
- 
-
-            <Appbar.Header style={styles.header}>
-              <Appbar.BackAction
-                onPress={() => {
-                  navigation.goBack();
-                }}
-              />
-              <View style={styles.rowContainer}>
-                <Text style={styles.title}>Editar Usuário</Text>
-              </View>
-            </Appbar.Header>
-
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+          <View style={styles.rowContainer}>
+            <Text style={styles.title}>Editar Usuário</Text>
+          </View>
+        </Appbar.Header>
 
         <View style={styles.container2}>
           <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
@@ -161,15 +152,11 @@ export default function EditUser({ navigation }) {
           />
 
           <Text>Cargo</Text>
-          <View
-            style={[
-              fieldErrors.role && styles.errorInput,
-            ]}
-          >
+          <View>
             <Picker
               selectedValue={role}
               onValueChange={(value) => setRole(value)}
-              style={styles.inputPicker}
+              style={[styles.inputPicker, fieldErrors.role && styles.errorInput]}
             >
               <Picker.Item label="Click e selecione um cargo" value="" />
               {roles.map((item) => (
@@ -182,7 +169,7 @@ export default function EditUser({ navigation }) {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.buttonSave}
-            onPress={() => handleSubmit()}
+            onPress={handleSubmit}
           >
             <Text style={styles.buttonText}>Salvar</Text>
           </TouchableOpacity>
@@ -193,17 +180,26 @@ export default function EditUser({ navigation }) {
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
         </View>
+      
+      {toastVisibleError && (
+        <Toast
+          visible={toastVisibleError}
+          message={"Preencha todos os campos corretamente."}
+          appName={"2Gather"}
+          showSenderName={false}
+          style={{ zIndex: 9999, position: "absolute", top: 0 }}
+        />
+      )}
+      {toastVisible && (
+        <Toast
+          visible={toastVisible}
+          message={"Conta editada com sucesso!"}
+          appName={"2Gather"}
+          showSenderName={false}
+          style={{ zIndex: 9999, position: "absolute", top: 0 }}
+        />
+      )}
       </View>
-      {toastVisible && 
-                <Toast 
-                    visible={toastVisible} 
-                    message={`Conta editada com sucesso!`} 
-                    appName={'2Gather'} 
-                    showSenderName={false}
-                    style={{ zIndex: 9999, position: 'absolute', top: 0 }}
-                    onPress={handleToastClick}
-                />
-            }
     </KeyboardAwareScrollView>
   );
 }
@@ -313,7 +309,7 @@ const styles = StyleSheet.create({
     color: "#FFFCF4",
     fontSize: 20,
   },
-    pickerContainer: {
+  pickerContainer: {
     height: 40,
     borderColor: "#868E96",
     borderWidth: 1,
