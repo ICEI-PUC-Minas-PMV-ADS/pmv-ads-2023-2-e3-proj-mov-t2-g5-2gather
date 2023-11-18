@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 10,
     right: 10,
-    padding: 10,
+    padding: 20,
     backgroundColor: '#FAE29F',
     borderRadius: 7,
     elevation: 5,
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.3,
     shadowRadius: 1,
+    top: 40
   },
   header: {
     flexDirection: 'row',

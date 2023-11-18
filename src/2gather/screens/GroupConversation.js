@@ -10,9 +10,9 @@ import { useToast } from '../contexts/ToastContext';
 export default function GroupConversation({ route }) {
   const navigation = useNavigation();
   const groupId = route.params ? route.params : {};
-  const [idGroup, setIdGroup] = useState('');
-  const [title, setTitle] = useState('');
-  const [currentMessage, setCurrentMessage] = useState('');
+  const [idGroup, setIdGroup] = useState("");
+  const [title, setTitle] = useState("");
+  const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isGroupFocused, setIsGroupFocused] = useState(false);
 

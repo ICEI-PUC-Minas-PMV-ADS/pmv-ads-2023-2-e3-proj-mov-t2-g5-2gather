@@ -176,7 +176,7 @@ export default function EditUser({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonCancel}
-            onPress={() => navigation.navigate("CreatedBroadcastList")} //UserManagement
+            onPress={() => navigation.goBack("")}
           >
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
