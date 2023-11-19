@@ -123,9 +123,8 @@ A aplicação deve permitir ao usuário responder as perguntas na platarforma da
 ### Funcionalidade 07: Visualizar notificações de mensagens. (RF-007)
 A funcionalidade permite que o usuário, logado na `2Gather`, visualize uma notificação quando receber uma mensagem de outro usuario, grupo e lista de transmissão.
 
-![Notificação - usuario]('')
-![Notificação - grupo]('')
-![Notificação - lista]('')
+![Toast](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/d9c3f415-ffcf-4b9e-bf2f-920b92c52791)
+
 
 ##### Instruções de acesso
 1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
