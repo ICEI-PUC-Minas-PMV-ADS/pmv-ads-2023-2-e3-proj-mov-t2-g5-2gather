@@ -314,18 +314,41 @@ A aplicação deve permitir ao usuário recuperar a senha na aplicação `Study2
 * [RecuperarSenha.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/RecuperarSenha.cshtml)
 * [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
 
-### Funcionalidade 16: A aplicação deve permitir ao usuário gerenciar seus grupos (RF-011)
+### Funcionalidade 16: O usuário deve gerenciar os grupos em que for administrador (RF-011)
 
-A aplicação deve permitir ao usuário gerenciar seus grupos criados, podendo visualizar quem são os participantes do grupo. Caso o usuário quem criou o grupo, então ele terá permissão de administrador no grupo que permitirá que ele edite o nome, adicione ou remova participantes, arquive ou desarquive o grupo.
+A aplicação deve permitir ao usuário gerenciar seus grupos criados, podendo visualizar quem são os participantes do grupo. Caso o usuário seja quem criou o grupo, então ele terá permissão de administrador no grupo que permitirá que ele edite o nome, adicione ou remova participantes, arquive ou desarquive o grupo.
 
-![Informações de grupo](![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/9b7cc341-da60-4fc3-8ad6-f67977be0e25))
-
+![Informações de grupo](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/30e6cc4c-698b-4cdc-a357-16cc59af0e2b)
+![Editar grupo](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/517ffbec-744c-44cf-8c79-28a822ff09cc)
 
 ##### Instruções de acesso
-1. Acesse o aplicativo
-2. Realize seu `Login`
-3. Clique em algum grupo criado na Homepage ou crie seu próprio grupo
-
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather)
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md)
+3. Caso o usuário não esteja logado, realize o login
+4. Clique em algum grupo criado na Homepage ou crie seu próprio grupo
+5. Clique na área superior onde está o nome do grupo
+6. É possível clicar em editar ou arquivar o grupo, caso seja administrador dele.
+   
 ##### Artefatos produzidos
-* [EditGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/EditGroup.js)
-* [GroupInfo.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/GroupInfo.js)
+* [EditGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/EditGroup.js)
+* [GroupInfo.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/GroupInfo.js)
+
+### Funcionalidade 17: O usuário deve gerenciar as listas em que for administrador (RF-011)
+
+A aplicação deve permitir ao usuário gerenciar suas listas criados, podendo visualizar quem são os participantes da lista. Caso o usuário seja quem criou a lista, então ele terá permissão de administrador que permitirá que ele edite o nome, adicione ou remova participantes, arquive ou desarquive a lista.
+
+![Informações de grupo](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/30e6cc4c-698b-4cdc-a357-16cc59af0e2b)
+![Editar grupo](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/517ffbec-744c-44cf-8c79-28a822ff09cc)
+
+##### Instruções de acesso
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather)
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md)
+3. Caso o usuário não esteja logado, realize o login
+4. Clique na opção `Lista de transmissão`
+5. Clique em uma lista já criada ou crie uma nova lista
+6. Clique na área superior onde está o nome da lista
+7. É possível clicar em editar ou arquivar a lista, caso seja administrador dela.
+   
+##### Artefatos produzidos
+* [EditGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/EditGroup.js)
+* [GroupInfo.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/GroupInfo.js)
