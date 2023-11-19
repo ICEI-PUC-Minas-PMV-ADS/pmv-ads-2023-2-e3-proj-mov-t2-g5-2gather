@@ -38,12 +38,14 @@ Para instalar as dependências do projeto use o comando
 
 `npm install`
 
-Já com as dependências instaladas para inicializar a aplicação use o comando
+Para iniciar a aplicação, utilize o comando:
 
 `npm start`
 
-A aplicação será inicializada e para acesso completo a todas as funcionalidades utilize o aparelho celular, baixando o App Expo Go e faça a leitura do QR Code. 
-Caso deseje acessar via navegador web no desktop, apertar 'w' no terminal que estiver executando a aplicação. Recomentados o uso do navegador Opera gx, pois este tem suporte para o 'sqlite', e infelizmente observamos que outros navegadores demonstraram não ter suporte, restringindo assim a funcionalidade troca de mensagens.
+Após a inicialização, para acessar todas as funcionalidades:
+
+No dispositivo móvel, baixe o App `Expo Go` e escaneie o `QR Code`.
+Para acesso via navegador web no desktop, pressione `w` no terminal. Recomenda-se o uso do navegador `Opera GX`, que suporta `sqlite`. Outros navegadores podem não oferecer suporte completo, limitando funcionalidades como a troca de mensagens.
 
 ### Considerações:
 
@@ -54,8 +56,8 @@ Dessa forma, como os usuários da aplicação são classificados como Usuários 
 ## Instruções de utilização:
 
 Na Tela Login, acesse com os seguintes dados:
-- E-mail: admin@gmail.com
-- Senha: 123
+- E-mail: mateus@gmail.com
+- Senha: 1234
 
 Ao acessar a aplicação, será apresentada a **Tela HomePage**, na qual estarão disponíveis as sessões e a partir delas poderá ser feita a navegação pela Aplicação, assim como as mensagens que este usuário já possua, estarão no corpo da tela. Estas mensagens podem ser: 
 
