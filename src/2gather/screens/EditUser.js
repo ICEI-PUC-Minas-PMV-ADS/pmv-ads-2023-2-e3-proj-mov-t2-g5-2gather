@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -7,142 +7,220 @@ import {
   TouchableOpacity,
   Animated,
 } from "react-native";
-
-import { UpdateUserDetails } from '../services/user.services'
+import { Picker } from "@react-native-picker/picker";
+import { Appbar } from "react-native-paper";
+import { GetRoles } from "../services/role.services";
+import { GetUserList, UpdateUserDetails, UpdateUser } from "../services/user.services";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Toast from "../components/Toast";
 
 export default function EditUser({ navigation }) {
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
+  const [emails, setEmails] = useState([]);
+  const [userId, setUserId] = useState("");
+  const [userList, setUserList] = useState([]);
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [sector, setSector] = useState("");
-  const [role, setRole] = useState("");
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  const [showNotification, setShowNotification] = useState(false);
-  const slideAnim = useRef(new Animated.Value(-100)).current;
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState("");
+  const [role, setRole] = useState();
+  const [roles, setRoles] = useState([]);
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastVisibleError, setToastVisibleError] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({
+    userId: false,
+    name: false,
+    phone: false,
+    role: false,
+  });
 
-  function isValidEmail(email) {
-    return emailRegex.test(email);
-  }
-
-  const handleSubmit = async () => {
-    if (!isValidEmail(email)) {
-      showSlideNotification();
-      return;
-    }
-    try {
-        const result = await UpdateUserDetails({
-            name: name,
-            email: email,
-            //phone: phone,
-            //description: description,
-            idRole: role,
-            //lastActive: lastActive,
-            //status: status,
-        });
-        console.log(result);
-        alert("Conta editada com sucesso");
-        navigation.navigate("Login");
+  useEffect(() => {
+    async function fetchUserList() {
+      try {
+        const users = await GetUserList();
+        setUserList(users);
       } catch (error) {
-        console.log(error);
+        console.error("Erro ao buscar a lista de usuários:", error);
+      }
+    }
+
+    fetchUserList();
+  }, []);
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        setLoading(true);
+        const result = await GetRoles();
+        setRoles(result || []);
+      } catch (error) {
         setError(error.message);
       } finally {
         setLoading(false);
       }
-    //console.log("Usuário editado");
-  };
+    };
 
-  const showSlideNotification = () => {
-    setShowNotification(true);
-    Animated.timing(slideAnim, {
-      toValue: 0,
-      duration: 500,
-      useNativeDriver: false,
-    }).start(() => {
-      setTimeout(() => {
-        Animated.timing(slideAnim, {
-          toValue: -100,
-          duration: 500,
-          useNativeDriver: false,
-        }).start(() => {
-          setShowNotification(false);
-        });
-      }, 3000); //3 segundos
+    fetchRoles();
+  }, []);
+
+  const handleSubmit = async () => {
+    setFieldErrors({
+      userId: false,
+      name: false,
+      phone: false,
+      role: false,
     });
+
+    let errors = {};
+    if (!userId) errors.userId = true;
+    if (!name) errors.name = true;
+    if (!phone) errors.phone = true;
+    if (!role) errors.role = true;
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setToastVisibleError(true);
+      setTimeout(() => setToastVisibleError(false), 3000);
+      return;
+    }
+
+    try {
+      await UpdateUser({
+        userId,
+        name,
+        phone,
+        idRole: role,
+      });
+      setToastVisible(true);
+      setTimeout(() => setToastVisible(false), 3000);
+      //navigation.navigate("Homepage");
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
-    <View style={styles.container}>
-      {showNotification && (
-        <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
-          <Text style={styles.notificationText}>
-            Por favor, insira um endereço de e-mail válido.
-          </Text>
-        </Animated.View>
-      )}
-      <Text style={styles.header} onPress={() => navigation.goBack()}>
-        <Text>Editar usuário</Text>
-      </Text>
-      <View style={styles.container2}>
-        <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={true}
+    >
+      <View style={styles.containerBody}>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+          <View style={styles.rowContainer}>
+            <Text style={styles.title}>Editar Usuário</Text>
+          </View>
+        </Appbar.Header>
 
-        <Text>ID do Usuário</Text>
-        <TextInput style={styles.input} value={id} onChangeText={setId} />
+        <View style={styles.container2}>
+          <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
 
-        <Text>Email Corporativo</Text>
-        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+          <Text>Email Corporativo</Text>
+          <View style={styles.emailInput}>
+            <Picker
+              selectedValue={userId}
+              onValueChange={(itemValue) => setUserId(itemValue)}
+              style={[fieldErrors.role && styles.errorInput]}
+            >
+              <Picker.Item label="Selecione um e-mail" value="null" />
+              {userList.map((user) => (
+                <Picker.Item  key={user.id} label={user.email} value={user.id} />
+              ))}
+            </Picker>
+          </View>
+          <Text>Nome do Colaborador</Text>
+          <TextInput
+            style={[styles.input, fieldErrors.name && styles.errorInput]}
+            value={name}
+            onChangeText={setName}
+            placeholder="Nome do Colaborador"
+          />
 
-        <Text>Senha</Text>
-        <TextInput
-          style={styles.input}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
+          <Text>Telefone</Text>
+          <TextInput
+            keyboardType="numeric"
+            style={[styles.input, fieldErrors.phone && styles.errorInput]}
+            value={phone}
+            onChangeText={setPhone}
+            placeholder="Telefone"
+          />
 
-        <Text>Nome do Colaborador</Text>
-        <TextInput style={styles.input} value={name} onChangeText={setName} />
+          <Text>Cargo</Text>
+          <View style={styles.emailInput}>
+            <Picker
+              selectedValue={role}
+              onValueChange={(value) => setRole(value)}
+              style={[fieldErrors.role && styles.errorInput]}
+            >
+              <Picker.Item label="Selecione um cargo" value="null" />
+              {roles.map((item) => (
+                <Picker.Item key={item.id} label={item.name} value={item.id} />
+              ))}
+            </Picker>
+          </View>
+        </View>
 
-        <Text>Setor</Text>
-        <TextInput
-          style={styles.input}
-          value={sector}
-          onChangeText={setSector}
-        />
-
-        <Text>Cargo</Text>
-        <TextInput style={styles.input} value={role} onChangeText={setRole} />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.buttonSave}
-            onPress={() => {
-              handleSubmit();
-            }}
+            onPress={handleSubmit}
           >
             <Text style={styles.buttonText}>Salvar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonCancel}
-            onPress={() => navigation.navigate("UserManagement")}
+            onPress={() => navigation.goBack()} //UserManagement
           >
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
         </View>
+      
+      {toastVisibleError && (
+        <Toast
+          visible={toastVisibleError}
+          message={"Preencha todos os campos corretamente."}
+          appName={"2Gather"}
+          showSenderName={false}
+          style={{ zIndex: 9999, position: "absolute", top: 0 }}
+        />
+      )}
+      {toastVisible && (
+        <Toast
+          visible={toastVisible}
+          message={"Conta editada com sucesso!"}
+          appName={"2Gather"}
+          showSenderName={false}
+          style={{ zIndex: 9999, position: "absolute", top: 0 }}
+        />
+      )}
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  containerBody: {
+    flex: 1,
+  },
   headerInput: {
     marginBottom: "10%",
     fontSize: 20,
   },
   container: {
-    flex: 1,
+    paddingTop: 5,
     padding: 0,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   container2: {
     padding: 20,
@@ -150,17 +228,8 @@ const styles = StyleSheet.create({
     display: "flex",
   },
   header: {
-    gap: 10,
-    color: "#FFFCF4",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
-    height: 65,
     backgroundColor: "#2368A2",
-    padding: 0,
-    display: "flex",
-    alignItems: "center",
-    paddingLeft: 10,
+    width: "100%",
   },
   input: {
     height: 40,
@@ -199,27 +268,63 @@ const styles = StyleSheet.create({
   },
   buttonSave: {
     backgroundColor: "#74D99F",
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 15,
-    width: 120,
     alignItems: "center",
+    flex: 1,
+    margin: 5,
   },
   buttonCancel: {
     backgroundColor: "#ADB5BD",
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 15,
-    width: 120,
     alignItems: "center",
+    flex: 1,
+    margin: 5,
   },
   buttonText: {
     color: "#FFFCF4",
     fontSize: 20,
   },
   buttonContainer: {
-    display: "flex",
     flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 30,
     marginTop: 20,
-    justifyContent: "center",
-    gap: 70,
   },
+  inputPicker: {
+    height: 40,
+    backgroundColor: "#FFFCF4",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    color: "black",
+    marginBottom: 10,
+  },
+  errorInput: {
+    borderColor: "red",
+    borderWidth: 2,
+  },
+  title: {
+    color: "#FFFCF4",
+    fontSize: 20,
+  },
+  pickerContainer: {
+    height: 40,
+    borderColor: "#868E96",
+    borderWidth: 1,
+    borderRadius: 8,
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  emailInput: { 
+    backgroundColor: '#FFFCF4', 
+    borderWidth: 1, 
+    borderRadius: 10, 
+    borderColor: '#868E96', 
+    height: 40, 
+    justifyContent: 'center', 
+    marginBottom: 10 
+  }
 });

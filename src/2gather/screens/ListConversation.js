@@ -1,21 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useFocusEffect } from "@react-navigation/native";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
-import { Appbar, Avatar } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { GetGroupDetails } from "../services/group.services";
-import { useUser } from "../contexts/UserContext";
-import { useToast } from "../contexts/ToastContext";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
+import { Appbar, Avatar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { GetGroupDetails } from '../services/group.services';
+import { useUser } from '../contexts/UserContext';
+import { useToast } from '../contexts/ToastContext';
 
-export default function GroupConversation({ route }) {
+export default function ListConversation({ route }) {
   const navigation = useNavigation();
   const groupId = route.params ? route.params : {};
   const [idGroup, setIdGroup] = useState("");
@@ -27,6 +19,8 @@ export default function GroupConversation({ route }) {
   const { user, name } = useUser();
   const { showToast } = useToast();
   const userName = name;
+  const userId = user?.id;
+  const isAdmin = userId === user?.idAdmin;
 
   useFocusEffect(
     useCallback(() => {
@@ -36,7 +30,7 @@ export default function GroupConversation({ route }) {
   );
 
   const handleSendMessage = () => {
-    if (currentMessage.trim() !== "") {
+    if (isAdmin && currentMessage.trim() !== "") {
       const timestamp = new Date();
       const timeString = `${timestamp
         .getHours()
@@ -55,11 +49,10 @@ export default function GroupConversation({ route }) {
       ]);
       setCurrentMessage("");
       if (!isGroupFocused) {
-        showToast("Nova mensagem", userName, "2Gather");
+        showToast("Lista de transmissão", userName, "2Gather"); //toast
       }
     }
   };
-
   const getGroup = async () => {
     try {
       const result = (await GetGroupDetails({ idGroup: groupId.id })) || [];
@@ -109,13 +102,21 @@ export default function GroupConversation({ route }) {
       <View style={styles.chatInputContainer}>
         <TextInput
           value={currentMessage}
-          onChangeText={setCurrentMessage}
+          onChangeText={isAdmin ? setCurrentMessage : null}
           style={styles.chatInput}
-          placeholder="Digite sua mensagem..."
+          placeholder={
+            isAdmin
+              ? "Digite sua mensagem..."
+              : "Apenas um admin pode enviar mensagens"
+          }
           onSubmitEditing={handleSendMessage}
-          editable={true}
+          editable={isAdmin}
         />
-        <TouchableOpacity onPress={handleSendMessage} style={styles.sendButton}>
+        <TouchableOpacity
+          onPress={handleSendMessage}
+          disabled={!isAdmin}
+          style={!isAdmin ? styles.sendButtonDisabled : styles.sendButton}
+        >
           <Text style={styles.sendButtonText}>Enviar</Text>
         </TouchableOpacity>
       </View>

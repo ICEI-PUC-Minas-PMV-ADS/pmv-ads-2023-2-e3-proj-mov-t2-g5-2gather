@@ -7,8 +7,10 @@ import { Appbar } from 'react-native-paper';
 import { SaveMessage, getMessageList, AddReadBy } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
 import { Encrypt, Decrypt } from "../services/encryption.service";
+ import { useChat } from "../contexts/ChatContext";
 
 const Chat = ({ route, navigation }) => {
+	 const { setActiveChat } = useChat();
 	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
 	const { room, partner, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
@@ -50,6 +52,7 @@ const Chat = ({ route, navigation }) => {
 	}
 
  	useEffect(() => {
+	    setActiveChat(roomId);
 		socket.emit("findRoom", roomId);
 		(async () => {
 			await getMessages()
@@ -58,9 +61,10 @@ const Chat = ({ route, navigation }) => {
 		messageListRef.current.scrollToEnd({ animated: true });
 		setIsFirstLoad(false);
 		return () => {
+			setActiveChat(null);
 			socket.off("foundRoom");
-		};
-	}, [isFirstLoad]); 
+		  };
+	}, [roomId, setActiveChat, isFirstLoad]); 
 
 	const handleNewMessage = () => {
 		let dbMessage

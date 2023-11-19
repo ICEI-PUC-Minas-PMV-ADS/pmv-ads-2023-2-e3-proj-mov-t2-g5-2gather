@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { dbGetE2e } from '../services/localDb/user.services';
+import { isAvailableAsync } from 'expo-media-library';
 export const UserContext = createContext();
 
 export default function UserProvider({ children }) {
@@ -70,36 +71,6 @@ export default function UserProvider({ children }) {
         fetchData();
     }, [signed]);
 
-    useEffect(() => {
-        const checkKeys = async () => {
-          try {
-            if(signed){
-                const access = await AsyncStorage.getItem('access');
-                const refresh = await AsyncStorage.getItem('refresh');
-        
-                if (!access || !refresh) {
-                    if (signed == 'true') {
-                        setSigned(false);
-                        setId(null);
-                        setName(null);
-                    }
-                }
-            }
-          } catch (error) {
-            console.error('Error reading data from AsyncStorage:', error);
-          }
-        };
-    
-        checkKeys();
-    
-        const intervalId = setInterval(checkKeys, 10000);
-    
-        return () => {
-          clearInterval(intervalId);
-        };
-      }, [signed, setSigned]);
-
-
     return (
         <UserContext.Provider
             value={{
@@ -129,9 +100,8 @@ export default function UserProvider({ children }) {
     );
 }
 
-
 export function useUser() {
-    const context = useContext(UserContext);
+  const context = useContext(UserContext);
 
     const { 
         signed, setSigned,

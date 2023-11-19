@@ -156,7 +156,6 @@ export const updatePassword = async ({ currentPassword, newPassword }) => {
     try {
       const data = { old_password: currentPassword, password: newPassword };
       const response = await sendAuthenticatedRequest(`/user/update/password/`, 'PATCH', data);
-
       if (response.ok) {
         return true; // para troca de senha bem-sucedida
       } else {

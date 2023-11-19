@@ -1,4 +1,4 @@
-import { sendAuthenticatedRequest } from './auth.services.js'
+import { sendAuthenticatedRequest } from "./auth.services.js";
 
 export const GetUserList = async () => {
     try {
@@ -18,6 +18,7 @@ export const UpdateUserStatus = async ({userId, reason}) => {
         throw new Error(error.message);
     }
 };
+
 
 export const UpdatePublicE2e = async ({publicE2e}) => {
     try {
@@ -70,5 +71,22 @@ export const updateUserPhoto = async ({ newPhoto }) => {
     } catch (error) {
         console.log('Error updating user photo:', error);
         return false; // Erro durante a troca
+    }
+};
+
+// Editar usuario
+export const UpdateUser = async ({ userId, name, phone, email, idRole }) => {
+    try {
+        const data = { name, phone, email, idRole };
+        const response = await sendAuthenticatedRequest(`/user/update/${userId}/admin/`, 'PATCH', data);
+
+        if (response.ok) {
+            return true; // para atualização bem-sucedida
+        } else {
+            return false; // para falha na atualização
+        }
+    } catch (error) {
+        console.log(error);
+        return false; // para erro durante a atualização
     }
 };

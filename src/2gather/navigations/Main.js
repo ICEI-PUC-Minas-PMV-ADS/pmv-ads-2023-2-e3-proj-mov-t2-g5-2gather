@@ -18,8 +18,10 @@ import NewList from '../screens/NewList';
 import CreateReceivers from '../screens/CreateReceivers';
 import NewGroup from '../screens/NewGroup';
 import CreateNewGroup from '../screens/CreateNewGroup';
+import ArchivedLists from '../screens/ArchivedLists';
 import GroupConversation from '../screens/GroupConversation';
 import GroupInfo from '../screens/GroupInfo';
+import ListConversation from '../screens/ListConversation';
 import EditGroup from '../screens/EditGroup';
 
 const stack = createNativeStackNavigator();
@@ -37,10 +39,16 @@ const MainNav = () => {
             <stack.Screen
                 name="CreateUser"
                 component={CreateUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="EditUser"
                 component={EditUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="InactivateUser"
@@ -130,9 +138,20 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
+             <stack.Screen
+                name="ArchivedLists"
+                component={ArchivedLists}
+            />
             <stack.Screen
                 name="GroupConversation"
                 component={GroupConversation}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
+                name="ListConversation"
+                component={ListConversation}
                 options={{
                     header: () => null,
                 }}
@@ -151,8 +170,6 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
-
-
         </stack.Navigator>
     );
 };

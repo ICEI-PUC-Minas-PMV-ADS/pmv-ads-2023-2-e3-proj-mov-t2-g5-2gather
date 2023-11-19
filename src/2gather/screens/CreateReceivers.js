@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -13,53 +13,61 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
-import { GetUserList } from '../services/user.services';
-import {CheckBox} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { CreateNewList } from '../services/group.services';
-import { Appbar } from 'react-native-paper';
+import { GetUserList } from "../services/user.services";
+import { CheckBox } from "react-native-elements";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { CreateNewList } from "../services/group.services";
+import { Appbar } from "react-native-paper";
+import Toast from "../components/Toast";
 
-export default function CreateReceivers ({ route, navigation }) {
-
+export default function CreateReceivers({ route, navigation }) {
   const { id } = useUser();
   const { selectedContacts } = route.params || {};
 
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
-  const [selectedContactsState, setSelectedContacts] = useState(selectedContacts || []);
+  const [selectedContactsState, setSelectedContacts] = useState(
+    selectedContacts || []
+  );
   const [title, setTitle] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastVisibleError, setToastVisibleError] = useState(false);
 
   const getContacts = async () => {
     try {
-      const result = await GetUserList() || [];
+      const result = (await GetUserList()) || [];
 
       // Marcando os contatos que já estão selecionados
       const markedContacts = result.map((contact) => ({
         ...contact,
-        checked: selectedContactsState.some((selected) => selected.id === contact.id),
+        checked: selectedContactsState.some(
+          (selected) => selected.id === contact.id
+        ),
       }));
 
-       // Verificar se o usuário Admin não está na lista de contatos selecionados
-       const adminContact = markedContacts.find((contact) => contact.id === id);
-       if (adminContact && !selectedContactsState.some((selected) => selected.id === id)) {
-         setSelectedContacts((prev) => [adminContact, ...prev]);
-         adminContact.checked = true;
-       }
+      // Verificar se o usuário Admin não está na lista de contatos selecionados
+      const adminContact = markedContacts.find((contact) => contact.id === id);
+      if (
+        adminContact &&
+        !selectedContactsState.some((selected) => selected.id === id)
+      ) {
+        setSelectedContacts((prev) => [adminContact, ...prev]);
+        adminContact.checked = true;
+      }
 
       setContacts(markedContacts);
       setContactsRef(markedContacts); // Usando markedContacts como referência
-      
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     getContacts();
   }, []);
-  
-  const defaultImage = require('../assets/profile.png');
+
+  const defaultImage = require("../assets/profile.png");
 
   const renderItem = ({ item }) => (
     <TouchableOpacity>
@@ -127,7 +135,7 @@ export default function CreateReceivers ({ route, navigation }) {
       </View>
     );
   };
-  
+
   const handleDeleteSelectedContact = (contactId) => {
     const updatedContacts = contacts.map((contact) =>
       contact.id === contactId ? { ...contact, checked: false } : contact
@@ -140,46 +148,50 @@ export default function CreateReceivers ({ route, navigation }) {
     setSelectedContacts(updatedSelectedContacts);
 
     // Verificar se não há contatos selecionados e navegar de volta para NewList
-    if (updatedSelectedContacts.length === 0 && updatedContacts.every(contact => !contact.checked)) {
-      navigation.navigate('NewList', { selectedContacts: [] });
+    if (
+      updatedSelectedContacts.length === 0 &&
+      updatedContacts.every((contact) => !contact.checked)
+    ) {
+      navigation.navigate("NewList", { selectedContacts: [] });
     }
   };
 
   useEffect(() => {
     // Navegar de volta para NewList se não houver contatos selecionados
-    if (selectedContactsState.length === 0 && contacts.every(contact => !contact.checked)) {
-      navigation.navigate('NewList', { selectedContacts: [] });
+    if (
+      selectedContactsState.length === 0 &&
+      contacts.every((contact) => !contact.checked)
+    ) {
+      navigation.navigate("NewList", { selectedContacts: [] });
     }
   }, [selectedContactsState, contacts]);
 
- //Criar a Lista
- const handleCreateList = async () => {
-  try {
-    if (!title) {
-      // Se o título não estiver preenchido, exibe o alerta
-      setShowAlert(true);
-      return;
+  //Criar a Lista
+  const handleCreateList = async () => {
+    try {
+      if (!title) {
+        setToastVisibleError(true);
+        setTimeout(() => setToastVisibleError(false), 3000);
+        return;
+      }
+      setToastVisible(true);
+      setTimeout(() => {
+        setToastVisible(false);
+        navigation.navigate('BroadcastCreate');
+      }, 3000);
+
+      const listData = await CreateNewList({
+        title: title,
+        idAdmin: id,
+        isTransmission: true,
+        isPrivate: false,
+        participants: selectedContactsState.map((contact) => contact.id),
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
     }
-
-    const listData = await CreateNewList({
-      title: title,
-      idAdmin: id,
-      isTransmission: true,
-      isPrivate: false,
-      participants: selectedContactsState.map((contact) => contact.id),
-    });
-
-  //console.log(listData);
-  alert("Lista criada com sucesso");
-
-  //navigation.navigate("LISTA CRIADA - Screen do Leo");
-
-} catch (error) {
-  console.log(error);
-} finally {
-
-}
-};
+  };
 
   return (
     <View style={styles.container}>
@@ -233,21 +245,27 @@ export default function CreateReceivers ({ route, navigation }) {
         />
       </View>
 
-      {showAlert && (
-        <View style={styles.alertContainer}>
-          <Text style={styles.alertText}>Por favor, insira o nome da sua lista de transmissão!</Text>
-          <TouchableOpacity
-            style={styles.alertButton}
-            onPress={() => setShowAlert(false)}
-          >
-            <Text style={styles.alertButtonText}>OK</Text>
-          </TouchableOpacity>
-        </View>
+      {toastVisibleError && (
+        <Toast
+          visible={toastVisibleError}
+          message={"Por favor, insira o nome da sua lista de transmissão!"}
+          appName={"2Gather"}
+          showSenderName={false}
+          style={{ zIndex: 9999, position: "absolute", top: 0 }}
+        />
+      )}
+      {toastVisible && (
+        <Toast
+          visible={toastVisible}
+          message={"Lista criada com sucesso!"}
+          appName={"2Gather"}
+          showSenderName={false}
+          style={{ zIndex: 9999, position: "absolute", top: 0 }}
+        />
       )}
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -257,40 +275,40 @@ const styles = StyleSheet.create({
   },
 
   containerHeader: {
-    backgroundColor: '#2368A2',
-      padding: 0,
-      borderBottomWidth: 1,
-      borderColor: '#BBB',
-      height: 185,
-    },
-    rowContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      width: '70%',
-    },
-    header: {
-      backgroundColor: '#2368A2',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingHorizontal: 16,
-      elevation: 0,
-      shadowOpacity: 0,
-      borderBottomWidth: 0,
-    },
-    titleHeader: {
-      color: '#FFFCF4',
-      fontSize: 20,
-      alignSelf: 'center',
-      padding: 10,
-    },
+    backgroundColor: "#2368A2",
+    padding: 0,
+    borderBottomWidth: 1,
+    borderColor: "#BBB",
+    height: 185,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "70%",
+  },
+  header: {
+    backgroundColor: "#2368A2",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
+  },
+  titleHeader: {
+    color: "#FFFCF4",
+    fontSize: 20,
+    alignSelf: "center",
+    padding: 10,
+  },
 
   headerTextTwo: {
     fontSize: 18,
     color: "#FFFCF4",
     marginLeft: 15,
-    },
-  
+  },
+
   nameInput: {
     backgroundColor: "#1a4971",
     color: "#fffcf4",
@@ -298,12 +316,12 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     marginTop: 2,
-    width: '100%',
+    width: "100%",
     height: 45,
-    },
-  
+  },
+
   searchBar: {
-    width: '65%',
+    width: "65%",
     height: 45,
     marginLeft: 67,
     marginTop: 4,
@@ -321,12 +339,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: "#F1F3F5", 
+    backgroundColor: "#F1F3F5",
     borderRadius: 15,
     marginVertical: -27,
     height: 140,
   },
-  
+
   deleteButton: {
     marginLeft: 10,
   },
@@ -356,7 +374,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F1F3F5",
     paddingBottom: 10,
-    borderTopColor: 'black',
+    borderTopColor: "black",
     borderTopWidth: 2,
   },
 
@@ -376,10 +394,10 @@ const styles = StyleSheet.create({
   },
 
   checkBoxContainer: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderWidth: 0,
     padding: 0,
-    marginRight: 10, 
+    marginRight: 10,
   },
 
   contactPhoto: {
@@ -394,12 +412,12 @@ const styles = StyleSheet.create({
   },
 
   alertContainer: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
     width: 300,
     padding: 20,
-    backgroundColor: '#AAD4F5',
+    backgroundColor: "#AAD4F5",
     borderRadius: 10,
     transform: [{ translateX: -150 }, { translateY: -100 }],
     elevation: 5,
@@ -408,19 +426,19 @@ const styles = StyleSheet.create({
   alertText: {
     fontSize: 18,
     marginBottom: 10,
-    color: 'black',
-    alignItems: 'center',
+    color: "black",
+    alignItems: "center",
   },
 
   alertButton: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     borderRadius: 5,
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   alertButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
 
@@ -428,20 +446,17 @@ const styles = StyleSheet.create({
   buttonForecast: {
     backgroundColor: "#1A4971",
     borderRadius: 10,
-    paddingVertical: 8, 
-    width: '80%',
+    paddingVertical: 8,
+    width: "80%",
     height: 50,
-    alignSelf: 'center',
-    marginBottom: '15%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: "center",
+    marginBottom: "15%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   buttonLoginText: {
     fontSize: 18,
-    color: '#FFFFFF',
-  }
-
-
-
+    color: "#FFFFFF",
+  },
 });

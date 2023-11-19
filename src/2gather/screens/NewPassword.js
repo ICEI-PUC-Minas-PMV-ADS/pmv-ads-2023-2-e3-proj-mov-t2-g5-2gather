@@ -26,7 +26,7 @@ export default function NewPassword({ navigation }) {
     }
 
     try {
-      await updatePassword({
+      await updatePassword ({
         currentPassword,
         newPassword,
       });
