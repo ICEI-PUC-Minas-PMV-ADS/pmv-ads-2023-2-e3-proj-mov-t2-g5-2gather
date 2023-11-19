@@ -5,12 +5,11 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Animated,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
+import RNPickerSelect from "react-native-picker-select";
 import { Appbar } from "react-native-paper";
 import { GetRoles } from "../services/role.services";
-import { GetUserList, UpdateUserDetails, UpdateUser } from "../services/user.services";
+import { GetUserList, UpdateUser } from "../services/user.services";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "../components/Toast";
 
@@ -124,17 +123,16 @@ export default function EditUser({ navigation }) {
           <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
 
           <Text>Email Corporativo</Text>
-          <View style={[styles.emailInput, fieldErrors.userId && styles.errorInput]}>
-            <Picker
-              selectedValue={userId}
-              onValueChange={(itemValue) => setUserId(itemValue)}
-              style={styles.inputPicker}
-            >
-              <Picker.Item label="Selecione um e-mail" value="null" />
-              {userList.map((user) => (
-                <Picker.Item  key={user.id} label={user.email} value={user.id} />
-              ))}
-            </Picker>
+          <View style={styles.inputPicker}>
+            <RNPickerSelect
+              onValueChange={(value) => setUserId(value)}
+              items={userList.map((user) => ({
+                label: user.email,
+                value: user.id,
+              }))}
+              placeholder={{ label: "Selecione um e-mail", value: null }}
+              style={pickerSelectStyles}
+            />
           </View>
           <Text>Nome do Colaborador</Text>
           <TextInput
@@ -154,25 +152,21 @@ export default function EditUser({ navigation }) {
           />
 
           <Text>Cargo</Text>
-          <View style={[styles.emailInput, fieldErrors.role && styles.errorInput]}>
-            <Picker
-              selectedValue={role}
+          <View style={styles.inputPicker}>
+            <RNPickerSelect
               onValueChange={(value) => setRole(value)}
-              style={styles.inputPicker}
-            >
-              <Picker.Item label="Selecione um cargo" value="null" />
-              {roles.map((item) => (
-                <Picker.Item key={item.id} label={item.name} value={item.id} />
-              ))}
-            </Picker>
+              items={roles.map((role) => ({
+                label: role.name,
+                value: role.id,
+              }))}
+              placeholder={{ label: "Selecione um cargo", value: null }}
+              style={pickerSelectStyles}
+            />
           </View>
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.buttonSave}
-            onPress={handleSubmit}
-          >
+          <TouchableOpacity style={styles.buttonSave} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Salvar</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -182,25 +176,25 @@ export default function EditUser({ navigation }) {
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
         </View>
-      
-      {toastVisibleError && (
-        <Toast
-          visible={toastVisibleError}
-          message={"Preencha todos os campos corretamente."}
-          appName={"2Gather"}
-          showSenderName={false}
-          style={{ zIndex: 9999, position: "absolute", top: 0 }}
-        />
-      )}
-      {toastVisible && (
-        <Toast
-          visible={toastVisible}
-          message={"Conta editada com sucesso!"}
-          appName={"2Gather"}
-          showSenderName={false}
-          style={{ zIndex: 9999, position: "absolute", top: 0 }}
-        />
-      )}
+
+        {toastVisibleError && (
+          <Toast
+            visible={toastVisibleError}
+            message={"Preencha todos os campos corretamente."}
+            appName={"2Gather"}
+            showSenderName={false}
+            style={{ zIndex: 9999, position: "absolute", top: 0 }}
+          />
+        )}
+        {toastVisible && (
+          <Toast
+            visible={toastVisible}
+            message={"Conta editada com sucesso!"}
+            appName={"2Gather"}
+            showSenderName={false}
+            style={{ zIndex: 9999, position: "absolute", top: 0 }}
+          />
+        )}
       </View>
     </KeyboardAwareScrollView>
   );
@@ -295,8 +289,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   inputPicker: {
+    height: 40,
+    backgroundColor: "#FFFCF4",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     color: "black",
-    border: "none",
+    marginBottom: 10,
   },
   errorInput: {
     borderColor: "red",
@@ -314,13 +312,44 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 10,
   },
-  emailInput: { 
-    backgroundColor: '#FFFCF4', 
-    borderWidth: 1, 
-    borderRadius: 10, 
-    borderColor: '#868E96', 
-    height: 40, 
-    justifyContent: 'center', 
-    marginBottom: 10 
-  }
+  emailInput: {
+    backgroundColor: "#FFFCF4",
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#868E96",
+    height: 40,
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  inputPicker: {
+    backgroundColor: '#FFFCF4',
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 40,
+    justifyContent: 'center',
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+});
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // para garantir que o texto não fique escondido atrás do ícone
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // para garantir que o texto não fique escondido atrás do ícone
+  },
 });
