@@ -11,6 +11,19 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://8d1a489471d386abde82a84cc7d5c6b8@o4504897345486848.ingest.sentry.io/4506068376485888",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +36,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0kz#_axxi2vl8r2@uym%*t0)f_k*=a-@03xbyooro@vz#e-(u&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*'] #fixme se der problema de cors fala comigo
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000','https://localhost:3000', 'http://rpgsands.com', 'https://rpgsands.com', 'http://www.rpgsands.com', 'https://www.rpgsands.com', 'http://localhost:19006', 'https://localhost:19006'] #fixme, duvidoso... em production é um problema?
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = [
     "accept",
     "accept-encoding",
@@ -60,6 +74,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,6 +88,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
+}
+SIMPLE_JWT = {
+  # It will work instead of the default serializer(TokenObtainPairSerializer).
+  "TOKEN_OBTAIN_SERIALIZER": "my_app.serializers.MyTokenObtainPairSerializer",
+  # ...
 }
 
 ROOT_URLCONF = 'TwoGatherBackend.urls'
@@ -110,6 +130,7 @@ if os.getenv('PRODUCTION', '') == 'True': #fixme tem que configurar a DB aqui (o
             'PORT': os.getenv('DB_PORT', '')
         }
     }
+    STATIC_ROOT = BASE_DIR / 'static'
 
 else:
     DATABASES = {
@@ -119,7 +140,8 @@ else:
         }
     }
 
-
+STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = 'static/'
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -154,7 +176,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+#STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

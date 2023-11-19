@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import socket from "../services/socket";
 import MessageBox from "../components/unit/MessageBox";
 import { Appbar } from 'react-native-paper';
-import { SaveMessage, getMessageList } from "../services/message.service";
+import { SaveMessage, getMessageList, AddReadBy } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
 import { Encrypt, Decrypt } from "../services/encryption.service";
  import { useChat } from "../contexts/ChatContext";
@@ -67,6 +67,7 @@ const Chat = ({ route, navigation }) => {
 	}, [roomId, setActiveChat, isFirstLoad]); 
 
 	const handleNewMessage = () => {
+		let dbMessage
 		if(publicE2eContext){
 			const hour = new Date().getHours().toString().padStart(2, "0");
 			const mins = new Date().getMinutes().toString().padStart(2, "0");
@@ -75,7 +76,7 @@ const Chat = ({ route, navigation }) => {
 				if (room.isPrivate) {
 					if (partner && partner.pke) {
 						encryptedMessage = Encrypt({'message':message}, partner.pke, privateE2eContext)
-						SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, pkeReceiver: partner.pke, readBy: id })
+						dbMessage = SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, pkeReceiver: partner.pke, readBy: id })
 					} else {
 						alert("This user needs to login for the first time before receiving messages.")
 					}
@@ -93,16 +94,19 @@ const Chat = ({ route, navigation }) => {
 				setMessage('');
 				let m = encryptedMessage ? encryptedMessage : message
 				let partnerPublicKey = partner ? partner.pke : null
-				socket.emit("newMessage", {
-					message: m,
-					room_id: roomId,
-					user: name,
-					timestamp: { hour, mins },
-					pkeSentBy: publicE2eContext,
-					pkeReceiver: partnerPublicKey,
-					idSentBy: id,
-					many: room.isPrivate ? false : true,
-				});
+				dbMessage.then((dbM) =>{
+					socket.emit("newMessage", {
+						message: m,
+						room_id: roomId,
+						user: name,
+						timestamp: { hour, mins },
+						pkeSentBy: publicE2eContext,
+						pkeReceiver: partnerPublicKey,
+						idSentBy: id,
+						many: room.isPrivate ? false : true,
+						dbId: dbM ? dbM.id : null,
+					});
+				})
 			}else{
 				setMessage('');
 			}
@@ -112,18 +116,41 @@ const Chat = ({ route, navigation }) => {
 	};
 
 	const handleRoomMessage = useCallback((message) => {
-		console.log(roomRef.current);
+		if(roomRef.current.isPrivate){
+			if(id != message.idSentBy){
+				message.readByAll = true;
+				socket.emit("messageReaded", {room_id:roomId, message_id: message.id, dbMessage_id: message.dbId});
+			}
+		}
 		let decryptedMessage = decryptMessage(message, message.text);
 		setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
 	}, [setChatMessages, roomRef]);
+
+	const handleMessageReaded = useCallback((message) => {
+		if (roomRef.current.isPrivate) {
+			setChatMessages(prevMessages => {
+				const messageIndex = prevMessages.findIndex(item => item.id === message.id);
+				if (messageIndex !== -1) {
+					const updatedChatMessages = [...prevMessages];
+					updatedChatMessages[messageIndex] = {
+						...updatedChatMessages[messageIndex],
+						readByAll: true,
+					};
+					AddReadBy({readBy:id, idMessage: message.dbId})
+					return updatedChatMessages
+				};
+			});
+		}
+	}, [chatMessages, roomRef]);
 
 	useEffect(() => {
 		roomRef.current = room;
 	}, [room]);
 
 	useEffect(() => {
+
 		socket.on("roomMessage", handleRoomMessage);
-	
+		socket.on("messageReaded", handleMessageReaded);
 		return () => {
 			socket.off("roomMessage", handleRoomMessage);
 		};
