@@ -4,19 +4,25 @@
 
 Implementação do sistema descrita por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos com os artefatos criados (código fonte), deverão apresentadas as instruções para acesso e verificação da implementação que deve estar funcional no ambiente de hospedagem.
 
-### Funcionalidade 01: Fazer Publicações (RF-001)
-A funcionalidade permite que o usuário faça uma postagem na pagina de Interações na platarforma da `Study2gether`.
+### Funcionalidade 01: A aplicação deve permitir ao usuário trocar mensagens criptografadas em tempo real. (RF-001)
+A funcionalidade permite que o usuário troque mensagens com outros usuários.
 
-![Publicação de interação](https://user-images.githubusercontent.com/114435981/236596298-7cd632ef-6ee6-4599-a987-28b4ae6e4869.png).
+![Conversas](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/96087622/2c4c2022-252b-48bf-95ae-bf9e77b19f90)
+![Mensagem Criptografada](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/96087622/085ac1a6-b439-4742-bbb2-99bb1396074f)
+
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Clicar em Interações.
-3. Clicar em '+' (usuários já cadastrados e previamente logados).
-
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
+3. Caso o usuário não esteja logado, realize o login.
+4. Após realizar o login como, clique na opção "Contatos", localizada na parte inferior da HomePage.
+5. Na tela de contatos, escolha o usuário que deseja conversar.
+6. Envie uma mensagem.
+   
 ##### Artefatos produzidos
-* [Interacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Interacoes.cshtml)
-* [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
+* [Chat.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Chat.js)
+* [Node Server](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/node_server/index.js)
+
 
 <<<<<<< HEAD
 ### Funcionalidade 02: A aplicação deve ter uma interface administrativa para gerenciar os usuários.	(RF-02)
@@ -135,23 +141,24 @@ Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista,
 * [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/group.services.js)
 >>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
 
-### Funcionalidade 06: Postar Respostas (RF-004)
-A aplicação deve permitir ao usuário responder as perguntas na platarforma da `Study2gether`.
+### Funcionalidade 06: A aplicação deve permitir ao interlocutor obter uma confirmação de leitura de seu destinatário. (RF-006)
+A funcionalidade permite que o usuário troque mensagens com outros usuários.
 
-![Postar resposta](img/ct34enviarresposta.jpg)
+![Conversas](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/96087622/e0f3c4d3-86a1-4591-b13e-f1a419bf6359)
+
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Clicar em "Perguntas".
-3. Selecionar uma Pergunta.
-4. Clicar no local de inserir Respostas (usuários já cadastrados e previamente logados).
-5. Digitar o texto.
-6. Clicar no botão "Enviar".
-
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
+3. Caso o usuário não esteja logado, realize o login.
+4. Após realizar o login como, clique na opção "Contatos", localizada na parte inferior da HomePage.
+5. Na tela de contatos, escolha o usuário que deseja conversar.
+6. Envie uma mensagem.
+7. Verifique a confirmação de leitura
+   
 ##### Artefatos produzidos
-* [Perguntas.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Perguntas.cshtml)
-* [Respostas.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Respostas.cshtml)
-* [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
+* [Chat.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Chat.js)
+* [Node Server](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/node_server/index.js)
 
 ### Funcionalidade 07: Visualizar um histórico com as próprias ações (RF-007)
 A funcionalidade permite que o usuário, logado na `Study2gether`, acesse sua página de perfil e visualize um histórico com suas ações de Perguntas, Interações, respostas e seus itens favoritados.
