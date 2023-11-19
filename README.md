@@ -42,14 +42,14 @@ Já com as dependências instaladas para inicializar a aplicação use o comando
 
 `npm start`
 
-A aplicação será inicializada e caso deseje acessar via web browser no desktop, apertar `w` no terminal que estiver executando a aplicação. 
-Caso deseje acessar via expo, deve-se baixar o app `Expo Go` no celular e ler o `QR Code`.
+A aplicação será inicializada e para acesso completo a todas as funcionalidades utilize o aparelho celular, baixando o App Expo Go e faça a leitura do QR Code. 
+Caso deseje acessar via navegador web no desktop, apertar 'w' no terminal que estiver executando a aplicação. Recomentados o uso do navegador Opera gx, pois este tem suporte para o 'sqlite', e infelizmente observamos que outros navegadores demonstraram não ter suporte, restringindo assim a funcionalidade troca de mensagens.
 
 ### Considerações:
 
-Por ser uma aplicação destinada à comunicação exclusiva de uma empresa, os usuários são classificados como `Admin` e  `Usuários`. O `Admin` é o responsável pelo **Gerenciamento de usuários** (Criação, Edição e Inativação de usuários), sendo esta regra de negócio estabelecida para manter a segurança e controle do cadastro.
+Por ser uma aplicação destinada à comunicação exclusiva da empresa que tem como recurso principal a segurança na troca de informações, as mensagens são criptografadas de ponta-a-ponta (e2e) e a troca de mensagens só é permitida entre aparelhos físicos habilitados no primeiro acesso do usuário cadastrado. 
 
-Para efeitos de verificação da aplicação, foi disponibilizado um usuário `Admin` para que os avaliadores possam navegar livremente pela aplicação e ver todas as funcionalidades sem as restrições estabelecidas aos demais usuários.
+Dessa forma, como os usuários da aplicação são classificados como Usuários (permissão para troca de mensagens e para criar e interagir em grupos ou listas) e Admin (usuário com elevação que permite o gerenciamento de outros, como Criação, Edição e Inativação de usuários), conforme regras de negócio estabelecidas para garantir a segurança e controle do cadastro, foi disponibilizado um usuário Admin para que os avaliadores possam navegar livremente pela aplicação e verificar todas as funcionalidades sem as restrições estabelecidas aos demais usuários.
 
 ## Instruções de utilização:
 
