@@ -135,24 +135,26 @@ export default function GroupInfo({ route }) {
         </View>
           {isGroupAdmin ?
         <View styles={styles.containerButtons}>
+            <TouchableOpacity onPress={() => navigation.navigate('EditGroup', { group: group })}>
             <Button
               mode="contained"
               uppercase={false}
               color={'#74D99F'}
               style={styles.button}
-              icon="pencil"
-              onPress={() => navigation.navigate('EditGroup', { group: group })}>
+              icon="pencil">
               Editar
             </Button>
-          <Button
-            mode="contained"
-            uppercase={false}
-            color={'#FAE29F'}
-            style={styles.button}
-            icon="folder-open"
-            onPress={() => handleArchiveGroup()}>
-            {isArchived == false ? 'Arquivar' : 'Desarquivar'}
-          </Button>
+            </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleArchiveGroup()}>
+            <Button
+              mode="contained"
+              uppercase={false}
+              color={'#FAE29F'}
+              style={styles.button}
+              icon="folder-open">
+              {isArchived == false ? 'Arquivar' : 'Desarquivar'}
+            </Button>
+          </TouchableOpacity>
         </View>
           :
           console.log("")
