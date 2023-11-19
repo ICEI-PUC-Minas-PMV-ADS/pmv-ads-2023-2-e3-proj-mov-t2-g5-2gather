@@ -1,8 +1,5 @@
 # Programação de Funcionalidades
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="5-Arquitetura da Solução.md"> Arquitetura da Solução</a>
-
-Implementação do sistema descrita por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos com os artefatos criados (código fonte), deverão apresentadas as instruções para acesso e verificação da implementação que deve estar funcional no ambiente de hospedagem.
 
 ### Funcionalidade 01: A aplicação deve permitir ao usuário trocar mensagens criptografadas em tempo real. (RF-001)
 A funcionalidade permite que o usuário troque mensagens com outros usuários.
@@ -24,14 +21,7 @@ A funcionalidade permite que o usuário troque mensagens com outros usuários.
 * [Node Server](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/node_server/index.js)
 
 
-<<<<<<< HEAD
-### Funcionalidade 02: A aplicação deve ter uma interface administrativa para gerenciar os usuários.	(RF-02)
-O sistema deve fornecer uma interface administrativa que permita aos administradores adicionar, editar e remover usuários do sistema.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/5e204422-4877-4995-aa00-05290f640c5f)
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/25be55d2-cb61-48f8-be66-678e68462ff9)
-
-=======
 ### Funcionalidade 02: A aplicação deve ter uma interface administrativa para gerenciar os usuários (RF-02)
 O sistema deve fornecer uma interface administrativa que permita aos administradores adicionar, editar e inativar usuários do sistema.
 
@@ -40,7 +30,6 @@ O sistema deve fornecer uma interface administrativa que permita aos administrad
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1537e4ec-e73f-4a5f-8b20-4406dac8b6e5)
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1c73f65b-55bc-47e0-9478-bfb28c10c335)
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/9dab2582-8325-445e-baf5-c0011a6ddfcb)
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
 
 ##### Instruções de acesso
 1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
@@ -48,24 +37,12 @@ O sistema deve fornecer uma interface administrativa que permita aos administrad
 3. Caso o usuário não esteja logado, realize o login.
 4. Após realizar o login como 'ADMINISTRADOR', clique na opção "Gerenciamento de Usuário", localizada na parte inferior da HomePage.
 5. Na tela de Gerenciamento de Usuário, o usuário com perfil de ADMINISTRADOR terá a capacidade de executar ações como Criar Usuário, Editar Usuário ou Inativar Usuário.
-<<<<<<< HEAD
 
 ##### Artefatos produzidos
 * [UserManagement.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/UserManagement.js)
 * [CreateUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/CreateUser.js)
 * [EditUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/EditUser.js)
 * [InactivateUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/InactivateUser.js)
-=======
-6. Na interface 'Criar Usuário', o administrador precisa inserir o e-mail corporativo, número de telefone, senha, nome do colaborador e cargo. Posteriormente, deve clicar no botão 'Criar'.
-Ao acessar a opção 'Editar Usuário', é necessário selecionar o ID do usuário, e-mail corporativo, senha, nome do colaborador, setor e cargo. Em seguida, o administrador pode clicar em 'Salvar' para aplicar as alterações ou em 'Cancelar' para desfazê-las.
-Para 'Inativar Usuário', o administrador deve escolher um usuário específico e fornecer o motivo da inativação. Após isso, pode clicar em 'Inativar' para confirmar a ação ou em 'Cancelar' para anular o processo.
-
-##### Artefatos produzidos
-* [UserManagement.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/UserManagement.js)
-* [CreateUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/CreateUser.js)
-* [EditUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/EditUser.js)
-* [InactivateUser.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/InactivateUser.js)
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
 
 ### Funcionalidade 03: Criar Grupos (RF-03)
 
@@ -109,36 +86,21 @@ A funcionalidade permite que os usuários criem Listas de Transmissão no App da
 ### Funcionalidade 05: Permitir que apenas os administradores da lista de transmissão possam enviar mensagens (RF-05)
 
 A funcionalidade permite que apenas ao Criador/Administrador da lista de transmissão possa enviar mensagens nesta Lista Criada por ele no App `2Gather`.
-<<<<<<< HEAD
-
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/aae7e268-182f-4cdc-99ae-62aa008ac8dc)
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/d26098e4-496a-45f6-acff-e74bd6715ef7)
-=======
 Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista, uma mensagem informativa será exibida, destacando que por meio das listas de transmissão, ele poderá enviar mensagens a várias pessoas simultaneamente. Além disso, será apresentado um botão para adicionar uma 'Nova Lista'. Se o usuário já tiver uma ou mais listas criadas, estas serão renderizadas na tela, oferecendo a opção de clicar na lista para enviar mensagens, acessar informações através do ícone 'i', e, no mesmo ícone de informações, editar ou arquivar a lista, será exibido também o botão para adicionar uma 'Nova Lista'. Adicionalmente, caso o usuário possua listas de transmissão 'arquivadas', essas serão renderizadas com um diferencial de background e acompanhadas de uma mensagem informando que estão arquivadas, se o usuário clicar no ícone 'i' de uma lista arquivada, terá a opção de desarquivá-la. É importante destacar que somente as listas criadas pelo próprio usuário serão visíveis nessa tela. As listas em que o usuário é apenas um 'participante/destinatário' serão exibidas diretamente na HomePage. Ele poderá visualizar as mensagens postadas pelo administrador da lista, sem a possibilidade de interação.
 
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/aae7e268-182f-4cdc-99ae-62aa008ac8dc)
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1222c5fd-17cb-4caa-bcb5-b81776214e3a)
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
 
 ##### Instruções de acesso
 1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
 2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
 3. Caso o usuário não esteja logado, realize o login.
 4. Após o login, clique em "Lista de Transmissão" localizado na parte superior da HomePage.
-<<<<<<< HEAD
-5. Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista, uma mensagem informativa será exibida, destacando que por meio das listas de transmissão, ele poderá enviar mensagens a várias pessoas simultaneamente. Além disso, será apresentado um botão para adicionar uma 'Nova Lista'. Se o usuário já tiver uma ou mais listas criadas, estas serão renderizadas na tela, oferecendo a opção de clicar na lista para enviar mensagens, acessar informações através do ícone 'i', e, no mesmo ícone de informações, editar ou arquivar a lista, será exibido também o botão para adicionar uma 'Nova Lista'. É importante destacar que somente as listas criadas pelo próprio usuário serão visíveis nessa tela.
-6. As listas em que o usuário é apenas um 'participante/destinatário' serão exibidas diretamente na HomePage. Ele poderá visualizar as mensagens postadas pelo administrador da lista, sem a possibilidade de interação.
-
-##### Artefatos produzidos
-* [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/BroadcastCreate.js)
-* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
-=======
 5. Clique no botão 'Nova Lista' ou seleciona uma lista já criada. 
 
 ##### Artefatos produzidos
 * [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/BroadcastCreate.js)
 * [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/group.services.js)
->>>>>>> 2fcb8d9da95547fc3ca73e69ab466ad4217b00cd
 
 ### Funcionalidade 06: A aplicação deve permitir ao interlocutor obter uma confirmação de leitura de seu destinatário. (RF-006)
 A funcionalidade permite que o usuário troque mensagens com outros usuários.
@@ -159,22 +121,24 @@ A funcionalidade permite que o usuário troque mensagens com outros usuários.
 * [Chat.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Chat.js)
 * [Node Server](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/node_server/index.js)
 
-### Funcionalidade 07: Visualizar um histórico com as próprias ações (RF-007)
-A funcionalidade permite que o usuário, logado na `Study2gether`, acesse sua página de perfil e visualize um histórico com suas ações de Perguntas, Interações, respostas e seus itens favoritados.
+### Funcionalidade 07: Visualizar notificações de mensagens. (RF-007)
+A funcionalidade permite que o usuário, logado na `2Gather`, visualize uma notificação quando receber uma mensagem de outro usuario, grupo e lista de transmissão.
 
-![Página de Perfil e Histórico](https://user-images.githubusercontent.com/12260321/236688605-a3024173-1971-451e-9c82-f2dc1af67902.png)
+![Toast](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/d9c3f415-ffcf-4b9e-bf2f-920b92c52791)
+
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Caso usuário não esteja com login efetuado, basta efetuar o `Login`.
-3. Com o login já efetuado, clicar em seu nome de usuário no canto superior direito.
-5. Na tela Perfil/Histórico, é possível interagir entre as abas para visualizar suas ações.
+1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Instale e inicie a aplicação no VSCode conforme as instruções do README.
+3. Faça login na aplicação (caso ainda não esteja logado).
+4. Navegue até as opções "Contato", "Grupos" ou "Lista de Transmissão".
+5. Envie uma mensagem para o contato, grupo ou lista de transmissão desejado.
+7. Se o destinatário não estiver na tela de envio da mensagem, você receberá uma notificação.
 
 ##### Artefatos produzidos
-* [Historico.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/Historico.cshtml)
-* [User.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Models/User.cs)
-* [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
-* [Historico.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/feature-96/src/Study2gether/Study2gether/wwwroot/js/historico.js)
+* [Toast.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/components/Toast.js)
+* [ToastWrapper.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/components/ToastWrapper.js)
+* [ToastContext.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/contexts/ToastContext.js)
 
 ### Funcionalidade 08: Visualizar informações básicas dos usuários (RF-08)
 
@@ -230,108 +194,42 @@ A funcionalidade permite que o usuário do App `2Gather` acesse seu Perfil e alt
 * [NewPassword](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/NewPassword.js)
 * [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/auth.services.js)
   
-### Funcionalidade 11: Administrador inserir postagem de indicações de materiais relevantes. (RF-011)
 
-A aplicação deve permitir ao administrador inserir postagem de indicações de materiais relevantes. `Study2gether`.
+### Funcionalidade 11: Gerenciar os grupos em que for administrador (RF-011)
 
-![image](https://user-images.githubusercontent.com/96087622/236625920-4546a3d9-c931-4a82-8b53-4249ca0130fa.png)
+A aplicação deve permitir ao usuário gerenciar seus grupos criados, podendo visualizar quem são os participantes do grupo. Caso o usuário seja quem criou o grupo, então ele terá permissão de administrador no grupo que permitirá que ele edite o nome, adicione ou remova participantes, arquive ou desarquive o grupo.
 
-##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Acessar uma conta com permissão de administrador.
-3. Clicar em Indicações.
-
-##### Artefatos produzidos
-* [Indicacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Indicacoes.cshtml)
-* [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
-
-### Funcionalidade 12: Apresentar um filtro por eixos ou por microfundamentos. (RF-002)
-
-A aplicação deve apresentar um filtro por eixos ou por microfundamentos.
-
-![image](img/programacaodefuncionalidadesrf02.jpg)
+![Informações de grupo](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/30e6cc4c-698b-4cdc-a357-16cc59af0e2b)
+![Editar grupo](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/517ffbec-744c-44cf-8c79-28a822ff09cc)
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com).
-2. Clicar no filtro "Eixo" ou "Microfundamento".
-
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather)
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md)
+3. Caso o usuário não esteja logado, realize o login
+4. Clique em algum grupo criado na Homepage ou crie seu próprio grupo
+5. Clique na área superior onde está o nome do grupo
+6. É possível clicar em editar ou arquivar o grupo, caso seja administrador dele.
+   
 ##### Artefatos produzidos
-* [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
-* [_Layout.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Shared/_Layout.cshtml)
-* [Filters.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/develop/src/Study2gether/Study2gether/Views/Shared/Filters.cshtml)
-* [ViewBagActionFilter.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/develop/src/Study2gether/Study2gether/Atributtes/ViewBagActionFilter.cs)
+* [EditGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/EditGroup.js)
+* [GroupInfo.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/GroupInfo.js)
 
-### Funcionalidade 13: Pesquisar por campo de texto (RF-005)
+### Funcionalidade 12: Gerenciar as listas em que for administrador (RF-011)
 
-A funcionalidade permite que os usuários pesquisem por campo de texto na platarforma da `Study2gether`.
+A aplicação deve permitir ao usuário gerenciar suas listas criados, podendo visualizar quem são os participantes da lista. Caso o usuário seja quem criou a lista, então ele terá permissão de administrador que permitirá que ele edite o nome, adicione ou remova participantes, arquive ou desarquive a lista.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/assets/21993438/0d1e5d2a-3d45-43a0-bfcf-e7d0f5b02829)
+![Informações de grupo](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/30e6cc4c-698b-4cdc-a357-16cc59af0e2b)
+![Editar grupo](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/517ffbec-744c-44cf-8c79-28a822ff09cc)
 
 ##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com)
-2. Clicar na área de pesquisa localizada no topo do site, onde está escrito "Digite o texto para buscar".
-3. Digite o texto que você quer procurar.
-4. Clicar na lupa ao lado do texto ou dar enter para a busca ser finalizada. 
-
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather)
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md)
+3. Caso o usuário não esteja logado, realize o login
+4. Clique na opção `Lista de transmissão`
+5. Clique em uma lista já criada ou crie uma nova lista
+6. Clique na área superior onde está o nome da lista
+7. É possível clicar em editar ou arquivar a lista, caso seja administrador dela.
+   
 ##### Artefatos produzidos
-* [Indicacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Indicacoes.cshtml)
-* [Perguntas.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Perguntas.cshtml)
-* [Interacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Interacoes.cshtml)
-* [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
-
-
-### Funcionalidade 14: A aplicação deve permitir ao usuário reagir com reações de emojis (RF-009)
-
-A aplicação deve permitir ao usuário reagir com reações de emojis `Study2gether`.
-
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/assets/96087622/75f8c013-143f-4215-9b98-104d705221ee)
-
-##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com)
-2. Clicar na área de Perguntas, Indicações ou Interações.
-3. Clicar no icone de reagir.
-4. Inserir um reação.
-5. Atualizar a pagina e ver se a reação foi adicionada. 
-
-##### Artefatos produzidos
-* [Indicacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Indicacoes.cshtml)
-* [Perguntas.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Perguntas.cshtml)
-* [Interacoes.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Posts/Interacoes.cshtml)
-* [PostsController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/PostsController.cs)
-
-### Funcionalidade 15: A aplicação deve permitir ao usuário recuperar a senha. (RF-010)
-
-A aplicação deve permitir ao usuário recuperar a senha na aplicação `Study2gether`.
-
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/assets/107289791/e0ce2cd4-91d1-4b06-abfa-d541c83671ff)
-
-
-##### Instruções de acesso
-1. Acesse o site pelo [Link](http://studytwogether-001-site1.itempurl.com)
-2. Clicar na área de `Login` ou `Cadastro`.
-3. Clicar no botão `Recuperar Senha`.
-4. Digite o e-mail que deseja recuperar no campo.
-5. Clique no botão `Recuperar Senha`. 
-6. Aparecerá um pop-up na tela com uma mensagem, e será enviado um e-mail para a recuperação de senha para o e-mail preenchido caso tenha sido cadastrado.
-
-##### Artefatos produzidos
-* [Login.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/Login.cshtml)
-* [Cadastro.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/Cadastro.cshtml)
-* [RecuperarSenha.cshtml](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Views/Users/RecuperarSenha.cshtml)
-* [UsersController.cs](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-1-e2-proj-int-t2-pmv-ads-2023-1-e2-t2-time5-study2gether/blob/main/src/Study2gether/Study2gether/Controllers/UsersController.cs)
-
-### Funcionalidade 16: A aplicação deve permitir ao usuário gerenciar seus grupos (RF-011)
-
-A aplicação deve permitir ao usuário gerenciar seus grupos criados, podendo visualizar quem são os participantes do grupo. Caso o usuário quem criou o grupo, então ele terá permissão de administrador no grupo que permitirá que ele edite o nome, adicione ou remova participantes, arquive ou desarquive o grupo.
-
-![Informações de grupo](![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/9b7cc341-da60-4fc3-8ad6-f67977be0e25))
-
-
-##### Instruções de acesso
-1. Acesse o aplicativo
-2. Realize seu `Login`
-3. Clique em algum grupo criado na Homepage ou crie seu próprio grupo
-
-##### Artefatos produzidos
-* [EditGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/EditGroup.js)
-* [GroupInfo.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/GroupInfo.js)
+* [EditGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/EditGroup.js)
+* [GroupInfo.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/GroupInfo.js)

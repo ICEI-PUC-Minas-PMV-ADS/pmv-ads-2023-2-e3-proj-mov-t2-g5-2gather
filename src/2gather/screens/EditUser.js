@@ -124,11 +124,11 @@ export default function EditUser({ navigation }) {
           <Text style={styles.headerInput}>Alterar dados do cadastro</Text>
 
           <Text>Email Corporativo</Text>
-          <View style={styles.emailInput}>
+          <View style={[styles.emailInput, fieldErrors.userId && styles.errorInput]}>
             <Picker
               selectedValue={userId}
               onValueChange={(itemValue) => setUserId(itemValue)}
-              style={[fieldErrors.role && styles.errorInput]}
+              style={styles.inputPicker}
             >
               <Picker.Item label="Selecione um e-mail" value="null" />
               {userList.map((user) => (
@@ -154,11 +154,11 @@ export default function EditUser({ navigation }) {
           />
 
           <Text>Cargo</Text>
-          <View style={styles.emailInput}>
+          <View style={[styles.emailInput, fieldErrors.role && styles.errorInput]}>
             <Picker
               selectedValue={role}
               onValueChange={(value) => setRole(value)}
-              style={[fieldErrors.role && styles.errorInput]}
+              style={styles.inputPicker}
             >
               <Picker.Item label="Selecione um cargo" value="null" />
               {roles.map((item) => (
@@ -295,12 +295,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   inputPicker: {
-    height: 40,
-    backgroundColor: "#FFFCF4",
-    paddingHorizontal: 10,
-    paddingVertical: 8,
     color: "black",
-    marginBottom: 10,
+    border: "none",
   },
   errorInput: {
     borderColor: "red",
