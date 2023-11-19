@@ -94,7 +94,21 @@ const Chat = ({ route, navigation }) => {
 				setMessage('');
 				let m = encryptedMessage ? encryptedMessage : message
 				let partnerPublicKey = partner ? partner.pke : null
-				dbMessage.then((dbM) =>{
+				if (room.isPrivate) {
+					dbMessage.then((dbM) =>{
+						socket.emit("newMessage", {
+							message: m,
+							room_id: roomId,
+							user: name,
+							timestamp: { hour, mins },
+							pkeSentBy: publicE2eContext,
+							pkeReceiver: partnerPublicKey,
+							idSentBy: id,
+							many: room.isPrivate ? false : true,
+							dbId: dbM ? dbM.id : null,
+						});
+					})
+				}else{
 					socket.emit("newMessage", {
 						message: m,
 						room_id: roomId,
@@ -104,9 +118,9 @@ const Chat = ({ route, navigation }) => {
 						pkeReceiver: partnerPublicKey,
 						idSentBy: id,
 						many: room.isPrivate ? false : true,
-						dbId: dbM ? dbM.id : null,
+						dbId: dbMessage ? dbM.id : null,
 					});
-				})
+				}
 			}else{
 				setMessage('');
 			}

@@ -163,7 +163,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RNF-03  | A aplicação não deve ter tempo de resposta maior do que 30 segundos. | MÉDIA | 
 |RNF-04  | A aplicação deve estar acessível e sem interrupções por pelo menos 95% do tempo, apresentando um tempo de inatividade mínimo. | MÉDIA | 
 |RNF-05  | A aplicação deve ter bom nível de contraste entre os elementos da tela em conformidade. | BAIXA | 
-|RNF-06  | A aplicação deve ter um funcionamento restrito sem conexão com internet e irrestrito com conexão com a internet. | BAIXA | 
+|RNF-06  | A aplicação deve ter um funcionamento irrestrito apenas com conexão à internet. | BAIXA | 
 
 ## Restrições
 

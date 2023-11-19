@@ -1,11 +1,24 @@
 # Programação de Funcionalidades
 
-<span style="color:red">Pré-requisitos: <a href="2-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="4-Metodologia.md"> Metodologia</a>, <a href="3-Projeto de Interface.md"> Projeto de Interface</a>, <a href="5-Arquitetura da Solução.md"> Arquitetura da Solução</a>
 
-Implementação do sistema descrita por meio dos requisitos funcionais e/ou não funcionais. Deve relacionar os requisitos atendidos com os artefatos criados (código fonte), deverão apresentadas as instruções para acesso e verificação da implementação que deve estar funcional no ambiente de hospedagem.
+### Funcionalidade 01: A aplicação deve permitir ao usuário trocar mensagens criptografadas em tempo real. (RF-001)
+A funcionalidade permite que o usuário troque mensagens com outros usuários.
 
-### Funcionalidade 01: Troca de mensagens criptografadas em tempo real (RF-001)
+![Conversas](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/96087622/2c4c2022-252b-48bf-95ae-bf9e77b19f90)
+![Mensagem Criptografada](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/96087622/085ac1a6-b439-4742-bbb2-99bb1396074f)
 
+
+##### Instruções de acesso
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
+3. Caso o usuário não esteja logado, realize o login.
+4. Após realizar o login como, clique na opção "Contatos", localizada na parte inferior da HomePage.
+5. Na tela de contatos, escolha o usuário que deseja conversar.
+6. Envie uma mensagem.
+   
+##### Artefatos produzidos
+* [Chat.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Chat.js)
+* [Node Server](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/node_server/index.js)
 
 
 
@@ -46,9 +59,9 @@ A funcionalidade permite que os usuários criem Grupos no App da `2Gather`.
 7. Nomear o Grupo e clicar em "Criar"
 
 ##### Artefatos produzidos
-* [NewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewGroup.js)
-* [CreateNewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/CreateNewGroup.js)
-* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
+* [NewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/NewGroup.js)
+* [CreateNewGroup.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/CreateNewGroup.js)
+* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/group.services.js)
 
 ### Funcionalidade 04: Criar Lista de Transmissão (RF-04)
 
@@ -66,9 +79,9 @@ A funcionalidade permite que os usuários criem Listas de Transmissão no App da
 7. Nomear a Lista e clicar em "Criar"
 
 ##### Artefatos produzidos
-* [NewList.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewList.js)
-* [CreateReceivers](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/CreateReceivers.js)
-* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/group.services.js)
+* [NewList.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/NewList.js)
+* [CreateReceivers](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/CreateReceivers.js)
+* [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/group.services.js)
 
 ### Funcionalidade 05: Permitir que apenas os administradores da lista de transmissão possam enviar mensagens (RF-05)
 
@@ -77,7 +90,6 @@ Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista,
 
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/aae7e268-182f-4cdc-99ae-62aa008ac8dc)
 ![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/1222c5fd-17cb-4caa-bcb5-b81776214e3a)
-
 
 ##### Instruções de acesso
 1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
@@ -90,14 +102,43 @@ Na tela de Listas de Transmissão, se o usuário ainda não criou nenhuma lista,
 * [BroadcastCreate](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/BroadcastCreate.js)
 * [group.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/group.services.js)
 
-### Funcionalidade 06: Obter confirmação de leitura das mensagens (RF-06)
+### Funcionalidade 06: A aplicação deve permitir ao interlocutor obter uma confirmação de leitura de seu destinatário. (RF-006)
+A funcionalidade permite que o usuário troque mensagens com outros usuários.
+
+![Conversas](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/96087622/e0f3c4d3-86a1-4591-b13e-f1a419bf6359)
 
 
+##### Instruções de acesso
+1. Acesse o link fornecido: [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Abra a aplicação no VSCode e siga as instruções detalhadas no README disponível em: [README](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/README.md).
+3. Caso o usuário não esteja logado, realize o login.
+4. Após realizar o login como, clique na opção "Contatos", localizada na parte inferior da HomePage.
+5. Na tela de contatos, escolha o usuário que deseja conversar.
+6. Envie uma mensagem.
+7. Verifique a confirmação de leitura
+   
+##### Artefatos produzidos
+* [Chat.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Chat.js)
+* [Node Server](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/node_server/index.js)
 
-### Funcionalidade 07: Disparar notificações de mensagens (RF-07)
+### Funcionalidade 07: Visualizar notificações de mensagens. (RF-007)
+A funcionalidade permite que o usuário, logado na `2Gather`, visualize uma notificação quando receber uma mensagem de outro usuario, grupo e lista de transmissão.
+
+![Toast](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/d9c3f415-ffcf-4b9e-bf2f-920b92c52791)
 
 
+##### Instruções de acesso
+1. Acesse o link [Link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather).
+2. Instale e inicie a aplicação no VSCode conforme as instruções do README.
+3. Faça login na aplicação (caso ainda não esteja logado).
+4. Navegue até as opções "Contato", "Grupos" ou "Lista de Transmissão".
+5. Envie uma mensagem para o contato, grupo ou lista de transmissão desejado.
+7. Se o destinatário não estiver na tela de envio da mensagem, você receberá uma notificação.
 
+##### Artefatos produzidos
+* [Toast.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/components/Toast.js)
+* [ToastWrapper.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/components/ToastWrapper.js)
+* [ToastContext.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/contexts/ToastContext.js)
 
 ### Funcionalidade 08: Visualizar informações básicas dos usuários (RF-08)
 
@@ -113,7 +154,7 @@ A funcionalidade permite que um usuário, logado na `2Gather`, visualize as info
 5. Na tela Contatos, clicar sobre a foto daquele usuário que gostaria de visualizar as informações básicas.
 
 ##### Artefatos produzidos
-* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Profile.js)
+* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/Profile.js)
 
 ### Funcionalidade 09: Efetuar Login	(RF-09)
 
@@ -129,9 +170,9 @@ A funcionalidade permite que o usuário realize com sucesso o login no App `2Gat
 5. Clique no botão `Entrar`.
 
 ##### Artefatos produzidos
-* [Home.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Home.js)
-* [Login.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Login.js)
-* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/auth.services.js)
+* [Home.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/Home.js)
+* [Login.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/Login.js)
+* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/auth.services.js)
 
 ### Funcionalidade 10: Alterar senha pessoal (RF-010)
 
@@ -149,9 +190,10 @@ A funcionalidade permite que o usuário do App `2Gather` acesse seu Perfil e alt
 7. Clicar em `Alterar Senha`.
 
 ##### Artefatos produzidos
-* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/Profile.js)
-* [NewPassword](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/screens/NewPassword.js)
-* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/develop/src/2gather/services/auth.services.js)
+* [Profile.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/Profile.js)
+* [NewPassword](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/screens/NewPassword.js)
+* [auth.services.js](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/blob/main/src/2gather/services/auth.services.js)
+  
 
 ### Funcionalidade 11: Gerenciar os grupos em que for administrador (RF-011)
 
