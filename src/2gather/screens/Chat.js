@@ -7,7 +7,7 @@ import { Appbar } from 'react-native-paper';
 import { SaveMessage, getMessageList, AddReadBy } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
 import { Encrypt, Decrypt } from "../services/encryption.service";
- import { useChat } from "../contexts/ChatContext";
+import { useChat } from "../contexts/ChatContext";
 
 const Chat = ({ route, navigation }) => {
 	 const { setActiveChat } = useChat();
@@ -88,7 +88,7 @@ const Chat = ({ route, navigation }) => {
 						}
 					})
 					encryptedMessage = messages
-					SaveMessage({ text: JSON.stringify(encryptedMessage), idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, readBy: id })//tenho que testar se está funcionando com algum grupo
+					dbMessage = SaveMessage({ text: JSON.stringify(encryptedMessage), idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, readBy: id })//tenho que testar se está funcionando com algum grupo
 																																   //como a logica ficou meio complicada, fica ruim de adulterar só pra testar.
 				}
 				setMessage('');
