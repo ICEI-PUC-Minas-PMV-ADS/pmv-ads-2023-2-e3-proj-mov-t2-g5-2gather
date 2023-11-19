@@ -129,7 +129,7 @@ export default function GroupInfo({ route }) {
           <FlatList
             data={participants}
             renderItem={renderItem}
-            keyExtractor={(item) => item}
+            key={item.id}
           />
 
         </View>
