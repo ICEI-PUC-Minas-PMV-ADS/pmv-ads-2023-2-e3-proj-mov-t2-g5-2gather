@@ -7,7 +7,6 @@ import {
   TextInput,
   Image,
   FlatList,
-  ScrollView,
   TouchableOpacity,
   Button,
 } from "react-native";
@@ -15,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetListArchivedGroups } from '../services/group.services';
+import { Appbar } from 'react-native-paper';
 
 export default function ArchivedGroups ({ navigation }) {
   
@@ -23,8 +23,7 @@ export default function ArchivedGroups ({ navigation }) {
   const getArchivedGroups = async () => {
     try {      
         const result = await GetListArchivedGroups() || [];
-        setArchivedGroups(result);
-        console.log(result)
+        setArchivedGroups(result)
     } catch (error) {
         console.log(error)
     } finally {  
@@ -37,18 +36,17 @@ useEffect(() => {
 }, []);
 
 
-{/* // Navegar para a tela de ABRIR O GRUPO ao pressionar (item).
+
 const handleItemPress = (item) => {
-  //o nome da Screen precisa ser confirmado, assim como a identificação do Grupo...
-  navigation.navigate('Talks', { groupId: item.id });
+  navigation.navigate('GroupConversation', { groupId: item.id });
 };
-*/}
+
 
 
 
   const defaultImage = require('../assets/group.png');
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => console.log(item)}>{/*handleItemPress(item)}>*/}
+    <TouchableOpacity onPress={() => navigation.navigate('GroupInfo', { id: item.id })}>
       <View style={styles.contactItem}> 
       <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
       <Text style={styles.contactText}>{item.title}</Text>
@@ -58,38 +56,26 @@ const handleItemPress = (item) => {
     
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText} onPress={() => navigation.goBack()}>
-          Arquivados
-        </Text>
-      </View>
+    <View style={styles.container}>
+      <Appbar.Header style={styles.header}>
+        <Appbar.BackAction onPress={() => navigation.navigate("Profile")} />
+        <Text style={styles.titleHeader}>Comunicações Arquivadas</Text>
+      </Appbar.Header>
       <View style={styles.container1}>
-        <ScrollView>
-        <FlatList
-          contentContainerStyle={styles.itemList}
-          data={archivedGroups}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          inverted={false}
-          ItemSeparatorComponent={() => (
-            <Divider style={{ height: 1, backgroundColor: "grey" }} />
-          )}
-        />
-        </ScrollView>
+       
+          <FlatList
+            contentContainerStyle={styles.itemList}
+            data={archivedGroups}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            inverted={false}
+            ItemSeparatorComponent={() => (
+              <Divider style={{ height: 1, backgroundColor: "grey" }} />
+            )}
+          />
+        
       </View>
-
-
-
-     {/*Botão Provisório*/}
-
-     <TouchableOpacity style={styles.buttonForecast} onPress={() => navigation.navigate("YourGroups")}>
-      <Text style={styles.buttonLoginText}>Go To YourGroups Screen</Text>
-      </TouchableOpacity> 
-
-
-
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -98,39 +84,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
   header: {
-    padding: 10,
+    backgroundColor: '#2368A2',
     height: 85,
-    backgroundColor: "#2368A2",
-    justifyContent: "space-between",
+    marginBottom: 18,
+    padding: 0,
   },
 
-  headerText: {
+  titleHeader: {
+    color: '#FFFCF4',
     fontSize: 20,
-    color: "#FFFCF4",
-    marginTop: 7,
-  },
-  searchBar: {
-    padding: 10,
-    marginBottom: 20,
-  },
-
-  searchInput: {
-    backgroundColor: "#2368A2",
-    color: "#fffcf4",
-    borderRadius: 10,
-    padding: 10,
-    fontSize: 16,
   },
 
   container1: {
     flex: 1,
     backgroundColor: "#F1F3F5",
     borderRadius: 15,
-    marginVertical: -25,
+    marginVertical: -27,
   },
 
   itemList: {

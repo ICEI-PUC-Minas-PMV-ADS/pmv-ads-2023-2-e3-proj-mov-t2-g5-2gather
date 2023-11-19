@@ -9,18 +9,19 @@ import Homepage from '../screens/Homepage';
 import CreateUser from '../screens/CreateUser';
 import Profile from '../screens/Profile';
 import NewPassword from '../screens/NewPassword';
-import BroadcastList from '../screens/BroadcastList';
+// import BroadcastList from '../screens/BroadcastList';
 import Chat from '../screens/Chat';
 import BroadcastCreate from '../screens/BroadcastCreate';
 import Contacts from '../screens/Contacts';
 import ArchivedGroups from '../screens/ArchivedGroups';
-import YourGroups from '../screens/YourGroups';
 import NewList from '../screens/NewList';
 import CreateReceivers from '../screens/CreateReceivers';
 import NewGroup from '../screens/NewGroup';
 import CreateNewGroup from '../screens/CreateNewGroup';
+import ArchivedLists from '../screens/ArchivedLists';
 import GroupConversation from '../screens/GroupConversation';
 import GroupInfo from '../screens/GroupInfo';
+import ListConversation from '../screens/ListConversation';
 import EditGroup from '../screens/EditGroup';
 
 const stack = createNativeStackNavigator();
@@ -38,54 +39,83 @@ const MainNav = () => {
             <stack.Screen
                 name="CreateUser"
                 component={CreateUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="EditUser"
                 component={EditUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="InactivateUser"
                 component={InactivateUser}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="UserManagement"
                 component={UserManagement}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="Profile"
                 component={Profile}
+                options={{
+                    header: () => null,
+                }}
             />
              <stack.Screen
                 name="NewPassword"
                 component={NewPassword}
+                options={{
+                    header: () => null,
+                }}
             />
-            <stack.Screen
+            {/* <stack.Screen
                 name="BroadcastList"
                 component={BroadcastList}
-            />
+            /> */}
             <stack.Screen
                 name="BroadcastCreate"
                 component={BroadcastCreate}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="Contacts"
                 component={Contacts}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="ArchivedGroups"
                 component={ArchivedGroups}
-            />
-            <stack.Screen
-                name="YourGroups"
-                component={YourGroups}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="NewList"
                 component={NewList}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="CreateReceivers"
                 component={CreateReceivers}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="Chat"
@@ -97,14 +127,31 @@ const MainNav = () => {
             <stack.Screen
                 name="NewGroup"
                 component={NewGroup}
+                options={{
+                    header: () => null,
+                }}
             />
             <stack.Screen
                 name="CreateNewGroup"
                 component={CreateNewGroup}
+                options={{
+                    header: () => null,
+                }}
+            />
+             <stack.Screen
+                name="ArchivedLists"
+                component={ArchivedLists}
             />
             <stack.Screen
                 name="GroupConversation"
                 component={GroupConversation}
+                options={{
+                    header: () => null,
+                }}
+            />
+            <stack.Screen
+                name="ListConversation"
+                component={ListConversation}
                 options={{
                     header: () => null,
                 }}
@@ -123,8 +170,6 @@ const MainNav = () => {
                     header: () => null,
                 }}
             />
-
-
         </stack.Navigator>
     );
 };

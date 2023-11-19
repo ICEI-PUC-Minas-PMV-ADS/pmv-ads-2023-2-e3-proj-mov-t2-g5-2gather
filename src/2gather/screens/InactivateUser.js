@@ -7,7 +7,9 @@ import { GetUserList, UpdateUserStatus  } from '../services/user.services';
 export default function InactivateUser({ navigation }) {
   const [userId, setUserId] = useState(''); 
   const [reason, setReason] = useState('');
-  const [userList, setUserList] = useState([]); 
+  const [userList, setUserList] = useState([]);
+  const [errorUserId, setErrorUserId] = useState(false);
+  const [errorReason, setErrorReason] = useState(false); 
 
   useEffect(() => {
     async function fetchUserList() {
@@ -22,18 +24,25 @@ export default function InactivateUser({ navigation }) {
   }, []);
 
   const handleInactivateUser = async () => {
+
+    setErrorUserId(false);
+    setErrorReason(false);
+
     if (userId && reason) {
       const success = await UpdateUserStatus({ userId: userId, reason: reason });
       if (success) {
-        // inativação bem-sucedida
         alert('Usuário inativado com sucesso');
+        navigation.navigate('UserManagement');
       } else {
-        // tratar caso de falha na inativação
         console.log('Falha na inativação do usuário');
       }
     } else {
-      // lidar com campos em branco ou validação
-      console.log('Preencha todos os campos');
+      if (!userId) {
+        setErrorUserId(true);
+      }
+      if (!reason) {
+        setErrorReason(true);
+      }
     }
   };
 
@@ -54,11 +63,16 @@ export default function InactivateUser({ navigation }) {
         </Text>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Escolher usuário</Text>
+          <Text style={styles.inputTitle}>Escolher usuário:</Text>
           <Picker
             selectedValue={userId}
             onValueChange={(itemValue) => setUserId(itemValue)}
+            style={[
+              styles.input,
+              { backgroundColor: 'white', borderColor: errorUserId ? 'red' : '#BBB' },
+            ]}
           >
+            <Picker.Item label="Selecione um usuário" value={null} />
             {userList.map((user) => (
               <Picker.Item
                 key={user.id}
@@ -70,28 +84,33 @@ export default function InactivateUser({ navigation }) {
         </View>
 
         <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Motivo</Text>
+          <Text style={styles.inputTitle}>Motivo:</Text>
           <TextInput
-            style={[styles.input, { backgroundColor: 'white' }]}
+            style={[styles.input, { backgroundColor: 'white', borderColor: errorReason ? 'red' : '#BBB'  }
+          ]}
             onChangeText={setReason}
+            placeholder="Digite o motivo aqui"
+            placeholderTextColor="gray"
           />
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: '#FAE29F', width: 89, height: 60 }]}
-            onPress={handleInactivateUser}
-          >
-            <Text style={styles.buttonText}>Inativar</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.inativarButton]}
+          onPress={handleInactivateUser}
+        >
+          <Text style={styles.buttonText}>Inativar</Text>
+        </TouchableOpacity>
 
-          <View style={{ width: 29 }}></View> 
+        <View style={{ width: 29 }}></View> 
 
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: '#ADB5BD', width: 104, height: 60 }]}
+        <TouchableOpacity
+          style={[styles.button, styles.cancelarButton]}
             onPress={() => {
               setUserId(''); 
-              setReason(''); 
+              setReason('');
+              setErrorUserId(false);
+              setErrorReason(false);
               navigation.navigate('UserManagement')
             }}
           >
@@ -105,7 +124,6 @@ export default function InactivateUser({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
     padding: 0,
     borderBottomWidth: 1,
     borderColor: '#BBB',
@@ -116,10 +134,12 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#2368A2',
-    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     color: '#FFFCF4',
+    fontSize: 20,
   },
   containerMain: {
     margin: 20,
@@ -153,9 +173,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    width: 100,
+    height: 60,
+  },
+  inativarButton: {
+    backgroundColor: '#FAE29F',
+  },
+  cancelarButton: {
+    backgroundColor: '#ADB5BD',
   },
   buttonText: {
     color: 'black',
-    fontWeight: 'bold',
   },
 });

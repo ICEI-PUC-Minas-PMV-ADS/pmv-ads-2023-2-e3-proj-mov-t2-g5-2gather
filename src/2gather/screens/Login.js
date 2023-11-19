@@ -25,7 +25,7 @@ import { GetUserPassword } from '../services/user.services.js';
 
 
 export default function Login(navigation) {
-  const { setSigned, setId, setName, setPrivateE2eContextContext, privateE2eContext } = useUser();
+  const { setSigned, setId, setName, setPrivateE2eContext, privateE2eContext } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -36,16 +36,17 @@ export default function Login(navigation) {
 
     SignIn({ email: email, password: password }).then(async (res) => {
       if (res.access && res.refresh) {
-        setSigned(true);
-        setName(res.name);
-        setId(res.id);
         for (const key in res) {
           if (res.hasOwnProperty(key)) {
             if (res[key] !== null) {
               AsyncStorage.setItem(key, String(res[key])).then();
             }
           }
+          AsyncStorage.setItem('signed', String(true)).then();
         }
+        setSigned(true);
+        setName(res.name);
+        setId(res.id);
 
         let e2eKeys = await dbGetE2e(res.id)
         if (!e2eKeys && !res.pke) {
@@ -53,7 +54,7 @@ export default function Login(navigation) {
 
           if (e2eKeys) {
             await dbSetE2e(res.id, e2eKeys.privateKey, e2eKeys.publicKey)
-            setPrivateE2eContextContext(e2eKeys.privateKey)
+            setPrivateE2eContext(e2eKeys.privateKey)
             await UpdatePublicE2e({ publicE2e: e2eKeys.publicKey })
             
           } else {
@@ -98,8 +99,7 @@ export default function Login(navigation) {
         alert('Falha ao enviar o e-mail de recuperação de senha. Tente novamente.');
       }
     } catch (error) {
-      console.error('Erro ao processar a recuperação de senha:', error);
-      alert('Erro ao processar a recuperação de senha. Tente novamente mais tarde.');
+      alert('A implementação da "Recuperação de Senha" será realizada em versões futuras. Obrigado!');
     }
   };
 

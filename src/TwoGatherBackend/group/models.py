@@ -29,16 +29,16 @@ class Message(models.Model):
         (0, 'Normal'),
         (1, 'Urgent'),
     )
-    #MESSAGE_TYPE = (
-    #    (0, 'TBD'),
-    #)
+
     id = models.UUIDField('id', primary_key=True, default=uuid.uuid4, editable=False)
     text = models.TextField('Message')
     date = models.DateTimeField('Sent date', auto_now_add=True)
-    priority = models.CharField('Priority', max_length=255, choices=PRIORITY)
-    #messageType = models.CharField('Message Type', max_length=255, choices=MESSAGE_TYPE)
+    priority = models.IntegerField('Priority', choices=PRIORITY, default=0)
     idSentBy = models.ForeignKey('user.user', on_delete=models.PROTECT)
     idGroup = models.ForeignKey('group.group', on_delete=models.PROTECT)
+
+    pkeSentBy = models.CharField('pke Sent By', max_length=128, blank=True, null=True)
+    pkeReceiver = models.CharField('pke Receiver', max_length=128, blank=True, null=True)#this is not going to work for group chats.
 
     readBy = models.ManyToManyField(
         'user.user',
@@ -50,5 +50,5 @@ class Message(models.Model):
         return self.text
     
     class Meta:
-        ordering = ['-date']
+        ordering = ['date']
         verbose_name_plural = "Messages"

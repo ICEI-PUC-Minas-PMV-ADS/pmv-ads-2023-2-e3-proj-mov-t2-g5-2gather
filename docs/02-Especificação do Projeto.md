@@ -30,9 +30,9 @@ Anne Sales tem 28 anos, é advogada especialista em LGPD. Seus Hobbies são: ler
  
 <b>História:</b> Anne trabalha na empresa como advogada desde de 2020. É altamente reconhecida pela diretoria por sua competência e dedicação ao trabalho. Está sempre buscando se atualizar e se preocupa muito com a segurança dos dados da empresa e eficiência da equipe. Seu objetivo é ser mais assertiva e ágil na comunicação e reduzir ao máximo os riscos de vazamento de informações sensíveis da empresa que possam resultar em danos ao negócio.
  
-<b>Frustrações:</b> Sente-se insegura quanto à possibilidade de vazamento das informações trocadas pelos colaboradores da empresa e perceber uma alta dispersão dos envolvidos na troca de mensagens.
+<b>Frustrações:</b> Sente-se insegura quanto à possibilidade de vazamento das informações trocadas pelos colaboradores da empresa e perceber um baixo nível de segurança de privacidade de senhas dos usuário nas ferramentas de troca de mensagens.
  
-<b>Motivações:</b> Garantir a segurança jurídica da sua empresa, buscando implementar mecanismos que assegurem o seu enquadramento aos termos da LGPD vigente e também obter maior eficiência na comunicação com a priorização dos assuntos utilizando marcadores de status das mensagens. 
+<b>Motivações:</b> Garantir a segurança jurídica da sua empresa, buscando implementar mecanismos que assegurem o seu enquadramento aos termos da LGPD vigente e também obter maior segurança ao acesso às informações e ferramentas de comunicação da empresa. 
 
 
 ### 4. Joana Rodriguez
@@ -75,7 +75,7 @@ A partir da compreensão do dia a dia das personas identificadas para o projeto,
 | Woliver Maicon  |  ter grupos de comunicação | centralizar a comunicação que está dispersa em vários grupos de aplicativos diferentes.|
 | Ringui Evângelo | disparar notificações instantâneas com as minhas mensagens | melhorar a comunicação interna. |
 | Ringui Evângelo | visualizar informações básicas dos funcionários | capacitar-me a tomar decisões informadas sobre a equipe. |
-| Joana Rodriguez | fazer login com autenticação de dois fatores |  proteger que as informações sejam compartilhadas entre os funcionários. |
+| Joana Rodriguez | fazer login com senha criptograda |  proteger as informações compartilhadas entre os funcionários. |
 | Joana Rodriguez | gerenciar canais de chat | para melhorar a comunicação e colaboração da equipe de vendas. |
 
 ## Modelagem do Processo de Negócio 
@@ -150,8 +150,8 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RF-06 | A aplicação deve permitir ao interlocutor obter uma confirmação de leitura de seu destinatário. | MÉDIA |
 |RF-07  |  A aplicação deve disparar notificações de mensagens. | MÉDIA |
 |RF-08 | A aplicação deve permitir visualizar informações básicas dos usuários. | BAIXA |
-|RF-09  | A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.   | BAIXA |
-|RF-10 | A aplicação deve permitir a definição de status de prioridade nas mensagens.  | BAIXA |
+|RF-09  | A aplicação deve requerer senha para fazer login do usuário e que esta seja criptograda.   | BAIXA |
+|RF-10 | A aplicação deve permitir que o usuário consiga trocar a sua senha pessoal.  | BAIXA |
 |RF-11  | A aplicação deve permitir gerenciar canais de chat com funções de administração.  | BAIXA |
 
 ### Requisitos não Funcionais
@@ -163,7 +163,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RNF-03  | A aplicação não deve ter tempo de resposta maior do que 30 segundos. | MÉDIA | 
 |RNF-04  | A aplicação deve estar acessível e sem interrupções por pelo menos 95% do tempo, apresentando um tempo de inatividade mínimo. | MÉDIA | 
 |RNF-05  | A aplicação deve ter bom nível de contraste entre os elementos da tela em conformidade. | BAIXA | 
-|RNF-06  | A aplicação deve ter um funcionamento restrito sem conexão com internet e irrestrito com conexão com a internet. | BAIXA | 
+|RNF-06  | A aplicação deve ter um funcionamento irrestrito apenas com conexão à internet. | BAIXA | 
 
 ## Restrições
 
@@ -196,8 +196,8 @@ A tabela abaixo apresenta as limitações que afetam a execução deste projeto 
 | Should Have| RF-06            | Confirmação de leitura de mensagens                 | Funcional                | Notificação de quando uma mensagem foi lida                     | O sistema deve permitir que os usuários saibam quando suas mensagens foram lidas por outros participantes da conversa.                     |
 | Should Have| RF-07            | Notificações de mensagens novas                    | Funcional                | Notificação quando novas mensagens chegam                       | O sistema deve enviar notificações aos usuários sempre que novas mensagens forem recebidas, mantendo-os atualizados em tempo real.       |
 | Could Have | RF-08            | Informações básicas de usuários                     | Funcional                | Visualização de informações como nome e cargo                   | A interface deve apresentar informações essenciais dos usuários, como nome e cargo, de forma acessível.                       |
-| Must Have  | RF-09            | Autenticação de dois fatores no primeiro login     | Funcional                | Autenticação em duas etapas no primeiro login                  | O sistema deve reforçar a segurança exigindo que os usuários forneçam um segundo fator de autenticação durante seu primeiro acesso.       |
-| Could Have | RF-10            | Priorização de mensagens                            | Funcional                | Definição de prioridade para as mensagens                       | O sistema deve permitir que os usuários atribuam prioridade às mensagens que enviam, auxiliando na organização das comunicações.        |
+| Must Have  | RF-09            | Exigência de senha criptografada ao fazer o login   | Funcional                | Requisição de senha pessoal no momento do login                  | O sistema deve reforçar a segurança gravando essa senha no formato criptografado.       |
+| Could Have | RF-10            | Troca de senha pessoal                              | Funcional                | Permissão concedida ao usuário de realizar a troca da senha pessoal  | O sistema deve permitir que os usuários troquem suas senhas após receberem o seu e-mail e senha de acesso fornecidos pela administração da empresa.        |
 | Could Have | RF-11            | Canais de chat personalizados                      | Funcional                | Criação e gerenciamento de canais de chat                      | O sistema deve possibilitar que os usuários criem e gerenciem canais de chat separados para tópicos ou grupos específicos de discussão. |
 | Must Have          | RNF-01              | A aplicação deverá ser responsiva permitindo a visualização em diversos dispositivos móveis de forma adequada. | Não Funcional | Interface se adapta a diferentes tamanhos de tela               | O sistema deve adaptar-se de forma eficaz a diferentes tamanhos de tela, proporcionando uma experiência consistente. |
 | Must Have | RNF-02           | Criptografia das mensagens                           | Funcional                | Criptografia de ponta a ponta para proteger a privacidade       | O sistema deve garantir a privacidade das mensagens por meio de criptografia avançada, protegendo o conteúdo durante a transmissão.     |
@@ -206,7 +206,7 @@ A tabela abaixo apresenta as limitações que afetam a execução deste projeto 
 | Should Have        | RNF-05              | A aplicação deve ter bom nível de contraste entre os elementos da tela em conformidade. | Não Funcional | Interface com contraste adequado para melhor acessibilidade   | A interface deve possuir um bom nível de contraste para melhorar a acessibilidade e a legibilidade para todos os usuários. |
 | Could Have         | RNF-06              | A aplicação deve ter um funcionamento restrito sem conexão com internet e irrestrito com conexão com a internet. | Não Funcional | Funcionamento adequado com e sem conexão com a internet       | A aplicação deve ser capaz de funcionar com recursos limitados sem conexão com a internet e com todos os recursos quando conectada. |
 
-![Matriz de Rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/9876dea6-534e-4bdc-9e73-db42764884d0)
+![Matriz de Rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/9e687809-b0dd-427a-97a9-55f7af0dc4ac)
 
 
 # Gerenciamento de Projeto
