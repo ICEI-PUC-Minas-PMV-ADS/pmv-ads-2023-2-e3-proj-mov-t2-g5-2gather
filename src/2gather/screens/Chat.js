@@ -109,17 +109,19 @@ const Chat = ({ route, navigation }) => {
 						});
 					})
 				}else{
-					socket.emit("newMessage", {
-						message: m,
-						room_id: roomId,
-						user: name,
-						timestamp: { hour, mins },
-						pkeSentBy: publicE2eContext,
-						pkeReceiver: partnerPublicKey,
-						idSentBy: id,
-						many: room.isPrivate ? false : true,
-						dbId: dbMessage ? dbM.id : null,
-					});
+					dbMessage.then((dbM) =>{
+						socket.emit("newMessage", {
+							message: m,
+							room_id: roomId,
+							user: name,
+							timestamp: { hour, mins },
+							pkeSentBy: publicE2eContext,
+							pkeReceiver: partnerPublicKey,
+							idSentBy: id,
+							many: room.isPrivate ? false : true,
+							dbId: dbMessage ? dbM.id : null,
+						});
+				})
 				}
 			}else{
 				setMessage('');
