@@ -42,7 +42,7 @@ export const onMessageReceived = (newMessage, activeChat, showToast) => {
   if (newMessage.chatId !== activeChat) {
     showToast(newMessage.previewText, newMessage.senderName, "2Gather");
   };
-
+};
 export const AddReadBy = async ({ readBy, idMessage }) => {
     try {
         let data ={ readBy: [readBy] }

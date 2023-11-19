@@ -19,6 +19,7 @@ import { GetMessages } from '../services/message.service';
 import socket from '../services/socket';
 import { GetGroupDetails } from '../services/group.services';
 import { useFocusEffect } from '@react-navigation/native';
+import { getOrCreatePrivateGroup } from '../services/group.services';
 
 export default function Homepage() {
   const navigation = useNavigation();
@@ -89,11 +90,29 @@ export default function Homepage() {
 
   const handleItemPress = async (group) => {
     try {
-      const result = await GetGroupDetails({ idGroup: group.id }) || [];
-      socket.emit("createRoom", result.id, group.title);
-      navigation.navigate("GroupConversation", {
-        id: result.id,
-      });
+      if (group.isPrivate) {
+        let partner
+
+        if (group.members[0].id === id) {
+          partner = group.members[1];
+        } else {
+          partner = group.members[0];
+        }
+        const result = await getOrCreatePrivateGroup({ idPartner: partner.id, idSelf: id })
+        socket.emit("createRoom", result.id, partner.name);
+        navigation.navigate("Chat", {
+          room: result,
+          roomId: result.id,
+          partner: partner,
+        })
+      }
+      else {
+        const result = await GetGroupDetails({ idGroup: group.id }) || [];
+        socket.emit("createRoom", result.id, group.title);
+        navigation.navigate("GroupConversation", {
+          id: result.id,
+        });
+      }
     } catch (error) {
       alert('error');
       console.log(error);
