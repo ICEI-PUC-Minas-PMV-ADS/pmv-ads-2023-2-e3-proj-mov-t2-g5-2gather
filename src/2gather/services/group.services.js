@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { sendAuthenticatedRequest } from './auth.services.js'
 import { useState } from 'react';
 
@@ -12,7 +13,23 @@ export const GetListArchivedGroups = async () => {
 
 export const GetListYourGroups = async () => {
     try {
-        const result = await sendAuthenticatedRequest('/group/list/groups/', 'GET');
+        const result = await sendAuthenticatedRequest('/group/list/', 'GET');
+        // console.log(result)
+        const storedId = await AsyncStorage.getItem('id');
+        result.map(item => {
+             if (item.isPrivate) {
+                     if (item.members[0].id === storedId) {
+                         item.newTitle = item.title
+                         item.title = item.members[1].name;
+                         item.photo = item.members[1].photo;
+                     } else {
+                         item.newTitle = item.title
+                         item.title = item.members[0].name;
+                         item.photo = item.members[0].photo;
+                     }
+                 }
+             })
+        // console.log(result)
         return result;
     } catch (error) {
         throw new Error(error.message);
