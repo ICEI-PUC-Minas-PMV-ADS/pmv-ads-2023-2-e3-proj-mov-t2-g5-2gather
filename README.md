@@ -26,11 +26,11 @@ Especificamente, esse aplicativo foca na obtenção de um maior nível de segura
 ## Instruções de Acesso:
 
 A Aplicação Mobile `2Gather` está disponível e pode ser acessada pelo [link](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather). 
-Agora com o projeto identificado, selecione a branch `main`, vá até `<>Code` e escolha a forma de clocagem do arquivo e salve-o em uma pasta no diretório escolhido para então abri-lo no seu editor de texto. 
+Agora com o projeto identificado, selecione a branch `main`, vá até `<>Code` e escolha a forma de clonagem do repositório e salve-o em uma pasta no seu diretório local escolhido para então abri-lo em seu ambiente de desenvolvimento integrado (IDE) preferido. 
 
-1) Caso opte por usar o GitHub Desktop, abrirá a tela do GitHub Desktop e nela estará disponível o botão `Abrir no Visual Studio Code`. Feito isso, o projeto será aberto. Para rodá-lo, abra o Terminal, nele já estará o path inicial do projeto indicando em qual pasta ele foi salvo. A partir de então é só complementar o `path` com o  caminho da pasta e o comando de inicialização.
+1) Caso opte por usar o GitHub Desktop, abrirá a tela do GitHub Desktop e nela estará disponível o botão `Abrir no Visual Studio Code`. Feito isso, o projeto será aberto. Para rodá-lo, abra o Terminal, nele já estará o path inicial do projeto indicando em qual pasta ele foi salvo. A partir de então é só complementar o `path` com o caminho da pasta e o comando de inicialização.
 
- Para alterar o diretório atual e adentrar na pasta `src/2gather` na qual está a aplicação que será executada localmente.
+ Utilize seu prompt de comando para navegar até a pasta `src/2gather`, na qual está a aplicação que será executada localmente
  
 `cd src/2gather`
 
@@ -47,14 +47,14 @@ Caso deseje acessar via expo, deve-se baixar o app `Expo Go` no celular e ler o 
 
 ### Considerações:
 
-Por ser uma aplicação destinada à comunicação exclusiva da empresa, os usuários são classificados como `Admin` e  `Usuários`. O `Admin` é o responsável pela **Criação, Edição e Inativação** de usuários, sendo que esta regra de negócio foi estabelecida para manter a segurança e controle do cadastro.
+Por ser uma aplicação destinada à comunicação exclusiva de uma empresa, os usuários são classificados como `Admin` e  `Usuários`. O `Admin` é o responsável pelo **Gerenciamento de usuários** (Criação, Edição e Inativação de usuários), sendo esta regra de negócio estabelecida para manter a segurança e controle do cadastro.
 
-Para efeitos de verificação da aplicação, foi disponibilizado um usuário `Admin` para que os avaliadores possam navegar livremente pela aplicação e ver todas as funcionalidades sem aquelas restrições estabelecidas aos demais usuários.
+Para efeitos de verificação da aplicação, foi disponibilizado um usuário `Admin` para que os avaliadores possam navegar livremente pela aplicação e ver todas as funcionalidades sem as restrições estabelecidas aos demais usuários.
 
 ## Instruções de utilização:
 
 Na Tela Login, acesse com os seguintes dados:
-- E-mail: cake@gmail.com
+- E-mail: admin@gmail.com
 - Senha: 123
 
 Ao acessar a aplicação, será apresentada a **Tela HomePage**, na qual estarão disponíveis as sessões e a partir delas poderá ser feita a navegação pela Aplicação, assim como as mensagens que este usuário já possua, estarão no corpo da tela. Estas mensagens podem ser: 
