@@ -206,7 +206,7 @@ A tabela abaixo apresenta as limitações que afetam a execução deste projeto 
 | Should Have        | RNF-05              | A aplicação deve ter bom nível de contraste entre os elementos da tela em conformidade. | Não Funcional | Interface com contraste adequado para melhor acessibilidade   | A interface deve possuir um bom nível de contraste para melhorar a acessibilidade e a legibilidade para todos os usuários. |
 | Could Have         | RNF-06              | A aplicação deve ter um funcionamento restrito sem conexão com internet e irrestrito com conexão com a internet. | Não Funcional | Funcionamento adequado com e sem conexão com a internet       | A aplicação deve ser capaz de funcionar com recursos limitados sem conexão com a internet e com todos os recursos quando conectada. |
 
-![Matriz de Rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/9876dea6-534e-4bdc-9e73-db42764884d0)
+![Matriz de Rastreabilidade](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/107289791/9e687809-b0dd-427a-97a9-55f7af0dc4ac)
 
 
 # Gerenciamento de Projeto
