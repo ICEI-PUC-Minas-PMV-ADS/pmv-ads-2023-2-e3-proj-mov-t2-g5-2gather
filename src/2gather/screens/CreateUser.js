@@ -5,12 +5,11 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
 } from "react-native";
+import RNPickerSelect from "react-native-picker-select";
 import { Register } from "../services/auth.services";
 import { Appbar } from "react-native-paper";
 import { GetRoles } from "../services/role.services";
-import { Picker } from "@react-native-picker/picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "../components/Toast";
 
@@ -144,17 +143,16 @@ export default function CreateUser({ navigation }) {
           />
 
           <Text>Cargo</Text>
-          <View style={styles.emailInput}>
-            <Picker
-              selectedValue={role}
+          <View style={styles.inputPicker}>
+            <RNPickerSelect
               onValueChange={(value) => setRole(value)}
-              style={[fieldErrors.role && styles.errorInput]}
-            >
-              <Picker.Item label="Selecione um cargo" value="null" />
-              {roles.map((item) => (
-                <Picker.Item key={item.id} label={item.name} value={item.id} />
-              ))}
-            </Picker>
+              items={roles.map((role) => ({
+                label: role.name,
+                value: role.id,
+              }))}
+              placeholder={{ label: "Selecione um cargo", value: null }}
+              style={pickerSelectStyles}
+            />
           </View>
         </View>
 
@@ -276,21 +274,43 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputPicker: {
+    backgroundColor: '#FFFCF4',
+    borderWidth: 1,
+    borderRadius: 10,
     height: 40,
-    backgroundColor: "#FFFCF4",
-    borderRadius: 8,
+    justifyContent: 'center',
+    marginBottom: 10,
     paddingHorizontal: 10,
-    paddingVertical: 8,
-    color: "black",
+  },
+  emailInput: {
+    backgroundColor: "#FFFCF4",
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#868E96",
+    height: 40,
+    justifyContent: "center",
     marginBottom: 10,
   },
-  emailInput: { 
-    backgroundColor: '#FFFCF4', 
-    borderWidth: 1, 
-    borderRadius: 10, 
-    borderColor: '#868E96', 
-    height: 40, 
-    justifyContent: 'center', 
-    marginBottom: 10 
-  }
+});
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // para garantir que o texto não fique escondido atrás do ícone
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // para garantir que o texto não fique escondido atrás do ícone
+  },
 });

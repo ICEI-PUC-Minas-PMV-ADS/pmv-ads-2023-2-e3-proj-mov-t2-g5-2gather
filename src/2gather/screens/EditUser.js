@@ -288,14 +288,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginTop: 20,
   },
-  inputPicker: {
-    height: 40,
-    backgroundColor: "#FFFCF4",
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    color: "black",
-    marginBottom: 10,
-  },
   errorInput: {
     borderColor: "red",
     borderWidth: 2,
