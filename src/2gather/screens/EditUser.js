@@ -65,6 +65,24 @@ export default function EditUser({ navigation }) {
     fetchRoles();
   }, []);
 
+  const handlePhoneChange = (phone) => {
+    // remove todos os caracteres que n sao digitos
+    let cleaned = phone.replace(/\D/g, '');
+
+    // aplica a mascara de formatação
+    let formattedNumber = cleaned;
+    if (cleaned.length <= 10) {
+      // formato para numeros com ate 10 digitos (xx) xxxx-xxxx
+      formattedNumber = cleaned.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else {
+      // formato para numeros com 11 digitos (xx) xxxxx-xxxx
+      formattedNumber = cleaned.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    }
+
+    // atualiza o estado do telefone
+    setPhone(formattedNumber);
+  };
+
   const handleSubmit = async () => {
     setFieldErrors({
       userId: false,
@@ -147,7 +165,7 @@ export default function EditUser({ navigation }) {
             keyboardType="numeric"
             style={[styles.input, fieldErrors.phone && styles.errorInput]}
             value={phone}
-            onChangeText={setPhone}
+            onChangeText={handlePhoneChange}
             placeholder="Telefone"
           />
 
