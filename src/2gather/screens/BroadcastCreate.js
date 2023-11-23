@@ -5,6 +5,8 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { showListData } from '../services/group.services';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GetGroupDetails } from '../services/group.services';
+import socket from '../services/socket';
 
 export default function BroadcastCreate() {
   const navigation = useNavigation();
@@ -48,6 +50,38 @@ export default function BroadcastCreate() {
     scrollViewRef.current.scrollTo({ y: 0, animated: true });
   };
 
+  const handleItemPress = async (group) => {
+    try {
+      if (group.isPrivate) {
+        let partner
+
+        if (group.members[0].id === id) {
+          partner = group.members[1];
+        } else {
+          partner = group.members[0];
+        }
+        const result = await getOrCreatePrivateGroup({ idPartner: partner.id, idSelf: id })
+        socket.emit("createRoom", result.id, partner.name);
+        navigation.navigate("Chat", {
+          room: result,
+          roomId: result.id,
+          partner: partner,
+        })
+      }
+      else {
+        const result = await GetGroupDetails({ idGroup: group.id }) || [];
+        socket.emit("createRoom", result.id, group.title);
+        navigation.navigate("Chat", {
+          room: result,
+          roomId: result.id,
+        });
+      }
+    } catch (error) {
+      alert('error');
+      console.log(error);
+    }
+  };
+
   const scrollViewRef = useRef();
 
   return (
@@ -66,7 +100,7 @@ export default function BroadcastCreate() {
               <TouchableOpacity
                 key={index}  style={grupo.archive ? styles.grupoContainerArchived : styles.grupoContainer}
                 onPress={() => {
-                  navigation.navigate('ListConversation', { id: grupo.id });
+                  handleItemPress(grupo);
                 }}>
                   <View>
                     <Text style={styles.grupoTitle}>{grupo.title}</Text>
