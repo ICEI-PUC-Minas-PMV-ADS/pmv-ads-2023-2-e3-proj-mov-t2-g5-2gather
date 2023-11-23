@@ -58,8 +58,8 @@ export default function UserProvider({ children }) {
                         setPrivateE2eContext(e2eKeys.privateKey)
                         setPublicE2eContext(e2eKeys.publicKey)
                     }else{
-                        setPrivateE2eContext('KeyNotFound')
-                        setPublicE2eContext('KeyNotFound')
+                        setPrivateE2eContext('')
+                        setPublicE2eContext('')
                     }
                     
                 }
