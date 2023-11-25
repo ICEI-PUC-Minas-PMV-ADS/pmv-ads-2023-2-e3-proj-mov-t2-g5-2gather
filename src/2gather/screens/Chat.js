@@ -7,10 +7,11 @@ import { Appbar } from 'react-native-paper';
 import { SaveMessage, getMessageList, AddReadBy } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
 import { Encrypt, Decrypt } from "../services/encryption.service";
- import { useChat } from "../contexts/ChatContext";
+import { useChat } from "../contexts/ChatContext";
+import Toast from '../components/Toast';
 
 const Chat = ({ route, navigation }) => {
-	 const { setActiveChat } = useChat();
+	const { setActiveChat } = useChat();
 	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
 	const { room, partner, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
@@ -18,6 +19,8 @@ const Chat = ({ route, navigation }) => {
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	const roomRef = useRef(room);
+	const [showToast, setShowToast] = useState(false);
+	const [toastMessage, setToastMessage] = useState({ appName: '', senderName: '', message: '' });
 
 	//Se for conversa privada, tenta carregar a url que está em photo do destinatário, se não conseguir/não houver, carrega profile.png. Se for conversa em grupo, pega imagem default de grupo
 	let image = (room.isPrivate ? (partner.photo ? { uri: partner.photo } :  require('../assets/profile.png')) : require('../assets/group.png'))
@@ -134,11 +137,26 @@ const Chat = ({ route, navigation }) => {
 			if(id != message.idSentBy){
 				message.readByAll = true;
 				socket.emit("messageReaded", {room_id:roomId, message_id: message.id, dbMessage_id: message.dbId});
+								
+				setToastMessage({ 
+					appName: '2Gather',
+					senderName: message.user, 
+					message: message.text 
+				});
+				setShowToast(true);
 			}
 		}
 		let decryptedMessage = decryptMessage(message, message.text);
 		setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
-	}, [setChatMessages, roomRef]);
+	}, [setChatMessages, roomRef, id]);
+	
+	useEffect(() => {
+		if (showToast) {
+			setTimeout(() => {
+				setShowToast(false);
+			}, 3000);
+		}
+	}, [showToast]);
 
 	const handleMessageReaded = useCallback((message) => {
 		if (roomRef.current.isPrivate) {
@@ -224,6 +242,14 @@ const Chat = ({ route, navigation }) => {
 				</Pressable>
 			</View>
 			}
+			{showToast && (
+      <Toast 
+        appName={toastMessage.appName}
+        senderName={toastMessage.senderName}
+        message={toastMessage.message}
+        visible={showToast}
+      />
+    )}
 		</View>
 	);
 };
