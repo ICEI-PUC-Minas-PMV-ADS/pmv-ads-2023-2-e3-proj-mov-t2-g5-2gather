@@ -98,8 +98,9 @@ export default function CreateUser({ navigation }) {
         idRole: role,
       });
       setToastVisible(true);
-      setTimeout(() => setToastVisible(false), 3000);
-      //navigation.navigate("Homepage");
+      setTimeout(() =>  {//setToastVisible(false), 3000);
+      navigation.navigate("Homepage"); // Adicione esta linha
+    }, 5000);
     } catch (error) {
       setError(error.message);
     }
