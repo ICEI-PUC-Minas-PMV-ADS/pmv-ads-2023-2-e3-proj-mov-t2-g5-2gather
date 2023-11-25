@@ -12,6 +12,7 @@ import { GetRoles } from "../services/role.services";
 import { GetUserList, UpdateUser } from "../services/user.services";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Toast from "../components/Toast";
+import { StatusBar } from 'react-native';
 
 export default function EditUser({ navigation }) {
   const [id, setId] = useState("");
@@ -35,6 +36,8 @@ export default function EditUser({ navigation }) {
     phone: false,
     role: false,
   });
+  
+  const statusBarHeight = StatusBar.currentHeight || 0;
 
   useEffect(() => {
     async function fetchUserList() {
@@ -64,6 +67,10 @@ export default function EditUser({ navigation }) {
 
     fetchRoles();
   }, []);
+
+  const handleToastPress = () => {
+    navigation.navigate('UserManagement');
+};
 
   const handlePhoneChange = (phone) => {
     let cleaned = phone.replace(/\D/g, '');
@@ -108,8 +115,8 @@ export default function EditUser({ navigation }) {
         idRole: role,
       });
       setToastVisible(true);
-      setTimeout(() =>  {//setToastVisible(false), 3000);
-      navigation.navigate("UserManagement"); // Adicione esta linha
+      setTimeout(() =>  {
+      navigation.navigate("UserManagement");
     }, 5000);
     } catch (error) {
       setError(error.message);
@@ -186,7 +193,7 @@ export default function EditUser({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttonCancel}
-            onPress={() => navigation.goBack()} //UserManagement
+            onPress={() => navigation.goBack()}
           >
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
@@ -198,7 +205,8 @@ export default function EditUser({ navigation }) {
             message={"Preencha todos os campos corretamente."}
             appName={"2Gather"}
             showSenderName={false}
-            style={{ zIndex: 9999, position: "absolute", top: 0 }}
+            style={{ zIndex: 9999, position: "absolute", top: statusBarHeight + 10 }}
+            onPress={handleToastPress}
           />
         )}
         {toastVisible && (
@@ -207,7 +215,8 @@ export default function EditUser({ navigation }) {
             message={"Conta editada com sucesso!"}
             appName={"2Gather"}
             showSenderName={false}
-            style={{ zIndex: 9999, position: "absolute", top: 0 }}
+            style={{ zIndex: 9999, position: "absolute", top: statusBarHeight + 10 }}
+            onPress={handleToastPress}
           />
         )}
       </View>

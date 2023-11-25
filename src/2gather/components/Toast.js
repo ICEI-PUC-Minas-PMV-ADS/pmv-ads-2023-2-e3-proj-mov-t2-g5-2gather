@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Text, StyleSheet, View } from 'react-native';
+import { Animated, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 
-const Toast = ({ appName, senderName, message, visible, showSenderName = true }) => {
+const Toast = ({ appName, senderName, message, visible, onPress, showSenderName = true }) => {
   const slideAnim = useRef(new Animated.Value(-100)).current;
   const isAnimating = useRef(false);  
 
@@ -25,14 +25,16 @@ const Toast = ({ appName, senderName, message, visible, showSenderName = true })
   }, [visible]);
 
   return (
-    <Animated.View style={[styles.toast]}>
-      <View style={styles.header}>
-        <Text style={styles.appName}>{appName}</Text>
-        <Text style={styles.timestamp}>agora</Text>
-      </View>
-      {showSenderName && <Text style={styles.senderName}>{`Nova mensagem de ${senderName}`}</Text>}
-      <Text style={styles.message}>{message}</Text>
-    </Animated.View>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.9} style={[styles.toast, { transform: [{ translateY: slideAnim }] }]}>
+      <Animated.View>
+        <View style={styles.header}>
+          <Text style={styles.appName}>{appName}</Text>
+          <Text style={styles.timestamp}>agora</Text>
+        </View>
+        {showSenderName && <Text style={styles.senderName}>{`Nova mensagem de ${senderName}`}</Text>}
+        <Text style={styles.message}>{message}</Text>
+      </Animated.View>
+    </TouchableOpacity>
   );
 };
 
