@@ -211,7 +211,7 @@ const Chat = ({ route, navigation }) => {
 					}
 				}}
 			/>
-
+			{(!room.isTransmission || (room.isTransmission && room.idAdmin === id)) &&
 			<View style={styles.inputContainer}>
 				<TextInput
 					style={styles.input}
@@ -223,6 +223,7 @@ const Chat = ({ route, navigation }) => {
 					<FontAwesome name="send" size={24} color="blue" />
 				</Pressable>
 			</View>
+			}
 		</View>
 	);
 };

@@ -133,14 +133,14 @@ Os administradores acessam este layout para visualizar, adicionar, editar ou rem
 
 Neste espaço, os administradores podem criar novas contas de usuário para a plataforma.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/565910d3-c4ed-446e-98dc-1ec2a81d847b)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/aa5d3bb9-994c-4483-bc50-87c1460d7320)
 
 
 ## Editar Usuário
 
 Os administradores usam este layout para fazer alterações nas contas dos usuários, como atualizar informações ou ajustar permissões.
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/21993438/c4006d9c-0578-45ae-9934-9bc665110388)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/113949375/71d48515-a708-4f6f-b408-2da6813c837e)
 
 
 ## Inativar Usuário
