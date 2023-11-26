@@ -7,11 +7,8 @@ import { Appbar } from 'react-native-paper';
 import { SaveMessage, getMessageList, AddReadBy } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
 import { Encrypt, Decrypt } from "../services/encryption.service";
-import { useChat } from "../contexts/ChatContext";
-import Toast from '../components/Toast';
 
 const Chat = ({ route, navigation }) => {
-	const { setActiveChat } = useChat();
 	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
 	const { room, partner, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
@@ -19,12 +16,8 @@ const Chat = ({ route, navigation }) => {
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	const roomRef = useRef(room);
-	const [showToast, setShowToast] = useState(false);
-	const [toastMessage, setToastMessage] = useState({ appName: '', senderName: '', message: '' });
-
-	// Se for conversa privada, tenta carregar a url que está em photo do destinatário, se não conseguir/não houver, carrega profile.png. Se for conversa em grupo, pega imagem default de grupo
-	let image = (room.isPrivate ? (partner.photo ? { uri: partner.photo } :  require('../assets/profile.png')) : require('../assets/group.png'));
-
+	//Se for conversa privada, tenta carregar a url que está em photo do destinatário, se não conseguir/não houver, carrega profile.png. Se for conversa em grupo, pega imagem default de grupo
+	let image = (room.isPrivate ? (partner.photo ? { uri: partner.photo } :  require('../assets/profile.png')) : require('../assets/group.png'))
 	const getMessages = async () => {
 		try {
 			//ideal é ter as msgs em um local storage, caso não tenha, ai sim tentar pegar da api.
@@ -36,7 +29,6 @@ const Chat = ({ route, navigation }) => {
 			console.log(error);
 		}
 	};
-
 	function decryptMessage(item, text) {
 		let publicKey
 		if (item.many == 'true' || !room.isPrivate) {
@@ -46,27 +38,23 @@ const Chat = ({ route, navigation }) => {
 		} else {
 			publicKey = item.idSentBy == id ? item.pkeReceiver : item.pkeSentBy
 		}
-		const decryptedText = Decrypt(text, publicKey, privateE2eContext).message
+		const decryptedText = Decrypt(text, publicKey, privateE2eContext).message;
 		return {
 			...item,
 			text: decryptedText
 		};
 	}
-
-	useEffect(() => {
-		setActiveChat(roomId);
+ 	useEffect(() => {
 		socket.emit("findRoom", roomId);
 		(async () => {
 			await getMessages();
 		})()
-
 		messageListRef.current.scrollToEnd({ animated: true });
 		setIsFirstLoad(false);
 		return () => {
-			setActiveChat(null);
 			socket.off("foundRoom");
-		};
-	}, [roomId, isFirstLoad, setActiveChat]);
+		  };
+	}, [roomId, isFirstLoad]); 
 
 	const handleNewMessage = () => {
 		let dbMessage
@@ -91,7 +79,7 @@ const Chat = ({ route, navigation }) => {
 					});
 					encryptedMessage = messages;
 					SaveMessage({ text: JSON.stringify(encryptedMessage), idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, readBy: id })//tenho que testar se está funcionando com algum grupo
-					//como a logica ficou meio complicada, fica ruim de adulterar só pra testar.
+																																   //como a logica ficou meio complicada, fica ruim de adulterar só pra testar.
 				}
 				setMessage('');
 				let m = encryptedMessage ? encryptedMessage : message
@@ -110,7 +98,7 @@ const Chat = ({ route, navigation }) => {
 							dbId: dbM ? dbM.id : null,
 						});
 					})
-				}else{
+				} else {
 					socket.emit("newMessage", {
 						message: m,
 						room_id: roomId,
@@ -126,39 +114,18 @@ const Chat = ({ route, navigation }) => {
 			}else{
 				setMessage('');
 			}
-		} else {
+		}else{
 			console.log("Something went wrong, please contact support.")
 		}
 	};
-
-	const handleToastPress = () => {
-		navigation.navigate('Chat');
-	};
-
 	const handleRoomMessage = useCallback((message) => {
 		if (roomRef.current.isPrivate && id !== message.idSentBy) {
 			message.readByAll = true;
-			socket.emit("messageReaded", { room_id: roomId, message_id: message.id, dbMessage_id: message.dbId });
-
-			setToastMessage({ 
-				appName: '2Gather',
-				senderName: message.user, 
-				message: message.text,
-				onPress: handleToastPress
-			});
-			setShowToast(true);
+			socket.emit("messageReaded", {room_id:roomId, message_id: message.id, dbMessage_id: message.dbId});
 		}
 		let decryptedMessage = decryptMessage(message, message.text);
 		setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
-	}, [id, roomId, navigation]);
-
-	useEffect(() => {
-		if (showToast) {
-			setTimeout(() => {
-				setShowToast(false);
-			}, 3000);
-		}
-	}, [showToast]);
+	}, [setChatMessages, roomRef]);
 
 	const handleMessageReaded = useCallback((message) => {
 		if (roomRef.current.isPrivate) {
@@ -184,35 +151,43 @@ const Chat = ({ route, navigation }) => {
 	useEffect(() => {
 		socket.on("roomMessage", handleRoomMessage);
 		socket.on("messageReaded", handleMessageReaded);
-		return () => {
-			socket.off("roomMessage", handleRoomMessage);
-		};
 	}, [socket, handleRoomMessage]);
 
 	return (
 		<View style={styles.container}>
-			<Appbar.Header style={styles.header}>
-				<Appbar.BackAction onPress={() => navigation.navigate('Homepage')} />
-				<TouchableOpacity onPress={() => {
-					if (room.isPrivate) {
-						navigation.navigate('Profile', { item: partner });
-					} else {
-						navigation.navigate('GroupInfo', { id: room.id });
-					}
-				}}>
-					<View style={styles.contentContainer}>
-						<Image style={styles.contactPhoto} source={image} />
-						<Text style={styles.contactName}>{room.isPrivate ? partner.name : room.title}</Text>
+			<View >
+				<Appbar.Header style={styles.header}>
+					<Appbar.BackAction onPress={() => navigation.navigate('Homepage') }/>
+					<TouchableOpacity onPress={() => {
+						{
+							room.isPrivate
+							? navigation.navigate('Profile', { item: partner })
+							: navigation.navigate('GroupInfo', { id: room.id })
+						}
+					}}>
+						<View style={styles.contentContainer}>
+							<Image
+								style={styles.contactPhoto}
+								source={image}
+							/>
+							<Text style={styles.contactName}>{room.isPrivate ? partner.name : room.title}</Text>
+						</View>
+					</TouchableOpacity>
+				</Appbar.Header>
+			</View>
+			{chatMessages.length == 0 &&
+				<View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 15, marginTop: 15, width: '100%' }}>
+					<View style={{ backgroundColor: "#AAD4F5", padding: 10, borderRadius: 10, marginBottom: 2, maxWidth: "90%" }}>
+						<Text style={{ fontSize: 16, color: "black" }}>Nova conversa</Text>
 					</View>
-				</TouchableOpacity>
-			</Appbar.Header>
-
-			<FlatList
-				style={styles.messageContainer}
+				</View>
+			}
+			
+			<FlatList style={styles.messageContainer}
 				ref={messageListRef}
 				data={chatMessages}
 				renderItem={({ item }) => <MessageBox isPrivate={room.isPrivate} item={item} user={name} />}
-				keyExtractor={(item) => item.id.toString()}
+				key={(item) => {item.id.toString();}}
 				onContentSizeChange={() => {
 					if (!isFirstLoad) {
 						messageListRef.current.scrollToEnd({ animated: true });
@@ -220,38 +195,27 @@ const Chat = ({ route, navigation }) => {
 				}}
 				onLayout={() => {
 					if (!isFirstLoad) {
-						messageListRef.current.scrollToEnd({ animated: true });
+						messageListRef.current.scrollToEnd({animated: true})
 					}
 				}}
 			/>
 
 			{(!room.isTransmission || (room.isTransmission && room.idAdmin === id)) &&
-				<View style={styles.inputContainer}>
-					<TextInput
-						style={styles.input}
-						placeholder="Comece a digitar"
-						onChangeText={(value) => setMessage(value)}
-						value={message}
-					/>
-					<Pressable style={styles.sendButton} onPress={handleNewMessage}>
-						<FontAwesome name="send" size={24} color="blue" />
-					</Pressable>
-				</View>
-			}
-
-			{showToast && (
-				<Toast
-					appName={toastMessage.appName}
-					senderName={toastMessage.senderName}
-					message={toastMessage.message}
-					visible={showToast}
-					onPress={handleToastPress}
+			<View style={styles.inputContainer}>
+				<TextInput
+					style={styles.input}
+					placeholder="Comece a digitar"
+					onChangeText={(value) => setMessage(value)}
+					value={message}
 				/>
-			)}
+				<Pressable style={styles.sendButton} onPress={handleNewMessage}>
+					<FontAwesome name="send" size={24} color="blue" />
+				</Pressable>
+			</View>
+			}
 		</View>
 	);
 };
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -296,5 +260,4 @@ const styles = StyleSheet.create({
 		marginHorizontal: 10,
 	},
 });
-
 export default Chat;

@@ -18,7 +18,6 @@ import socket from "../services/socket";
 import { useFocusEffect } from "@react-navigation/native";
 import { useSocket } from "../contexts/SocketContext";
 import Toast from '../components/Toast';
-import { GetMessages } from '../services/message.service';
 
 export default function Homepage() {
   const navigation = useNavigation();
@@ -60,26 +59,15 @@ export default function Homepage() {
     }
   };
 
-  const getYourMessages = async () => {
-    try {
-      const result = await GetMessages({ idSentBy:idSentBy });
-      setYourMessages(result || []);
-    } catch (error) {
-      console.log("Error fetching your messages:", error);
-    }
-  };
-
   useEffect(() => {
     getYourGroups();
     getYourLists();
-    getYourMessages();
   }, []);
 
   useFocusEffect(
     React.useCallback(() => {
       getYourGroups();
       getYourLists();
-      getYourMessages();
     }, [])
   );
 
@@ -130,7 +118,7 @@ export default function Homepage() {
     </TouchableOpacity>
   );
 
-  const filteredData = [...yourGroups, ...yourLists, ...yourMessages].filter(
+  const filteredData = [...yourGroups, ...yourLists].filter(
     (item) => item.title.toLowerCase().includes(searchText.toLowerCase())
   );
 

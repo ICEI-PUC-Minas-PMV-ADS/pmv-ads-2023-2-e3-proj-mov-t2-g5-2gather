@@ -14,10 +14,9 @@ export const GetListArchivedGroups = async () => {
 export const GetListYourGroups = async () => {
     try {
         const result = await sendAuthenticatedRequest('/group/list/', 'GET');
-        // console.log(result)
         const storedId = await AsyncStorage.getItem('id');
         result.map(item => {
-             if (item.isPrivate) {
+             if (item.isPrivate && item.members.length > 1) {
                      if (item.members[0].id === storedId) {
                          item.newTitle = item.title
                          item.title = item.members[1].name;
@@ -29,7 +28,6 @@ export const GetListYourGroups = async () => {
                      }
                  }
              })
-        // console.log(result)
         return result;
     } catch (error) {
         throw new Error(error.message);
@@ -46,7 +44,6 @@ export const GetTransmissionList = async () => {
 };
 
 export const CreateNewGroups = async ({ title, photo, description, idAdmin, isTransmission, isPrivate, archived, participants }) => {
-    console.log(title, idAdmin)
     try {
         const result = await sendAuthenticatedRequest('/group/create/', 'POST', { title, photo, description, idAdmin, isTransmission, isPrivate, archived, participants });
         return result;

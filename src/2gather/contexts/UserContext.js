@@ -101,7 +101,7 @@ export default function UserProvider({ children }) {
 }
 
 export function useUser() {
-  const context = useContext(UserContext);
+    const context = useContext(UserContext);
 
     const { 
         signed, setSigned,
