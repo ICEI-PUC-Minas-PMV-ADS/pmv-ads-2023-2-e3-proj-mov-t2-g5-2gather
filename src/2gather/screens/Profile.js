@@ -1,257 +1,163 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Text, SafeAreaView, StyleSheet, View, Image, TouchableOpacity, Modal, Button } from 'react-native';
+import { Text, TextInput, StyleSheet, View, Image, TouchableOpacity, Modal, Button } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { Camera, CameraType } from 'expo-camera';
 import { FontAwesome } from '@expo/vector-icons';
 import { useUser } from '../contexts/UserContext';
-import { useNavigation } from '@react-navigation/native';
-import * as MediaLibrary from 'expo-media-library';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../services/auth.services';
+import { Appbar } from 'react-native-paper';
+import * as Animatable from 'react-native-animatable';
+import { updateUserPhoto } from '../services/user.services';
 
-export default function Profile({ navigation }) {
+export default function Profile({ route, navigation }) {
+  
+  const isSelf = route.params ? false : true;
 
-  const { setSigned } = useUser();
+  const { setSigned, name, photo, setPhoto, email, phone, role } = useUser();
+  const [title, setTitle] = useState('');
+  const [newPhoto, setNewPhoto] = useState("");
+  const [showSaveButton, setShowSaveButton] = useState(false);
 
-  const camRef = useRef(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [hasPermission, setHaspermission] = useState(null);
-  const [capturePhoto, setCapturePhoto] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [cameraVisible, setCameraVisible] = useState(false);
-  const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
+  const defaultImage = require('../assets/profile.png');
+  let image = isSelf ? photo : route.params.item.photo
 
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [role, setRole] = useState('');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const asyncEmail= await AsyncStorage.getItem('email');
-        const asyncName= await AsyncStorage.getItem('name');
-        const asyncPhone= await AsyncStorage.getItem('phone');
-        const asyncRole= await AsyncStorage.getItem('role');
-        if (asyncEmail!== null) {
-          setEmail(asyncEmail);   
-        }
-        if (asyncName!== null) {
-          setName(asyncName);        
-        }
-        if (asyncPhone!== null) {
-          setPhone(asyncPhone);        
-        }
-        if (asyncRole!== null) {
-          setRole(asyncRole);
-        
-        }
-      } catch (error) {
-        console.error('Error loading data from AsyncStorage: ', error);
-      }
+  const handleCameraPress = () => {
+    setTitle(!title);
+    setShowSaveButton(!showSaveButton); 
+  }
+  
+  const handleSaveImage = async () => {
+     
+    try {
+      await updateUserPhoto({ newPhoto });
+      alert('Sua imagem foi alterada com sucesso!');
+      setPhoto(newPhoto);
+    } catch (error) {
+      alert('Ocorreu um erro ao atualizar a imagem. Por favor, tente novamente.');
     }
-    fetchData()
-  }, []);
-
-
-{/* 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHaspermission(status === "granted");
-    })();
-
-    (async () => {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-      setHaspermission(status === "granted");
-    })();
-  }, []);
-
-  if (hasPermission === null) {
-    return <View />;
-  }
-
-  if (!hasPermission === null) {
-    return <Text>Acesso negado!</Text>;
-  }
-
-  async function takePicture() {
-    if (camRef) {
-      const data = await camRef.current.takePictureAsync();
-      setCapturePhoto(data.uri);
-      setOpen(true);
-      console.log(data);
-    }
-  }
-
-  async function savePicture() {
-    const asset = await MediaLibrary.createAssetAsync(capturePhoto)
-      .then(() => {
-        alert("Salvo com sucesso!");
-      })
-      .catch((error) => {
-        console.log("err", error);
-      });
-  }
-
-*/}
-
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText} onPress={() => navigation.goBack()}>
-          Configurações básicas
-        </Text>
-        <TouchableOpacity
-          onPress={() => {           
-            logout()
-            setSigned(false);
-          }}
-        >
+    <View style={styles.container}>
+      {isSelf ? (
+        <Appbar.Header style={styles.headerSelf}>
+          <Appbar.BackAction onPress={() => navigation.navigate("Homepage")} />
+          <Text style={styles.headerText}>Informações básicas do usuário</Text>
 
-          <MaterialCommunityIcons name="logout" size={35} color="#FFFF" />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            onPress={() => {
+              logout();
+              setSigned(false);
+            }}
+          >
+            <MaterialCommunityIcons name="logout" size={35} color="#FFFF" />
+          </TouchableOpacity>
+        </Appbar.Header>
+      ) : (
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction onPress={() =>  navigation.goBack()} />
+          <Text style={styles.headerText}>Informações básicas do usuário</Text>
+        </Appbar.Header>
+      )}
 
       <View style={styles.container1}>
         <View>
-          <Text style={styles.perfilText}>Foto do perfil</Text>
-
-          <View style={{ alignItems: "center", margin: 20 }}>
-            <Image
-              style={styles.photo}
-              source={require("../assets/profile.png")}
-            /> 
-
-            <TouchableOpacity onPress={() => setCameraVisible(true)}>      
-              <FontAwesome name="camera" size={28} color="black" />
-            </TouchableOpacity>
-
-{/*
-
-            {cameraVisible ? (
-              
-              <Camera
-              style={{ flex: 1, width: '100%', height: '100%', backgroundColor: 'white' }}
-              type={type}
-              ref={camRef}
-            >
-                <TouchableOpacity
-                  style={{
-                    position: "absolute",
-                    bottom: 20,
-                    left: 20,
-                  }}
-                  onPress={() => {
-                    setType(
-                      type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back
-                    );
-                  }}
-                >
-                  <Text
-                    style={{ fontSize: 20, marginBottom: 13, color: "#FFFFF" }}
-                  >
-                    Trocar
-                  </Text>
-                </TouchableOpacity>
-            </Camera>
-            ) : null}
-
-            <TouchableOpacity style={styles.button} onPress={()=> takePicture()}>
-              <FontAwesome name="camera" size={23} color="white" />
-            </TouchableOpacity>
-
-            {capturePhoto && (
-              <Modal animationType="slide" transparent={false} visible={open}>
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: 20,
-                  }}
-                >
-                  <View style={{ margin: 10, flexDirection: "row" }}>
-                    <TouchableOpacity
-                      style={{ margin: 10 }}
-                      onPress={() => setOpen(false)}
-                    >
-                      <FontAwesome
-                        name="window-close"
-                        size={30}
-                        color="#FF0000"
-                      />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      style={{ margin: 10 }}
-                      onPress={savePicture}
-                    >
-                      <FontAwesome name="upload" size={30} color="#121212" />
-                    </TouchableOpacity>
-                  </View>
-                  <Image
-                    style={{ width: "100%", height: 450, borderRadius: 50 }}
-                    source={{ uri: capturePhoto }}
-                  ></Image>
-                </View>
-              </Modal>
-            )}
-
-*/}
-
-          </View>
-        </View>
-
-        <View style={styles.lineArchivedGroups}>
           <Image
-            source={require("../assets/arquivedGroups.png")}
-            style={styles.archivedGroupsIcon}
+            style={styles.photo}
+            source={image ? { uri: image } : defaultImage}
+            defaultSource={defaultImage}
           />
-          <TouchableOpacity
-            style={styles.buttonArchivedGroups}
-            onPress={() => {
-              console.log(
-                "Suas mensagens arquivadas deverão aparecer em uma nova screen."
-              );
-            }}
-          >
-            <Text style={styles.archivedGroupsText}>
-              Seus grupos arquivados
-            </Text>
-          </TouchableOpacity>
+          {isSelf && (
+            <View style={styles.urlPhoto}>
+              <Animatable.View
+                style={
+                  title
+                    ? styles.buttonContainerWithInput
+                    : styles.buttonContainer
+                }
+                animation={title ? "slideInLeft" : "fadeIn"}
+                duration={500}
+              >
+                <TouchableOpacity onPress={handleCameraPress}>
+                  <FontAwesome name="camera" size={28} color="black" />
+                </TouchableOpacity>
+
+                {title && (
+                  <TextInput
+                    style={styles.inputUrlImage}
+                    onChangeText={(text) => setNewPhoto(text)}
+                    placeholder="Inclua a URL da sua Foto em png"
+                    placeholderTextColor="#aaa"
+                  />
+                )}
+              </Animatable.View>
+            </View>
+          )}
+
         </View>
+
+        {isSelf && (
+          <View style={styles.lineArchivedGroups}>
+            <Image
+              source={require("../assets/arquivedGroups.png")}
+              style={styles.archivedGroupsIcon}
+            />
+            <TouchableOpacity>
+              <Text
+                style={styles.buttonArchivedGroups}
+                onPress={() => navigation.navigate("ArchivedGroups")}
+              >
+                Veja seus conteúdos arquivados
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View style={styles.containerData}>
           <Text style={{ fontWeight: "bold" }}>Email Corporativo</Text>
-          <Text style={styles.dynamicText}>{email}</Text>
+          <Text style={styles.dynamicText}>
+            {isSelf ? email : route.params.item.email}
+          </Text>
 
           <Text style={{ fontWeight: "bold" }}>Nome do Colaborador(a)</Text>
-          <Text style={styles.dynamicText}>{name}</Text>
+          <Text style={styles.dynamicText}>
+            {isSelf ? name : route.params.item.name}
+          </Text>
 
           <Text style={{ fontWeight: "bold" }}>Telefone</Text>
-          <Text style={styles.dynamicText}>{phone}</Text>
+          <Text style={styles.dynamicText}>
+            {isSelf ? phone : route.params.item.phone}
+          </Text>
 
           <Text style={{ fontWeight: "bold" }}>Cargo</Text>
-          <Text style={styles.dynamicText}>{role}</Text>
+          <Text style={styles.dynamicText}>
+            {isSelf ? role : route.params.item.roleName}
+          </Text>
         </View>
 
-        <View>
-          <TouchableOpacity
-            style={styles.buttonSave}
-            onPress={() => {
-              console.log("Sua foto deverá ser salva com sucesso!");
-            }}
-          >
-            <Text style={styles.buttonText}>Salvar</Text>
-          </TouchableOpacity>
-        </View>
+        {isSelf && (
+          <View style={styles.containerButtons}>
+            <TouchableOpacity
+              style={styles.buttonChangePassword}
+              onPress={() => navigation.navigate("NewPassword")}
+            >
+              <Text style={styles.buttonText1}>Trocar Senha</Text>
+              <MaterialCommunityIcons name="lock" size={28} color="black" />
+            </TouchableOpacity>
+
+            {showSaveButton && (
+              <TouchableOpacity
+                style={styles.buttonSave}
+                onPress={handleSaveImage}              
+              >
+                <Text style={styles.buttonText}>Salvar</Text>
+            </TouchableOpacity>
+            )}
+          </View>
+        )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -260,21 +166,33 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
   },
 
-  header: {
-    padding: 10,
+  headerSelf: {
+    padding: 0,
     height: 85,
     backgroundColor: "#2368A2",
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 18,
+  },
+
+  headerTextSelf: {
+    fontSize: 20,
+    color: "#FFFCF4",
+    gap: 5,
+  },
+
+  header: {
+    paddingBottom: 22,
+    height: 85,
+    backgroundColor: "#2368A2",
+    flexDirection: "row",
   },
 
   headerText: {
     fontSize: 20,
     color: "#FFFCF4",
-    marginTop: 7,
   },
 
   container1: {
@@ -282,30 +200,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1F3F5",
     borderRadius: 15,
     marginVertical: -25,
+    paddingHorizontal: 10,
   },
 
-  perfilText: {
-    alignSelf: "center",
-    fontSize: 20,
-    flexDirection: "row",
-    marginTop: 25,
-  },
-
-  containerCamera: {
-    flex: 1,
-  },
-
-  buttonContainer: {
-    flex: 1,
-    backgroundColor: "transparent",
-    flexDirection: "row",
-  },
 
   photo: {
     borderRadius: 100,
     borderWidth: 1,
     borderColor: "black",
-    margin: 5,
+    margin: 20,
     width: 115,
     height: 115,
     alignSelf: "center",
@@ -314,47 +217,118 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
 
+  urlPhoto: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+
+  buttonContainerWithInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginBottom: 15,
+  },
+
+  inputUrlImage: {
+    marginLeft: 10,
+    height: 35,
+    borderColor: "#868E96",
+    backgroundColor: "#FFFCF4",
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
+    maxWidth: 250, 
+
+  },
+  
   lineArchivedGroups: {
     flexDirection: "row",
     gap: 10,
     marginStart: 30,
-    marginTop: 15,
+    marginTop: 0,
   },
 
   archivedGroupsIcon: {
     width: 35,
     height: 35,
-    alignSelf: "flex-start",
-    fontSize: 18,
+    alignContent: "center",
   },
 
-  archivedGroupsText: {
-    fontSize: 18,
+  buttonArchivedGroups: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: "#2368A2",
   },
 
   containerData: {
     flex: 1,
     gap: 5,
     marginStart: 30,
-    marginTop: 40,
+    marginTop: 20,
   },
 
   dynamicText: {
     marginBottom: 20,
   },
 
+  containerButtons: {
+    flex: 1,
+  },
+
+  buttonChangePassword: {
+    backgroundColor: "#74D99F",
+    padding: 10,
+    borderRadius: 10,
+    justifyContent: "center",
+    flexDirection: "row",
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: '15%',
+    alignItems: 'center',
+  },
+
   buttonSave: {
     backgroundColor: "#2368A2",
     padding: 10,
     borderRadius: 10,
-    alignItems: "center",
-    width: 150,
-    alignSelf: "center",
-    marginVertical: 40,
+    marginLeft: 30,
+    marginRight: 30,
+    marginVertical: 5,
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttonText1: {
+    color: "black",
+    fontSize: 20,
   },
 
   buttonText: {
     color: "#FFFCF4",
+    fontSize: 20,
+  },
+
+  button: {
+    backgroundColor: '#2368A2',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  
+  buttonText: {
+    color: '#FFFCF4',
     fontSize: 20,
   },
 });

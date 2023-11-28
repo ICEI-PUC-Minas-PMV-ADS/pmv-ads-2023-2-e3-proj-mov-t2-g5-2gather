@@ -20,6 +20,9 @@ const UnsignedViews = () => {
             <stack.Screen
                 name="Login"
                 component={Login}
+                options={{
+                    header: () => null,
+                }}
             />
             {/* <stack.Screen
                 name="CreateUser"

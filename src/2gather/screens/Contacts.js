@@ -14,49 +14,76 @@ import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../contexts/UserContext";
 import { Divider } from "react-native-paper";
 import { GetUserList } from '../services/user.services';
+import socket from "../services/socket";
+import { getOrCreatePrivateGroup } from '../services/group.services';
+import { getAccesKey } from '../services/localDb/user.services';
+import { Appbar } from 'react-native-paper';
 
 export default function Contacts({ navigation }) {
-  
+  const { name, id, privateE2eContext  } = useUser();
   const [contacts, setContacts] = useState([]);
   const [contactsRef, setContactsRef] = useState([]);
-
   const getContacts = async () => {
     try {      
         const result = await GetUserList() || [];
         setContacts(result);
         setContactsRef(result);
-        console.log(result)
     } catch (error) {
         console.log(error)
     } finally {  
         
     }
-};
+  };
 
+  const handleNavigation = async (partner) => {
+    try { 
+      const result = await getOrCreatePrivateGroup({ idPartner: partner.id, idSelf: id})
+      socket.emit("createRoom", result.id, partner.name);
+      navigation.navigate("Chat", {
+        room: result,
+        roomId: result.id,
+        partner: partner,
+      });
+
+    } catch (error) {
+      alert('error')
+      console.log(error)
+    }
+  };
 
 useEffect(() => {
   getContacts();
 }, []);
 
-
   const defaultImage = require('../assets/profile.png');
+  
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => console.log("Deverá abrir a tela de conversa com usuário escolhido!")}>
-      <View style={styles.contactItem}> 
-      <Image style={styles.contactPhoto} source={{ uri: item.photo || null }} defaultSource={defaultImage} />     
-      <Text style={styles.contactText}>{item.name}</Text>
-    </View>
+
+    <TouchableOpacity style={styles.contactItem} onPress={() => handleNavigation(item)}>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile', {item})}>
+        <Image
+          style={styles.contactPhoto}
+          source={item.photo ? { uri: item.photo || null } : defaultImage}
+          defaultSource={defaultImage}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleNavigation(item)}>
+        <Text style={styles.contactText}>{item.name}</Text>
+      </TouchableOpacity>
     </TouchableOpacity>
   );
     
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText} onPress={() => navigation.goBack()}>
-          Nova Conversa
-        </Text>
-        <View style={styles.searchBar}>
+    <View style={styles.container}>
+      <View style={styles.containerHeader}>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction onPress={() => {navigation.navigate("Homepage")}} />
+          <View style={styles.rowContainer}>
+            <Text style={styles.titleHeader}>Nova Conversa</Text>
+          </View>
+	      </Appbar.Header>
+	      <View style={styles.searchBar}>
           <TextInput onChangeText={(value) => {setContacts(contactsRef.filter(obj=>obj.name.toLowerCase().includes(value.toLowerCase())))}}
           
             style={styles.searchInput}
@@ -65,8 +92,8 @@ useEffect(() => {
           />
         </View>
       </View>
+      
       <View style={styles.container1}>
-        <ScrollView>
         <FlatList
           contentContainerStyle={styles.itemList}
           data={contacts}
@@ -77,9 +104,8 @@ useEffect(() => {
             <Divider style={{ height: 1, backgroundColor: "grey" }} />
           )}
         />
-        </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -88,25 +114,35 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     backgroundColor: "#ecf0f1",
-    padding: 8,
+  },
+
+  containerHeader: {
+    backgroundColor: '#2368A2',
+    padding: 0,
+    borderBottomWidth: 1,
+    borderColor: '#BBB',
+  },
+
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   header: {
-    padding: 10,
-    height: 135,
-    backgroundColor: "#2368A2",
-    justifyContent: "space-between",
+    backgroundColor: '#2368A2',
+    width: '100%',
   },
 
-  headerText: {
+  titleHeader: {
+    color: '#FFFCF4',
     fontSize: 20,
-    color: "#FFFCF4",
-    marginTop: 7,
   },
+
   searchBar: {
     padding: 10,
-    marginBottom: 20,
+    marginBottom: 25,
   },
+
   searchInput: {
     backgroundColor: "#1a4971",
     color: "#fffcf4",
@@ -119,10 +155,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F1F3F5",
     borderRadius: 15,
-    marginVertical: -25,
+    marginTop: -25,
   },
 
   itemList: {
+    paddingBottom: 25,
     margin: 25,
     gap: 25,
   },

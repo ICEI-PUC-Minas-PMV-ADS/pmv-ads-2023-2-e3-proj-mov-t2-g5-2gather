@@ -8,6 +8,7 @@ import {
    } from 'react-native';
 
 import * as Animatable from 'react-native-animatable'
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 export default function Home({ navigation }) {
 
@@ -27,15 +28,12 @@ export default function Home({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("Login")}>
-      <Text style={styles.buttonLoginText}>Fazer login</Text>
-      </TouchableOpacity> 
+    <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("Login")}>
+    <Text style={styles.buttonLoginText}>Fazer login</Text>
+    <MaterialCommunityIcons name="login" size={35} color="#FFFF" />
+    </TouchableOpacity> 
 
-      {/* <TouchableOpacity style={styles.buttonLogin} onPress={() => navigation.navigate("CreateUser")}>
-      <Text style={styles.buttonLoginText}>Criar Usuário</Text>
-      </TouchableOpacity>  */}
-
-    </View>
+  </View>
   )
 }
 
@@ -80,10 +78,13 @@ const styles = StyleSheet.create({
     marginBottom: '15%',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: "row",
+    gap: 20,
   },
 
   buttonLoginText: {
     fontSize: 18,
     color: '#FFFFFF',
+    fontWeight: 'bold',
   }
 })

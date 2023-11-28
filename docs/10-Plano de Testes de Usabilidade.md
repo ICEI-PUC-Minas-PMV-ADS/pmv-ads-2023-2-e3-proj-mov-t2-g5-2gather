@@ -39,7 +39,7 @@ de 10 à 15 pontos a avaliação de usabilidade é Boa / ótima.
 |CT-06 |RF-06 A aplicação deve permitir ao interlocutor obter uma confirmação de leitura de seu destinatário. | Validar usabilidade de confirmação de leitura | Verificar confirmação de leitura|
 |CT-07 |RF-07 A aplicação deve disparar notificações de mensagens. | Validar usabilidade de notificações | Verificar notificações da aplicação|
 |CT-08 |RF-08 A aplicação deve permitir visualizar informações básicas dos usuários. | Validar usabilidade de visualizações de informações de usuários | Ver informações de usuários|
-|CT-09 |RF-09 A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.  | Validar usabilidade de autenticação de dois fatores. | Fazer login e autenticação de dois fatores|
-|CT-10 |RF-10 A aplicação deve permitir a definição de status de prioridade nas mensagens.  | Validar usabilidade de definição de status de prioridade |Definir status de prioridade|
+|CT-09 |RF-09 A aplicação deve requerer login com senha criptografada.  | Validar usabilidade de login. | Fazer login|
+|CT-10 |RF-10 A aplicação deve permitir que usuário efetue a troca da senha pessoal.  | Validar usabilidade de definição de redefinição de senha | Trocar a senha|
 |CT-11 |RF-11 A aplicação deve permitir gerenciar canais de chat com funções de administração.  | Validar usabilidade de gerenciamento de canais de chat | explorar o gerenciamento canais de chat|
 |CT-12 |RNF-01 A aplicação deverá ser responsiva permitindo a visualização em diversos dispositivos móveis de forma adequada. | Validar usabilidade de responsividade em dispositivos moveis |Utilizar a aplicação em diferentes dispositivos|

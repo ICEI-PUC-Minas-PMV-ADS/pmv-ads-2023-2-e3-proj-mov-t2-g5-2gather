@@ -92,27 +92,27 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-09.1 - Autenticação de Dois Fatores com Dados Inválidos	|RF-09 – A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.|
+|CT-09.1 - Login com Dados Inválidos	|RF-09 – A aplicação deve requerer senha para fazer login e que esta seja criptografada. |
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se a autenticação de dois fatores é negada para dados inválidos.	|<ol><li>Acessar a aplicação</li><li>Tentar realizar o primeiro login com dados inválidos</li></ol> |	O usuário não deve conseguir acessar a aplicação e deve receber uma mensagem de erro ou aviso.
+|Verificar se a autenticação de email e senha é negada para dados inválidos.	|<ol><li>Acessar a aplicação</li><li>Tentar realizar o login com dados inválidos</li></ol> |	O usuário não deve conseguir acessar a aplicação e deve receber uma mensagem de erro.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-09.2 - Autenticação de Dois Fatores com Dados Válidos	|RF-09 – A aplicação deve requerer autenticação de dois fatores no primeiro login do usuário.|
+|CT-09.2 - Login com Dados Válidos	|RF-09 – A aplicação deve requerer senha para fazer login e que esta seja criptografada. |
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se a autenticação de dois fatores é aceita para dados válidos.	|<ol><li>Acessar a aplicação</li><li>Realizar o primeiro login fornecendo o segundo fator de autenticação corretamente</li></ol> |	O usuário deve ser capaz de acessar a aplicação após fornecer o segundo fator de autenticação corretamente.
+|Verificar se a autenticação de email e senha é aceita para dados válidos.	|<ol><li>Acessar a aplicação</li><li>Realizar o login fornecendo os dados corretos</li></ol> |	O usuário deve ser capaz de acessar a aplicação.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-10 - Status de Prioridade nas Mensagens	|RF-10 – A aplicação deve permitir a definição de status de prioridade nas mensagens.|
+|CT-10 - Troca de Senha Pessoal	|RF-10 – A aplicação deve permitir que o usuário consiga trocar sua senha pessoal. |
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se é possível definir um status de prioridade ao enviar uma mensagem.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Escrever uma mensagem</li><li>Definir um status de prioridade para a mensagem</li><li>Enviar a mensagem</li></ol> |	A mensagem enviada deve exibir o status de prioridade definido pelo usuário.
+|Verificar se é possível que o usuário troque sua senha.	|<ol><li>Acessar a aplicação</li><li>Realizar login</li><li>Acessar o botão "Configurações" na HomePage</li><li>Clicar no botão "Trocar Senha"</li><li>Redefinir a nova senha e Salvar</li></ol> |	A solicitação de troca deve ocorrer com sucesso e exibir o alerta de troca efetuada.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
@@ -132,11 +132,11 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-11.3 - Remover Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
+|CT-11.3 - Arquivar Canal de Chat	|RF-11 – A aplicação deve permitir gerenciar canais de chat com funções de administração.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|
-|Verificar se é possível remover um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Remover um canal</li></ol> |	O canal deve ser removido da lista de canais.
+|Verificar se é possível arquivar um canal de chat.	|<ol><li>Acessar a aplicação com uma conta administrativa</li><li>Navegar até a seção de canais de chat</li><li>Arquivar um canal</li></ol> |	O canal deve ser arquivado da lista de canais.
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
@@ -180,7 +180,7 @@ Os Casos de Testes serão realizados utilizando dados Válidos e Inválidos, con
 
 | **Caso de teste** | **Requisitos Associados**|
 |--|--|
-|CT-NF06 - Funcionamento Offline	|RNF-06 – A aplicação deve ter um funcionamento restrito sem conexão com internet e irrestrito com conexão com a internet.|
+|CT-NF06 - Funcionamento Online	|RNF-06 – A aplicação deve ter um funcionamento irrestrito apenas com conexão à internet.|
 
 |Objetivo do teste| Passos | Critérios de êxito|
 |-|-|-|

@@ -32,7 +32,6 @@ export default function UserManagement() {
           style={styles.optionContainer}
           underlayColor="transparent"
           onPress={() => {
-            console.log('Botão "Criar usuário" pressionado');
             handleNavigation('CreateUser'); 
           }}
         >
@@ -45,7 +44,6 @@ export default function UserManagement() {
           style={styles.optionContainer}
           underlayColor="transparent"
           onPress={() => {
-            console.log('Botão "Editar usuário" pressionado');
             handleNavigation('EditUser'); 
           }}
         >
@@ -58,7 +56,6 @@ export default function UserManagement() {
           style={styles.optionContainer}
           underlayColor="transparent"
           onPress={() => {
-            console.log('Botão "Inativar usuário" pressionado');
             handleNavigation('InactivateUser'); 
           }}
         >
@@ -75,7 +72,6 @@ export default function UserManagement() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
     padding: 0,
     borderBottomWidth: 1,
     borderColor: '#BBB',
@@ -86,13 +82,15 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#2368A2',
-    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   titleHeader: {
     color: '#FFFCF4',
+    fontSize: 20,
   },
   containerMain: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f1f3f5',

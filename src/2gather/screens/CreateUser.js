@@ -1,224 +1,331 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
-    View,
-    Text,
-    TextInput,
-    StyleSheet,
-    TouchableOpacity,
-    Animated,
-    Image,
-    ScrollView
-} from 'react-native';
-import { Register } from '../services/auth.services'
-import { GetRoles } from '../services/role.services'
-import leftarrow from '../../2gather/assets/leftarrow.png'
-import RNPickerSelect from 'react-native-picker-select';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import RNPickerSelect from "react-native-picker-select";
+import { Register } from "../services/auth.services";
+import { Appbar } from "react-native-paper";
+import { GetRoles } from "../services/role.services";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Toast from "../components/Toast";
 
 export default function CreateUser({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [role, setRole] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("");
+  const [roles, setRoles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastVisibleError, setToastVisibleError] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState({
+    email: false,
+    password: false,
+    name: false,
+    phone: false,
+    role: false,
+  });
 
-    const [showNotification, setShowNotification] = useState(false);
-    const [roles, setRoles] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    const slideAnim = useRef(new Animated.Value(-100)).current;
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-    const getRoles = async () => {
-        try {
-            setLoading(true);
-            const result = await GetRoles() || [];
-            setRoles(result);
-            setError(null);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        setLoading(true);
+        const result = await GetRoles();
+        setRoles(result || []);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    function isValidEmail(email) {
-        return emailRegex.test(email);
+    fetchRoles();
+  }, []);
+
+  const handlePhoneChange = (phone) => {
+    let cleaned = phone.replace(/\D/g, '');
+    if (cleaned.length > 11) {
+      cleaned = cleaned.substring(0, 11);
+    }
+    let formattedNumber = cleaned;
+    if (cleaned.length <= 10) {
+      formattedNumber = cleaned.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else {
+      formattedNumber = cleaned.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    }
+    setPhone(formattedNumber);
+  };
+
+  const isValidEmail = (email) => emailRegex.test(email);
+
+  const handleRegister = async () => {
+    setFieldErrors({
+      email: false,
+      password: false,
+      name: false,
+      phone: false,
+      role: false,
+    });
+
+    let errors = {};
+    if (!email || !isValidEmail(email)) errors.email = true;
+    if (!password) errors.password = true;
+    if (!name) errors.name = true;
+    if (!phone) errors.phone = true;
+    if (!role) errors.role = true;
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setToastVisibleError(true);
+      setTimeout(() => setToastVisibleError(false), 3000);
+      return;
     }
 
-    const handleRegister = async () => {
-        if (!isValidEmail(email)) {
-            showSlideNotification();
-            return;
-        }
-        try {
-            const result = await Register({ name: name, email: email, phone: phone, password: password, role: role })
-            console.log(result);
-            alert('Conta criada com sucesso')
-            navigation.navigate('Login');
-        } catch (error) {
-            console.log(error)
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
+    try {
+      await Register({
+        name,
+        email,
+        phone,
+        password,
+        idRole: role,
+      });
+      setToastVisible(true);
+      setTimeout(() =>  {//setToastVisible(false), 3000);
+      navigation.navigate("UserManagement"); // Adicione esta linha
+    }, 5000);
+    } catch (error) {
+      setError(error.message);
     }
+  };
 
+  return (
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={true}
+    >
+      <View style={styles.containerBody}>
+        <Appbar.Header style={styles.header}>
+          <Appbar.BackAction onPress={() => navigation.goBack()} />
+          <View style={styles.rowContainer}>
+            <Text style={styles.title}>Criar Usuário</Text>
+          </View>
+        </Appbar.Header>
 
-    useEffect(() => {
-        getRoles();
-    }, []);
+        <View style={styles.container2}>
+          <Text style={styles.headerInput}>Informe os dados abaixo</Text>
 
-    const showSlideNotification = () => { // sempre pensar em reutilização em formato de componenetes... isso seria bem mais util caso desse pra passar o texto & tipo e ser reutilizado em todos nossos templates.
-        setShowNotification(true);
-        Animated.timing(slideAnim, {
-            toValue: 0,
-            duration: 500,
-            useNativeDriver: false,
-        }).start(() => {
-            setTimeout(() => {
-                Animated.timing(slideAnim, {
-                    toValue: -100,
-                    duration: 500,
-                    useNativeDriver: false,
-                }).start(() => {
-                    setShowNotification(false);
-                });
-            }, 3000);  //3 segundos
-        });
-    }
+          <Text>Email Corporativo</Text>
+          <TextInput
+            style={[styles.input, fieldErrors.email && styles.errorInput]}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Email Corporativo"
+          />
 
-    return (
-        <KeyboardAwareScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
-            resetScrollToCoords={{ x: 0, y: 0 }}
-            scrollEnabled={true}
-        >
+          <Text>Telefone</Text>
+          <TextInput
+            keyboardType="numeric"
+            style={[styles.input, fieldErrors.phone && styles.errorInput]}
+            value={phone}
+            onChangeText={handlePhoneChange}
+            placeholder="Telefone"
+          />
 
+          <Text>Senha</Text>
+          <TextInput
+            style={[styles.input, fieldErrors.password && styles.errorInput]}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            placeholder="Senha"
+          />
 
-            <View style={styles.container}>
-                {showNotification && (
-                    <Animated.View style={[styles.notification, { bottom: slideAnim }]}>
-                        <Text style={styles.notificationText}>
-                            Por favor, insira um endereço de e-mail válido.
-                        </Text>
-                    </Animated.View>
-                )}
-                <Text style={styles.header} onPress={() => navigation.goBack()}>
-                    <Image source={require('../assets/leftarrow.png')}></Image>
-                    <Text>Criar Usuário</Text>
-                </Text>
-                <View style={styles.container2}>
-                    <Text style={styles.headerInput}>Informe os dados abaixo</Text>
+          <Text>Nome do Colaborador</Text>
+          <TextInput
+            style={[styles.input, fieldErrors.name && styles.errorInput]}
+            value={name}
+            onChangeText={setName}
+            placeholder="Nome do Colaborador"
+          />
 
-                    <Text>Email Corporativo</Text>
-                    <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+          <Text>Cargo</Text>
+          <View style={styles.inputPicker}>
+            <RNPickerSelect
+              onValueChange={(value) => setRole(value)}
+              items={roles.map((role) => ({
+                label: role.name,
+                value: role.id,
+              }))}
+              placeholder={{ label: "Selecione um cargo", value: null }}
+              style={pickerSelectStyles}
+            />
+          </View>
+        </View>
 
-                    <Text>Telefone</Text>
-                    <TextInput style={styles.input} value={phone} onChangeText={setPhone} />
+        <TouchableOpacity style={styles.buttonCreate} onPress={handleRegister}>
+          <Text style={styles.buttonText}>Criar</Text>
+        </TouchableOpacity>
 
-                    <Text>Senha</Text>
-                    <TextInput
-                        style={styles.input}
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry
-                    />
-
-                    <Text>Nome do Colaborador</Text>
-                    <TextInput style={styles.input} value={name} onChangeText={setName} />
-                    
-                    <Text>Cargo</Text>
-                    <View style={styles.input}>
-                    <RNPickerSelect      
-                        onValueChange={(value) => setRole(value)}
-                        placeholder={{
-                            label: 'Click e selecione um cargo',
-                            value: '',
-                        }}
-                        items={roles.map(item => ({
-                            label: item.name,
-                            value: item.id
-                        }))}
-                        style={{ 
-                            inputIOS: {backgroundColor: '#ecf0f1', borderRadius: 0, paddingHorizontal: 50, color: 'black', },
-                            inputAndroid: {backgroundColor: '#ecf0f1', borderRadius: 0, paddingHorizontal: 50, color: 'black', },
-                            imputWeb: {backgroundColor: '#ecf0f1', borderRadius: 0, paddingHorizontal: 50, color: 'black', },
-                        }}
-
-                    />
-                    </View>
-                    <TouchableOpacity style={styles.buttonCreate} onPress={() => { handleRegister() }}>
-                        <Text style={styles.buttonText}>Criar</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </KeyboardAwareScrollView>
-    );
-};
+        {toastVisibleError && (
+          <Toast
+            visible={toastVisibleError}
+            message={"Preencha todos os campos corretamente."}
+            appName={"2Gather"}
+            showSenderName={false}
+            style={{ zIndex: 9999, position: "absolute", top: 0 }}
+          />
+        )}
+        {toastVisible && (
+          <Toast
+            visible={toastVisible}
+            message={"Conta criada com sucesso!"}
+            appName={"2Gather"}
+            showSenderName={false}
+            style={{ zIndex: 9999, position: "absolute", top: 0 }}
+          />
+        )}
+      </View>
+    </KeyboardAwareScrollView>
+  );
+}
 
 const styles = StyleSheet.create({
-
-    headerInput: {
-        marginBottom: '10%',
-        fontSize: 20
-    },
-    container: {
-        flex: 1,
-        padding: 0,
-    },
-    container2: {
-        padding: 20,
-        gap: 2,
-        display: 'flex'
-
-    },
-    header: {
-        gap: 10,
-        color: '#FFFCF4',
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 20,
-        height: 65,
-        backgroundColor: '#2368A2',
-        padding: 0,
-        display: 'flex',
-        alignItems: 'center',
-        paddingLeft: 10,
-    },
-    input: {
-        height: 40,
-        borderColor: 'red',
-        borderWidth: 1,
-        marginBottom: 10,
-        padding: 10,
-        borderRadius: 10
-    },
-    buttonCreate: {
-        backgroundColor: '#2368A2',
-        padding: 10,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 150,
-        alignSelf: 'center'
-    },
-    buttonText: {
-        color: '#FFFCF4',
-        fontSize: 20,
-    },
-    notification: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        height: 100,
-        backgroundColor: 'red',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    notificationText: {
-        color: 'white',
-        fontSize: 16,
-    }
+  containerBody: {
+    flex: 1,
+  },
+  container: {
+    paddingTop: 5,
+    padding: 0,
+    borderBottomWidth: 1,
+    borderColor: "#BBB",
+  },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  header: {
+    backgroundColor: "#2368A2",
+    width: "100%",
+  },
+  titleHeader: {
+    color: "#FFFCF4",
+  },
+  container2: {
+    padding: 20,
+    gap: 2,
+    display: "flex",
+  },
+  headerInput: {
+    marginBottom: "10%",
+    fontSize: 20,
+  },
+  input: {
+    height: 40,
+    borderColor: "#868E96",
+    backgroundColor: "#FFFCF4",
+    borderWidth: 1,
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 10,
+  },
+  buttonCreate: {
+    backgroundColor: "#2368A2",
+    padding: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 150,
+    alignSelf: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#FFFCF4",
+    fontSize: 20,
+  },
+  notification: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    height: 100,
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  notificationText: {
+    color: "white",
+    fontSize: 16,
+  },
+  errorInput: {
+    borderColor: "red",
+    borderWidth: 2,
+  },
+  pickerContainer: {
+    height: 40,
+    borderColor: "#868E96",
+    borderWidth: 1,
+    borderRadius: 8,
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  picker: {
+    width: "100%",
+    backgroundColor: "transparent",
+  },
+  title: {
+    color: "#FFFCF4",
+    fontSize: 20,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  inputPicker: {
+    backgroundColor: '#FFFCF4',
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 40,
+    justifyContent: 'center',
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  emailInput: {
+    backgroundColor: "#FFFCF4",
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#868E96",
+    height: 40,
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+});
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // para garantir que o texto não fique escondido atrás do ícone
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // para garantir que o texto não fique escondido atrás do ícone
+  },
 });
