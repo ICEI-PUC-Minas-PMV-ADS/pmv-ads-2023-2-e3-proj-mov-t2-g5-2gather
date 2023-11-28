@@ -8,11 +8,6 @@ Atendendo a norma internacional ISO/IEC 25010, que atualizou a ISO/IEC 9126, con
 
 Foram aplicados Questionários Qualitativos para 5 Desenvolvedores e 5 Usuários. Os desenvolvedores avaliaram os quesitos intrínsecos (código e arquitetura) e os usuários avaliaram os quesitos extrínsecos (aqueles aparentes no aplicativo).
 
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/f53cb8eb-45cb-451e-a853-a16ac9a5ee36)
-
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/c9a9f01a-ab29-4bac-a34d-adda1a5c86d8)
-
-
 ## Critérios e Métricas
 
 Foram adotadas pontuações para os atributos de qualidade, permitindo assim termos a pontuação por cada Subcaracterística. Foram elas:
@@ -21,8 +16,8 @@ Foram adotadas pontuações para os atributos de qualidade, permitindo assim ter
 
 O cálculo dessa pontuação foi realizado por meio da planilha abaixo, a qual foi configurada para apurar a pontuação final conforme critério definido pela 2Gather, sendo: Ao informarmos o resultado dos Questionários aplicados, temos a pontuação obtida por cada subcaracterística. Na sequência temos a pontuação da Característica que é a média das suas Subcaracterísticas. Por fim, temos a média das 7 características, que é a pontuação final da Qualidade do Software "QS". 
 
-
-
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/b90e5d29-c88e-47e3-9c89-39b449a756cd)
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114453508/366e5b4e-98ee-4b3e-82c6-def149443e34)
 
 Feita a consolidação da pontuação obtida da "QS", comparamos com a Tabela "INDICADOR DE QUALIDADE":
 
