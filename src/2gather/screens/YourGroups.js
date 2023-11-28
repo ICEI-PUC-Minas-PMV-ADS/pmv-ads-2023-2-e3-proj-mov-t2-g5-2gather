@@ -26,7 +26,6 @@ export default function YourGroups ({ navigation }) {
     try {      
         const result = await GetListYourGroups() || [];
         setYourGroups(result);
-        console.log(result)
     } catch (error) {
         console.log(error)
     } finally {  

@@ -4,6 +4,9 @@ import Toast from '../components/Toast';
 
 const ToastWrapper = () => {
   const { toasts } = useToast();
+  const handlePress = (toast) => {
+    console.log("Toast pressionado:", toast);
+  };
 
   return (
     <>
@@ -14,6 +17,7 @@ const ToastWrapper = () => {
           message={toast.message}
           senderName={toast.senderName}
           appName={toast.appName}
+          onPress={() => handlePress(toast)}
         />
       ))}
     </>

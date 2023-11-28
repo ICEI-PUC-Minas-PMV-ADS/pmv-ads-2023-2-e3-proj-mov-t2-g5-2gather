@@ -7,11 +7,8 @@ import { Appbar } from 'react-native-paper';
 import { SaveMessage, getMessageList, AddReadBy } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
 import { Encrypt, Decrypt } from "../services/encryption.service";
-import { useChat } from "../contexts/ChatContext";
-import Toast from '../components/Toast';
 
 const Chat = ({ route, navigation }) => {
-	const { setActiveChat } = useChat();
 	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
 	const { room, partner, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
@@ -19,12 +16,8 @@ const Chat = ({ route, navigation }) => {
 	const messageListRef = useRef(null);
 	const [isFirstLoad, setIsFirstLoad] = useState(true);
 	const roomRef = useRef(room);
-	const [showToast, setShowToast] = useState(false);
-	const [toastMessage, setToastMessage] = useState({ appName: '', senderName: '', message: '' });
-
 	//Se for conversa privada, tenta carregar a url que está em photo do destinatário, se não conseguir/não houver, carrega profile.png. Se for conversa em grupo, pega imagem default de grupo
 	let image = (room.isPrivate ? (partner.photo ? { uri: partner.photo } :  require('../assets/profile.png')) : require('../assets/group.png'))
-
 	const getMessages = async () => {
 		try {
 			//ideal é ter as msgs em um local storage, caso não tenha, ai sim tentar pegar da api.
@@ -33,18 +26,16 @@ const Chat = ({ route, navigation }) => {
 			const decryptedResult = result.map(item => decryptMessage(item, item.text, room));
 			setChatMessages(decryptedResult);
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
 	};
-
 	function decryptMessage(item, text) {
 		let publicKey
-		if(item.many == 'true' || !room.isPrivate){
+		if (item.many == 'true' || !room.isPrivate) {
 			publicKey = item.pkeSentBy
-			try{text = JSON.parse(text);}catch{}
-			text = id in text ?  text[id] : "Couldn't decrypt the message"
-		}
-		else{
+			try { text = JSON.parse(text); } catch {}
+			text = id in text ? text[id] : "Couldn't decrypt the message"
+		} else {
 			publicKey = item.idSentBy == id ? item.pkeReceiver : item.pkeSentBy
 		}
 		const decryptedText = Decrypt(text, publicKey, privateE2eContext).message;
@@ -53,44 +44,40 @@ const Chat = ({ route, navigation }) => {
 			text: decryptedText
 		};
 	}
-
  	useEffect(() => {
-	    setActiveChat(roomId);
 		socket.emit("findRoom", roomId);
 		(async () => {
-			await getMessages()
+			await getMessages();
 		})()
-
 		messageListRef.current.scrollToEnd({ animated: true });
 		setIsFirstLoad(false);
 		return () => {
-			setActiveChat(null);
 			socket.off("foundRoom");
 		  };
-	}, [roomId, setActiveChat, isFirstLoad]); 
+	}, [roomId, isFirstLoad]); 
 
 	const handleNewMessage = () => {
 		let dbMessage
-		if(publicE2eContext){
+		if (publicE2eContext) {
 			const hour = new Date().getHours().toString().padStart(2, "0");
 			const mins = new Date().getMinutes().toString().padStart(2, "0");
 			if (name && message && privateE2eContext) {
 				let encryptedMessage = null
 				if (room.isPrivate) {
 					if (partner && partner.pke) {
-						encryptedMessage = Encrypt({'message':message}, partner.pke, privateE2eContext)
+						encryptedMessage = Encrypt({'message': message}, partner.pke, privateE2eContext)
 						dbMessage = SaveMessage({ text: encryptedMessage, idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, pkeReceiver: partner.pke, readBy: id })
 					} else {
 						alert("This user needs to login for the first time before receiving messages.")
 					}
 				} else {
-					let messages = {}
+					let messages = {};
 					room.members.map((m) => {
-						if(m.pke){
-							messages[m.id] = Encrypt({'message':message}, m.pke, privateE2eContext)
+						if (m.pke) {
+							messages[m.id] = Encrypt({'message': message}, m.pke, privateE2eContext)
 						}
-					})
-					encryptedMessage = messages
+					});
+					encryptedMessage = messages;
 					SaveMessage({ text: JSON.stringify(encryptedMessage), idSentBy: id, idGroup: roomId, pkeSentBy: publicE2eContext, readBy: id })//tenho que testar se está funcionando com algum grupo
 																																   //como a logica ficou meio complicada, fica ruim de adulterar só pra testar.
 				}
@@ -111,7 +98,7 @@ const Chat = ({ route, navigation }) => {
 							dbId: dbM ? dbM.id : null,
 						});
 					})
-				}else{
+				} else {
 					socket.emit("newMessage", {
 						message: m,
 						room_id: roomId,
@@ -131,32 +118,14 @@ const Chat = ({ route, navigation }) => {
 			console.log("Something went wrong, please contact support.")
 		}
 	};
-
 	const handleRoomMessage = useCallback((message) => {
-		if(roomRef.current.isPrivate){
-			if(id != message.idSentBy){
-				message.readByAll = true;
-				socket.emit("messageReaded", {room_id:roomId, message_id: message.id, dbMessage_id: message.dbId});
-								
-				setToastMessage({ 
-					appName: '2Gather',
-					senderName: message.user, 
-					message: message.text 
-				});
-				setShowToast(true);
-			}
+		if (roomRef.current.isPrivate && id !== message.idSentBy) {
+			message.readByAll = true;
+			socket.emit("messageReaded", {room_id:roomId, message_id: message.id, dbMessage_id: message.dbId});
 		}
 		let decryptedMessage = decryptMessage(message, message.text);
 		setChatMessages(prevMessages => [...prevMessages, decryptedMessage]);
-	}, [setChatMessages, roomRef, id]);
-	
-	useEffect(() => {
-		if (showToast) {
-			setTimeout(() => {
-				setShowToast(false);
-			}, 3000);
-		}
-	}, [showToast]);
+	}, [setChatMessages, roomRef]);
 
 	const handleMessageReaded = useCallback((message) => {
 		if (roomRef.current.isPrivate) {
@@ -168,9 +137,9 @@ const Chat = ({ route, navigation }) => {
 						...updatedChatMessages[messageIndex],
 						readByAll: true,
 					};
-					AddReadBy({readBy:id, idMessage: message.dbId})
-					return updatedChatMessages
-				};
+					AddReadBy({ readBy: id, idMessage: message.dbId });
+					return updatedChatMessages;
+				}
 			});
 		}
 	}, [chatMessages, roomRef]);
@@ -180,16 +149,11 @@ const Chat = ({ route, navigation }) => {
 	}, [room]);
 
 	useEffect(() => {
-
 		socket.on("roomMessage", handleRoomMessage);
 		socket.on("messageReaded", handleMessageReaded);
-		return () => {
-			socket.off("roomMessage", handleRoomMessage);
-		};
 	}, [socket, handleRoomMessage]);
 
 	return (
-
 		<View style={styles.container}>
 			<View >
 				<Appbar.Header style={styles.header}>
@@ -210,9 +174,15 @@ const Chat = ({ route, navigation }) => {
 						</View>
 					</TouchableOpacity>
 				</Appbar.Header>
-
-
 			</View>
+			{chatMessages.length == 0 &&
+				<View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 15, marginTop: 15, width: '100%' }}>
+					<View style={{ backgroundColor: "#AAD4F5", padding: 10, borderRadius: 10, marginBottom: 2, maxWidth: "90%" }}>
+						<Text style={{ fontSize: 16, color: "black" }}>Nova conversa</Text>
+					</View>
+				</View>
+			}
+			
 			<FlatList style={styles.messageContainer}
 				ref={messageListRef}
 				data={chatMessages}
@@ -229,6 +199,7 @@ const Chat = ({ route, navigation }) => {
 					}
 				}}
 			/>
+
 			{(!room.isTransmission || (room.isTransmission && room.idAdmin === id)) &&
 			<View style={styles.inputContainer}>
 				<TextInput
@@ -242,18 +213,9 @@ const Chat = ({ route, navigation }) => {
 				</Pressable>
 			</View>
 			}
-			{showToast && (
-      <Toast 
-        appName={toastMessage.appName}
-        senderName={toastMessage.senderName}
-        message={toastMessage.message}
-        visible={showToast}
-      />
-    )}
 		</View>
 	);
 };
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -298,5 +260,4 @@ const styles = StyleSheet.create({
 		marginHorizontal: 10,
 	},
 });
-
 export default Chat;

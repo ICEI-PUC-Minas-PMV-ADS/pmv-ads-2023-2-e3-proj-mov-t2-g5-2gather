@@ -18,6 +18,7 @@ import {CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CreateNewGroups } from '../services/group.services';
 import { Appbar } from 'react-native-paper';
+import socket from "../services/socket";
 
 export default function CreateNewGroup({ route, navigation }) {
   
@@ -171,7 +172,11 @@ export default function CreateNewGroup({ route, navigation }) {
         participants: participants,
       });
 
-    navigation.navigate('Chat', { room: groupData, roomId: groupData.id });
+      socket.emit("createRoom", groupData.id, groupData.title);
+      navigation.navigate("Chat", {
+        room: groupData,
+        roomId: groupData.id,
+      });
 
   } catch (error) {
     console.log(error);   

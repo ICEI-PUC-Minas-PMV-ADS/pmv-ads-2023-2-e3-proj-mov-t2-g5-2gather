@@ -50,6 +50,10 @@ export default function CreateUser({ navigation }) {
     fetchRoles();
   }, []);
 
+  const handleToastPress = () => {
+    navigation.navigate('UserManagement');
+};
+
   const handlePhoneChange = (phone) => {
     let cleaned = phone.replace(/\D/g, '');
     if (cleaned.length > 11) {
@@ -98,8 +102,8 @@ export default function CreateUser({ navigation }) {
         idRole: role,
       });
       setToastVisible(true);
-      setTimeout(() =>  {//setToastVisible(false), 3000);
-      navigation.navigate("UserManagement"); // Adicione esta linha
+      setTimeout(() =>  {
+      navigation.navigate("UserManagement");
     }, 5000);
     } catch (error) {
       setError(error.message);
@@ -182,6 +186,7 @@ export default function CreateUser({ navigation }) {
             appName={"2Gather"}
             showSenderName={false}
             style={{ zIndex: 9999, position: "absolute", top: 0 }}
+            onPress={handleToastPress}
           />
         )}
         {toastVisible && (
@@ -191,6 +196,7 @@ export default function CreateUser({ navigation }) {
             appName={"2Gather"}
             showSenderName={false}
             style={{ zIndex: 9999, position: "absolute", top: 0 }}
+            onPress={handleToastPress}
           />
         )}
       </View>
