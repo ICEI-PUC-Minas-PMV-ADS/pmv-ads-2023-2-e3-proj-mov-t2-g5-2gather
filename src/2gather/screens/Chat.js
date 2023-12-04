@@ -7,10 +7,8 @@ import { Appbar } from 'react-native-paper';
 import { SaveMessage, getMessageList, AddReadBy } from "../services/message.service";
 import { useUser } from "../contexts/UserContext";
 import { Encrypt, Decrypt } from "../services/encryption.service";
- import { useChat } from "../contexts/ChatContext";
 
 const Chat = ({ route, navigation }) => {
-	 const { setActiveChat } = useChat();
 	const { id, name, privateE2eContext, publicE2eContext } = useUser("");
 	const { room, partner, roomId } = route.params;
 	const [chatMessages, setChatMessages] = useState([]);
@@ -20,7 +18,6 @@ const Chat = ({ route, navigation }) => {
 	const roomRef = useRef(room);
 	//Se for conversa privada, tenta carregar a url que está em photo do destinatário, se não conseguir/não houver, carrega profile.png. Se for conversa em grupo, pega imagem default de grupo
 	let image = (room.isPrivate ? (partner.photo ? { uri: partner.photo } :  require('../assets/profile.png')) : require('../assets/group.png'))
-
 	const getMessages = async () => {
 		try {
 			//ideal é ter as msgs em um local storage, caso não tenha, ai sim tentar pegar da api.
@@ -52,11 +49,9 @@ const Chat = ({ route, navigation }) => {
 		(async () => {
 			await getMessages();
 		})()
-
 		messageListRef.current.scrollToEnd({ animated: true });
 		setIsFirstLoad(false);
 		return () => {
-			setActiveChat(null);
 			socket.off("foundRoom");
 		  };
 	}, [roomId, isFirstLoad]); 
@@ -64,7 +59,6 @@ const Chat = ({ route, navigation }) => {
 	const handleNewMessage = () => {
 		let dbMessage
 		if (publicE2eContext) {
-
 			const hour = new Date().getHours().toString().padStart(2, "0");
 			const mins = new Date().getMinutes().toString().padStart(2, "0");
 			if (name && message && privateE2eContext) {
