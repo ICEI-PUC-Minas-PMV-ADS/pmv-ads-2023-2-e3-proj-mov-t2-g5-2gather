@@ -117,6 +117,7 @@ export default function BroadcastCreate() {
                 </TouchableOpacity>
               </TouchableOpacity>
             ))}
+
           </View>
         ) : (
           <View style={styles.containerMain}>

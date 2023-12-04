@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 
 const Toast = ({ appName, senderName, message, visible, onPress, showSenderName = true }) => {
+
   const slideAnim = useRef(new Animated.Value(-100)).current;
   const isAnimating = useRef(false);  
 

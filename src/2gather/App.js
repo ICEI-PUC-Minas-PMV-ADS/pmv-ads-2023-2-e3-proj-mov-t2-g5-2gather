@@ -1,5 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { ChatProvider } from "./contexts/ChatContext";
 import Route from "./navigations/Route";
 import UserProvider from "./contexts/UserContext";
 import { ToastProvider } from "./contexts/ToastContext";

@@ -14,6 +14,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import Toast from "../components/Toast";
 import { StatusBar } from 'react-native';
 
+
 export default function EditUser({ navigation }) {
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
@@ -36,8 +37,8 @@ export default function EditUser({ navigation }) {
     phone: false,
     role: false,
   });
-  
   const statusBarHeight = StatusBar.currentHeight || 0;
+
 
   useEffect(() => {
     async function fetchUserList() {
@@ -83,6 +84,7 @@ export default function EditUser({ navigation }) {
     } else {
       formattedNumber = cleaned.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
     }
+
     setPhone(formattedNumber);
   };
 

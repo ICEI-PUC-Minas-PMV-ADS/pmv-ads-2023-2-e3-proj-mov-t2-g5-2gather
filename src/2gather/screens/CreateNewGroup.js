@@ -20,6 +20,7 @@ import { CreateNewGroups } from '../services/group.services';
 import { Appbar } from 'react-native-paper';
 import socket from "../services/socket";
 
+
 export default function CreateNewGroup({ route, navigation }) {
   
   const { id } = useUser();

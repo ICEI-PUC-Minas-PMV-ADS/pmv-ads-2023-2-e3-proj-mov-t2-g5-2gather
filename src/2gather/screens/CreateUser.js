@@ -50,6 +50,7 @@ export default function CreateUser({ navigation }) {
     fetchRoles();
   }, []);
 
+
   const handleToastPress = () => {
     navigation.navigate('UserManagement');
 };
@@ -197,6 +198,7 @@ export default function CreateUser({ navigation }) {
             showSenderName={false}
             style={{ zIndex: 9999, position: "absolute", top: 0 }}
             onPress={handleToastPress}
+
           />
         )}
       </View>

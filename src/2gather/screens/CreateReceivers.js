@@ -179,9 +179,10 @@ export default function CreateReceivers({ route, navigation }) {
         setToastVisible(false);
         navigation.navigate('BroadcastCreate');
       }, 3000);
-      
+  
       const participants = selectedContactsState.map((contact) => contact.id);
       participants.push(id)
+
       const listData = await CreateNewList({
         title: title,
         idAdmin: id,
