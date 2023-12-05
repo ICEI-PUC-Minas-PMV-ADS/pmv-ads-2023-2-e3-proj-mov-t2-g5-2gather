@@ -22,7 +22,7 @@ import Toast from '../components/Toast';
 export default function Homepage() {
   const navigation = useNavigation();
   const { name, id, privateE2eContext, isAdmin } = useUser();
-//Listagem dos grupos, listas e mensagens no qual participa e estão ativos.
+  //Listagem dos grupos, listas e mensagens no qual participa e estão ativos.
   const [yourGroups, setYourGroups] = useState([]);
   const [yourLists, setYourLists] = useState([]);
   const [yourMessages, setYourMessages] = useState([]);
@@ -123,67 +123,67 @@ export default function Homepage() {
   );
 
 
-  //Listagem das Listas de Transmissão que participa e estão ativas.
+
 
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.searchBar}>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Pesquisar"
-        placeholderTextColor="#aaa"
-        value={searchText}
-        onChangeText={setSearchText}
-      />
-    </View>
+      <View style={styles.searchBar}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Pesquisar"
+          placeholderTextColor="#aaa"
+          value={searchText}
+          onChangeText={setSearchText}
+        />
+      </View>
 
-    <View style={styles.groupBroadcastContainer}>
-      <Text style={styles.broadcastText} onPress={() => navigation.navigate("BroadcastCreate")}>
-        Lista de Transmissão
-      </Text>
-      <Text style={styles.groupText} onPress={() => navigation.navigate("NewGroup")}>
-        Novo Grupo
-      </Text>
-    </View>
+      <View style={styles.groupBroadcastContainer}>
+        <Text style={styles.broadcastText} onPress={() => navigation.navigate("BroadcastCreate")}>
+          Lista de Transmissão
+        </Text>
+        <Text style={styles.groupText} onPress={() => navigation.navigate("NewGroup")}>
+          Novo Grupo
+        </Text>
+      </View>
 
-    <View style={styles.container1}>
-      <FlatList
-        contentContainerStyle={styles.itemList}
-        data={filteredData}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        ItemSeparatorComponent={() => <Divider style={{ height: 1, backgroundColor: "grey" }} />}
-      />
-    </View>
+      <View style={styles.container1}>
+        <FlatList
+          contentContainerStyle={styles.itemList}
+          data={filteredData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          ItemSeparatorComponent={() => <Divider style={{ height: 1, backgroundColor: "grey" }} />}
+        />
+      </View>
 
-    <View style={styles.bottomBar}>
-      {isAdmin === "true" && (
-        <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate("UserManagement")}>
-          <Icon name="users-cog" size={40} color="#FFFFFF" />
-          <Text style={styles.buttonTextSmall}>Gerenciamento de Usuário</Text>
+      <View style={styles.bottomBar}>
+        {isAdmin === "true" && (
+          <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate("UserManagement")}>
+            <Icon name="users-cog" size={40} color="#FFFFFF" />
+            <Text style={styles.buttonTextSmall}>Gerenciamento de Usuário</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate("Contacts")}>
+          <Icon name="address-book" size={40} color="#FFFFFF" />
+          <Text style={styles.buttonTextSmall}>Contatos</Text>
         </TouchableOpacity>
-      )}
-      <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate("Contacts")}>
-        <Icon name="address-book" size={40} color="#FFFFFF" />
-        <Text style={styles.buttonTextSmall}>Contatos</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate("Profile")}>
-        <Icon name="cog" size={40} color="#FFFFFF" />
-        <Text style={styles.buttonTextSmall}>Configurações</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={styles.bottomBarButton} onPress={() => navigation.navigate("Profile")}>
+          <Icon name="cog" size={40} color="#FFFFFF" />
+          <Text style={styles.buttonTextSmall}>Configurações</Text>
+        </TouchableOpacity>
+      </View>
 
-    {showToast && notifications.length > 0 && (
-      <Toast
-        visible={showToast}
-        message={notifications[0].message}
-        appName="2Gather"
-        senderName={message.user}
-        onPress={() => navigation.navigate('Chat'/*, { roomId: roomIdDaMensagem }*/)}
+      {showToast && notifications.length > 0 && (
+        <Toast
+          visible={showToast}
+          message={notifications[0].message}
+          appName="2Gather"
+          senderName={message.user}
+          onPress={() => navigation.navigate('Chat'/*, { roomId: roomIdDaMensagem }*/)}
         //Achar o roomId para por no onPress
-      />
-    )}
-  </SafeAreaView>
+        />
+      )}
+    </SafeAreaView>
   );
 }
 
