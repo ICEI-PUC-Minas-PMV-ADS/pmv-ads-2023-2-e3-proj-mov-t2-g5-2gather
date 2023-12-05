@@ -92,11 +92,12 @@ Esperamos que tenham uma ótima experiência ao navegar pelo App 2Gather.
 <li><a href="docs/11-Registro de Testes de Usabilidade.md"> Registro de Testes de Usabilidade</a></li>
 <li><a href="docs/12-Apresentação do Projeto.md"> Apresentação do Projeto</a></li>
 <li><a href="docs/13-Referências.md"> Referências</a></li>
+<li><a href="docs/14-Avaliação da Qualidade de Software.md"> Avaliação da Qualidade de Software</a></li>
 </ol>
 
 # Código
 
-<li><a href="src/README.md"> Código Fonte</a></li>
+<li><a href="src"> Código Fonte</a></li>
 
 # Apresentação
 
