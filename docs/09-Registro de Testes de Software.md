@@ -109,6 +109,7 @@ Relatório com as evidências dos testes de software realizados no sistema pela 
 |-|-|-|
 |Verificar se o usuário recebe notificações de novas mensagens.	|<ol><li>Acessar a aplicação em um dispositivo</li><li>Realizar login</li><li>Com outro usuário, enviar uma mensagem para o primeiro usuário</li></ol> |	O usuário destinatário deve receber uma notificação indicando que uma nova mensagem foi recebida.
 | Registro da tela: | ![Enviar mensagem - Falha](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/8d6848e4-02e1-4b4a-ad05-20bfb11d2846) | Data do Teste: 15/11/2023 - Resultado: Negativo - Não foi possivel realizar o teste, foi apresentado um erro ao emular o aplicativo. | 
+| Registro da tela: | ![Enviar mensagem - Sucesso](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/57de74e9-da18-4863-87e7-d0e38427a6c3) | Data do Teste: 20/11/2023 - Resultado: Positivo - Foi possivel realizar o teste e receber a notificação. | 
 
 <br>
 
