@@ -61,8 +61,9 @@ de 10 à 15 pontos a avaliação de usabilidade é Boa / ótima.
 
 |Caso de teste | Objetivo do teste | Tarefa| Nota da avaliação pós-tarefa (ASQ)|
 |------|-----------------------------------------|----|----|
-|CT-07 | Validar usabilidade de notificações | Verificar notificações da aplicação| 3 |
-![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/114435981/b76e22e2-d938-4535-ae5a-455fbd5eac0f)
+|CT-07 | Validar usabilidade de notificações | Verificar notificações da aplicação| 13 |
+![image](https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather/assets/12260321/04b01bf7-f8c3-40e0-881a-0a91bc356904)
+
 
 
 |Caso de teste | Objetivo do teste | Tarefa| Nota da avaliação pós-tarefa (ASQ)|
