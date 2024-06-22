@@ -1,0 +1,29 @@
+message: Please cite this software using these metadata.
+title: 2Gather
+authors:
+  - family-names: de Lima Ventura
+    given-names:  Amanda
+  - family-names: Caroline Trindade Gonçalves Cândido
+    given-names: Ellen
+  - family-names: Lomeu Junior
+    given-names: Elpidio
+ - family-names: Maia dos Santos
+    given-names: Fabrício 
+  - family-names: Correia de Sá e Silva
+    given-names: Leonardo
+  - family-names: Cordeiro Marra
+    given-names: Odair
+  - family-names: Matsumoto Fernandes
+    given-names: Shinji
+  - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: Curcino de Lima
+    given-names: Mateus
+keywords:
+  - Communication
+  - Security
+  - Enterprise
+
+repository-code: https://github.com/ICEI-PUC-Minas-PMV-ADS/pmv-ads-2023-2-e3-proj-mov-t2-g5-2gather
+version: 1.0.0
+date-released: 2023-12-04
